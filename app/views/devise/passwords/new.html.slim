@@ -1,0 +1,9 @@
+.devise
+  h2 Восстановление доступа
+  = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+    = f.error_notification
+    .form-inputs
+      = f.input :email, :required => true
+    .form-actions
+      = f.button :submit, "Выслать инструкции"
+  = render "devise/shared/links"

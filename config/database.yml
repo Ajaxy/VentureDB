@@ -1,0 +1,16 @@
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: venture_development
+  pool: 5
+  username:
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: venture_test
+  pool: 5
+  username:
+  password:

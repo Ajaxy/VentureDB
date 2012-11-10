@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Venture
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  body class=[controller.class.name =~ /^Devise::/ ? "devise" : controller_name]
+    .container
+      - if current_user
+        .navbar
+          .navbar-inner
+            = link_to "VentureDB", :root, class: "brand"
+            ul.nav
+              = menu_link "Персоны", :people
+              = menu_link "Компании", :companies
+              = menu_link "Проекты", :projects
+              = menu_link "Сделки", :deals
+            ul.nav.pull-right
+              li.dropdown
+                a.dropdown-toggle href="#" data-toggle="dropdown"
+                  = current_user.email
+                  b.caret
+                ul.dropdown-menu
+                  li = link_to "Выход", destroy_user_session_path, method: :delete
+
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          div class="alert alert-#{name == :notice ? "success" : "error"}"
+            a class="close" data-dismiss="alert" &#215;
+            = content_tag :div, msg, id: "flash_#{name}"
+
+      = yield

@@ -1,0 +1,36 @@
+= form_for @project do |f|
+  h1 Проект
+  hr
+  .row
+    .span4
+      p Общая информация о проекте. Все поля обязательны для заполнения
+    .span8
+      fieldset
+        legend Информация о проекте
+        = f.text_field :name, class: "span8", placeholder: "Название проекта"
+        = f.text_area :description, class: "span8", rows: 5, placeholder: "Краткое бизнес-описание"
+
+        = f.label :scope_ids, "Сектор и сфера деятельности"
+        = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
+
+        p
+
+        = f.label :market_ids, "Географические рынки осуществления операций"
+        = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
+
+  hr
+
+  .row
+    .span4
+      p Укажите одного или нескольких авторов этого проекта.
+      p Выберите существующего автора или добавьте нового.
+    .span8
+      fieldset
+        legend Авторы проекта
+
+  .form-actions
+    .offset4
+      button.btn.btn-large.btn-primary == @project.persisted? ? "Сохранить" : "Создать проект"
+      '   
+      a.btn.btn-large href="javascript:void(0)" Отмена
+

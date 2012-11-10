@@ -1,0 +1,11 @@
+h2 Изменение пароля
+= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+  = f.error_notification
+  = f.input :reset_password_token, :as => :hidden
+  = f.full_error :reset_password_token
+  .inputs
+    = f.input :password, :label => "Новый пароль", :required => true
+    = f.input :password_confirmation, :label => "Повторите новый пароль", :required => true
+  .actions
+    = f.button :submit, "Изменить пароль"
+= render "devise/shared/links"

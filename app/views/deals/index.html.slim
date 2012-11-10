@@ -1,0 +1,14 @@
+.pull-right = link_to "Новая сделка", [:new, :deal], class: "btn btn-primary"
+
+table.table
+  thead
+    tr
+      th Название
+      th Проект
+  tbody
+    - @deals.each do |deal|
+      tr
+        td = link_to deal.id, deal
+        td = deal.project.try(:name) || "—"
+
+= paginate @deals

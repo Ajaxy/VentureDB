@@ -1,0 +1,17 @@
+
+table.table
+  thead
+    tr
+      th Название
+      th Компания
+  tbody
+    - @projects.each do |project|
+      tr
+        td = link_to project.name, project
+        td = project.company.try(:name) || "—"
+        / - if project.company_id?
+          td = link_to project.company.name, project.company
+        / - else
+          td —
+
+= paginate @projects
