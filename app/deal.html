@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="scripts/vendor/modernizr.min.js"></script>
+    </head>
+    <body>
+    <div class="container" style="margin-top:50px">
+      <form>
+      <h1>Новая сделка</h1>
+
+      <div class="row">
+        <div class="span4">
+          <p>Проект, получивший инвестиции.</p>
+        </div>
+        <div class="span8">
+          <fieldset>
+            <legend>Проект-получатель инвестиций</legend>
+            <div>
+              <div class="pull-left">
+                <div class="input-append">
+                  <input class="span5" id="prependedInput" type="text" placeholder="Найти проект">
+                  <span class="add-on"><i class="icon-search"></i></span>
+                </div>
+              </div>
+              <div class="pull-left">
+                <span>&nbsp;или&nbsp;</span>
+                <button class="btn">Создать новый</button>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <hr/>
+      
+      <div class="row">
+        <div class="span4"><p>Общая информация о сделке</p></div>
+        <div class="span8">
+          <fieldset>
+            <legend>Общая информация о сделке</legend>
+            
+            <div class="row">
+            <div class="controls-group span3">
+              <label>Дата объявления сделки</label>
+              <div class="input-append">
+                <input type="text" class="span3" placeholder="ДД.ММ.ГГГГ">
+              </div>
+            </div>
+          
+            <div class="controls-group span4">
+              <label>Дата заключения сделки</label>
+              <input type="text" class="span3" placeholder="ДД.ММ.ГГГГ">
+            </div>
+            </div>
+            
+            <label class="checkbox"><input type="checkbox"> Даты указаны приблизительно</label>
+            
+            <label>Статус сделки</label>
+            <select class="span5">
+              <option>Анонсированная</option>
+              <option>Завершенная</option>
+            </select>
+
+            <label>Раунд финансирования</label>
+            <select class="span5">
+              <option>Посевной раунд</option>
+              <option>Первый (А) на стадии стартап</option>
+            </select>
+
+            <label>Стадия развития компании</label>
+            <select class="span5">
+              <option>Pre-seed (Предпосев, до 50К)</option>
+              <option>Seed (Посев, до 500К)</option>
+            </select>
+          </fieldset>
+        </div>
+      </div>
+      
+      <hr/>
+      
+      <div class="row">
+        <div class="span4"><p>Если сумма сделки точно не известна, а получена методом экспертной оценки, поставьте галочку "Сумма сделки указана приблизительно".</p> 
+          <p>Если стоимость компании до инвестиций вам неизвестна, оставьте поле пустым.</p>
+        </div>
+        <div class="span8">
+          <fieldset>
+            <legend>Финансовая сторона сделки</legend>
+            <label>Сумма сделки</label>
+            <div class="input-append">
+              <input type="text" class="span2">
+              <span class="add-on">руб.</span>
+            </div>
+            <label class="checkbox"><input type="checkbox"> Сумма сделки указана приблизительно</label>
+            <p></p>
+            <div class="row">
+            <div class="controls-group span3">
+              <label>Стоимость компании до сделки</label>
+              <div class="input-append">
+                <input type="text" class="span2">
+                <span class="add-on">руб.</span>
+              </div>
+            </div>
+          
+            <div class="controls-group span4">
+              <label>Стоимость компании после сделки</label>
+              <div class="input-append">
+                <input type="text" class="span2">
+                <span class="add-on">руб.</span>
+              </div>
+            </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      
+      <hr/>
+      
+      <div class="row">
+        <div class="span4">
+          <p>Укажите одного или нескольких инвесторов, участвуюших в сделке.</p>
+        </div>
+        <div class="span8">
+          <fieldset>
+            <legend>Инвесторы сделки</legend>
+            <div>
+              <div class="pull-left">
+                <div class="input-append">
+                  <input class="span5" id="prependedInput" type="text" placeholder="Найти инвестора">
+                  <span class="add-on"><i class="icon-search"></i></span>
+                </div>
+              </div>
+              <div class="pull-left">
+                <span>&nbsp;или&nbsp;</span>
+                <button class="btn">Создать нового</button>
+              </div>
+            </div>
+            <p class="clearfix">&nbsp;</p>
+            <div class="row">
+              <div class="span4">
+                <label>Тип финансового инструмента</label>
+                <select>
+                  <option>Обыкновенные акции</option>
+                </select>
+              </div>
+              <div class="span4">
+                <label>Приобретаемая доля в компании</label>
+                <div class="input-append">
+                  <input type="text" class="span1">
+                  <span class="add-on">%</span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+        
+      <div class="form-actions row">
+        <div class="offset4">
+        <button class="btn btn-large btn-primary">Создать сделку</button>
+        <button class="btn btn-large">Отмена</button>
+        </div>
+      </div>
+      </form>
+    </div>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="scripts/vendor/jquery.min.js"><\/script>')</script>
+        
+    <!-- build:js scripts/plugins.js -->
+    <!--
+    <script src="scripts/vendor/bootstrap/bootstrap-affix.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-alert.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-modal.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-transition.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-carousel.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>-->
+    <!-- endbuild -->
+
+    <script src="scripts/plugins/chosen/chosen.min.js"></script>
+    <script src="scripts/app.js"></script>
+
+    <!-- build:js scripts/amd-app.js -->
+    <!--<script data-main="scripts/main" src="scripts/vendor/require.js"></script>-->
+    <!-- endbuild -->
+</body>
+</html>
