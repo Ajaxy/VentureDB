@@ -1,4 +1,4 @@
-= form_for @project do |f|
+.container = form_for project, html: { class: "project" }, remote: true do |f|
   h1 Проект
   hr
   .row
@@ -12,14 +12,16 @@
 
         = f.label :scope_ids, "Сектор и сфера деятельности"
         = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
-
         p
-
         = f.label :market_ids, "Географические рынки осуществления операций"
         = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
-
+        p
+        = f.label :company_id, "Компания"
+        .search-or-add
+          div.search = f.collection_select :company_id, Company.order(:name), :id, :name, { prompt: "Найти компанию" }, class: "chzn span5"
+          div.or = " или "
+          div.add: button.btn.btn-small type="button" href="#create_company" data-toggle="modal" Создать новую
   hr
-
   .row
     .span4
       p Укажите одного или нескольких авторов этого проекта.
@@ -27,10 +29,19 @@
     .span8
       fieldset
         legend Авторы проекта
+        .authors.entries-list
+          - project.authors.each do |person|
+            = render "author", person: person
+        .search-or-add
+          / .input-prepend
+            span.add-on: i.icon-search
+            input.span5 type="text" placeholder="Найти автора"
+          div.search = collection_select :find, :authors, Person.all, :id, :full_name_with_email, { prompt: "Найти автора" }, class: "chzn span5"
+          div.or = " или "
+          div.add: button.btn.btn-small type="button" href="#create_author" data-toggle="modal" Создать нового
 
   .form-actions
     .offset4
-      button.btn.btn-large.btn-primary == @project.persisted? ? "Сохранить" : "Создать проект"
+      button.btn.btn-large.btn-primary == project.persisted? ? "Сохранить" : "Создать проект"
       '   
       a.btn.btn-large href="javascript:void(0)" Отмена
-

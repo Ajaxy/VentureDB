@@ -1,1 +1,26 @@
-h1 Company Form
+= form_for company, remote: true do |f|
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+    h3 Создать компанию
+
+  .modal-body
+    fieldset
+      .control-group
+        =' f.text_field :name, class: "span4", placeholder: "Краткое наименование"
+      .control-group
+        =' f.text_field :full_name, class: "span6", placeholder: "Полное наименование"
+      .control-group
+        =' f.text_field :form, class: "span6", placeholder: "Организационно-правовая форма"
+      .control-group
+        = f.label :location_ids, "Территории деятельности"
+        = f.select :location_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span6 chzn", multiple: true, "data-placeholder" => "Территории деятельности"
+      .control-group
+        =' f.text_field :place, class: "span6", placeholder: "Местонахождение"
+
+      / .form-horizontal.control-group
+        =' f.email_field :email, class: "span3", placeholder: "Email"
+        =' f.text_field :phone, class: "span3", placeholder: "Телефон"
+
+  .modal-footer
+    a.btn data-dismiss="modal" Отмена
+    button.btn.btn-primary Добавить компанию

@@ -1,11 +1,18 @@
 # encoding: utf-8
 
 class PeopleController < ApplicationController
-  def index
-    render :new
+  def show
+    @person = Person.find(params[:id])
+    render :success
   end
 
-  def new
-    @person = Person.new
+  def create
+    @person = Person.find_or_create(params[:person])
+
+    if @person.valid?
+      render :show
+    else
+      render :error
+    end
   end
 end

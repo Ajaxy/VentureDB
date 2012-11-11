@@ -169,7 +169,7 @@ class Loader
       end
     end
 
-    Investor.create!(actor: actor, type_id: type)
+    actor.investors.where(type_id: type).first_or_create!
   end
 
   def get_project

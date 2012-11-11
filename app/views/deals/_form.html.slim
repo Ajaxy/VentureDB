@@ -1,5 +1,5 @@
 
-= form_for @deal do |f|
+= form_for @deal, html: { class: "deal" } do |f|
   hr
   .row
     .span4
@@ -7,9 +7,12 @@
     .span8
       fieldset
         legend Проект-получатель инвестиций
-        .input-append
-          = f.text_field :project_id, class: "span5", placeholder: "Найти проект"
-          span.add-on: i.icon-search
+
+        .search-or-add
+          div.search = f.collection_select :project_id, Project.order(:name), :id, :name, { prompt: "Найти проект" }, class: "chzn span5"
+          div.or = " или "
+          / div.add = link_to "Создать новый", [:new, :project], class: "btn btn-small"
+          div.add: button.btn.btn-small type="button" href="#create_project" data-toggle="dialog" Создать новый
 
   hr
   .row
@@ -76,8 +79,31 @@
               = f.text_field :value_after, class: "span2"
               span.add-on руб.
 
+  hr
+  .row
+    .span4
+      p.help-block Укажите одного или нескольких инвесторов, участвующих в сделке.
+    .span8
+      fieldset
+        legend Инвесторы сделки
+        .investments.entries-list
+          - @deal.investments.each do |investment|
+            = render "investment", investment: investment
+        button.btn type="button" href="#create_investment" data-toggle="dialog" Добавить инвестора
+
   .form-actions
     .offset4
-      button.btn.btn-large.btn-primary == @deal.persisted? ? "Сохранить" : "Создать проект"
+      button.btn.btn-large.btn-primary == @deal.persisted? ? "Сохранить" : "Создать сделку"
       '   
       a.btn.btn-large href="javascript:void(0)" Отмена
+
+#create_investment.container-popup.hide = render "investments/form", investment: Investment.new
+
+#create_project.container-popup.hide = render "projects/form", project: Project.new
+
+#create_author.modal.hide.fade.popup-form = render "people/form", person: Person.new, type: "author"
+#create_company.modal.hide.fade.popup-form = render "companies/form", company: Company.new
+
+#create_invetor_person.modal.hide.fade.popup-form = render "people/form", person: Person.new, type: "person"
+#create_investor_company.modal.hide.fade.popup-form = render "companies/form", company: Company.new
+

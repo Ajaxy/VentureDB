@@ -1,0 +1,19 @@
+button type="button" class="close" data-dismiss="dialog" aria-hidden="true" &times;
+h3 Создать инвестора
+.container = form_for investment, remote: true, html: { class: "embedded" } do |f|
+  fieldset
+    .control-group
+      =' f.select :investor_type, Investor::TYPES.invert, { prompt: "Тип инвестора" }, class: "chzn span6"
+    .control-group
+      = f.label :company_id, "Компания"
+      .search-or-add
+        div.search = f.collection_select :investor_id, Company.order(:name), :id, :name, { prompt: "Найти компанию" }, class: "chzn span5"
+        div.or = " или "
+        div.add: button.btn.btn-small type="button" href="#create_investor_company" data-toggle="modal" Создать новую
+
+    .control-group
+      =' f.select :instrument_id, Investment::INSTRUMENTS.invert, { prompt: "Финансовый инструмент" }, class: "chzn span6"
+
+  .modal-footer
+    a.btn data-dismiss="dialog" Отмена
+    button.btn.btn-primary Добавить инвестора

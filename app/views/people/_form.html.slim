@@ -1,1 +1,20 @@
-h1 Person Form
+= form_for person, remote: true do |f|
+  = hidden_field :type, type
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+    h3 Создать автора проекта
+
+  .modal-body
+    fieldset
+      .form-horizontal.control-group
+        =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
+        =' f.text_field :first_name, class: "span3", placeholder: "Имя"
+        =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
+
+      .form-horizontal.control-group
+        =' f.email_field :email, class: "span3", placeholder: "Email"
+        =' f.text_field :phone, class: "span3", placeholder: "Телефон"
+
+  .modal-footer
+    a.btn data-dismiss="modal" Отмена
+    button.btn.btn-primary Добавить автора

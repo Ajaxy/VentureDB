@@ -1,0 +1,2 @@
+- target = @type == "author" ? "authorForm" : "personForm"
+<%= target %>.error("<%=j render "form", person: @person %>")

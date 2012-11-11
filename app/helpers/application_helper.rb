@@ -6,4 +6,8 @@ module ApplicationHelper
     link = link_to name, url, options
     content_tag :li, link, class: html_class
   end
+
+  def b(*args)
+    content_tag :strong, *args
+  end
 end
