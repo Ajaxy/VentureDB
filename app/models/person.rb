@@ -6,9 +6,6 @@ class Person < ActiveRecord::Base
   has_many :investors, as: :actor
   has_many :investments, through: :investors
 
-  has_many :location_bindings, as: :entity
-  has_many :locations, through: :location_bindings
-
   validates :first_name, :last_name, presence: true
 
   def self.find_or_create(params)

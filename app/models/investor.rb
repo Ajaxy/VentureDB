@@ -3,6 +3,9 @@
 class Investor < ActiveRecord::Base
   self.inheritance_column = "_type"
 
+  has_many :location_bindings, as: :entity
+  has_many :locations, through: :location_bindings
+
   belongs_to :actor, polymorphic: true
   has_many :investments
 

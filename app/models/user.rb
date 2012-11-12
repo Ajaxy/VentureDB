@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class User < ActiveRecord::Base
+  ADMIN_EMAILS = %w[admin@example.com]
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -9,4 +11,8 @@ class User < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :person
+
+  def admin?
+    email.in?(ADMIN_EMAILS)
+  end
 end

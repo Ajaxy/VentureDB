@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class CompaniesController < ApplicationController
-  respond_to :js, except: :index
+  before_filter :require_admin!
 
   def create
     @company = Company.find_or_create(params[:company], current_user)

@@ -5,11 +5,22 @@ class Form
 
   success: ->
     @popup.find(":input").val("")
+    @popup.find(".field_with_errors").each -> $(this).replaceWith $(this).html()
     @popup.modal("hide")
     @popup.trigger("close")
 
 class AuthorsForm extends Form
-  constructor: (@popup, @entriesList) ->
+  constructor: ->
+    @popup = $("#create_author")
+    @entriesList = $("form.project .authors")
+
+    $("#find_authors").on "change", ->
+      id = $(this).val()
+      if id.length > 0
+        $.ajax
+          dataType: "script"
+          url:  "/people/#{id}"
+          success: => $(this).val("").trigger("liszt:updated")
 
   success: (id, entryHTML) ->
     super
@@ -24,22 +35,16 @@ class AddToSelectForm extends Form
     @select.append "<option value='#{id}'>#{name}</option>"
     @select.val(id).trigger("liszt:updated")
 
-window.searchField = ($el, baseUrl) ->
-  $el.on "change", ->
-    id = $(this).val()
-    if id.length > 0
-      $.ajax
-        dataType: "script"
-        url:  "#{baseUrl}/#{id}"
-        success: => $(this).val("").trigger("liszt:updated")
-
 window.rebindInputs = (selector = "body") ->
   $("select.chzn", selector).chosen(disable_search_threshold: 15)
 
-  $("[data-dismiss=dialog]").click ->
+jQuery ->
+  rebindInputs()
+
+  $("body").on "click", "[data-dismiss=dialog]", ->
     $(this).closest(".ui-dialog-content").dialog("close")
 
-  $("[data-toggle=dialog]").click ->
+  $("body").on "click", "[data-toggle=dialog]", ->
     $($(this).attr("href")).dialog(resizeable: false, width: 1000, zIndex: 1000)
     $("body").append("<div class='dialog-backdrop'></div>")
 
@@ -50,22 +55,9 @@ window.rebindInputs = (selector = "body") ->
     $(this).dialog("close")
     $(".dialog-backdrop").remove()
 
-jQuery ->
-  rebindInputs()
-
-  $(".entries-list").on "click", ".remove-entry", ->
+  $("body").on "click", ".entries-list .remove-entry", ->
     $(this).closest(".entry").remove()
 
   if $("form.project").length > 0
-    window.authorForm = new AuthorsForm $("#create_author"), $("form.project .authors")
-    searchField $("#find_authors"), "/people"
-
-    window.companyForm = new AddToSelectForm $("#create_company"), $("form.project #project_company_id")
-
-    window.investorCompanyForm = new AddToSelectForm $("#create_company"), $("form.project #project_company_id")
-
+    window.authorForm = new AuthorsForm
     window.projectForm = new AddToSelectForm $("#create_project"), $("form.deal #deal_project_id")
-
-  # if $("form.deal").length > 0
-  #   window.investorForm = new PopupForm $("#create_investor"), $("form.deal .investors")
-  #   searchField $("#find_investors"), "/investors"

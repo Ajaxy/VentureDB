@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class InvestmentsController < ApplicationController
-  respond_to :js, except: :index
+  before_filter :require_admin!
 
   def create
     @investment = Investment.find_or_create(params[:investment])

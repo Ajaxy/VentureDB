@@ -12,9 +12,6 @@
       .control-group
         =' f.text_field :form, class: "span6", placeholder: "Организационно-правовая форма"
       .control-group
-        = f.label :location_ids, "Территории деятельности"
-        = f.select :location_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span6 chzn", multiple: true, "data-placeholder" => "Территории деятельности"
-      .control-group
         =' f.text_field :place, class: "span6", placeholder: "Местонахождение"
 
       / .form-horizontal.control-group
