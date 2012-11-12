@@ -4,7 +4,8 @@ class DealDecorator < ApplicationDecorator
   decorates :deal
 
   def id
-    "%06d" % deal.id
+    value = "%06d" % deal.id
+    deal.errors_log? ? h.content_tag(:b, value) : value
   end
 
   def project_name

@@ -52,7 +52,7 @@
     .offset4
       button.btn.btn-large.btn-primary == project.persisted? ? "Сохранить" : "Создать проект"
       '   
-      a.btn.btn-large href="javascript:void(0)" Отмена
+      a.btn.btn-large href="#" data-dismiss="dialog" Отмена
 
 - content_for :popups do
   #create_author.modal.hide.fade.popup-form

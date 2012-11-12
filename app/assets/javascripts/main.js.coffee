@@ -97,13 +97,16 @@ jQuery ->
 
   $("body").on "click", "[data-dismiss=dialog]", ->
     $(this).closest(".ui-dialog-content").dialog("close")
+    false
 
   $("body").on "click", "[data-toggle=dialog]", ->
     $($(this).attr("href")).dialog(resizeable: false, width: 1000, zIndex: 1000)
     $("body").append("<div class='dialog-backdrop'></div>")
+    false
 
   $("body").on "click", ".dialog-backdrop", ->
     $(".ui-dialog-content").trigger("close")
+    false
 
   $("body").on "close", ".ui-dialog-content", ->
     $(this).dialog("close")
@@ -111,3 +114,4 @@ jQuery ->
 
   $("body").on "click", ".entries-list .remove-entry", ->
     $(this).closest(".entry").remove()
+    false

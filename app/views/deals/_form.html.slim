@@ -97,7 +97,7 @@
       p.help-block
     .span8
       fieldset
-        legend Дополнительная информацию
+        legend Дополнительная информация
         = f.label :informer_id, "Лицо, представившее информацию"
         .search-or-add
           div.search = f.collection_select :informer_id, Informer.by_name, :id, :full_name_with_email, { prompt: "Найти человека" }, class: "chzn span5"
@@ -109,6 +109,10 @@
         = f.text_area :mentions, class: "span8", rows: 4, placeholder: "Упоминания в прессе"
 
         = f.text_area :comments, class: "span8", rows: 4, placeholder: "Комментарии"
+
+        - if @deal.errors_log?
+          h5 Лог ошибок
+          div = simple_format @deal.errors_log
 
   .form-actions
     .offset4
