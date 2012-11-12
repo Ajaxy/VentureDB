@@ -26,10 +26,14 @@ class Investor < ActiveRecord::Base
   }
 
   def actor_name
-    actor.name
+    actor.try(:name)
   end
 
   def name
+    actor_name
+  end
+
+  def name_and_type
     "#{actor_name} – #{type}"
   end
 

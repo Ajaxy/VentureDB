@@ -1,0 +1,12 @@
+= form_for person, url: :authors, remote: true do |f|
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+    h3 Создать автора проекта
+
+  .modal-body
+    fieldset
+      = render "authors/fields", f: f
+
+  .modal-footer
+    a.btn data-dismiss="modal" Отмена
+    button.btn.btn-primary Добавить автора

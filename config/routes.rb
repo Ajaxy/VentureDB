@@ -1,12 +1,12 @@
 Venture::Application.routes.draw do
   devise_for :users
 
-  resources :people
-  resources :companies
   resources :projects
-  resources :investors
-  resources :investments
+  resources :authors
+
   resources :deals
+  resources :investments
+  resources :investors
 
   root to: "deals#index"
 end

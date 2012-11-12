@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class PeopleController < ApplicationController
+class AuthorsController < ApplicationController
   before_filter :require_admin!
 
   def show

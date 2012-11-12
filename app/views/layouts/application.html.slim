@@ -12,8 +12,9 @@ html
           .navbar-inner
             = link_to "VentureDB", :root, class: "brand"
             ul.nav
-              = menu_link "Проекты", :projects
               = menu_link "Сделки", :deals
+              = menu_link "Проекты", :projects
+              = menu_link "Инвесторы", :investors
             ul.nav.pull-right
               li.dropdown
                 a.dropdown-toggle href="#" data-toggle="dropdown"

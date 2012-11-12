@@ -97,10 +97,11 @@
       '   
       a.btn.btn-large href="javascript:void(0)" Отмена
 
-#create_investment.container-popup.hide = render "investments/form", investment: Investment.new
+#create_project.container-popup.hide
+  = render "projects/form", project: Project.new, remote: true
 
-#create_project.container-popup.hide = render "projects/form", project: Project.new
+#create_investment.container-popup.hide
+  = render "investments/form", investment: Investment.new
 
-#create_author.modal.hide.fade.popup-form = render "people/form", person: Person.new
-#create_company.modal.hide.fade.popup-form = render "companies/form", company: Company.new
-
+#create_author.modal.hide.fade.popup-form
+  = render "authors/form", person: Person.new

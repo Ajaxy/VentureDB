@@ -4,7 +4,7 @@ class InvestmentsController < ApplicationController
   before_filter :require_admin!
 
   def create
-    @investment = Investment.find_or_create(params[:investment])
+    @investment = Investment.find_or_create(permitted_params.investment)
 
     if @investment.valid?
       render :show

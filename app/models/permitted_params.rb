@@ -2,7 +2,8 @@
 
 class PermittedParams < Struct.new(:params, :user)
   def project
-    params.require(:project).permit(*project_attributes)
+    params.require(:project).permit(*project_attributes,
+      company_attributes: company_attributes)
   end
 
   def person
@@ -11,8 +12,12 @@ class PermittedParams < Struct.new(:params, :user)
 
   private
 
+  def company_attributes
+    %w[name full_name form place]
+  end
+
   def project_attributes
-    %w[name description company_name]
+    %w[name description scope_ids market_ids author_ids]
   end
 
   def person_attributes

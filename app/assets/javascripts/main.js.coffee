@@ -6,6 +6,7 @@ class Form
   success: ->
     @popup.find(":input").val("")
     @popup.find(".field_with_errors").each -> $(this).replaceWith $(this).html()
+    @popup.find(".entries-list").html("")
     @popup.modal("hide")
     @popup.trigger("close")
 
@@ -19,7 +20,7 @@ class AuthorsForm extends Form
       if id.length > 0
         $.ajax
           dataType: "script"
-          url:  "/people/#{id}"
+          url:  "/authors/#{id}"
           success: => $(this).val("").trigger("liszt:updated")
 
   success: (id, entryHTML) ->
@@ -37,6 +38,12 @@ class AddToSelectForm extends Form
 
 window.rebindInputs = (selector = "body") ->
   $("select.chzn", selector).chosen(disable_search_threshold: 15)
+
+  if $("form.project", selector).length > 0
+    window.authorForm = new AuthorsForm
+
+  if $("form.deal", selector).length > 0
+    window.projectForm = new AddToSelectForm $("#create_project"), $("form.deal #deal_project_id")
 
 jQuery ->
   rebindInputs()
@@ -57,7 +64,3 @@ jQuery ->
 
   $("body").on "click", ".entries-list .remove-entry", ->
     $(this).closest(".entry").remove()
-
-  if $("form.project").length > 0
-    window.authorForm = new AuthorsForm
-    window.projectForm = new AddToSelectForm $("#create_project"), $("form.deal #deal_project_id")

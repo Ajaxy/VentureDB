@@ -4,7 +4,7 @@ class DealsController < ApplicationController
   before_filter :require_admin!, except: %w[index show]
 
   def index
-    @deals = Deal.includes(:project).page(params[:page]).per(50)
+    @deals = Deal.includes(:project, :investors => :actor).page(params[:page]).per(50).order{id.desc}
   end
 
   def show

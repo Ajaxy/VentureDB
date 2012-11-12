@@ -3,12 +3,18 @@
 table.table
   thead
     tr
-      th #
       th Проект
+      th Статус сделки
+      th Сумма сделки
+      th Дата завершения
+      th Инвесторы
   tbody
     - @deals.each do |deal|
       tr
-        td = link_to deal.id, deal
-        td = deal.project.try(:name) || "—"
+        td = link_to (deal.project.try(:name) || "—"), deal
+        td = deal.status
+        td #{number_with_delimiter deal.amount, delimiter: " "} руб.
+        td = deal.contract_date ? localize(deal.contract_date) : "—"
+        td = deal.investors.map(&:name).join("<br>").html_safe
 
 = paginate @deals

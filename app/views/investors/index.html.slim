@@ -1,0 +1,13 @@
+
+table.table
+  thead
+    tr
+      th Название
+      th Тип
+  tbody
+    - @investors.each do |investor|
+      tr
+        td = investor.name
+        td = investor.type
+
+= paginate @investors

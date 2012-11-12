@@ -38,4 +38,16 @@ class Deal < ActiveRecord::Base
     return unless date = self[:contract_date]
     I18n.localize(date)
   end
+
+  def status
+    STATUSES[status_id]
+  end
+
+  def round
+    STATUSES[round_id]
+  end
+
+  def stage
+    STATUSES[stage_id]
+  end
 end
