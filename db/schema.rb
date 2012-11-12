@@ -18,8 +18,9 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.string   "full_name"
     t.string   "place"
     t.string   "form"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "draft",      :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "deals", :force => true do |t|
@@ -55,8 +56,9 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.integer  "deal_id"
     t.integer  "instrument_id"
     t.text     "share"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.boolean  "draft",         :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "investments", ["deal_id"], :name => "index_investments_on_deal_id"
@@ -67,8 +69,9 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.integer  "actor_id"
     t.string   "actor_type"
     t.integer  "type_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "draft",      :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "investors", ["actor_id", "actor_type"], :name => "index_investors_on_actor_id_and_actor_type"
@@ -100,13 +103,15 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
   add_index "locations", ["rgt"], :name => "index_locations_on_rgt"
 
   create_table "people", :force => true do |t|
+    t.string   "type"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "middle_name"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "draft",       :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "project_authors", :force => true do |t|
@@ -133,8 +138,9 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.string   "name"
     t.text     "description"
     t.integer  "company_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "draft",       :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "projects", ["company_id"], :name => "index_projects_on_company_id"

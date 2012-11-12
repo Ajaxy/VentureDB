@@ -91,6 +91,17 @@
           .error-block Необходимо указать хотя бы одну инвестицию.
         .investments.entries-list = render @deal.investments
         button.btn type="button" href="#create_investment" data-toggle="dialog" Добавить инвестицию
+  hr
+  .row
+    .span4
+      p.help-block
+    .span8
+      fieldset
+        legend Лицо, представившее информацию
+        .search-or-add
+          div.search = f.collection_select :informer_id, Informer.by_name, :id, :full_name_with_email, { prompt: "Найти человека" }, class: "chzn span5"
+          div.or = " или "
+          div.add: button.btn.btn-small type="button" href="#create_informer" data-toggle="modal" Добавить нового
 
   .form-actions
     .offset4
@@ -107,3 +118,6 @@
 
   #create_investor.modal.hide.fade.popup-form
     = render "investors/form", investor: InvestorForm.new
+
+  #create_informer.modal.hide.fade.popup-form
+    = render "people/form", person: Person.new, type: "informer"

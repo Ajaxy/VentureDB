@@ -5,6 +5,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :full_name
       t.string :place
       t.string :form
+      t.boolean :draft, default: false
 
       t.timestamps
     end

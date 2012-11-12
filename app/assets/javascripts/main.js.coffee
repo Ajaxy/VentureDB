@@ -21,7 +21,7 @@ class AuthorsForm extends Form
       if id.length > 0
         $.ajax
           dataType: "script"
-          url:  "/authors/#{id}"
+          url:  "/people/#{id}"
           success: => $(this).val("").trigger("liszt:updated")
 
   success: (id, entryHTML) ->
@@ -66,20 +66,31 @@ class InvestorForm extends AddToSelectForm
     @popup.find(".person-fields").hide()
     @popup.find(".company-fields").show()
 
+class ProjectForm extends AddToSelectForm
+  constructor: ->
+    super $("#create_project"), $("form.deal #deal_project_id")
+
+class InformerForm extends AddToSelectForm
+  constructor: ->
+    super $("#create_informer"), $("form.deal #deal_informer_id")
+
 window.rebindInputs = (selector = "body") ->
   $("select.chzn", selector).chosen(disable_search_threshold: 15)
 
   if $("form.project", selector).length > 0
-    window.authorForm = new AuthorsForm
+    window.projectForm = new ProjectForm
 
   if $("form.project", selector).length > 0
-    window.projectForm = new AddToSelectForm $("#create_project"), $("form.deal #deal_project_id")
+    window.authorForm = new AuthorsForm
 
   if $("form.investment", selector).length > 0
     window.investmentForm = new InvestmentForm
 
   if $("form.investor", selector).length > 0
     window.investorForm = new InvestorForm
+
+  if $("form.deal", selector).length > 0
+    window.informerForm = new InformerForm
 
 jQuery ->
   rebindInputs()

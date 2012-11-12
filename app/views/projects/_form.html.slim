@@ -39,12 +39,12 @@
         = hidden_field_tag "project[author_ids][]"
         .authors.entries-list
           - project.authors.each do |person|
-            = render "authors/author", person: person
+            = render "people/author", person: person
         .search-or-add
           / .input-prepend
             span.add-on: i.icon-search
             input.span5 type="text" placeholder="Найти автора"
-          div.search = collection_select :find, :authors, Person.all, :id, :full_name_with_email, { prompt: "Найти автора" }, class: "chzn span5"
+          div.search = collection_select :find, :authors, Author.by_name , :id, :full_name_with_email, { prompt: "Найти автора" }, class: "chzn span5"
           div.or = " или "
           div.add: button.btn.btn-small type="button" href="#create_author" data-toggle="modal" Создать нового
 
@@ -56,4 +56,4 @@
 
 - content_for :popups do
   #create_author.modal.hide.fade.popup-form
-    = render "authors/form", person: Person.new
+    = render "people/form", person: Person.new, type: "author"

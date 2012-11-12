@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Investment < ActiveRecord::Base
+  include Draftable
+
   belongs_to :investor
   belongs_to :deal
 
@@ -23,5 +25,10 @@ class Investment < ActiveRecord::Base
 
   def instrument
     INSTRUMENTS[instrument_id]
+  end
+
+  def publish
+    super
+    investor.try(:publish)
   end
 end

@@ -233,11 +233,11 @@ class Loader
       return
     end
 
-    if person = Person.where(first_name: first_name, last_name: last_name).first
+    if person = Informer.where(first_name: first_name, last_name: last_name).first
       return person
     end
 
-    create Person.new(
+    create Informer.new(
       first_name: first_name,
       last_name:  last_name,
       phone:      phones.join("\n"),
@@ -357,10 +357,10 @@ class Loader
         errors << "Недопустимое имя автора проекта: #{name.inspect}"
         next
       end
-      if person = Person.where(first_name: first_name, last_name: last_name).first
+      if person = Author.where(first_name: first_name, last_name: last_name).first
         person
       else
-        create Person.new(first_name: first_name, last_name: last_name, email: emails)
+        create Author.new(first_name: first_name, last_name: last_name, email: emails)
       end
     end.compact
   end

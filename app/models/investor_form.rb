@@ -6,6 +6,7 @@ class InvestorForm
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
+  include ActiveModel::ForbiddenAttributesProtection
 
   attr_reader :investor
   attr_reader :company
@@ -21,11 +22,11 @@ class InvestorForm
   end
 
   def person=(attrs)
-    @person = Person.new(attrs)
+    @person = Person.new_draft(attrs)
   end
 
   def company=(attrs)
-    @company = Company.new(attrs)
+    @company = Company.new_draft(attrs)
   end
 
   def persisted?
@@ -44,6 +45,6 @@ class InvestorForm
   private
 
   def persist!
-    @investor = Investor.create!(type_id: type_id, actor: actor)
+    @investor = Investor.create_draft(type_id: type_id, actor: actor)
   end
 end

@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Investor < ActiveRecord::Base
+  include Draftable
+
   self.inheritance_column = "_type"
 
   has_many :location_bindings, as: :entity
@@ -53,5 +55,10 @@ class Investor < ActiveRecord::Base
 
   def type
     TYPES[type_id]
+  end
+
+  def publish
+    super
+    actor.try(:publish)
   end
 end

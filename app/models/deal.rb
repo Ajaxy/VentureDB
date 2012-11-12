@@ -52,4 +52,11 @@ class Deal < ActiveRecord::Base
   def stage
     STATUSES[stage_id]
   end
+
+  def publish
+    project.try(:publish)
+    investments.each(&:publish)
+    informer.try(:publish)
+    true
+  end
 end

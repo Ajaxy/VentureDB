@@ -1,11 +1,13 @@
-= form_for person, url: :authors, remote: true do |f|
+= form_for person, url: :people, as: :person, remote: true do |f|
+  = hidden_field_tag :type, type
+
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
-    h3 Создать автора проекта
+    h3 Добавить человека
 
   .modal-body
     fieldset = render "person_fields", f: f
 
   .modal-footer
     a.btn data-dismiss="modal" Отмена
-    button.btn.btn-primary Добавить автора
+    button.btn.btn-primary Добавить человека

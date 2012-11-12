@@ -4,6 +4,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.references :company
+      t.boolean :draft, default: false
 
       t.timestamps
     end

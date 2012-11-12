@@ -1,18 +1,28 @@
 # encoding: utf-8
 
 class Person < ActiveRecord::Base
+  include Draftable
+
   has_one :user
+
+  has_many :project_authors, foreign_key: "author_id"
+  # has_many :projects
 
   has_many :investors, as: :actor
   has_many :investments, through: :investors
 
   validates :first_name, :last_name, presence: true
 
-  def self.find_or_create(params)
+  def self.by_name
+    # order(:first_name, :last_name)
+    all.sort_by(&:full_name)
+  end
+
+  def self.find_or_create_draft(params)
     if person = where(params.slice(:first_name, :last_name, :email)).first
       person
     else
-      create(params)
+      create_draft(params)
     end
   end
 

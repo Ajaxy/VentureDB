@@ -19,6 +19,10 @@ class PermittedParams < Struct.new(:params, :user)
       company: company_attributes, person: person_attributes)
   end
 
+  def deal
+    params.require(:deal).permit(*deal_attributes)
+  end
+
   private
 
   def actor_attributes
@@ -27,6 +31,12 @@ class PermittedParams < Struct.new(:params, :user)
 
   def company_attributes
     %w[name full_name form place]
+  end
+
+  def deal_attributes
+    %w[project_id announcement_date contract_date approx_date status_id
+      round_id stage_id amount approx_amount value_before value_after
+      investment_ids informer_id]
   end
 
   def investment_attributes

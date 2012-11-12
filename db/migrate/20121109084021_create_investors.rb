@@ -3,6 +3,7 @@ class CreateInvestors < ActiveRecord::Migration
     create_table :investors do |t|
       t.references :actor, polymorphic: true
       t.references :type
+      t.boolean :draft, default: false
 
       t.timestamps
     end

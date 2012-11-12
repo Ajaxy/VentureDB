@@ -2,6 +2,7 @@
 
 class Company < ActiveRecord::Base
   include Trackable
+  include Draftable
 
   has_many :users
   has_one :project

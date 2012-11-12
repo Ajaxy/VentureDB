@@ -5,6 +5,7 @@ class CreateInvestments < ActiveRecord::Migration
       t.references :deal
       t.references :instrument
       t.text :share
+      t.boolean :draft, default: false
 
       t.timestamps
     end

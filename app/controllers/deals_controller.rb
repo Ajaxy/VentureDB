@@ -18,9 +18,9 @@ class DealsController < ApplicationController
   end
 
   def create
-    @deal = Deal.new(params[:deal])
+    @deal = Deal.new(permitted_params.deal)
 
-    if @deal.save
+    if @deal.save && @deal.publish
       redirect_to :deals, notice: "Сделка успешно добавлена."
     else
       render :new
@@ -31,7 +31,7 @@ class DealsController < ApplicationController
   end
 
   def update
-    if @deal.update_attributes(params[:deal])
+    if @deal.update_attributes(permitted_params.deal) && @deal.publish
       redirect_to :deals, notice: "Сделка успешно обновлена."
     else
       render :edit

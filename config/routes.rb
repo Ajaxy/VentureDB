@@ -2,8 +2,7 @@ Venture::Application.routes.draw do
   devise_for :users
 
   resources :projects
-  resources :authors
-
+  resources :people
   resources :deals
   resources :investments
   resources :investors
