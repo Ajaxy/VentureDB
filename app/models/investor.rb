@@ -9,6 +9,8 @@ class Investor < ActiveRecord::Base
   belongs_to :actor, polymorphic: true
   has_many :investments
 
+  validates :type_id, presence: true
+
   TYPES = {
     1  => "Государственный фонд/организация",
     2  => "Корпорация",
@@ -24,6 +26,18 @@ class Investor < ActiveRecord::Base
     12 => "Прочие физлица (включая FFF)",
     13 => "Прочие организации (юрлица)",
   }
+
+  def person
+    actor.is_a?(Person) ? actor : Person.new
+  end
+
+  def company
+    actor.is_a?(Company) ? actor : Company.new
+  end
+
+  def self.with_actor
+    where{(actor_id != nil) & (type_id != nil)}.includes(:actor)
+  end
 
   def actor_name
     actor.try(:name)

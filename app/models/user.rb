@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class User < ActiveRecord::Base
-  ADMIN_EMAILS = %w[admin@example.com]
+  ADMIN_EMAILS = %w[ai@grow.bi]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

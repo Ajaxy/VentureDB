@@ -37,7 +37,7 @@ class Loader
       puts
     end
 
-    Deal.create!(attrs)
+    create Deal.new(attrs)
   end
 
   private
@@ -53,6 +53,11 @@ class Loader
   def blank?(string)
     string.blank? || string.in?("Нет данных", "Нет двнных", "Не раскрывается",
                                 "Не разкрывается", "Не разглашается")
+  end
+
+  def create(model)
+    model.save!(validate: false)
+    model
   end
 
   def find_location(string)
@@ -91,12 +96,12 @@ class Loader
     if company = Company.where(name: data[:company_name]).first
       company
     else
-      Company.create!(
+      create Company.new(
         name:       data[:company_name],
         full_name:  data[:company_full_name],
-        locations:  parse_locations(data[:company_location]),
+        # locations:  parse_locations(data[:company_location]),
         form:       data[:company_form],
-        place:      data[:company_place],
+        place:      data[:company_place].presence || data[:company_location],
       )
     end
   end
@@ -124,7 +129,7 @@ class Loader
       instrument   = instruments[i] || instruments.first
       share        = shares[i]      || shares.first
 
-      Investment.create!(
+      create Investment.new(
         investor:       get_investor(name, type, location),
         instrument_id:  parse_instrument(instrument),
         share:          share,
@@ -136,7 +141,11 @@ class Loader
     type = parse_investor_type(type)
 
     if blank?(name)
-      return Investor.create!(actor: nil, type_id: type)
+      return create Investor.new(
+        actor: nil,
+        type_id: type,
+        locations: parse_locations(location)
+      )
     end
 
     actor = if type.in?(10, 12)
@@ -153,35 +162,40 @@ class Loader
 
       unless last_name.present? && first_name.present?
         errors << "Недопустимое имя инвестора #{name.inspect}"
-        return Investor.create!(actor: nil, type_id: type)
+        return create Investor.new(
+          actor: nil,
+          type_id: type,
+          locations: parse_locations(location)
+        )
       end
 
       if person = Person.where(first_name: first_name, last_name: last_name).first
         person
       else
-        Person.create!(
+        create Person.new(
           first_name:   first_name,
           last_name:    last_name,
           middle_name:  middle_name,
-          locations:    parse_locations(location),
         )
       end
     else
       if company = Company.where(name: name).first
         company
       else
-        Company.create!(name: name, locations: parse_locations(location))
+        create Company.new(name: name)
       end
     end
 
-    actor.investors.where(type_id: type).first_or_create!
+    investor = actor.investors.where(type_id: type).first_or_initialize
+    investor.locations = parse_locations(location)
+    create investor
   end
 
   def get_project
     if project = Project.where(name: data[:project_name]).first
       project
     else
-      Project.create!(
+      create Project.new(
         name:         data[:project_name],
         description:  data[:project_description],
         company:      get_company,
@@ -216,14 +230,14 @@ class Loader
 
     unless first_name.present? && last_name.present?
       errors << "Недопустимое имя информатора: #{name.inspect}"
-      next
+      return
     end
 
     if person = Person.where(first_name: first_name, last_name: last_name).first
       return person
     end
 
-    Person.create!(
+    create Person.new(
       first_name: first_name,
       last_name:  last_name,
       phone:      phones.join("\n"),
@@ -346,7 +360,7 @@ class Loader
       if person = Person.where(first_name: first_name, last_name: last_name).first
         person
       else
-        Person.create!(first_name: first_name, last_name: last_name, email: emails)
+        create Person.new(first_name: first_name, last_name: last_name, email: emails)
       end
     end.compact
   end

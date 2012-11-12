@@ -7,6 +7,8 @@ class Deal < ActiveRecord::Base
   has_many :investments
   has_many :investors, through: :investments
 
+  validates :project_id, :amount, :investments, presence: true
+
   STATUSES = {
     1 => "Планируемая",
     2 => "В процессе",

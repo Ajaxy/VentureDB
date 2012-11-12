@@ -8,7 +8,7 @@ table.table
   tbody
     - @projects.each do |project|
       tr
-        td = link_to project.name, project
+        td = project.link
         td = project.scope_names
         td = project.author_names
 

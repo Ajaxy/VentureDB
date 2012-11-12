@@ -1,0 +1,20 @@
+= form_for investor, as: :investor, url: :investors, html: { class: "investor"}, remote: true do |f|
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+    h3 Создать инвестора
+
+  .modal-body
+    = f.label :type_id, "Тип инвестора"
+    = f.select :type_id, Investor::TYPES.invert, {}, class: "chzn span4"
+
+    p
+
+    .person-fields = f.fields_for :person, f.object.person do |f|
+      = render "person_fields", f: f
+
+    .company-fields = f.fields_for :company, f.object.company do |f|
+      = render "company_fields", f: f
+
+  .modal-footer
+    a.btn data-dismiss="modal" Отмена
+    button.btn.btn-primary Создать инвестора

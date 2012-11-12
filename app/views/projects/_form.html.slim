@@ -8,7 +8,7 @@
       fieldset
         legend Информация о проекте
         = f.text_field :name, class: "span8", placeholder: "Название проекта"
-        = f.text_area :description, class: "span8", rows: 5, placeholder: "Краткое бизнес-описание"
+        = f.text_area :description, class: "span8", rows: 6, placeholder: "Краткое бизнес-описание"
 
         = f.label :scope_ids, "Сектор и сфера деятельности"
         = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
@@ -25,11 +25,7 @@
         legend Информация о компании
         - f.object.company ||= Company.new
         = f.fields_for :company do |f|
-          = f.text_field :name, class: "span8", placeholder: "Краткое название копмании"
-          = f.text_field :full_name, class: "span8", placeholder: "Полное название копмании"
-          = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
-          = f.text_field :place, class: "span8", placeholder: "Местонахождение"
-
+          = render "company_fields", f: f
   hr
   .row
     .span4
@@ -38,9 +34,12 @@
     .span8
       fieldset
         legend Авторы проекта
+        - if project.errors[:author_ids].any?
+          .error-block Необходимо указать хотя бы одного автора.
+        = hidden_field_tag "project[author_ids][]"
         .authors.entries-list
           - project.authors.each do |person|
-            = render "author", person: person
+            = render "authors/author", person: person
         .search-or-add
           / .input-prepend
             span.add-on: i.icon-search
@@ -54,3 +53,7 @@
       button.btn.btn-large.btn-primary == project.persisted? ? "Сохранить" : "Создать проект"
       '   
       a.btn.btn-large href="javascript:void(0)" Отмена
+
+- content_for :popups do
+  #create_author.modal.hide.fade.popup-form
+    = render "authors/form", person: Person.new

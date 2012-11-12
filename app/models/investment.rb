@@ -4,6 +4,8 @@ class Investment < ActiveRecord::Base
   belongs_to :investor
   belongs_to :deal
 
+  validates :investor_id, :instrument_id, :share, presence: true
+
   delegate :name, :type, to: :investor, prefix: true, allow_nil: true
 
   INSTRUMENTS = {

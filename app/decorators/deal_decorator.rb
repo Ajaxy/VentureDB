@@ -3,6 +3,10 @@
 class DealDecorator < ApplicationDecorator
   decorates :deal
 
+  def id
+    "%06d" % deal.id
+  end
+
   def project_name
     project.try(:name) || "—"
   end

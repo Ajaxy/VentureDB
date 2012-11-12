@@ -56,8 +56,12 @@ legend
   bottom: 0
 
 .field_with_errors
-  display: inline-block
+  display: inline
   @include formFieldState($errorText, $errorText, $errorBackground)
+  .chzn-single
+    border: solid 1px $errorText
+.error-block
+  color: $errorText
 
 .popup-form
   width: 700px

@@ -85,11 +85,12 @@
       p.help-block Укажите одного или нескольких инвесторов, участвующих в сделке.
     .span8
       fieldset
-        legend Инвесторы сделки
-        .investments.entries-list
-          - @deal.investments.each do |investment|
-            = render "investment", investment: investment
-        button.btn type="button" href="#create_investment" data-toggle="dialog" Добавить инвестора
+        legend Инвестиции сделки
+        = hidden_field_tag "deal[investment_ids][]"
+        - if @deal.errors[:investments].any?
+          .error-block Необходимо указать хотя бы одну инвестицию.
+        .investments.entries-list = render @deal.investments
+        button.btn type="button" href="#create_investment" data-toggle="dialog" Добавить инвестицию
 
   .form-actions
     .offset4
@@ -97,11 +98,12 @@
       '   
       a.btn.btn-large href="javascript:void(0)" Отмена
 
-#create_project.container-popup.hide
-  = render "projects/form", project: Project.new, remote: true
+- content_for :popups do
+  #create_project.container-popup.hide
+    = render "projects/form", project: Project.new, remote: true
 
-#create_investment.container-popup.hide
-  = render "investments/form", investment: Investment.new
+  #create_investment.container-popup.hide
+    = render "investments/form", investment: Investment.new
 
-#create_author.modal.hide.fade.popup-form
-  = render "authors/form", person: Person.new
+  #create_investor.modal.hide.fade.popup-form
+    = render "investors/form", investor: InvestorForm.new

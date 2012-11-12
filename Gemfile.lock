@@ -33,6 +33,7 @@ GEM
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
+    backports (2.6.5)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.1.0)
     bourbon (2.1.2)
@@ -245,6 +246,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    virtus (0.5.2)
+      backports (~> 2.6.1)
     warden (1.2.1)
       rack (>= 1.0)
     xpath (0.1.4)
@@ -286,3 +289,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicode_utils
   unicorn
+  virtus

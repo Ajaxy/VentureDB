@@ -1,12 +1,9 @@
 # encoding: utf-8
 
 class ApplicationDecorator < Draper::Base
-  # include Draper::LazyHelpers
-  delegate :link_to, :content_tag, to: :h
-  delegate :l, :localize, to: :I18n
-
-  def link
-    link_to model.name, model
+  def link(options = {})
+    text = options[:text] || model.name
+    h.link_to text, model
   end
 
   private

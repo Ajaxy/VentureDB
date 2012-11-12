@@ -3,6 +3,7 @@
 table.table
   thead
     tr
+      th #
       th Проект
       th Статус сделки
       th Сумма сделки
@@ -11,7 +12,8 @@ table.table
   tbody
     - @deals.each do |deal|
       tr
-        td = link_to deal.project_name, deal
+        td = deal.id
+        td = deal.link(text: deal.project_name)
         td = deal.status
         td = deal.amount
         td = deal.contract_date

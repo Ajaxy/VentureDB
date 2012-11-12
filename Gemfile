@@ -19,6 +19,7 @@ gem "russian"
 gem "simple_form"
 gem "strong_parameters"
 gem "squeel"
+gem "virtus"
 gem "unicorn"
 
 group :assets do
