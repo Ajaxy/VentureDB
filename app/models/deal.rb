@@ -55,7 +55,8 @@ class Deal < ActiveRecord::Base
 
   %w[amount value_before value_after].each do |attr|
     define_method "#{attr}=" do |val|
-      self[attr] = val.gsub(/[  ]/, "")
+      val = val.gsub(/[  ]/, "") if val.respond_to?(:gsub)
+      super(val)
     end
   end
 
