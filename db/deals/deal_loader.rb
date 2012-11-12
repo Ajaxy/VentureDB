@@ -151,6 +151,11 @@ class Loader
         first_name = parts.join(" ")
       end
 
+      unless last_name.present? && first_name.present?
+        errors << "Недопустимое имя инвестора #{name.inspect}"
+        return Investor.create!(actor: nil, type_id: type)
+      end
+
       if person = Person.where(first_name: first_name, last_name: last_name).first
         person
       else
@@ -208,6 +213,11 @@ class Loader
     end
 
     first_name, last_name = names.first.split
+
+    unless first_name.present? && last_name.present?
+      errors << "Недопустимое имя информатора: #{name.inspect}"
+      next
+    end
 
     if person = Person.where(first_name: first_name, last_name: last_name).first
       return person
@@ -329,8 +339,9 @@ class Loader
 
     names.map do |name|
       first_name, last_name = name.split
-      unless last_name
-        errors << "Недопустимое имя автора проекта: #{name}"
+      unless first_name.present? && last_name.present?
+        errors << "Недопустимое имя автора проекта: #{name.inspect}"
+        next
       end
       if person = Person.where(first_name: first_name, last_name: last_name).first
         person

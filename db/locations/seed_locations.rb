@@ -16,7 +16,6 @@ russia = Location.where(name: "Россия").first
 
 russian_cities = Rails.root.join("db/locations/russia.txt")
 
-areas = Set.new
 CSV.foreach(russian_cities, col_sep: "\t") do |row|
   cols = %w[city region area - -]
 

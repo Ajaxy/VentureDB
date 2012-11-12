@@ -1,6 +1,7 @@
 
 development:
   adapter: postgresql
+  host: localhost
   encoding: unicode
   database: venture_development
   pool: 5
@@ -9,6 +10,7 @@ development:
 
 test:
   adapter: postgresql
+  host: localhost
   encoding: unicode
   database: venture_test
   pool: 5
