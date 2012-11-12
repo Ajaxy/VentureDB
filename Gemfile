@@ -9,6 +9,7 @@ gem "capistrano_colors"
 
 gem "awesome_nested_set"
 gem "devise"
+gem "draper"
 gem "slim"
 gem "jquery-rails"
 gem "kaminari"

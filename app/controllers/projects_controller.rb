@@ -5,7 +5,8 @@ class ProjectsController < ApplicationController
   before_filter :find_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @projects = Project.includes(:scopes, :authors).page(params[:page]).per(50).order("name")
+    @projects = decorate Project.includes(:scopes, :authors).page(params[:page])
+                                .per(50).order("name")
   end
 
   def create

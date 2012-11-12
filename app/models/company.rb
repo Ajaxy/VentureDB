@@ -9,7 +9,7 @@ class Company < ActiveRecord::Base
   has_many :investors, as: :actor
   has_many :investments, through: :investors
 
-  validates :name, presence: true
+  validates :name, :full_name, :form, :place, presence: true
 
   def self.find_or_create(params, user)
     if company = where(params.slice(:name)).first

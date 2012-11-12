@@ -11,10 +11,10 @@ table.table
   tbody
     - @deals.each do |deal|
       tr
-        td = link_to (deal.project.try(:name) || "—"), deal
+        td = link_to deal.project_name, deal
         td = deal.status
-        td #{number_with_delimiter deal.amount, delimiter: " "} руб.
-        td = deal.contract_date ? localize(deal.contract_date) : "—"
-        td = deal.investors.map(&:name).join("<br>").html_safe
+        td = deal.amount
+        td = deal.contract_date
+        td = deal.investor_names
 
 = paginate @deals

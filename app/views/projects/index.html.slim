@@ -8,8 +8,8 @@ table.table
   tbody
     - @projects.each do |project|
       tr
-        td = link_to (project.try(:name) || "—"), project
-        td = project.scopes.map(&:name).join("<br>").html_safe
-        td = project.authors.map(&:full_name).join("<br>").html_safe
+        td = link_to project.name, project
+        td = project.scope_names
+        td = project.author_names
 
 = paginate @projects
