@@ -53,6 +53,12 @@ class Deal < ActiveRecord::Base
     STATUSES[stage_id]
   end
 
+  %w[amount value_before value_after].each do |attr|
+    define_method "#{attr}=" do |val|
+      self[attr] = val.gsub(/[  ]/, "")
+    end
+  end
+
   def publish
     project.try(:publish)
     investments.each(&:publish)
