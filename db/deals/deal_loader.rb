@@ -37,7 +37,8 @@ class Loader
       puts
     end
 
-    create Deal.new(attrs)
+    deal = create Deal.new(attrs)
+    deal.investments.each { |i| i.update_column :deal_id, deal.id }
   end
 
   private
