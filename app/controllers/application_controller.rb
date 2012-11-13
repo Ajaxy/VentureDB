@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user!
@@ -20,7 +22,7 @@ class ApplicationController < ActionController::Base
   helper_method :decorate
 
   def permitted_params
-    @permitted_params ||= PermittedParams.new(params)#, current_user)
+    @permitted_params ||= PermittedParams.new(params, current_user)
   end
   helper_method :permitted_params
 
