@@ -3,11 +3,11 @@
 table.table
   thead
     tr
-      th #
+      th.center #
       th Проект
-      th Статус сделки
-      th Сумма сделки
-      th Дата завершения
+      th.center Статус сделки
+      th.center Сумма сделки
+      th.center Дата завершения
       th Инвесторы
   tbody
     - @deals.each do |deal|
@@ -15,8 +15,8 @@ table.table
         td = deal.id
         td = deal.link(text: deal.project_name)
         td = deal.status
-        td = deal.amount
-        td = deal.contract_date
+        td.center = deal.amount
+        td.center = deal.contract_date
         td = deal.investor_names
 
 = paginate @deals

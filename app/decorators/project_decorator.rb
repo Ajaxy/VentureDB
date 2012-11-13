@@ -3,6 +3,10 @@
 class ProjectDecorator < ApplicationDecorator
   decorates :project
 
+  def company_name
+    company.try(:name) || "—"
+  end
+
   def scope_names
     return "—" unless scopes.any?
     list scopes.map(&:name)

@@ -92,6 +92,8 @@ window.rebindInputs = (selector = "body") ->
   if $("form.deal", selector).length > 0
     window.informerForm = new InformerForm
 
+  $("[rel=tooltip]", selector).tooltip()
+
 jQuery ->
   rebindInputs()
 

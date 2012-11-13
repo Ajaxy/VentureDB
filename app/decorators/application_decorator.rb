@@ -15,4 +15,8 @@ class ApplicationDecorator < Draper::Base
   def roubles(amount)
     "#{h.number_with_delimiter amount, delimiter: " "} руб."
   end
+
+  def tag(*args, &block)
+    h.content_tag(*args, &block)
+  end
 end

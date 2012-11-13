@@ -5,7 +5,12 @@ class DealDecorator < ApplicationDecorator
 
   def id
     value = "%06d" % deal.id
-    deal.errors_log? ? h.content_tag(:b, value) : value
+    if deal.errors_log?
+      errors = deal.errors_log.gsub("\n", "; ")
+      tag :span, value, rel: "tooltip", title: errors, class: "errors_log"
+    else
+      value
+    end
   end
 
   def project_name
@@ -14,7 +19,7 @@ class DealDecorator < ApplicationDecorator
 
   def amount
     return "—" unless deal.amount?
-    roubles(deal.amount)
+    tag :div, roubles(deal.amount), class: "amount"
   end
 
   def contract_date

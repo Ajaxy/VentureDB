@@ -3,12 +3,14 @@ table.table
   thead
     tr
       th Название проекта
+      th Компания
       th Сферы деятельности
       th Авторы
   tbody
     - @projects.each do |project|
       tr
         td = project.link
+        td = project.company_name
         td = project.scope_names
         td = project.author_names
 
