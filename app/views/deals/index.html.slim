@@ -3,18 +3,18 @@
 table.table
   thead
     tr
-      th.center #
-      th Проект
-      th.center Статус сделки
-      th.center Сумма сделки
-      th.center Дата завершения
+      th.center = @sorter.header "#", :id
+      th = @sorter.header "Проект", :project
+      th.center = @sorter.header "Статус", :status
+      th.center = @sorter.header "Сумма", :amount
+      th.center = @sorter.header "Дата завершения", :date
       th Инвесторы
   tbody
     - @deals.each do |deal|
       tr
         td = deal.id
         td = deal.link(text: deal.project_name)
-        td = deal.status
+        td.center = deal.status
         td.center = deal.amount
         td.center = deal.contract_date
         td = deal.investor_names

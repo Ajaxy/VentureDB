@@ -5,8 +5,9 @@ class DealsController < ApplicationController
   before_filter :find_deal, only: [:show, :edit, :update, :destroy]
 
   def index
-    @deals = decorate Deal.includes(:project, :investors => :actor)
-                          .page(params[:page]).per(50).order{id.desc}
+    @sorter = DealSorter.new(params, view_context)
+    scope   = paginate Deal.includes{[project, investors.actor]}
+    @deals  = decorate @sorter.sort(scope)
   end
 
   def show

@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :decorate
 
+  def paginate(scope, per = 50)
+    scope = Kaminari.paginate_array(scope) if scope.is_a?(Array)
+    scope.page(params[:page]).per(per)
+  end
+
   def permitted_params
     @permitted_params ||= PermittedParams.new(params, current_user)
   end

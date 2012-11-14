@@ -2,8 +2,8 @@
 table.table
   thead
     tr
-      th Название
-      th Тип
+      th = @sorter.header "Название", :name
+      th = @sorter.header "Тип", :type
   tbody
     - @investors.each do |investor|
       tr

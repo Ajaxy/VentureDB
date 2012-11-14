@@ -2,8 +2,9 @@
 
 class InvestorsController < ApplicationController
   def index
-    scope = Investor.published.with_actor.sort_by(&:name)
-    @investors = Kaminari.paginate_array(scope).page(params[:page]).per(50)
+    @sorter    = InvestorSorter.new(params, view_context)
+    scope      = @sorter.sort(Investor.published.with_actor)
+    @investors = paginate(scope)
   end
 
   def create
@@ -16,3 +17,4 @@ class InvestorsController < ApplicationController
     end
   end
 end
+

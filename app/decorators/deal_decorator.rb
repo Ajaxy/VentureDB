@@ -17,6 +17,10 @@ class DealDecorator < ApplicationDecorator
     project.try(:name) || "—"
   end
 
+  def status
+    deal.status || "—"
+  end
+
   def amount
     return "—" unless deal.amount?
     tag :div, roubles(deal.amount), class: "amount"

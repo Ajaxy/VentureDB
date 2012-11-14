@@ -2,8 +2,8 @@
 table.table
   thead
     tr
-      th Название проекта
-      th Компания
+      th = @sorter.header "Название", :name
+      th = @sorter.header "Компания", :company
       th Сферы деятельности
       th Авторы
   tbody
