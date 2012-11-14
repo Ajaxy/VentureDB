@@ -20,7 +20,7 @@ class Sorter
     link = view.link_to name, link_params, html_options
 
     if column == current_column
-      icon_name = current_direction == :desc ? "up" : "down"
+      icon_name = current_direction == :asc ? "up" : "down"
       icon = view.content_tag(:i, "", class: "icon-chevron-#{icon_name}")
       link + icon
     else
