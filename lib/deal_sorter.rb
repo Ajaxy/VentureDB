@@ -1,12 +1,20 @@
 # encoding: utf-8
 
 class DealSorter < Sorter
-  def default_directions
-    { id: :desc }
+  def sortable_columns
+    {
+      :id       => :desc,
+      :project  => :asc,
+      :status   => :asc,
+      :amount   => :desc,
+      :date     => :desc,
+    }
   end
 
   def sort(scope)
     case current_column
+    when :id
+      scope.order("id #{current_direction}")
     when :project
       scope.joins{project.outer}.order("projects.name #{current_direction} nulls last")
     when :status
@@ -16,7 +24,7 @@ class DealSorter < Sorter
     when :date
       scope.order("contract_date #{current_direction} nulls last")
     else
-      scope.order("id #{current_direction}")
+      raise ArgumentError.new("bad current_column #{current_column.inspect}")
     end
   end
 end

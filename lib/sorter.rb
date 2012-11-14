@@ -9,11 +9,7 @@ class Sorter
     @view   = view
   end
 
-  def default_column
-    :id
-  end
-
-  def default_directions
+  def sortable_columns
     {}
   end
 
@@ -35,16 +31,17 @@ class Sorter
   private
 
   def current_column
-    params[:sort].try(:to_sym) || default_column
+    param = params[:sort].try(:to_sym)
+    param.in?(sortable_columns.keys) ? param : sortable_columns.keys[0]
   end
 
   def current_direction
     param = params[:direction].try(:to_sym)
-    param.in?(:asc, :desc) ? param : default_directions[current_column]
+    param.in?(:asc, :desc) ? param : default_direction(current_column)
   end
 
   def default_direction(column)
-    default_directions[column] || :asc
+    sortable_columns[column] || :asc
   end
 
   def direction_for(column)
