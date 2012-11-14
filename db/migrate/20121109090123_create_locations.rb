@@ -9,6 +9,7 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :locations, :name
     add_index :locations, :parent_id
     add_index :locations, :lft
     add_index :locations, :rgt

@@ -8,6 +8,7 @@ class CreateDeals < ActiveRecord::Migration
       t.references :status
       t.references :round
       t.references :stage
+      t.references :exit_type
       t.boolean :approx_amount, default: false
       t.integer :amount, limit: 8
       t.integer :value_before, limit: 8
@@ -25,6 +26,7 @@ class CreateDeals < ActiveRecord::Migration
     add_index :deals, :status_id
     add_index :deals, :round_id
     add_index :deals, :stage_id
+    add_index :deals, :exit_type_id
     add_index :deals, :informer_id
   end
 end

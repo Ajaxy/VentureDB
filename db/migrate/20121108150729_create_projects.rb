@@ -9,5 +9,6 @@ class CreateProjects < ActiveRecord::Migration
       t.timestamps
     end
     add_index :projects, :company_id
+    add_index :projects, :name
   end
 end
