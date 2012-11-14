@@ -1,4 +1,5 @@
 # encoding: utf-8
+require "csv"
 
 require_relative "locations/seed_locations"
 require_relative "scopes/seed_scopes"
