@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 class DealSorter < Sorter
-  set_default_direction :id, :desc
+  def default_directions
+    { id: :desc }
+  end
 
   def sort(scope)
     case current_column

@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 class ProjectSorter < Sorter
-  set_default_column :name
+  def default_column
+    :name
+  end
 
   def sort(scope)
     case current_column

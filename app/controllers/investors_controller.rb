@@ -17,4 +17,3 @@ class InvestorsController < ApplicationController
     end
   end
 end
-

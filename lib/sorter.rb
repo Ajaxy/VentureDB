@@ -4,24 +4,17 @@ class Sorter
   attr_reader :params
   attr_reader :view
 
-  @@default_column     = :id
-  @@default_directions = {}
-
-  def self.set_default_column(name)
-    @@default_column = name
-  end
-
-  def self.set_default_direction(key, value)
-    @@default_directions[key] = value
-  end
-
-  def self.default_direction_for(key)
-    @@default_directions[key]
-  end
-
   def initialize(params, view)
     @params = params
     @view   = view
+  end
+
+  def default_column
+    :id
+  end
+
+  def default_directions
+    {}
   end
 
   def header(name, column, html_options = {})
@@ -42,16 +35,16 @@ class Sorter
   private
 
   def current_column
-    params[:sort].try(:to_sym) || @@default_column
+    params[:sort].try(:to_sym) || default_column
   end
 
   def current_direction
     param = params[:direction].try(:to_sym)
-    param.in?(:asc, :desc) ? param : self.class.default_direction_for(current_column)
+    param.in?(:asc, :desc) ? param : default_directions[current_column]
   end
 
   def default_direction(column)
-    self.class.default_direction_for(column) || :asc
+    default_directions[column] || :asc
   end
 
   def direction_for(column)
