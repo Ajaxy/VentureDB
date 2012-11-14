@@ -69,11 +69,33 @@ class Deal < ActiveRecord::Base
     EXIT_TYPES[exit_type_id]
   end
 
+  def exit_type_id=(val)
+    val = nil unless round_id == 7
+    super(val)
+  end
+
   %w[amount value_before value_after].each do |attr|
     define_method "#{attr}=" do |val|
       val = val.gsub(/[  ]/, "") if val.respond_to?(:gsub)
       super(val)
     end
+  end
+
+  %w[euro_rate dollar_rate].each do |attr|
+    define_method "#{attr}=" do |val|
+      if val.is_a?(String) && val.present?
+        val = val.sub(",", ".") if val.respond_to?(:gsub)
+        val = (val.to_f.round(2) * 100).round
+      end
+      super(val)
+    end
+
+    define_method attr do
+      return unless self[attr]
+      self[attr] / 100.0
+    end
+
+    alias_method "#{attr}_before_type_cast", attr
   end
 
   def publish

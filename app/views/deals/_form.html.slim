@@ -42,6 +42,10 @@
           = f.label :round_id, "Раунд финансирования"
           = f.select :round_id, Deal::ROUNDS.invert, {}, class: "span5 chzn"
 
+        .control-group.exit-type
+          = f.label :exit_type_id, "Тип выхода"
+          = f.select :exit_type_id, Deal::EXIT_TYPES.invert, { prompt: "Не выбран" }, class: "span5 chzn"
+
         .control-group
           = f.label :stage_id, "Стадия развития компании"
           = f.select :stage_id, Deal::STAGES.invert, {}, class: "span5 chzn"
@@ -77,6 +81,19 @@
             = f.label :value_after, "Стоимость компании после сделки"
             .input-append
               = f.text_field :value_after, class: "span2"
+              span.add-on руб.
+
+        p
+        .row
+          .control-group.span3
+            = f.label :dollar_rate, "Курс доллара на день сделки"
+            .input-append
+              = f.text_field :dollar_rate, class: "span2"
+              span.add-on руб.
+          .control-group.span4
+            = f.label :euro_rate, "Курс евро на день сделки"
+            .input-append
+              = f.text_field :euro_rate, class: "span2"
               span.add-on руб.
 
   hr

@@ -74,14 +74,27 @@ class InformerForm extends AddToSelectForm
   constructor: ->
     super $("#create_informer"), $("form.deal #deal_informer_id")
 
-window.rebindInputs = (selector = "body") ->
+class DealForm
+  constructor: ->
+    @form = $("form.deal")
+
+    @roundSelect    = @form.find("#deal_round_id")
+    @exitTypeField  = @form.find(".control-group.exit-type")
+
+    @roundSelect.on "change", =>
+      if @roundSelect.val() == "7"
+        @exitTypeField.show()
+      else
+        @exitTypeField.hide()
+
+    @roundSelect.change()
+
+window.rebindInputs = (selector = document) ->
   $("select.chzn", selector).chosen(disable_search_threshold: 15)
 
   if $("form.project", selector).length > 0
     window.projectForm = new ProjectForm
-
-  if $("form.project", selector).length > 0
-    window.authorForm = new AuthorsForm
+    window.authorForm  = new AuthorsForm
 
   if $("form.investment", selector).length > 0
     window.investmentForm = new InvestmentForm
@@ -91,29 +104,30 @@ window.rebindInputs = (selector = "body") ->
 
   if $("form.deal", selector).length > 0
     window.informerForm = new InformerForm
+    window.dealForm = new DealForm
 
   $("[rel=tooltip]", selector).tooltip()
 
 jQuery ->
   rebindInputs()
 
-  $("body").on "click", "[data-dismiss=dialog]", ->
+  $(document).on "click", "[data-dismiss=dialog]", ->
     $(this).closest(".ui-dialog-content").dialog("close")
     false
 
-  $("body").on "click", "[data-toggle=dialog]", ->
+  $(document).on "click", "[data-toggle=dialog]", ->
     $($(this).attr("href")).dialog(resizeable: false, width: 1000, zIndex: 1000)
-    $("body").append("<div class='dialog-backdrop'></div>")
+    $(document).append("<div class='dialog-backdrop'></div>")
     false
 
-  $("body").on "click", ".dialog-backdrop", ->
+  $(document).on "click", ".dialog-backdrop", ->
     $(".ui-dialog-content").trigger("close")
     false
 
-  $("body").on "close", ".ui-dialog-content", ->
+  $(document).on "close", ".ui-dialog-content", ->
     $(this).dialog("close")
     $(".dialog-backdrop").remove()
 
-  $("body").on "click", ".entries-list .remove-entry", ->
+  $(document).on "click", ".entries-list .remove-entry", ->
     $(this).closest(".entry").remove()
     false

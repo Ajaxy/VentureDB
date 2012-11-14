@@ -11,6 +11,8 @@ class CreateDeals < ActiveRecord::Migration
       t.references :exit_type
       t.boolean :approx_amount, default: false
       t.integer :amount, limit: 8
+      t.integer :dollar_rate
+      t.integer :euro_rate
       t.integer :value_before, limit: 8
       t.integer :value_after, limit: 8
       t.references :informer
