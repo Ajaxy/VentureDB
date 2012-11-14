@@ -149,7 +149,7 @@ class Loader
       )
     end
 
-    actor = if type.in?(10, 12)
+    actor = if type.in?(Investor::PERSON_TYPES)
       parts = name.split
       case parts.size
       when 2

@@ -17,6 +17,6 @@ CSV.foreach(usa_cities, col_sep: "\t") do |row|
   if data["city"].present?
     city = Location.create!(name: data["city"])
     city.move_to_child_of(state)
-    puts "#{data["city"]} -> #{data["state"]}"
+    # puts "#{data["city"]} -> #{data["state"]}"
   end
 end

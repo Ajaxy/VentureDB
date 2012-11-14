@@ -31,6 +31,8 @@ class Investor < ActiveRecord::Base
     14 => "Прочие организации (юрлица)",
   }
 
+  PERSON_TYPES = [11, 13]
+
   def person
     actor.is_a?(Person) ? actor : Person.new
   end

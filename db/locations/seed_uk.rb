@@ -8,5 +8,5 @@ CSV.foreach(uk_cities, col_sep: "\t") do |row|
   city = Location.create!(name: row.first)
   city.move_to_child_of(uk)
 
-  puts "#{uk.name} -> #{city.name}"
+  # puts "#{uk.name} -> #{city.name}"
 end

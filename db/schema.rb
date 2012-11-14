@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.datetime "updated_at",                    :null => false
   end
 
+  add_index "companies", ["name"], :name => "index_companies_on_name"
+
   create_table "deals", :force => true do |t|
     t.integer  "project_id"
     t.boolean  "approx_date",                    :default => false
@@ -31,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.integer  "status_id"
     t.integer  "round_id"
     t.integer  "stage_id"
+    t.integer  "exit_type_id"
     t.boolean  "approx_amount",                  :default => false
     t.integer  "amount",            :limit => 8
     t.integer  "value_before",      :limit => 8
@@ -45,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.datetime "updated_at",                                        :null => false
   end
 
+  add_index "deals", ["exit_type_id"], :name => "index_deals_on_exit_type_id"
   add_index "deals", ["informer_id"], :name => "index_deals_on_informer_id"
   add_index "deals", ["project_id"], :name => "index_deals_on_project_id"
   add_index "deals", ["round_id"], :name => "index_deals_on_round_id"
@@ -99,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
   end
 
   add_index "locations", ["lft"], :name => "index_locations_on_lft"
+  add_index "locations", ["name"], :name => "index_locations_on_name"
   add_index "locations", ["parent_id"], :name => "index_locations_on_parent_id"
   add_index "locations", ["rgt"], :name => "index_locations_on_rgt"
 
@@ -144,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
   end
 
   add_index "projects", ["company_id"], :name => "index_projects_on_company_id"
+  add_index "projects", ["name"], :name => "index_projects_on_name"
 
   create_table "scopes", :force => true do |t|
     t.string   "name"

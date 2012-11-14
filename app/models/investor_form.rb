@@ -18,7 +18,7 @@ class InvestorForm
   delegate :id, :name_and_type, to: :investor
 
   def actor
-    type_id.in?(10, 12) ? person : company
+    type_id.in?(Investor::PERSON_TYPES) ? person : company
   end
 
   def person=(attrs)
