@@ -6,4 +6,10 @@ module ApplicationHelper
     link = link_to name, url, options
     content_tag :li, link, class: html_class
   end
+
+  def cabinet_menu_link(name, section)
+    html_class = "active" if section.to_s == action_name
+    link = link_to name, section
+    content_tag :li, link, class: html_class
+  end
 end

@@ -1,5 +1,5 @@
 <% if @type == "author" %>
-authorForm.success(<%= @person.id %>, "<%=j render "people/author", person: @person %>")
+authorForm.success(<%= @person.id %>, "<%=j render "admin/people/author", person: @person %>")
 <% else  %>
 informerForm.success(<%= @person.id %>, "<%=j @person.full_name_with_email %>")
 <% end %>

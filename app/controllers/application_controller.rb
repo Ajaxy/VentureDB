@@ -2,9 +2,12 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate_user!
 
   private
+
+  def after_sign_in_path_for(*)
+    deals_path
+  end
 
   def decorate(input, options = {})
     if input.respond_to?(:klass)
@@ -32,6 +35,8 @@ class ApplicationController < ActionController::Base
   helper_method :permitted_params
 
   def require_admin!
-    raise ActionController::RoutingError.new("404") unless current_user.admin?
+    unless current_user && current_user.admin?
+      raise ActionController::RoutingError.new("404")
+    end
   end
 end

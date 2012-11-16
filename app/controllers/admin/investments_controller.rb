@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class InvestmentsController < ApplicationController
+class Admin::InvestmentsController < ApplicationController
   before_filter :require_admin!
 
   def create

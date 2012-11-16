@@ -1,0 +1,45 @@
+- @body_class = "homepage"
+
+header
+  .subscribe
+    p Запуск проекта в январе 2013. #{link_to "Подпишитесь", "#"} на обновления.
+  .panel
+    #logo Venture Database
+    nav
+      .link = link_to "#" do
+        | Присоединяйтесь в
+        span.facebook  Facebook
+      .link = link_to "Войти в базу", :directions
+
+section.intro
+  h1 Пульс венчурного рынка
+  p Мы предоставляем профессионалам доступ к свежей аналитической
+    информации об инвесторах, компаниях, сделках и полезны корпорациям
+    для поиска новых рынков и перспективных направлений.
+  .enter = link_to "Войти в базу", :directions, class: "btn"
+  .image
+
+section.features
+  .features-wrap
+    .features-row
+      .feature
+        = image_tag "feature-1.png"
+        h2 Сделки, компании, инвесторы
+        p Самая полная статистическая информация о сделках
+          инновационно-венчурного рынка.
+      .feature.center
+        = image_tag "feature-2.png"
+        h2 Визуализация данных об отрасли
+        p Удобный интерфейс предоставления информации: обзоры по секторам,
+          аналитические срезы, тренды.
+      .feature
+        = image_tag "feature-3.png"
+        h2 Обращение к партнерам-коллегам
+        p Мы приглашаем к сотрудничеству фонды и компании, работающие на
+          инновационно-венчурном рынке.
+
+footer
+  p Copyright &copy; 2012 Venture Database Inc. All rights reserved.
+    #{link_to "Terms of Use", "#"} | #{link_to "Privacy Policy", "#"}
+  p #{link_to image_tag("rvk.png"), "#"} Стратегический парнтер и
+    спонсор проекта.

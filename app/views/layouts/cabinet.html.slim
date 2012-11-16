@@ -1,0 +1,30 @@
+- @body_class = "cabinet"
+
+- content_for :content do
+  header
+    .panel
+      = link_to "Venture Database", :root, id: "logo"
+      nav
+        .link = link_to "Панель управления", "#"
+        .link = link_to "Денис Большаков", "#"
+        .link = link_to "Выйти", "#"
+
+    nav
+      .link.active = link_to "Сделки", "/deals"
+      .link = link_to "Инвесторы", "#"
+      .link = link_to "Проекты", "#"
+
+  .main-area
+    nav
+      .search = image_tag "search.png"
+      ul
+        = cabinet_menu_link "Направления", :directions
+        = cabinet_menu_link "Динамика роста", :growth
+        = cabinet_menu_link "География", :geography
+        = cabinet_menu_link "По раундам инвестиций", :rounds
+        = cabinet_menu_link "По стадиям развития", :stages
+        = cabinet_menu_link "Финансовые инструменты", :instruments
+
+    .cabinet-page = yield
+
+= render template: "layouts/application"

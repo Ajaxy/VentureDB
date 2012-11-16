@@ -39,7 +39,7 @@
         = hidden_field_tag "project[author_ids][]"
         .authors.entries-list
           - project.authors.each do |person|
-            = render "people/author", person: person
+            = render "admin/people/author", person: person
         .search-or-add
           / .input-prepend
             span.add-on: i.icon-search
@@ -56,4 +56,4 @@
 
 - content_for :popups do
   #create_author.modal.hide.fade.popup-form
-    = render "people/form", person: Person.new, type: "author"
+    = render "admin/people/form", person: Person.new, type: "author"

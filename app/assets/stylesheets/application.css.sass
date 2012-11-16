@@ -1,5 +1,31 @@
-//= require chosen
-//require jquery.ui.all
+@import "bootstrap/variables"
+@import "bootstrap/mixins"
+@import "bootstrap/buttons"
+@import "bootstrap/tables"
 
-@import "bootstrap"
-@import "main"
+@import "compass"
+@import "reset"
+
+@import "homepage"
+@import "cabinet"
+
++reset-and-normalize
+
+body
+  font-family: "PT Sans Caption", verdana, sans-serif
+  font-size: 14px
+  background: #939393
+
+.container
+  margin: 0 auto
+  width: 1174px
+  @media (max-width: 1200px)
+    width: 1024px
+
+p + p
+  margin-top: 0.5em
+
+a
+  text-decoration: none
+  &:hover
+    text-decoration: underline

@@ -25,6 +25,7 @@ gem "unicorn"
 group :assets do
   gem "bootstrap-sass"
   gem "bourbon"
+  gem "compass-rails"
   gem "chosen-rails"
   gem "jquery-ui-rails"
 

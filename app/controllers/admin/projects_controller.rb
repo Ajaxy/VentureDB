@@ -1,6 +1,9 @@
 # encoding: utf-8
 
-class ProjectsController < ApplicationController
+class Admin::ProjectsController < ApplicationController
+  layout "admin"
+
+  before_filter :authenticate_user!
   before_filter :require_admin!, except: %w[index show]
   before_filter :find_project, only: [:show, :edit, :update, :destroy]
 

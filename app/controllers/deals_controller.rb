@@ -1,47 +1,23 @@
 # encoding: utf-8
 
 class DealsController < ApplicationController
-  before_filter :require_admin!, except: %w[index show]
-  before_filter :find_deal, only: [:show, :edit, :update, :destroy]
+  layout "cabinet"
 
-  def index
-    @sorter = DealSorter.new(params, view_context)
-    scope   = paginate Deal.includes{[project, investors.actor]}
-    @deals  = decorate @sorter.sort(scope)
+  def directions
   end
 
-  def show
-    render :edit
+  def growth
   end
 
-  def new
-    @deal = Deal.new
+  def geography
   end
 
-  def create
-    @deal = Deal.new(permitted_params.deal)
-
-    if @deal.save && @deal.publish
-      redirect_to :deals, notice: "Сделка успешно добавлена."
-    else
-      render :new
-    end
+  def rounds
   end
 
-  def edit
+  def stages
   end
 
-  def update
-    if @deal.update_attributes(permitted_params.deal) && @deal.publish
-      redirect_to :deals, notice: "Сделка успешно обновлена."
-    else
-      render :edit
-    end
-  end
-
-  private
-
-  def find_deal
-    @deal = Deal.find(params[:id])
+  def instruments
   end
 end

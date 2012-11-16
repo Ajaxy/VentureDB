@@ -139,13 +139,13 @@
 
 - content_for :popups do
   #create_project.container-popup.hide
-    = render "projects/form", project: Project.new, remote: true
+    = render "admin/projects/form", project: Project.new, remote: true
 
   #create_investment.container-popup.hide
-    = render "investments/form", investment: Investment.new
+    = render "admin/investments/form", investment: Investment.new
 
   #create_investor.modal.hide.fade.popup-form
-    = render "investors/form", investor: InvestorForm.new
+    = render "admin/investors/form", investor: InvestorForm.new
 
   #create_informer.modal.hide.fade.popup-form
-    = render "people/form", person: Person.new, type: "informer"
+    = render "admin/people/form", person: Person.new, type: "informer"

@@ -2,32 +2,26 @@ doctype html
 html
   head
     title VentureDB
+
+    javascript:
+      WebFontConfig = {
+        google: { families: [ 'PT+Sans+Caption:400,700,400italic:cyrillic' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  body class=[controller.class.name =~ /^(Devise|Users)::/ ? "devise" : controller_name]
-    .container
-      - if current_user
-        .navbar
-          .navbar-inner
-            = link_to "VentureDB", :root, class: "brand"
-            ul.nav
-              = menu_link "Сделки", :deals
-              = menu_link "Проекты", :projects
-              = menu_link "Инвесторы", :investors
-            ul.nav.pull-right
-              li.dropdown
-                a.dropdown-toggle href="#" data-toggle="dropdown"
-                  = current_user.email
-                  b.caret
-                ul.dropdown-menu
-                  li = link_to "Выход", destroy_user_session_path, method: :delete
 
-      - flash.each do |name, msg|
-        - if msg.is_a?(String)
-          div class="alert alert-#{name == :notice ? "success" : "error"}"
-            a class="close" data-dismiss="alert" &#215;
-            = content_tag :div, msg, id: "flash_#{name}"
-
-      = yield
-      = yield :popups
+    /[ if lt IE 9 ]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+  body class=[@body_class]
+    .container = content_for?(:content) ? yield(:content) : yield

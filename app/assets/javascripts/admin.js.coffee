@@ -1,3 +1,9 @@
+#= require jquery
+#= require jquery_ujs
+#= require jquery.ui.all
+#= require bootstrap
+#= require chosen-jquery
+
 class Form
   error: (formHTML) ->
     @popup.html(formHTML)
@@ -21,7 +27,7 @@ class AuthorsForm extends Form
       if id.length > 0
         $.ajax
           dataType: "script"
-          url:  "/people/#{id}"
+          url:  "/admin/people/#{id}"
           success: => $(this).val("").trigger("liszt:updated")
 
   success: (id, entryHTML) ->
@@ -117,7 +123,7 @@ jQuery ->
 
   $(document).on "click", "[data-toggle=dialog]", ->
     $($(this).attr("href")).dialog(resizeable: false, width: 1000, zIndex: 1000)
-    $(document).append("<div class='dialog-backdrop'></div>")
+    $("body").append("<div class='dialog-backdrop'></div>")
     false
 
   $(document).on "click", ".dialog-backdrop", ->
@@ -131,3 +137,4 @@ jQuery ->
   $(document).on "click", ".entries-list .remove-entry", ->
     $(this).closest(".entry").remove()
     false
+
