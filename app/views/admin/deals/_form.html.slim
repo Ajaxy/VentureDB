@@ -7,12 +7,15 @@
     .span8
       fieldset
         legend Проект-получатель инвестиций
-
         .search-or-add
-          div.search = f.collection_select :project_id, Project.order(:name), :id, :name, { prompt: "Найти проект" }, class: "chzn span5"
-          div.or = " или "
-          / div.add = link_to "Создать новый", [:new, :project], class: "btn btn-small"
-          div.add: button.btn.btn-small type="button" href="#create_project" data-toggle="dialog" Создать новый
+          .search = f.collection_select :project_id, Project.order(:name),
+                    :id, :name, { prompt: "Найти проект" }, class: "chzn span5"
+          .or = " или "
+          .add: button.btn.btn-small[type="button" href="#create_project"
+                                     data-toggle="dialog"] Создать новый
+        - if @deal.project
+          = link_to "Редактировать #{@deal.project.name}", @deal.project,
+            target: "_blank"
 
   hr
   .row
@@ -117,9 +120,9 @@
         legend Дополнительная информация
         = f.label :informer_id, "Лицо, представившее информацию"
         .search-or-add
-          div.search = f.collection_select :informer_id, Informer.by_name, :id, :full_name_with_email, { prompt: "Найти человека" }, class: "chzn span5"
-          div.or = " или "
-          div.add: button.btn.btn-small type="button" href="#create_informer" data-toggle="modal" Добавить нового
+          .search = f.collection_select :informer_id, Informer.by_name, :id, :full_name_with_email, { prompt: "Найти человека" }, class: "chzn span5"
+          .or = " или "
+          .add: button.btn.btn-small type="button" href="#create_informer" data-toggle="modal" Добавить нового
 
         p
 
