@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Admin::PeopleController < ApplicationController
-  before_filter :require_admin!
-
+class Admin::PeopleController < Admin::BaseController
   def show
     @person = Author.find(params[:id])
     @type   = "author"

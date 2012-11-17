@@ -137,4 +137,3 @@ jQuery ->
   $(document).on "click", ".entries-list .remove-entry", ->
     $(this).closest(".entry").remove()
     false
-

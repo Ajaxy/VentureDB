@@ -6,11 +6,11 @@
       = link_to "Venture Database", :root, id: "logo"
       nav
         .link = link_to "Панель управления", "#"
-        .link = link_to "Денис Большаков", "#"
-        .link = link_to "Выйти", "#"
+        .link = link_to current_user.email, "#"
+        .link = link_to "Выйти", :destroy_user_session, method: "delete"
 
     nav
-      .link.active = link_to "Сделки", "/deals"
+      .link.active = link_to "Сделки", :cabinet_deals
       .link = link_to "Инвесторы", "#"
       .link = link_to "Проекты", "#"
 

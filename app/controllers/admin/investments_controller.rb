@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Admin::InvestmentsController < ApplicationController
-  before_filter :require_admin!
-
+class Admin::InvestmentsController < Admin::BaseController
   def create
     @investment = Investment.new_draft(permitted_params.investment)
 

@@ -1,9 +1,6 @@
 # encoding: utf-8
 
-class Admin::InvestorsController < ApplicationController
-  layout "admin"
-  before_filter :authenticate_user!
-
+class Admin::InvestorsController < Admin::BaseController
   def index
     @sorter    = InvestorSorter.new(params, view_context)
     scope      = @sorter.sort(Investor.published.with_actor)

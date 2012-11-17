@@ -2,6 +2,7 @@
 
 class DealsController < ApplicationController
   layout "cabinet"
+  before_filter :authenticate_user!
 
   def directions
   end

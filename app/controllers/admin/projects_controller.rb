@@ -1,10 +1,6 @@
 # encoding: utf-8
 
-class Admin::ProjectsController < ApplicationController
-  layout "admin"
-
-  before_filter :authenticate_user!
-  before_filter :require_admin!, except: %w[index show]
+class Admin::ProjectsController < Admin::BaseController
   before_filter :find_project, only: [:show, :edit, :update, :destroy]
 
   def index
