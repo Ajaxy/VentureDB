@@ -5,21 +5,21 @@
 #= require chosen-jquery
 
 class Form
-  error: (formHTML) ->
-    @popup.html(formHTML)
-    rebindInputs(@popup)
+  error: (formHTML, $el = @popup) ->
+    $el.html(formHTML)
+    rebindInputs($el)
 
-  success: ->
-    @popup.find(":input").val("").trigger("change")
-    @popup.find("select.chzn").trigger("liszt:updated")
-    @popup.find(".field_with_errors").each -> $(this).replaceWith $(this).html()
-    @popup.find(".entries-list").html("")
-    @popup.modal("hide")
-    @popup.trigger("close")
+  success: ($el = @popup) ->
+    $el.find(":input").val("").trigger("change")
+    $el.find("select.chzn").trigger("liszt:updated")
+    $el.find(".field_with_errors").each -> $(this).replaceWith $(this).html()
+    $el.find(".entries-list").html("")
+    $el.modal("hide")
+    $el.trigger("dialog:close")
 
 class AuthorsForm extends Form
   constructor: ->
-    @popup = $("#create_author")
+    @popup = $("#new_author")
     @entriesList = $("form.project .authors")
 
     $("#find_authors").on "change", ->
@@ -31,36 +31,56 @@ class AuthorsForm extends Form
           success: => $(this).val("").trigger("liszt:updated")
 
   success: (id, entryHTML) ->
-    super
+    super()
     if @entriesList.find(".entry[data-id=#{id}]").length == 0
       @entriesList.append(entryHTML)
 
 class InvestmentForm extends Form
   constructor: ->
-    @popup = $("#create_investment")
+    @popup = $("#new_investment")
     @entriesList = $("form.deal .investments")
 
+  findEntry: (id) ->
+    @entriesList.find(".entry[data-id=#{id}]")
+
+  error: (dom_id, formHTML) ->
+    $form = $("##{dom_id}")
+    super(formHTML, $form)
+
   success: (id, entryHTML) ->
-    super
-    if @entriesList.find(".entry[data-id=#{id}]").length == 0
+    $entry = @findEntry(id)
+    if $entry.length == 0
       @entriesList.append(entryHTML)
+      super()
+    else
+      $entry.replaceWith(entryHTML)
+      super $("#investment_#{id}")
+
+  showEdit: (formHTML) ->
+    $form = $(formHTML)
+    $("##{$form.attr("id")}").remove()
+    $("body").append($form)
+    rebindInputs($form)
+    dialog($form)
 
 class AddToSelectForm extends Form
-  constructor: (@popup, @select) ->
+  constructor: (@popup, @targetForm, @inputName) ->
 
   success: (id, name) ->
-    super
-    @select.append "<option value='#{id}'>#{name}</option>"
-    @select.val(id).trigger("liszt:updated")
+    super()
+    @targetForm = $(@popup.data("target")) if @popup.data("target")
+    $select = @targetForm.find("select[name='#{@inputName}']")
+    $select.append "<option value='#{id}'>#{name}</option>"
+    $select.val(id).trigger("liszt:updated")
 
 class InvestorForm extends AddToSelectForm
   constructor: ->
-    super $("#create_investor"), $("form.investment #investment_investor_id")
+    super $("#new_investor"), null, "investment[investor_id]"
 
     @typeSelect = @popup.find("#investor_type_id")
     @typeSelect.change =>
       switch @typeSelect.val() * 1
-        when 10, 12 then @showPersonForm()
+        when 11, 13 then @showPersonForm()
         else             @showCompanyForm()
     @typeSelect.change()
 
@@ -74,11 +94,11 @@ class InvestorForm extends AddToSelectForm
 
 class ProjectForm extends AddToSelectForm
   constructor: ->
-    super $("#create_project"), $("form.deal #deal_project_id")
+    super $("#new_project"), $("form.deal"), "deal[project_id]"
 
 class InformerForm extends AddToSelectForm
   constructor: ->
-    super $("#create_informer"), $("form.deal #deal_informer_id")
+    super $("#new_informer"), $("form.deal"), "deal[informer_id]"
 
 class DealForm
   constructor: ->
@@ -95,45 +115,57 @@ class DealForm
 
     @roundSelect.change()
 
-window.rebindInputs = (selector = document) ->
-  $("select.chzn", selector).chosen(disable_search_threshold: 15)
+window.rebindInputs = (scope = document) ->
+  $("select.chzn", scope).chosen(disable_search_threshold: 15)
 
-  if $("form.project", selector).length > 0
+  if $("form.project", scope).length > 0
     window.projectForm = new ProjectForm
     window.authorForm  = new AuthorsForm
 
-  if $("form.investment", selector).length > 0
+  if $("form.investment", scope).length > 0
     window.investmentForm = new InvestmentForm
 
-  if $("form.investor", selector).length > 0
+  if $("form.investor", scope).length > 0
     window.investorForm = new InvestorForm
 
-  if $("form.deal", selector).length > 0
+  if $("form.deal", scope).length > 0
     window.informerForm = new InformerForm
     window.dealForm = new DealForm
 
-  $("[rel=tooltip]", selector).tooltip()
+  $("[rel=tooltip]", scope).tooltip()
+
+window.dialog = ($el) ->
+  $el.dialog(resizable: false, width: 1000, zIndex: 1000)
+  $el.trigger("dialog:open")
 
 jQuery ->
   rebindInputs()
 
   $(document).on "click", "[data-dismiss=dialog]", ->
-    $(this).closest(".ui-dialog-content").dialog("close")
+    $(this).closest(".ui-dialog-content").trigger("dialog:close")
     false
 
   $(document).on "click", "[data-toggle=dialog]", ->
-    $($(this).attr("href")).dialog(resizeable: false, width: 1000, zIndex: 1000)
-    $("body").append("<div class='dialog-backdrop'></div>")
+    dialog $($(this).attr("href"))
     false
 
   $(document).on "click", ".dialog-backdrop", ->
-    $(".ui-dialog-content").trigger("close")
+    $(".ui-dialog-content").trigger("dialog:close")
     false
 
-  $(document).on "close", ".ui-dialog-content", ->
+  $(document).on "dialog:open", ".ui-dialog-content", ->
+    $("body").append("<div class='dialog-backdrop'></div>")
+
+  $(document).on "dialog:close", ".ui-dialog-content", ->
     $(this).dialog("close")
     $(".dialog-backdrop").remove()
 
-  $(document).on "click", ".entries-list .remove-entry", ->
+  $(document).on "click", ".entries-list .controls .icon-remove", ->
     $(this).closest(".entry").remove()
+    false
+
+  $(document).on "click", "button.new_investor", ->
+    $form = $("#new_investor")
+    $form.data("target", "#" + $(this).closest(".container-popup").attr("id"))
+    $form.modal("show")
     false

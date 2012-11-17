@@ -41,12 +41,11 @@
           - project.authors.each do |person|
             = render "admin/people/author", person: person
         .search-or-add
-          / .input-prepend
-            span.add-on: i.icon-search
-            input.span5 type="text" placeholder="Найти автора"
-          div.search = collection_select :find, :authors, Author.by_name , :id, :full_name_with_email, { prompt: "Найти автора" }, class: "chzn span5"
-          div.or = " или "
-          div.add: button.btn.btn-small type="button" href="#create_author" data-toggle="modal" Создать нового
+          .search = collection_select :find, :authors, Author.by_name,:id,
+            :full_name_with_email, { prompt: "Найти автора" }, class: "chzn span5"
+          .or = " или "
+          .add: button.btn.btn-small[type="button" href="#new_author"
+                                     data-toggle="modal"] Создать нового
 
   .form-actions
     .offset4
@@ -55,5 +54,5 @@
       a.btn.btn-large href="#" data-dismiss="dialog" Отмена
 
 - content_for :popups do
-  #create_author.modal.hide.fade.popup-form
+  #new_author.modal.hide.fade.popup-form
     = render "admin/people/form", person: Person.new, type: "author"

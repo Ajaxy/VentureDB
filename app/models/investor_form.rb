@@ -29,10 +29,6 @@ class InvestorForm
     @company = Company.new_draft(attrs)
   end
 
-  def persisted?
-    false
-  end
-
   def save
     if valid? && actor.valid?
       persist!
@@ -40,6 +36,10 @@ class InvestorForm
     else
       false
     end
+  end
+
+  def persisted?
+    false
   end
 
   private

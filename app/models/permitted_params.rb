@@ -1,13 +1,12 @@
 # encoding: utf-8
 
 class PermittedParams < Struct.new(:params, :user)
-  def project
-    params.require(:project).permit(*project_attributes,
-      company_attributes: company_attributes)
+  def company
+    params.require(:company).permit(*company_attributes)
   end
 
-  def person
-    params.require(:person).permit(*person_attributes)
+  def deal
+    params.require(:deal).permit(*deal_attributes)
   end
 
   def investment
@@ -19,8 +18,13 @@ class PermittedParams < Struct.new(:params, :user)
       company: company_attributes, person: person_attributes)
   end
 
-  def deal
-    params.require(:deal).permit(*deal_attributes)
+  def person
+    params.require(:person).permit(*person_attributes)
+  end
+
+  def project
+    params.require(:project).permit(*project_attributes,
+      company_attributes: company_attributes)
   end
 
   private

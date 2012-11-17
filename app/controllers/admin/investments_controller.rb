@@ -10,4 +10,18 @@ class Admin::InvestmentsController < Admin::BaseController
       render :error
     end
   end
+
+  def edit
+    @investment = Investment.find(params[:id])
+  end
+
+  def update
+    @investment = Investment.find(params[:id])
+
+    if @investment.update_attributes(permitted_params.investment)
+      render :success
+    else
+      render :error
+    end
+  end
 end

@@ -1,5 +1,8 @@
 .entry data-id=[person.id]
-  .remove-entry: i.icon-remove
+  .controls
+    span = link_to edit_person_path(person), target: "_blank" do
+      i.icon-edit
+    span: i.icon-remove
   = hidden_field_tag "project[author_ids][]", person.id
   strong = person.full_name
   br

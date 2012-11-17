@@ -10,6 +10,7 @@ Venture::Application.routes.draw do
     root to: "deals#index"
     resources :projects
     resources :people
+    resources :companies
     resources :deals
     resources :investments
     resources :investors

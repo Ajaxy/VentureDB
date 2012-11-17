@@ -9,9 +9,12 @@ h3 Инвестиция
         legend Инвестор
         .control-group
           .search-or-add
-            div.search = f.collection_select :investor_id, Investor.with_actor.sort_by(&:name), :id, :name_and_type, { prompt: "Найти инвестора" }, class: "chzn span5"
-            div.or = " или "
-            div.add: button.btn.btn-small type="button" href="#create_investor" data-toggle="modal" Создать нового
+            .search = f.collection_select :investor_id, Investor.with_actor.sort_by(&:name), :id, :name_and_type, { prompt: "Найти инвестора" }, class: "chzn span5", id: dom_id(investment, :investor_id)
+            .or = " или "
+            .add: button.btn.btn-small.new_investor type="button" Создать нового
+          - if investment.investor
+            = link_to "«#{investment.investor.actor.name}» — редактировать",
+              [:edit, investment.investor.actor], target: "_blank"
   hr
   .row
     .span4
@@ -19,13 +22,13 @@ h3 Инвестиция
       fieldset
         legend Параметры сделки
         = f.label :instrument_id, "Тип финансового инструмента"
-        = f.select :instrument_id, Investment::INSTRUMENTS.invert, { prompt: "Финансовый инструмент" }, class: "chzn span4"
+        = f.select :instrument_id, Investment::INSTRUMENTS.invert, { prompt: "Финансовый инструмент" }, class: "chzn span4", id: dom_id(investment, :instrument_id)
         p
         = f.label :share, "Приобретаемая доля в компании"
         = f.text_field :share, class: "span4"
 
   .form-actions
     .offset4
-      button.btn.btn-primary Добавить инвестицию
+      button.btn.btn-primary Сохранить
       '
       a.btn data-dismiss="dialog" Отмена
