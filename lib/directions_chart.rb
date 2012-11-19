@@ -2,11 +2,9 @@
 
 class DirectionsChart
   attr_reader :id
-  attr_reader :scopes
 
   def initialize(id)
     @id = id
-    @scopes ||= get_scopes.select { |s| s.deals.any? }.sort_by(&:count).reverse
   end
 
   def amount
@@ -21,10 +19,6 @@ class DirectionsChart
     get_data.to_json
   end
 
-  def deals
-    scopes.sum(&:deals)
-  end
-
   def investors
     ids = deals.map(&:id)
     Investment.where{deal_id.in(ids)}.uniq.pluck(:investor_id).size
@@ -32,6 +26,10 @@ class DirectionsChart
 
   def projects
     deals.map(&:project_id).uniq.length
+  end
+
+  def scopes
+    @scopes ||= get_scopes.select { |s| s.deals.any? }.sort_by(&:count).reverse
   end
 
   def title
@@ -50,14 +48,13 @@ class DirectionsChart
     scope
   end
 
+  def deals
+    scopes.sum(&:deals)
+  end
+
   def get_data
-    data = []
-    data << ["Sector", "Deals"]
-
-    scopes.each_with_index do |scope, index|
-      data << [scope.name, scope.count]
-    end
-
+    data = scopes.map { |scope| [scope.name, scope.count] }
+    data.prepend ["Sector", "Deals"]
     data
   end
 

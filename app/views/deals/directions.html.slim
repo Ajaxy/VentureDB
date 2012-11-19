@@ -9,7 +9,7 @@ table.table.table-striped
       th Сделки
       th Объем
   tbody
-    - ScopeDecorator.decorate(@chart.scopes).each do |scope|
+    - decorate(@chart.scopes).each do |scope|
       tr
         td = scope.link_or_name
         td = scope.count
