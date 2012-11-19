@@ -5,6 +5,9 @@ class DealsController < ApplicationController
   before_filter :authenticate_user!
 
   def directions
+    @chart = DirectionsChart.new(params[:id])
+  rescue ArgumentError
+    raise_404
   end
 
   def growth

@@ -1,5 +1,6 @@
-h1 Направления инвестиций в информационных технологиях
-= image_tag "directions-graph.png", width: 700
+h1 = @chart.title
+
+= render "chart", chart: @chart
 
 table.table.table-striped
   thead
@@ -8,29 +9,22 @@ table.table.table-striped
       th Сделки
       th Объем
   tbody
-    tr
-      td Информационные технологии
-      td 50
-      td $50 900 000
-    tr
-      td Промышленность
-      td 30
-      td $23 600 000
-    tr
-      td Сфера услуг
-      td 20
-      td $19 000 000
+    - ScopeDecorator.decorate(@chart.scopes).each do |scope|
+      tr
+        td = scope.link_or_name
+        td = scope.count
+        td = scope.amount
 
 .summary
   div
     p Сделок в базе
-    p: strong 155
+    p: strong = @chart.count
   div
     p Объем инвестиций
-    p: strong $60М
+    p: strong = number_to_human @chart.amount, locale: "chart"
   div
     p Инвесторов
-    p: strong 40
+    p: strong = @chart.investors
   div
     p Стартапов
-    p: strong 125
+    p: strong = @chart.projects

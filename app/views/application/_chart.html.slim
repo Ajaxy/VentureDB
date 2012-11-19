@@ -1,0 +1,16 @@
+= javascript_include_tag "https://www.google.com/jsapi"
+
+javascript:
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(#{raw chart.data});
+
+    var options = {};
+
+    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+    chart.draw(data, options);
+  }
+
+#chart

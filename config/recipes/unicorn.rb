@@ -24,3 +24,5 @@ namespace :unicorn do
     after "deploy:#{command}", "unicorn:#{command}"
   end
 end
+ ChatRoom.find_or_initialize_by_user_id_and_commentable_type_and_commentable_id(uid, commentable[2], commentable[3])
+ ChatRoom.where(user_id: uid, commentable_type: commentable[2], commentable_id: commentable[3]).first_or_initialize

@@ -34,9 +34,13 @@ class ApplicationController < ActionController::Base
   end
   helper_method :permitted_params
 
+  def raise_404
+    raise ActionController::RoutingError.new("404")
+  end
+
   def require_admin!
     unless current_user && current_user.admin?
-      raise ActionController::RoutingError.new("404")
+      raise_404
     end
   end
 end
