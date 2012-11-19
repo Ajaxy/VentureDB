@@ -3,7 +3,14 @@
 class Scope < ActiveRecord::Base
   acts_as_nested_set
 
-  attr_accessor :deals
+  def deals
+    @deals ||= begin
+      lft = self[:lft]
+      rgt = self[:rgt]
+      Deal.joins{project.scopes}
+          .where{(project.scopes.lft >= lft) & (project.scopes.lft < rgt)}.to_a
+    end
+  end
 
   def short_name
     self[:short_name] || name
@@ -14,6 +21,7 @@ class Scope < ActiveRecord::Base
   end
 
   def count
-    deals.size
+    deals.length
   end
 end
+

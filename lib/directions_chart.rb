@@ -21,14 +21,17 @@ class DirectionsChart
     get_data.to_json
   end
 
+  def deals
+    scopes.sum(&:deals)
+  end
+
   def investors
-    ids = deals
-    Investor.joins{deals}.where{deals.id.in(ids)}.select{distinct id}.size
+    ids = deals.map(&:id)
+    Investment.where{deal_id.in(ids)}.uniq.pluck(:investor_id).size
   end
 
   def projects
-    ids = deals
-    Project.joins{deals}.where{deals.id.in(ids)}.select{distinct id}.size
+    deals.map(&:project_id).uniq.length
   end
 
   def title
@@ -47,10 +50,6 @@ class DirectionsChart
     scope
   end
 
-  def deals
-    scopes.sum(&:deals).uniq
-  end
-
   def get_data
     data = []
     data << ["Sector", "Deals"]
@@ -63,16 +62,6 @@ class DirectionsChart
   end
 
   def get_scopes
-    real_scopes.map do |scope|
-      ids   = scope.self_and_descendants.pluck(:id)
-      scope.deals = Deal.joins{project.project_scopes}
-                        .where{project_scopes.scope_id.in(ids)}
-                        .select{[id, amount]}
-      scope
-    end
-  end
-
-  def real_scopes
     id ? current_scope.children : Scope.roots
   end
 end
