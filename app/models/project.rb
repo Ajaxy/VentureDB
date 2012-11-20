@@ -19,7 +19,8 @@ class Project < ActiveRecord::Base
   belongs_to :company
 
   validates :name, uniqueness: true
-  validates :name, :description, :scope_ids, :market_ids, :author_ids, presence: true
+  validates :name, :description, :scope_ids, :market_ids, :author_ids,
+            :presence => true
 
   accepts_nested_attributes_for :company
 

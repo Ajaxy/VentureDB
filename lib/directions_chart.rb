@@ -24,6 +24,10 @@ class DirectionsChart
     Investment.where{deal_id.in(ids)}.uniq.pluck(:investor_id).size
   end
 
+  def options
+    {}
+  end
+
   def projects
     deals.map(&:project_id).uniq.length
   end
@@ -38,6 +42,10 @@ class DirectionsChart
     else
       "Направления инвестиций"
     end
+  end
+
+  def type
+    "PieChart"
   end
 
   private

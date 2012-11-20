@@ -7,9 +7,9 @@ javascript:
   function drawChart() {
     var data = google.visualization.arrayToDataTable(#{raw chart.data});
 
-    var options = {};
+    var options = #{raw chart.options};
 
-    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+    var chart = new google.visualization.#{chart.type}(document.getElementById('chart'));
     chart.draw(data, options);
   }
 

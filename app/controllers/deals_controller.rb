@@ -10,7 +10,8 @@ class DealsController < ApplicationController
     raise_404
   end
 
-  def growth
+  def dynamics
+    @chart = DynamicsChart.new
   end
 
   def geography

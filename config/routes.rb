@@ -19,7 +19,7 @@ Venture::Application.routes.draw do
   scope "/deals", controller: "deals" do
     root to: :directions, as: :cabinet_deals
     get "/directions(/:id)" => "deals#directions", as: :directions
-    get :growth
+    get :dynamics
     get :geography
     get :rounds
     get :stages

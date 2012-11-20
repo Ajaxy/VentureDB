@@ -9,6 +9,7 @@ class Investor < ActiveRecord::Base
   has_many :locations, through: :location_bindings
 
   belongs_to :actor, polymorphic: true
+
   has_many :investments
   has_many :deals, through: :investments
 

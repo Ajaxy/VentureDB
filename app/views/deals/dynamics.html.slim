@@ -1,0 +1,34 @@
+h1 = @chart.title
+
+= render "chart", chart: @chart
+
+table.table.table-striped
+  thead
+    tr
+      th Сектор
+      th Прирост за весь период, %
+      th Прирост за последний квартал, %
+      th Прирост за весь период, млн руб.
+      th Прирост за последний квартал, млн руб.
+  tbody
+    - @chart.scopes.each do |scope|
+      tr
+        td #{scope.name}
+        td #{scope.annual_growth}%
+        td #{scope.quarter_growth}%
+        td #{scope.annual_growth_abs}
+        td #{scope.quarter_growth_abs}
+
+.summary
+  div
+    p Прирост среднего за весь период
+    p: strong #{@chart.annual_growth}%
+  div
+    p Прирост среднего за последний квартал
+    p: strong #{@chart.quarter_growth}%
+  div
+    p Самый быстрорастущий сектор: «#{@chart.fastest_grower.name}»
+    p: strong: #{@chart.fastest_grower.quarter_growth}%
+  div
+    p Самый быстрорастущий сектор: «#{@chart.slowest_grower.name}»
+    p: strong: #{@chart.slowest_grower.quarter_growth}%
