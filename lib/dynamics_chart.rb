@@ -5,8 +5,9 @@ class DynamicsChart
     attr_reader :year, :number
 
     def initialize(year, number)
-      @year = year
+      @year   = year
       @number = number
+
       while @number <= 0
         @year   -= 1
         @number += 4
@@ -67,12 +68,6 @@ class DynamicsChart
     def percents(value)
       (value * 100).round
     end
-  end
-
-  attr_reader :means
-
-  def initialize
-    @means = []
   end
 
   def annual_growth
