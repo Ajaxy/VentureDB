@@ -16,8 +16,16 @@ class DynamicsChart
 
     def period
       start_month = (number - 1) * 3 + 1
-      end_month   = number * 3
-      Date.new(year, start_month) .. Date.new(year, end_month)
+      end_month   = number * 3 + 1
+      start_year  = year
+      end_year    = year
+
+      if end_month == 13
+        end_year += 1
+        end_month = 1
+      end
+
+      Date.new(start_year, start_month) .. Date.new(end_year, end_month)
     end
 
     def name
@@ -45,6 +53,10 @@ class DynamicsChart
 
     def quarter_growth_abs
       @quarter_growth_abs ||= growth_abs(-2, -1)
+    end
+
+    def deals
+      scope.deals.uniq
     end
 
     private
@@ -95,7 +107,7 @@ class DynamicsChart
     return @amount_for[[quarter, scope]] if @amount_for[[quarter, scope]]
 
     total = scope.deals.select do |deal|
-      deal.contract_date && quarter.period.cover?(deal.contract_date)
+      deal.contract_date && quarter.period.cover?(deal.announcement_date)
     end.sum { |deal| deal.amount || 0 }
 
     result = (total / 1_000_000.0).round
