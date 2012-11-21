@@ -12,4 +12,8 @@ module ApplicationHelper
     link = link_to name, section
     content_tag :li, link, class: html_class
   end
+
+  def b(*args, &block)
+    content_tag :strong, *args, &block
+  end
 end

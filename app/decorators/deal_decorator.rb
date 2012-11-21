@@ -27,12 +27,27 @@ class DealDecorator < ApplicationDecorator
 
   def amount
     return "—" unless deal.amount?
-    tag :div, roubles(deal.amount), class: "amount"
+    tag :span, roubles(deal.amount), class: "amount"
+  end
+
+  def value_before
+    return "—" unless deal.value_before?
+    tag :span, roubles(deal.value_before), class: "amount"
+  end
+
+  def value_after
+    return "—" unless deal.value_after?
+    tag :span, roubles(deal.value_after), class: "amount"
   end
 
   def contract_date
     return "—" unless deal.contract_date?
     h.localize(deal.contract_date)
+  end
+
+  def announcement_date
+    return "—" unless deal.announcement_date?
+    h.localize(deal.announcement_date)
   end
 
   def investor_names

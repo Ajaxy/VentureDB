@@ -19,10 +19,8 @@
 table.table.table-striped
   thead
     tr
-      th        = @sorter.header "Проект", :project
+      th        Проект
       th        Авторы проекта
-      / th        Сектора деятельности
-      / th        География
       th        Полученные инвестиции
       th.center Раунд финансирования
       th.center Стадия развития
@@ -31,7 +29,7 @@ table.table.table-striped
   tbody
     - @deals.each do |deal|
       tr
-        td        = deal.link(text: deal.project_name)
+        td        = link_to deal.project_name, cabinet_deal_path(deal)
         td        = deal.authors_list
         td        = deal.investor_names
         td.center = deal.round

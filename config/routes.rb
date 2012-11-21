@@ -17,13 +17,15 @@ Venture::Application.routes.draw do
   end
 
   scope "/deals", controller: "deals" do
-    get "/" => "deals#index", as: :cabinet_deals
     get "/directions(/:id)" => "deals#directions", as: :directions
     get :dynamics
     get :geography
     get :rounds
     get :stages
     get :instruments
+
+    get "/"     => "deals#index", as: :cabinet_deals
+    get "/:id"  => "deals#show", as: :cabinet_deal
   end
 
   root to: "home#index"

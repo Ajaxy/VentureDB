@@ -12,6 +12,10 @@ class DealsController < ApplicationController
     @deals  = decorate @filter.filter(scope).uniq
   end
 
+  def show
+    @deal = decorate Deal.find(params[:id])
+  end
+
   def directions
     @chart = DirectionsChart.new(params[:id])
   rescue ArgumentError

@@ -1,0 +1,65 @@
+h1 Сделка ##{@deal.id}
+
+section.deal
+  - if project = @deal.project
+    h2 Проект
+    .label Название: «#{b project.name}»
+
+    .label Описание:
+    div = simple_format project.description
+
+    .label Сектор и сфера деятельности:
+    ul
+      - project.scopes.each do |scope|
+        li = scope.name
+
+    .label Географические рынки осуществления операций
+    ul
+      - project.markets.each do |location|
+        li = location.name
+
+    .label Авторы проекта
+    - project.authors.each do |author|
+      div ФИО: #{b author.full_name}
+      div Электронная почта: #{b author.email}
+      div Телефон: #{b author.phone}
+
+    - if company = project.company
+      h2 Компания
+      div Краткое название компании: «#{b company.name}»
+      div Полное название компании: «#{b company.full_name}»
+      div Организационно-правовая форма: «#{b company.form}»
+      div Местонахождение: «#{b company.place}»
+
+  h2 Общая информация о сделке
+  div Дата объявления сделки: #{b @deal.announcement_date}
+  div Дата заключения сделки: #{b @deal.contract_date}
+  div Статус сделки: #{b @deal.status}
+  div Раунд финансирования: #{b @deal.round}
+  div Стадия развития компании: #{b @deal.stage}
+
+  h2 Финансовая сторона сделки
+  div Сумма сделки: #{b @deal.amount}
+  div Стоимость компании до сделки: #{b @deal.value_before}
+  div Стоимость компании после сделки: #{b @deal.value_after}
+
+  h2 Инвестиции сделки
+  - @deal.investments.each do |investment|
+    .investment
+      div Инвестор: #{b investment.investor_name} (#{investment.investor_type})
+      div Финансовый инструмент: #{b investment.instrument}
+      div Доля: #{b investment.share}
+
+  h2 Дополнительная информация
+  - if informer = @deal.informer
+    .label Лицо, представившее информацию
+    div ФИО: #{b informer.full_name}
+    div Электронная почта: #{b informer.email}
+    div Телефон: #{b informer.phone}
+
+  .label Упоминания в прессе
+  div = simple_format @deal.mentions
+
+  .label Комментарии
+  div = simple_format @deal.comments
+
