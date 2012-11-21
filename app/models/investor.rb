@@ -35,6 +35,11 @@ class Investor < ActiveRecord::Base
 
   PERSON_TYPES = [11, 13]
 
+  def self.in_location(location)
+    joins{locations}.where{(locations.lft >= location.lft) &
+                           (locations.lft < location.rgt)}
+  end
+
   def person
     actor.is_a?(Person) ? actor : Person.new
   end

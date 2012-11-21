@@ -42,6 +42,7 @@ class DealFilter
 
   def date(string)
     return unless string.present?
+
     d, m, y = string.split(".")
     date = Date.new(y.to_i, m.to_i, d.to_i) rescue nil
 
