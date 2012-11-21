@@ -25,7 +25,7 @@ class DynamicsChart
         end_month = 1
       end
 
-      Date.new(start_year, start_month) .. Date.new(end_year, end_month)
+      Date.new(start_year, start_month) ... Date.new(end_year, end_month)
     end
 
     def name
@@ -107,11 +107,12 @@ class DynamicsChart
     return @amount_for[[quarter, scope]] if @amount_for[[quarter, scope]]
 
     total = scope.deals.select do |deal|
-      deal.contract_date && quarter.period.cover?(deal.announcement_date)
+      date = deal.contract_date || deal.announcement_date
+      date && quarter.period.cover?(date)
     end.sum { |deal| deal.amount || 0 }
 
-    result = (total / 1_000_000.0).round
-    result = (result / scopes.size.to_f).round if scope.mean
+    total  = total.to_f / scopes.size if scope.mean
+    result = (total.to_f / 1_000_000).round
 
     @amount_for[[quarter, scope]] = result
   end
