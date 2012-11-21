@@ -17,6 +17,10 @@ class DealDecorator < ApplicationDecorator
     project.try(:name) || "—"
   end
 
+  def round
+    deal.round || "—"
+  end
+
   def status
     deal.status || "—"
   end
@@ -34,5 +38,10 @@ class DealDecorator < ApplicationDecorator
   def investor_names
     return "—" unless deal.investors.any?
     list deal.investors.map(&:name)
+  end
+
+  def authors_list
+    return "—" unless deal.project.authors.any?
+    list project.authors.map(&:name)
   end
 end

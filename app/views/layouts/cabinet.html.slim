@@ -17,7 +17,7 @@
 
   .main-area
     nav
-      .search = image_tag "search.png"
+      .search = link_to image_tag("search.png"), :cabinet_deals
       ul
         = cabinet_menu_link "Направления", :directions
         = cabinet_menu_link "Динамика роста", :dynamics

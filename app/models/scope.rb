@@ -4,12 +4,7 @@ class Scope < ActiveRecord::Base
   acts_as_nested_set
 
   def deals
-    @deals ||= begin
-      lft = self[:lft]
-      rgt = self[:rgt]
-      Deal.joins{project.scopes}
-          .where{(project.scopes.lft >= lft) & (project.scopes.lft < rgt)}.to_a
-    end
+    @deals ||= Deal.in_scope(self).to_a
   end
 
   def short_name

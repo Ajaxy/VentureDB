@@ -43,6 +43,52 @@ class Deal < ActiveRecord::Base
     5 => "IPO",
   }
 
+  def self.in_scope(scope)
+    joins{project.scopes}.where{(project.scopes.lft >= scope.lft) &
+                                (project.scopes.lft < scope.rgt)}
+  end
+
+  def self.in_stage(stage)
+    return scoped unless Deal::STAGES[stage]
+    where{stage_id == stage}
+  end
+
+  def self.in_round(round)
+    return scoped unless Deal::ROUNDS[round]
+    where{round_id == round}
+  end
+
+  def self.with_investor_type(type)
+    return scoped unless Investor::TYPES[type]
+    joins{investors}.where{investors.type_id == type}
+  end
+
+  def self.from_date(value)
+    where{contract_date >= value}
+  end
+
+  def self.to_date(value)
+    where{contract_date <= value}
+  end
+
+  def self.from_amount(value)
+    where{amount >= value}
+  end
+
+  def self.to_amount(value)
+    where{amount <= value}
+  end
+
+  def self.search(string)
+    return scopes unless string.present?
+    search = "%#{string}%"
+    joins{[ project.company.outer, project.authors.outer ]}
+    .where{ project.name.like(search) |
+            project.company.name.like(search) |
+            project.authors.first_name.like(search) |
+            project.authors.last_name.like(search) }
+  end
+
   def announcement_date_before_type_cast
     return unless date = self[:announcement_date]
     I18n.localize(date)
@@ -58,11 +104,11 @@ class Deal < ActiveRecord::Base
   end
 
   def round
-    STATUSES[round_id]
+    ROUNDS[round_id]
   end
 
   def stage
-    STATUSES[stage_id]
+    STAGES[stage_id]
   end
 
   def exit_type

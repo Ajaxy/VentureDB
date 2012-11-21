@@ -81,6 +81,7 @@ $text-color: #60656e
           border: solid #dedfe1
           border-width: 1px 0
     .cabinet-page
+      padding-top: 15px
       margin-left: 219px
       min-height: 300px
       background: white
@@ -94,12 +95,17 @@ $text-color: #60656e
         margin: 0 40px
       .table
         margin: 30px 0
+        th
+          i
+            margin-left: 6px
+            opacity: 0.5
         td
           border: 0
         td, th
+          &.center
+            text-align: center
           &:first-child
             padding-left: 40px
-        td, th
           &:last-child
             padding-right: 40px
       .summary
@@ -125,3 +131,18 @@ $text-color: #60656e
   width: 800px
   height: 500px
   margin: 0 auto
+
+.filters
+  margin: 10px 30px
+  select
+    width: 400px
+  input.date
+    width: 100px
+  input.amount
+    width: 100px
+  form
+    > div + div
+      margin-top: 10px
+
+.pagination
+  text-align: center
