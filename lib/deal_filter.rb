@@ -27,6 +27,7 @@ class DealFilter
 
   def amount(string)
     return unless string.present?
+
     string.gsub!(/[  ]/, "")
     string.sub!(",", ".")
     (string.to_f * 1_000_000).round

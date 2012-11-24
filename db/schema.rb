@@ -11,16 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110102719) do
+ActiveRecord::Schema.define(:version => 20121122134713) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
     t.string   "full_name"
     t.string   "place"
     t.string   "form"
-    t.boolean  "draft",      :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "draft",         :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.date     "creation_date"
+    t.text     "contacts"
+    t.text     "employees"
+    t.text     "founders"
+    t.text     "direction"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
@@ -145,9 +150,17 @@ ActiveRecord::Schema.define(:version => 20121110102719) do
     t.string   "name"
     t.text     "description"
     t.integer  "company_id"
-    t.boolean  "draft",       :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "draft",                :default => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.text     "investments_string"
+    t.text     "suppliers"
+    t.text     "competitors"
+    t.text     "experience"
+    t.text     "competitions"
+    t.text     "accelerators"
+    t.text     "need_for_investments"
+    t.text     "errors_log"
   end
 
   add_index "projects", ["company_id"], :name => "index_projects_on_company_id"
