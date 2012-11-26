@@ -1,3 +1,4 @@
+
 source :rubygems
 
 gem "rails", "3.2.8"
@@ -41,6 +42,7 @@ end
 group :development, :test do
   gem "capybara"
   gem "quiet_assets"
+  # gem "factory_girl_rails"
   gem "rspec-rails"
   gem "unicode_utils"
 end

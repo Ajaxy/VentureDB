@@ -1,0 +1,28 @@
+.date-select.input-append
+  = date_select_button "2010", "2010"
+  = date_select_button "2011", "2011"
+  = date_select_button "2012", "2012"
+  = date_select_button "Все", ""
+
+h1 Обзор рынка венчурных инвестиций
+
+.summary
+  div
+    p Сделок в базе
+    p: strong = @overview.count
+  div
+    p Объем инвестиций
+    p: strong $#{@overview.amount}М
+  div
+    p Инвесторов
+    p: strong = @overview.investors
+  div
+    p Стартапов
+    p: strong = @overview.projects
+
+h2 Венчурные инвестиции по кварталам
+= render "chart", chart: @overview.dynamics
+
+p = @overview.directions.scopes.first.amount
+p = @overview.rounds.rounds.first.amount
+p = @overview.stages.stages.first.amount

@@ -16,16 +16,10 @@ Venture::Application.routes.draw do
     resources :investors
   end
 
-  scope "/deals", controller: "deals" do
-    get "/directions(/:id)" => "deals#directions", as: :directions
-    get :dynamics
-    get :geography
-    get :rounds
-    get :stages
-    get :instruments
-
-    get "/"     => "deals#index", as: :cabinet_deals
-    get "/:id"  => "deals#show", as: :cabinet_deal
+  scope "/deals" do
+    get "/overview(/:year)" => "deals#overview", as: :cabinet_overview
+    get "/"                 => "deals#index", as: :cabinet_deals
+    get "/:id"              => "deals#show", as: :cabinet_deal
   end
 
   root to: "home#index"

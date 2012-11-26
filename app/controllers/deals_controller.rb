@@ -4,6 +4,10 @@ class DealsController < ApplicationController
   layout "cabinet"
   before_filter :authenticate_user!
 
+  def overview
+    @overview = DealsOverview.new(params[:year])
+  end
+
   def index
     @sorter = DealSorter.new(params, view_context)
     @filter = DealFilter.new(params[:filter])
@@ -14,27 +18,5 @@ class DealsController < ApplicationController
 
   def show
     @deal = decorate Deal.find(params[:id])
-  end
-
-  def directions
-    @chart = DirectionsChart.new(params[:id])
-  rescue ArgumentError
-    raise_404
-  end
-
-  def dynamics
-    @chart = DynamicsChart.new
-  end
-
-  def geography
-  end
-
-  def rounds
-  end
-
-  def stages
-  end
-
-  def instruments
   end
 end

@@ -80,13 +80,22 @@ class Deal < ActiveRecord::Base
   end
 
   def self.search(string)
-    return scopes unless string.present?
+    return scoped unless string.present?
     search = "%#{string}%"
     joins{[ project.company.outer, project.authors.outer ]}
     .where{ project.name.like(search) |
             project.company.name.like(search) |
             project.authors.first_name.like(search) |
             project.authors.last_name.like(search) }
+  end
+
+  def self.for_period(period)
+    where{coalesce(contract_date, announcement_date) >= period.begin}.
+    where{coalesce(contract_date, announcement_date) <= period.end}
+  end
+
+  def self.for_year(year)
+    for_period(Date.new(year) .. Date.new(year).end_of_year)
   end
 
   def announcement_date_before_type_cast

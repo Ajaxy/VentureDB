@@ -114,16 +114,16 @@ $text-color: #60656e
         display: table
         border-collapse: collapse
         width: 100%
-        height: 170px
+        height: 100px
         > div
           display: table-cell
-          padding: 0 1em
+          padding: 1em
           vertical-align: middle
           text-align: center
-          border: solid #d9dadd
-          border-width: 1px 1px 0 0
+          // border: solid #d9dadd
+          // border-width: 1px 1px 1px 0
           p + p
-            margin-top: 2em
+            margin-top: 0.5em
           strong
             font-size: 4em
         > div:last-child
@@ -157,3 +157,9 @@ section.deal
     margin-top: 0.5em
   .investment + .investment
     margin-top: 0.5em
+
+.date-select
+  float: right
+  margin: 20px 40px
+  .btn:first-child
+    border-radius: 3px 0 0 3px
