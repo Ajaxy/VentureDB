@@ -81,7 +81,7 @@ $text-color: #60656e
           border: solid #dedfe1
           border-width: 1px 0
     .cabinet-page
-      padding-top: 15px
+      padding: 40px
       margin-left: 219px
       min-height: 300px
       background: white
@@ -91,7 +91,6 @@ $text-color: #60656e
       line-height: 1.5
       h1
         font-size: 2em
-        margin: 20px 40px
       h2
         font-size: 1.5em
         line-height: 1.5
@@ -100,7 +99,7 @@ $text-color: #60656e
       img
         margin: 0 40px
       .table
-        margin: 30px 0
+        margin: 30px -40px
         td
           border: 0
         td, th
@@ -115,6 +114,7 @@ $text-color: #60656e
         border-collapse: collapse
         width: 100%
         height: 100px
+        margin: 20px 0
         > div
           display: table-cell
           padding: 1em
@@ -129,13 +129,12 @@ $text-color: #60656e
         > div:last-child
           border-right: 0
 
-#chart
-  width: 800px
-  height: 500px
+.chart
+  width: 600px
+  height: 350px
   margin: 0 auto
 
 .filters
-  margin: 10px 30px
   select
     width: 400px
   input.date
@@ -160,6 +159,5 @@ section.deal
 
 .date-select
   float: right
-  margin: 20px 40px
   .btn:first-child
     border-radius: 3px 0 0 3px

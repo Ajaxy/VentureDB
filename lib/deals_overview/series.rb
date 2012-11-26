@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class DealsOverview
-  class ChartEntry
+  class Series
     def amount
       sum = deals.sum { |deal| deal.amount || 0 }
       (sum.to_f / MONEY_RATE).round
@@ -13,7 +13,7 @@ class DealsOverview
 
     def average_amount
       return 0 if count == 0
-      (amount / count.to_f).round
+      (amount / count.to_f).round(3)
     end
   end
 end

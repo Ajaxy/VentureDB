@@ -9,11 +9,23 @@ describe DealsOverview do
   end
 
   def create_deal(options = {})
-    if scopes = options.delete(:scopes)
-      options[:project] = fabricate(Project, scopes: scopes)
+    scopes    = options.delete(:scopes)
+    investors = options.delete(:investors)
+
+    deal      = fabricate(Deal, options)
+
+    if scopes
+      project = fabricate(Project, scopes: scopes)
+      deal.update_column :project_id, project.id
     end
 
-    fabricate(Deal, options)
+    if investors
+      investors.each do |investor|
+        fabricate(Investment, investor: investor, deal: deal)
+      end
+    end
+
+    deal
   end
 
   def overview(year = nil)
@@ -32,22 +44,42 @@ describe DealsOverview do
   end
 
   it "shows total values" do
-    create_deal(contract_date: "31.12.2011", amount: 10 * MONEY_RATE)
-    create_deal(contract_date: "10.01.2012", amount: 20 * MONEY_RATE)
-    create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
-    create_deal(contract_date: "10.04.2012", amount: 40 * MONEY_RATE)
+    investor1 = fabricate Investor
+    investor2 = fabricate Investor
+    project1  = fabricate Project
+    project2  = fabricate Project
 
-    overview.amount.should == 100
-    overview.count.should  == 4
+    create_deal(contract_date: "31.12.2010", amount: 10 * MONEY_RATE)
 
-    overview(2010).amount.should == 0
-    overview(2010).count.should  == 0
+    create_deal(contract_date: "31.12.2011", amount: 20 * MONEY_RATE,
+                investors: [investor1], project: project1)
 
-    overview(2011).amount.should == 10
-    overview(2011).count.should  == 1
+    create_deal(contract_date: "10.01.2011", amount: 30 * MONEY_RATE,
+                investors: [investor1], project: project1)
 
-    overview(2012).amount.should == 90
-    overview(2012).count.should  == 3
+    create_deal(contract_date: "10.03.2012", amount: 40 * MONEY_RATE,
+                investors: [investor1, investor2], project: project1)
+
+    create_deal(contract_date: "10.04.2012", amount: 50 * MONEY_RATE,
+                investors: [investor2], project: project2)
+
+    overview.amount.should == 150
+    overview.count.should  == 5
+
+    overview(2010).amount.should    == 10
+    overview(2010).count.should     == 1
+    overview(2010).investors.should == 0
+    overview(2010).projects.should  == 0
+
+    overview(2011).amount.should    == 50
+    overview(2011).count.should     == 2
+    overview(2011).investors.should == 1
+    overview(2011).projects.should  == 1
+
+    overview(2012).amount.should    == 90
+    overview(2012).count.should     == 2
+    overview(2012).investors.should == 2
+    overview(2012).projects.should  == 2
   end
 
   describe "directions" do
@@ -60,7 +92,7 @@ describe DealsOverview do
       create_deal(scopes: [scope2])
       create_deal(scopes: [scope1, scope3])
 
-      directions = overview.directions.scopes
+      directions = overview.directions.series
 
       directions[0].scope.should == scope1
       directions[0].count.should == 3
@@ -76,7 +108,7 @@ describe DealsOverview do
       create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
       create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
 
-      periods = overview(2012).dynamics.periods
+      periods = overview(2012).dynamics.series
       periods.size.should == 4
 
       periods[0].average_amount.should == 15
@@ -91,7 +123,7 @@ describe DealsOverview do
       create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
       create_deal(contract_date: "10.04.2012", amount: 40 * MONEY_RATE)
 
-      periods = overview.dynamics.periods
+      periods = overview.dynamics.series
       periods.size.should == 3
 
       periods[0].average_amount.should == 0
@@ -107,7 +139,7 @@ describe DealsOverview do
       create_deal(stage_id: 3, amount: 30 * MONEY_RATE)
       create_deal(stage_id: 4, amount: 40 * MONEY_RATE)
 
-      stages = overview.stages.stages
+      stages = overview.stages.series
       stages.size.should == 3
 
       stages[0].name.should   == "#{Deal::STAGES[1]} (2)"
@@ -129,7 +161,7 @@ describe DealsOverview do
       create_deal(round_id: 4, amount: 40 * MONEY_RATE)
       create_deal(round_id: 4, amount: 50 * MONEY_RATE)
 
-      rounds = overview.rounds.rounds
+      rounds = overview.rounds.series
       rounds.size.should == 3
 
       rounds[0].count.should  == 2

@@ -2,7 +2,7 @@
 
 class DealsOverview
   class Dynamics
-    class Quarter < ChartEntry
+    class Quarter < Series
       attr_reader :year, :number
 
       def initialize(year, number)
@@ -13,8 +13,6 @@ class DealsOverview
       def name
         "#{number} кв."
       end
-
-      private
 
       def bounds
         start_month = (number - 1) * 3 + 1
@@ -31,11 +29,11 @@ class DealsOverview
       end
 
       def deals
-        Deal.for_period(bounds)
+        @deals ||= Deal.for_period(bounds)
       end
     end
 
-    class Year < ChartEntry
+    class Year < Series
       attr_reader :year
 
       def initialize(year)
@@ -46,53 +44,106 @@ class DealsOverview
         "#{year} г."
       end
 
-      private
-
       def deals
-        Deal.for_year(year)
+        @deals ||= Deal.for_year(year)
       end
     end
 
+    class Chart
+      def initialize(series)
+        @series     = series
+      end
+
+      def options
+        {
+          title:  title,
+          vAxis:  { title: "Миллионы $" },
+        }
+      end
+    end
+
+    class MainChart < Chart
+      def options
+        super.merge(
+          seriesType: "bars",
+          series:     { 1 => { type: "line", pointSize: 10 } },
+        )
+      end
+
+      def title
+        "Динамика венчурных сделок"
+      end
+
+      def type
+        "ComboChart"
+      end
+
+      def data
+        data = @series.map { |period| [ period.name, period.count,
+                                        period.amount ] }
+
+        data.prepend ["Квартал", "Количество сделок", "Объем сделок"]
+        data
+      end
+
+      def dom_id
+        "dynamics-main-chart"
+      end
+    end
+
+    class ExtraChart < Chart
+      def title
+        "Средняя стоимость венчурной сделки"
+      end
+
+      def type
+        "ColumnChart"
+      end
+
+      def data
+        data = @series.map { |period| [ period.name, period.average_amount ] }
+        data.prepend ["Квартал", "Средняя стоимость сделки"]
+        data
+      end
+
+      def dom_id
+        "dynamics-extra-chart"
+      end
+    end
+
+
+    LAST_YEARS = 3
 
     def initialize(year = nil)
-      @year  = year
-    end
+      year = year.to_i
 
-    def data
-      get_data.to_json
-    end
-
-    def options
-      {
-        vAxis:      { title: "Миллионы руб." },
-        hAxis:      { title: "Квартал" },
-        seriesType: "bars",
-        series:     { 1 => { type: "line", pointSize: 10 } },
-      }.to_json
-    end
-
-    def periods
-      if @year
-        (1..4).map { |i| Quarter.new(@year, i) }
-      else
-        (0..2).map { |i| Year.new(Time.current.year - i) }.reverse
+      if year.in?(Time.current.year - LAST_YEARS + 1 .. Time.current.year)
+        @year = year
       end
     end
 
-    def title
-      "Динамика роста по сферам деятельности"
+    def by_quarter?
+      !! @year
     end
 
-    def type
-      "ComboChart"
+    def deals
+      by_quarter? ? Year.new(@year).deals : Deal.scoped
     end
 
-    private
+    def series
+      if by_quarter?
+        (1..4).map { |i| Quarter.new(@year, i) }
+      else
+        (0...LAST_YEARS).map { |i| Year.new(Time.current.year - i) }.reverse
+      end
+    end
 
-    def get_data
-      data = periods.map { |period| [ period.name, period.count, period.amount ] }
-      data.prepend ["Квартал", "Количество сделок", "Объем сделок"]
-      data
+    def main_chart
+      MainChart.new(series)
+    end
+
+    def extra_chart
+      ExtraChart.new(series)
     end
   end
 end

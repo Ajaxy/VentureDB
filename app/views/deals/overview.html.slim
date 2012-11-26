@@ -21,8 +21,9 @@ h1 Обзор рынка венчурных инвестиций
     p: strong = @overview.projects
 
 h2 Венчурные инвестиции по кварталам
-= render "chart", chart: @overview.dynamics
 
-p = @overview.directions.scopes.first.amount
-p = @overview.rounds.rounds.first.amount
-p = @overview.stages.stages.first.amount
+= render "chart", chart: @overview.dynamics.main_chart
+= render "chart", chart: @overview.dynamics.extra_chart
+
+= render "chart", chart: @overview.rounds.chart
+= render "chart", chart: @overview.stages.chart

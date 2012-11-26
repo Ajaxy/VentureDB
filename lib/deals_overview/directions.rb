@@ -2,15 +2,13 @@
 
 class DealsOverview
   class Directions
-    class Scope < ChartEntry
+    class Scope < Series
       attr_reader :scope
 
       def initialize(scope, deals)
         @all_deals = deals
         @scope     = scope
       end
-
-      private
 
       def deals
         @deals ||= @all_deals.in_scope(scope).to_a
@@ -23,7 +21,7 @@ class DealsOverview
       @id    = id
     end
 
-    def scopes
+    def series
       # scopes = id ? current_scope.children : ::Scope.roots
       ::Scope.roots.map { |scope| Scope.new(scope, @deals) }
     end
