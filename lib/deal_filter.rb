@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class DealFilter
+  LAST_YEARS = 3
+
   attr_reader :params
 
   def initialize(params)
@@ -12,18 +14,20 @@ class DealFilter
     deals = deals.in_round(params.round.to_i)
     deals = deals.with_investor_type(params.investor.to_i)
 
+    deals = deals.for_year(year)              if year
     deals = deals.in_scope(scope)             if scope
     deals = deals.from_date(date_start)       if date_start
     deals = deals.to_date(date_end)           if date_end
     deals = deals.from_amount(amount_start)   if amount_start
     deals = deals.to_amount(amount_end)       if amount_end
-
     deals = deals.search(params.search.strip) if params.search.present?
 
     deals
   end
 
-  private
+  def deals
+    filter(Deal.scoped)
+  end
 
   def amount(string)
     return unless string.present?
@@ -65,5 +69,10 @@ class DealFilter
 
   def scope
     Scope.where(id: params.scope.to_i).first if params.scope.present?
+  end
+
+  def year
+    year = params.year.to_i
+    year if year.in?(Time.current.year - LAST_YEARS + 1 .. Time.current.year)
   end
 end

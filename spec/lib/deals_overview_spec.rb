@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe DealsOverview do
-  MONEY_RATE = 30_000_000
+  MONEY_RATE = Deal::DEFAULT_DOLLAR_RATE * 1_000_000
 
   def fabricate(klass, options = {})
     klass.new(options).tap { |model| model.save!(validate: false) }
@@ -28,8 +28,8 @@ describe DealsOverview do
     deal
   end
 
-  def overview(year = nil)
-    DealsOverview.new(year)
+  def overview(options = {})
+    DealsOverview.new(options)
   end
 
   it "selects only deals for passed year" do
@@ -37,10 +37,10 @@ describe DealsOverview do
     deal2 = create_deal(contract_date: "10.01.2012")
     deal3 = create_deal(contract_date: "10.03.2012")
 
-    overview.deals.should       == [deal1, deal2, deal3]
-    overview(2010).deals.should == []
-    overview(2011).deals.should == [deal1]
-    overview(2012).deals.should == [deal2, deal3]
+    overview.deals.should == [deal1, deal2, deal3]
+    overview(year: 2010).deals.should == []
+    overview(year: 2011).deals.should == [deal1]
+    overview(year: 2012).deals.should == [deal2, deal3]
   end
 
   it "shows total values" do
@@ -66,20 +66,20 @@ describe DealsOverview do
     overview.amount.should == 150
     overview.count.should  == 5
 
-    overview(2010).amount.should    == 10
-    overview(2010).count.should     == 1
-    overview(2010).investors.should == 0
-    overview(2010).projects.should  == 0
+    overview(year: 2010).amount.should    == 10
+    overview(year: 2010).count.should     == 1
+    overview(year: 2010).investors.should == 0
+    overview(year: 2010).projects.should  == 0
 
-    overview(2011).amount.should    == 50
-    overview(2011).count.should     == 2
-    overview(2011).investors.should == 1
-    overview(2011).projects.should  == 1
+    overview(year: 2011).amount.should    == 50
+    overview(year: 2011).count.should     == 2
+    overview(year: 2011).investors.should == 1
+    overview(year: 2011).projects.should  == 1
 
-    overview(2012).amount.should    == 90
-    overview(2012).count.should     == 2
-    overview(2012).investors.should == 2
-    overview(2012).projects.should  == 2
+    overview(year: 2012).amount.should    == 90
+    overview(year: 2012).count.should     == 2
+    overview(year: 2012).investors.should == 2
+    overview(year: 2012).projects.should  == 2
   end
 
   describe "directions" do
@@ -108,7 +108,7 @@ describe DealsOverview do
       create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
       create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
 
-      periods = overview(2012).dynamics.series
+      periods = overview(year: 2012).dynamics.series
       periods.size.should == 4
 
       periods[0].average_amount.should == 15

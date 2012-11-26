@@ -3,8 +3,8 @@
 class DealsOverview
   class Series
     def amount
-      sum = deals.sum { |deal| deal.amount || 0 }
-      (sum.to_f / MONEY_RATE).round
+      sum = deals.sum(&:amount_in_dollars)
+      (sum.to_f / 1_000_000.0).round
     end
 
     def count

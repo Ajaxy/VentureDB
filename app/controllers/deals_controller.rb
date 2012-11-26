@@ -5,7 +5,7 @@ class DealsController < ApplicationController
   before_filter :authenticate_user!
 
   def overview
-    @overview = DealsOverview.new(params[:year])
+    @overview = DealsOverview.new params.slice(:year, :scope)
   end
 
   def index

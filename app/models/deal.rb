@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Deal < ActiveRecord::Base
+  DEFAULT_DOLLAR_RATE = 30.0
+
   belongs_to :project
   belongs_to :informer, class_name: "Person"
 
@@ -96,6 +98,11 @@ class Deal < ActiveRecord::Base
 
   def self.for_year(year)
     for_period(Date.new(year) .. Date.new(year).end_of_year)
+  end
+
+
+  def amount_in_dollars
+    (amount || 0) / (dollar_rate || DEFAULT_DOLLAR_RATE)
   end
 
   def announcement_date_before_type_cast

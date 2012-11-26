@@ -15,7 +15,7 @@ class DealsOverview
       end
     end
 
-    def initialize(deals, id)
+    def initialize(deals, id = nil)
       # @deals = select(deals)
       @deals = deals
       @id    = id

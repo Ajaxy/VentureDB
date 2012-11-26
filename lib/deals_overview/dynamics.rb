@@ -5,9 +5,10 @@ class DealsOverview
     class Quarter < Series
       attr_reader :year, :number
 
-      def initialize(year, number)
-        @year   = year
-        @number = number
+      def initialize(year, number, deals)
+        @year      = year
+        @number    = number
+        @all_deals = deals
       end
 
       def name
@@ -29,15 +30,16 @@ class DealsOverview
       end
 
       def deals
-        @deals ||= Deal.for_period(bounds)
+        @deals ||= @all_deals.for_period(bounds)
       end
     end
 
     class Year < Series
       attr_reader :year
 
-      def initialize(year)
-        @year = year
+      def initialize(year, deals)
+        @year      = year
+        @all_deals = deals
       end
 
       def name
@@ -45,7 +47,7 @@ class DealsOverview
       end
 
       def deals
-        @deals ||= Deal.for_year(year)
+        @deals ||= @all_deals.for_year(year)
       end
     end
 
@@ -112,29 +114,17 @@ class DealsOverview
     end
 
 
-    LAST_YEARS = 3
-
-    def initialize(year = nil)
-      year = year.to_i
-
-      if year.in?(Time.current.year - LAST_YEARS + 1 .. Time.current.year)
-        @year = year
-      end
-    end
-
-    def by_quarter?
-      !! @year
-    end
-
-    def deals
-      by_quarter? ? Year.new(@year).deals : Deal.scoped
+    def initialize(deals, year = nil)
+      @deals = deals
+      @year  = year
     end
 
     def series
-      if by_quarter?
-        (1..4).map { |i| Quarter.new(@year, i) }
+      if @year
+        (1..4).map { |i| Quarter.new(@year, i, @deals) }
       else
-        (0...LAST_YEARS).map { |i| Year.new(Time.current.year - i) }.reverse
+        amount = DealFilter::LAST_YEARS
+        (0...amount).map { |i| Year.new(Time.current.year - i, @deals) }.reverse
       end
     end
 
