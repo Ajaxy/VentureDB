@@ -22,5 +22,6 @@ Venture::Application.routes.draw do
     get "/:id"              => "deals#show", as: :cabinet_deal
   end
 
-  root to: "home#index"
+  root to: "home#promo", via: "get"
+  post "/" => "home#subscribe"
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122134713) do
+ActiveRecord::Schema.define(:version => 20121127143711) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -179,6 +179,12 @@ ActiveRecord::Schema.define(:version => 20121122134713) do
   add_index "scopes", ["lft"], :name => "index_scopes_on_lft"
   add_index "scopes", ["parent_id"], :name => "index_scopes_on_parent_id"
   add_index "scopes", ["rgt"], :name => "index_scopes_on_rgt"
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

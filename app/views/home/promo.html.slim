@@ -1,0 +1,26 @@
+- @body_class = "promo"
+
+header
+  h1 Venture Database
+
+section.intro
+  .wrapper
+    h2 Оператор статистики по венчурному рынку России.
+    p Профессионалы отрасли получают информацию по инвестиционным сделкам,
+      проектам и рынкам; корпорации узнают о новых бизнес-моделях и
+      инновационных идеях.
+
+    .note Доступ к статистике возможен только по приглашению
+
+    .subscribe
+      = form_tag "", class: "input-append" do
+        input type="email" name="email" placeholder="Введите ваш e-mail"
+        button.btn type="submit" Отправить
+
+      = link_to "Войти", :new_user_session
+
+footer
+  p Copyright © 2012 Venture Database Inc. All rights reserved.
+    #{link_to "Terms of Use", "#"} | #{link_to "Privacy Policy", "#"}
+  p #{link_to image_tag("rvk.png"), "#"} Стратегический парнтер и
+    спонсор проекта.
