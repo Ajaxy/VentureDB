@@ -14,14 +14,14 @@ jQuery ->
   $circles.each (index) ->
     $circle = $(this)
 
-    size = Math.sqrt($circle.data("amount") / maxAmount) * maxRadius
-    size = minRadius if size < minRadius
+    radius = Math.sqrt($circle.data("amount") / maxAmount) * maxRadius
+    radius = minRadius if radius < minRadius
 
     color = backgrounds[index % backgrounds.length]
 
     $circle.css
-      "border-radius"     : "#{size}px"
-      "height"            : "#{size*2}px"
-      "width"             : "#{size*2}px"
-      "line-height"       : "#{size*2}px"
+      "border-radius"     : "#{radius}px"
+      "height"            : "#{radius*2}px"
+      "width"             : "#{radius*2}px"
+      "line-height"       : "#{radius*2}px"
       "background-color"  : "##{color}"

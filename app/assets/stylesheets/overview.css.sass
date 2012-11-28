@@ -1,4 +1,26 @@
 section.overview
+  .report
+    margin-top: 30px
+  .summary
+    display: table
+    border-collapse: collapse
+    width: 100%
+    height: 100px
+    @include box-shadow(inset 0 -3px 3px -3px rgba(0,0,0,.2), inset 0 2px 3px -3px rgba(0, 0, 0, 0.2))
+    > div
+      display: table-cell
+      padding: 1em
+      vertical-align: middle
+      text-align: center
+      border: solid #d9dadd
+      border-width: 1px 1px 1px 0
+      &:last-child
+        border-right: 0
+      p + p
+        margin-top: 0.5em
+      strong
+        font-size: 4em
+        font-family: "PT Sans", "PT Sans Caption", verdana, sans-serif
   .chart
     width: 600px
     height: 350px
@@ -19,6 +41,7 @@ section.overview
           display: inline-block
           vertical-align: middle
           color: white
+          font-weight: bold
     .titles
       display: table-row
       > div
