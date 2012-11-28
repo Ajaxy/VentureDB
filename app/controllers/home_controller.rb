@@ -6,6 +6,9 @@ class HomeController < ApplicationController
 
   def promo
   end
+  
+  def subscribed
+  end
 
   def subscribe
     @subscription = Subscription.new(email: params[:email])

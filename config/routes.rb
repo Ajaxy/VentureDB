@@ -24,4 +24,6 @@ Venture::Application.routes.draw do
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"
+  #for test purposes
+  get "/subscribed" => "home#subscribed"
 end
