@@ -9,10 +9,10 @@ h3 Инвестиция
         legend Инвестор
         .control-group
           .search-or-add
-            .search = f.collection_select :investor_id, Investor.with_actor.sort_by(&:name), :id, :name_and_type, { prompt: "Найти инвестора" }, class: "chzn span5", id: dom_id(investment, :investor_id)
+            .search = f.collection_select :investor_id, Investor.with_actor.sort_by(&:name), :id, :name_and_type, { include_blank: "Найти инвестора" }, class: "chzn span5", id: dom_id(investment, :investor_id)
             .or = " или "
             .add: button.btn.btn-small.new_investor type="button" Создать нового
-          - if investment.investor
+          - if investment.investor && investment.investor.actor
             = link_to "«#{investment.investor.actor.name}» — редактировать",
               [:edit, investment.investor.actor], target: "_blank"
   hr
@@ -22,7 +22,7 @@ h3 Инвестиция
       fieldset
         legend Параметры сделки
         = f.label :instrument_id, "Тип финансового инструмента"
-        = f.select :instrument_id, Investment::INSTRUMENTS.invert, { prompt: "Финансовый инструмент" }, class: "chzn span4", id: dom_id(investment, :instrument_id)
+        = f.select :instrument_id, Investment::INSTRUMENTS.invert, { include_blank: "Финансовый инструмент" }, class: "chzn span4", id: dom_id(investment, :instrument_id)
         p
         = f.label :share, "Приобретаемая доля в компании"
         = f.text_field :share, class: "span4"
