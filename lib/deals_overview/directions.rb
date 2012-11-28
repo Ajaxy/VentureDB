@@ -13,34 +13,20 @@ class DealsOverview
       def deals
         @deals ||= @all_deals.in_scope(scope).to_a
       end
+
+      def name
+        scope.short_name
+      end
     end
 
     def initialize(deals, id = nil)
-      # @deals = select(deals)
       @deals = deals
       @id    = id
     end
 
     def series
-      # scopes = id ? current_scope.children : ::Scope.roots
-      ::Scope.roots.map { |scope| Scope.new(scope, @deals) }
+      scopes = ::Scope.roots.map { |scope| Scope.new(scope, @deals) }
+      scopes.select { |s| s.amount > 0 }.sort_by(&:amount).reverse
     end
-
-    private
-
-    # def current_scope
-    #   scope = ::Scope.find(id)
-    #   raise ArgumentError.new if scope.leaf?
-    #   scope
-    # end
-
-    # def select(deals)
-    #   return deals unless @id
-    #   scopes.map { |scope| deals.in_scope(scope) }.sum
-
-    #   deals.select do |deal|
-    #     deal.project.scopes.find { |scope| covers? scope, scopes }
-    #   end
-    # end
   end
 end

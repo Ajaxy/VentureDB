@@ -13,7 +13,8 @@ server host, :web, :app, :db, primary: true
 
 set :application, "venture.staging"
 set :branch, "master"
-set :nginx_server_names, "venture.stage.grow.bi"
+set :nginx_server_names, "venture.stage.grow.bi venturedatabase.ru " +
+                         "www.venturedatabase.ru"
 
 set :user, "root"
 set :deploy_to, -> { "/srv/#{application}" }
