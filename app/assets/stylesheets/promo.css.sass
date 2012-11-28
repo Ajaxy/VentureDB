@@ -79,20 +79,38 @@
       padding: 50px 0
     .row + .row
       border-top: solid 1px #eaeaea
+    .row:first-child + .row
+      border-top: 0
+      padding-top: 0
     h2
       font-size: 2em
       margin-bottom: 0.75em
       color: #303030
     .info
-      width: 470px
+      width: 420px
       display: inline-block
       vertical-align: middle
+    .tagline
+      display: block
+      text-align: center
+      width: 700px
+      margin: 0 auto
+      p
+        font-size: 1.3em
+        color: #999
+      h2
+        font-size: 2.5em
+        line-height: 1.2em
+      img
+        width: 730px
+        display: block
+        margin: 50px auto 0 auto
     .img
-      width: 380px
+      width: 420px
       display: inline-block
       vertical-align: middle
       img
-        max-width: 340px
+        max-width: 360px
       &:last-child
         text-align: right
     p
