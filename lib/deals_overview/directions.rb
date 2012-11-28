@@ -25,8 +25,10 @@ class DealsOverview
     end
 
     def series
-      scopes = ::Scope.roots.map { |scope| Scope.new(scope, @deals) }
-      scopes.select { |s| s.amount > 0 }.sort_by(&:amount).reverse
+      @series ||= begin
+        scopes = ::Scope.roots.map { |scope| Scope.new(scope, @deals) }
+        scopes.select { |s| s.amount > 0 }.sort_by(&:amount).reverse
+      end
     end
   end
 end

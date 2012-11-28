@@ -88,17 +88,20 @@ describe DealsOverview do
       scope2 = fabricate(Scope, name: "bar")
       scope3 = fabricate(Scope, name: "foo/sub").move_to_child_of(scope1)
 
-      create_deal(scopes: [scope1])
-      create_deal(scopes: [scope2])
-      create_deal(scopes: [scope1, scope3])
+      create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
+      create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
+      create_deal(scopes: [scope1, scope3], amount: 30 * MONEY_RATE)
 
       directions = overview.directions.series
+      directions.size.should == 2
 
-      directions[0].scope.should == scope1
-      directions[0].count.should == 3
+      directions[0].scope.should  == scope1
+      directions[0].count.should  == 3
+      directions[0].amount.should == 70
 
-      directions[1].scope.should == scope2
-      directions[1].count.should == 1
+      directions[1].scope.should  == scope2
+      directions[1].count.should  == 1
+      directions[1].amount.should == 20
     end
   end
 
