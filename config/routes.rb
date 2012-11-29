@@ -26,4 +26,5 @@ Venture::Application.routes.draw do
   post "/" => "home#subscribe"
   #for test purposes
   get "/subscribed" => "home#subscribed"
+  post "/subscribed" => "home#participate"
 end

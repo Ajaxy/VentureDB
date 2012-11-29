@@ -1,8 +1,13 @@
-.promo
+body.promo
   background: image-url("promo-bg.jpg")
-  background-size: 100%
+  background-size: 120%
   background-repeat: no-repeat
-  
+
+  .container
+    min-height: 100%
+    position: relative
+    width: 100%
+
   .container > header
     height: 50px
     line-height: 50px
@@ -117,7 +122,33 @@
       color: #757575
       line-height: 1.5
 
+    .participate
+      background: white
+      padding: 50px
+      border: solid 1px #ebecee
+      border-width: 0 1px 2px 1px
+      .form-inputs
+        margin: 20px 0
+      .control-label
+        abbr
+          border: 0
+          color: #d2002e
+      .controls
+        input, textarea
+          width: 600px
+        textarea
+          height: 150px
+        .help-block
+          float: left
+          padding-right: 10px
+          position: relative
+          top: 5px
+
   .container > footer
+    position: absolute
+    top: 100%
+    left: 0
+    width: 100%
     background: #f7f8fa
     padding: 30px 0
     text-align: center

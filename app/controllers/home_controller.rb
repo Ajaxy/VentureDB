@@ -6,17 +6,28 @@ class HomeController < ApplicationController
 
   def promo
   end
-  
-  def subscribed
-  end
 
   def subscribe
     @subscription = Subscription.new(email: params[:email])
 
     if @subscription.save
-      render :subscribed
+      redirect_to :subscribed
     else
       render :promo
+    end
+  end
+
+  def subscribed
+    @participation = Participation.new
+  end
+
+  def participate
+    @participation = Participation.new(permitted_params.participation)
+
+    if @participation.save
+      redirect_to :root
+    else
+      render :subscribed
     end
   end
 end
