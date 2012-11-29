@@ -134,7 +134,7 @@
 
         - if @deal.errors_log?
           h5 Лог ошибок
-          div = simple_format @deal.errors_log
+          = f.text_area :errors_log, class: "span8", rows: 4
 
   .form-actions
     .offset4
