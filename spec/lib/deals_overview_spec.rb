@@ -10,6 +10,7 @@ describe DealsOverview do
 
   def create_deal(options = {})
     scopes    = options.delete(:scopes)
+    locations = options.delete(:locations)
     investors = options.delete(:investors)
 
     deal      = fabricate(Deal, options)
@@ -17,6 +18,11 @@ describe DealsOverview do
     if scopes
       project = fabricate(Project, scopes: scopes)
       deal.update_column :project_id, project.id
+    end
+
+    if locations
+      investor   = fabricate(Investor, locations: locations)
+      investment = fabricate(Investment, investor: investor, deal: deal)
     end
 
     if investors
@@ -102,6 +108,27 @@ describe DealsOverview do
       directions[1].scope.should  == scope2
       directions[1].count.should  == 1
       directions[1].amount.should == 20
+    end
+  end
+
+  describe "locations" do
+    it "groups data by location" do
+      location1 = fabricate(Location)
+      location2 = fabricate(Location)
+      location3 = fabricate(Location).move_to_child_of(location1)
+
+      create_deal(locations: [location1],            amount: 10 * MONEY_RATE)
+      create_deal(locations: [location3, location2], amount: 20 * MONEY_RATE)
+      create_deal(                                   amount: 30 * MONEY_RATE)
+
+      locations = overview.locations.series
+      locations.size.should == 2
+
+      locations[0].amount.should == 30
+      locations[0].count.should  == 2
+
+      locations[1].amount.should == 20
+      locations[1].count.should  == 1
     end
   end
 

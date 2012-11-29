@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129113948) do
+ActiveRecord::Schema.define(:version => 20121129145754) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20121129113948) do
     t.integer  "rgt"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "x"
+    t.integer  "y"
   end
 
   add_index "locations", ["lft"], :name => "index_locations_on_lft"

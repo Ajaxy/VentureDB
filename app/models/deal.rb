@@ -46,8 +46,13 @@ class Deal < ActiveRecord::Base
   }
 
   def self.in_scope(scope)
-    joins{project.scopes}.where{(project.scopes.lft >= scope.lft) &
-                                (project.scopes.lft < scope.rgt)}
+    joins{project.scopes}
+      .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
+  end
+
+  def self.in_location(location)
+    joins{investments.investor.locations}
+      .where{(locations.lft >= location.lft) & (locations.lft < location.rgt)}
   end
 
   def self.in_stage(stage)

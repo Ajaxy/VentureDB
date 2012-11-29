@@ -4,7 +4,7 @@ class DealsOverview
   class Series
     def amount
       sum = deals.sum(&:amount_in_dollars)
-      (sum.to_f / 1_000_000.0).round
+      (sum.to_f / 1_000_000.0).round(@precision || 0)
     end
 
     def count

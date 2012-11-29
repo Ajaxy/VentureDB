@@ -63,9 +63,5 @@ class DealsOverview
       Deal::ROUNDS.keys.map { |id| Round.new(id, @deals) }
                        .select { |s| s.count > 0 }
     end
-
-    def chart
-      Chart.new(series)
-    end
   end
 end

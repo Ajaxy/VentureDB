@@ -3,11 +3,15 @@
 class DealsOverview
   attr_reader :filter
 
-  delegate :deals, :year, :scope, to: :filter
+  delegate :year, :scope, to: :filter
   delegate :count, :amount, :investors, :projects, to: :totals
 
   def initialize(params = {})
     @filter = DealFilter.new(params)
+  end
+
+  def deals
+    filter.deals.includes{investments.investor.locations}
   end
 
   def directions
@@ -16,6 +20,10 @@ class DealsOverview
 
   def dynamics
     Dynamics.new(deals, year)
+  end
+
+  def locations
+    Locations.new(deals)
   end
 
   def rounds
