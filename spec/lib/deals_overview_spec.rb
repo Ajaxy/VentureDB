@@ -39,14 +39,15 @@ describe DealsOverview do
   end
 
   it "selects only deals for passed year" do
-    deal1 = create_deal(contract_date: "10.01.2011")
-    deal2 = create_deal(contract_date: "10.01.2012")
-    deal3 = create_deal(contract_date: "10.03.2012")
+    deal1 = create_deal
+    deal2 = create_deal(contract_date: "10.01.2011")
+    deal3 = create_deal(contract_date: "10.01.2012")
+    deal4 = create_deal(contract_date: "10.03.2012")
 
-    overview.deals.should == [deal1, deal2, deal3]
+    overview.deals.should == [deal1, deal2, deal3, deal4]
     overview(year: 2010).deals.should == []
-    overview(year: 2011).deals.should == [deal1]
-    overview(year: 2012).deals.should == [deal2, deal3]
+    overview(year: 2011).deals.should == [deal2]
+    overview(year: 2012).deals.should == [deal3, deal4]
   end
 
   it "shows total values" do
@@ -55,6 +56,7 @@ describe DealsOverview do
     project1  = fabricate Project
     project2  = fabricate Project
 
+    create_deal
     create_deal(contract_date: "31.12.2010", amount: 10 * MONEY_RATE)
 
     create_deal(contract_date: "31.12.2011", amount: 20 * MONEY_RATE,
@@ -70,7 +72,7 @@ describe DealsOverview do
                 investors: [investor2], project: project2)
 
     overview.amount.should == 150
-    overview.count.should  == 5
+    overview.count.should  == 6
 
     overview(year: 2010).amount.should    == 10
     overview(year: 2010).count.should     == 1
@@ -94,6 +96,7 @@ describe DealsOverview do
       scope2 = fabricate(Scope, name: "bar")
       scope3 = fabricate(Scope, name: "foo/sub").move_to_child_of(scope1)
 
+      create_deal
       create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
       create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
       create_deal(scopes: [scope1, scope3], amount: 30 * MONEY_RATE)
@@ -117,9 +120,9 @@ describe DealsOverview do
       location2 = fabricate(Location)
       location3 = fabricate(Location).move_to_child_of(location1)
 
+      create_deal
       create_deal(locations: [location1],            amount: 10 * MONEY_RATE)
       create_deal(locations: [location3, location2], amount: 20 * MONEY_RATE)
-      create_deal(                                   amount: 30 * MONEY_RATE)
 
       locations = overview.geography.series
       locations.size.should == 2
@@ -134,6 +137,7 @@ describe DealsOverview do
 
   describe "dynamics" do
     it "groups data by quarters if year is passed" do
+      create_deal
       create_deal(contract_date: "10.01.2012", amount: 10 * MONEY_RATE)
       create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
       create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
@@ -148,6 +152,7 @@ describe DealsOverview do
     end
 
     it "groups data by last 3 years if no year is passed" do
+      create_deal
       create_deal(contract_date: "31.12.2011", amount: 10 * MONEY_RATE)
       create_deal(contract_date: "10.01.2012", amount: 20 * MONEY_RATE)
       create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
@@ -164,6 +169,7 @@ describe DealsOverview do
 
   describe "stages" do
     it "groups data by deal stage" do
+      create_deal
       create_deal(stage_id: 1, amount: 10 * MONEY_RATE)
       create_deal(stage_id: 1, amount: 20 * MONEY_RATE)
       create_deal(stage_id: 3, amount: 30 * MONEY_RATE)
@@ -185,6 +191,7 @@ describe DealsOverview do
 
   describe "rounds" do
     it "groups data by deal round" do
+      create_deal
       create_deal(round_id: 1, amount: 10 * MONEY_RATE)
       create_deal(round_id: 1, amount: 20 * MONEY_RATE)
       create_deal(round_id: 3, amount: 30 * MONEY_RATE)
