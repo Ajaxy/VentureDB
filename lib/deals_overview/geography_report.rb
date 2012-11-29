@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class DealsOverview
-  class Locations
+  class GeographyReport < Report
     class Location < Series
       attr_reader :location, :deals
       delegate :name, :x, :y, to: :location
@@ -13,13 +13,19 @@ class DealsOverview
     end
 
 
-    def initialize(deals)
-      @deals_by_country = group_by_country(deals)
+    def add_deal(deal)
+      locs = deal.investments.map { |i| i.investor.locations }.reduce(:+)
+      return unless locs
+
+      locs.each do |location|
+        country = find_country_for(location)
+        @grouped_deals[country] << deal
+      end
     end
 
     def series
       @series ||= begin
-        locs = @deals_by_country.map { |loc, deals| Location.new(loc, deals) }
+        locs = @grouped_deals.map { |loc, deals| Location.new(loc, deals) }
         locs.select { |loc| loc.amount > 0 }.sort_by(&:amount).reverse
       end
     end
@@ -29,22 +35,6 @@ class DealsOverview
     end
 
     private
-
-    def group_by_country(deals)
-      hash = Hash.new { |h, k| h[k] = [] }
-
-      deals.each do |deal|
-        locs = deal.investments.map { |i| i.investor.locations }.reduce(:+)
-        next unless locs
-
-        locs.each do |location|
-          country = find_country_for(location)
-          hash[country] << deal
-        end
-      end
-
-      hash
-    end
 
     def find_country_for(location)
       if location.root?

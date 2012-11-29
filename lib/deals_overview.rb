@@ -2,8 +2,6 @@
 
 class DealsOverview
   attr_reader :filter
-
-  delegate :year, :scope, to: :filter
   delegate :count, :amount, :investors, :projects, to: :totals
 
   def initialize(params = {})
@@ -11,30 +9,31 @@ class DealsOverview
   end
 
   def deals
-    filter.deals.includes{investments.investor.locations}
+    @deals ||= filter.deals.includes{investments.investor.locations}
+                           .includes{project.scopes}.to_a
   end
 
   def directions
-    Directions.new(deals, scope)
+    @directions ||= DirectionsReport.new(deals, filter.scope)
   end
 
   def dynamics
-    Dynamics.new(deals, year)
+    @dynamics ||= DynamicsReport.new(deals, filter.year)
   end
 
-  def locations
-    Locations.new(deals)
+  def geography
+    @geography ||= GeographyReport.new(deals)
   end
 
   def rounds
-    Rounds.new(deals)
+    @rounds ||= RoundsReport.new(deals)
   end
 
   def stages
-    Stages.new(deals)
+    @stages ||= StagesReport.new(deals)
   end
 
   def totals
-    Totals.new(deals)
+    @totals ||= TotalsReport.new(deals)
   end
 end

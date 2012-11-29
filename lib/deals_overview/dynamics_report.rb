@@ -1,14 +1,13 @@
 # encoding: utf-8
 
 class DealsOverview
-  class Dynamics
-    class Quarter < Series
+  class DynamicsReport < Report
+    class Quarter
       attr_reader :year, :number
 
-      def initialize(year, number, deals)
-        @year      = year
-        @number    = number
-        @all_deals = deals
+      def initialize(year, number)
+        @year   = year
+        @number = number
       end
 
       def name
@@ -29,31 +28,45 @@ class DealsOverview
         Date.new(start_year, start_month) ... Date.new(end_year, end_month)
       end
 
-      def deals
-        @deals ||= @all_deals.for_period(bounds)
+      def includes?(deal)
+        date = deal.contract_date || deal.announcement_date or return
+        bounds.cover?(date)
       end
     end
 
-    class Year < Series
+    class Year
       attr_reader :year
 
-      def initialize(year, deals)
-        @year      = year
-        @all_deals = deals
+      def initialize(year)
+        @year = year
       end
 
       def name
         "#{year} г."
       end
 
-      def deals
-        @deals ||= @all_deals.for_year(year)
+      def includes?(deal)
+        date = deal.contract_date || deal.announcement_date or return
+        date.year == @year
+      end
+    end
+
+    class PeriodSeries < Series
+      attr_reader :period, :deals
+
+      def initialize(period, deals)
+        @period = period
+        @deals  = deals
+      end
+
+      def name
+        period.name
       end
     end
 
     class Chart
       def initialize(series)
-        @series     = series
+        @series = series
       end
 
       def options
@@ -115,17 +128,18 @@ class DealsOverview
 
 
     def initialize(deals, year = nil)
-      @deals = deals
-      @year  = year
+      @year = year
+      super(deals)
+    end
+
+    def add_deal(deal)
+      period = period_for(deal)
+      @grouped_deals[period] << deal if period
     end
 
     def series
-      if @year
-        (1..4).map { |i| Quarter.new(@year, i, @deals) }
-      else
-        amount = DealFilter::LAST_YEARS
-        (0...amount).map { |i| Year.new(Time.current.year - i, @deals) }.reverse
-      end
+      @series ||=
+      periods.map { |period| PeriodSeries.new(period, @grouped_deals[period]) }
     end
 
     def main_chart
@@ -134,6 +148,23 @@ class DealsOverview
 
     def extra_chart
       ExtraChart.new(series)
+    end
+
+    private
+
+    def period_for(deal)
+      periods.find { |period| period.includes?(deal) }
+    end
+
+    def periods
+      @periods ||= begin
+        if @year
+          (1..4).map { |i| Quarter.new(@year, i) }
+        else
+          amount = DealFilter::LAST_YEARS
+          (0...amount).map { |i| Year.new(Time.current.year - i) }.reverse
+        end
+      end
     end
   end
 end

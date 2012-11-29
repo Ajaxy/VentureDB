@@ -1,19 +1,17 @@
 # encoding: utf-8
 
 class DealsOverview
-  class Stages
+  class StagesReport < Report
     class Stage < Series
+      attr_reader :deals
+
       def initialize(id, deals)
-        @id         = id
-        @all_deals  = deals
+        @id     = id
+        @deals  = deals
       end
 
       def name
         "#{Deal::STAGES[@id]} (#{count})"
-      end
-
-      def deals
-        @deals ||= @all_deals.where(stage_id: @id).to_a
       end
     end
 
@@ -49,13 +47,16 @@ class DealsOverview
     end
 
 
-    def initialize(deals)
-      @deals = deals
+    def add_deal(deal)
+      id = deal.stage_id or return
+      @grouped_deals[id] << deal
     end
 
     def series
-      Deal::STAGES.keys.map { |id| Stage.new(id, @deals) }
-                       .select { |s| s.count > 0 }
+      @series ||= begin
+        stages = @grouped_deals.map { |id, deals| Stage.new(id, deals) }
+        stages.select { |stage| stage.count > 0 }
+      end
     end
 
     def chart

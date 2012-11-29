@@ -111,7 +111,7 @@ describe DealsOverview do
     end
   end
 
-  describe "locations" do
+  describe "geography" do
     it "groups data by location" do
       location1 = fabricate(Location)
       location2 = fabricate(Location)
@@ -121,7 +121,7 @@ describe DealsOverview do
       create_deal(locations: [location3, location2], amount: 20 * MONEY_RATE)
       create_deal(                                   amount: 30 * MONEY_RATE)
 
-      locations = overview.locations.series
+      locations = overview.geography.series
       locations.size.should == 2
 
       locations[0].amount.should == 30
