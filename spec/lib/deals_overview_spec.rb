@@ -21,8 +21,7 @@ describe DealsOverview do
     end
 
     if locations
-      investor   = fabricate(Investor, locations: locations)
-      investment = fabricate(Investment, investor: investor, deal: deal)
+      investors = [ fabricate(Investor, locations: locations) ]
     end
 
     if investors
@@ -111,6 +110,29 @@ describe DealsOverview do
       directions[1].scope.should  == scope2
       directions[1].count.should  == 1
       directions[1].amount.should == 20
+    end
+
+    it "groups date by sub-scope if scope is passed" do
+      scope1 = fabricate(Scope, name: "foo")
+      scope2 = fabricate(Scope, name: "foo/sub1").move_to_child_of(scope1)
+      scope3 = fabricate(Scope, name: "foo/sub2").move_to_child_of(scope1)
+      scope4 = fabricate(Scope, name: "foo/sub3").move_to_child_of(scope1)
+
+      create_deal
+      create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
+      create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
+      create_deal(scopes: [scope2, scope3], amount: 30 * MONEY_RATE)
+
+      directions = overview(scope: scope1.id).directions.series
+      directions.size.should == 2
+
+      directions[0].scope.should  == scope2
+      directions[0].count.should  == 2
+      directions[0].amount.should == 50
+
+      directions[1].scope.should  == scope3
+      directions[1].count.should  == 1
+      directions[1].amount.should == 30
     end
   end
 

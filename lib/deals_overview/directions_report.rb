@@ -16,8 +16,8 @@ class DealsOverview
     end
 
 
-    def initialize(deals, id = nil)
-      @id = id
+    def initialize(deals, scope = nil)
+      @scope = scope
       super(deals)
     end
 
@@ -26,7 +26,7 @@ class DealsOverview
 
       scopes.each do |scope|
         scope = find_scope_for(scope)
-        @grouped_deals[scope] << deal
+        @grouped_deals[scope] << deal if scope
       end
     end
 
@@ -40,12 +40,15 @@ class DealsOverview
     private
 
     def find_scope_for(scope)
-      if scope.root?
+      if scope.in?(scopes)
         scope
       else
-        @roots ||= ::Scope.roots
-        @roots.find { |root| scope.is_descendant_of?(root) }
+        scopes.find { |root| scope.is_descendant_of?(root) }
       end
+    end
+
+    def scopes
+      @scopes ||= @scope ? @scope.children.to_a : ::Scope.roots.to_a
     end
   end
 end

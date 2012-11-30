@@ -68,11 +68,13 @@ class DealFilter
   end
 
   def scope
-    Scope.where(id: params.scope.to_i).first if params.scope.present?
+    @scope ||= Scope.where(id: params.scope.to_i).first if params.scope.present?
   end
 
   def year
-    year = params.year.to_i
-    year if year.in?(Time.current.year - LAST_YEARS + 1 .. Time.current.year)
+    @year ||= begin
+      year = params.year.to_i
+      year if year.in?(Time.current.year - LAST_YEARS + 1 .. Time.current.year)
+    end
   end
 end
