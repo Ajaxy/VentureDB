@@ -13,6 +13,16 @@ class DealsOverview
       def name
         scope.short_name
       end
+
+      def for_round(*ids)
+        Array(ids).map { |id| rounds.data_for(id) }.reduce(:+)
+      end
+
+      private
+
+      def rounds
+        @rounds ||= RoundsReport.new(deals)
+      end
     end
 
 
@@ -44,7 +54,7 @@ class DealsOverview
     private
 
     def find_scope_for(scope)
-      if scope.in?(scopes)
+      if scope.in?(@scope, *scopes)
         scope
       else
         scopes.find { |root| scope.is_descendant_of?(root) }

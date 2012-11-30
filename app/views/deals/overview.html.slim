@@ -1,11 +1,11 @@
 - content_for :head do
   = javascript_include_tag "overview"
   = javascript_include_tag "https://www.google.com/jsapi"
-  
+
   javascript:
     google.load ("visualization", "1", { packages:["corechart"] })
     google.setOnLoadCallback (function(){ window.vent.pub("googleChartsLoaded") })
-    
+
 section.overview
   .date-select.input-append
     = date_select_button "2010", "2010"
@@ -15,69 +15,79 @@ section.overview
 
   h1 Обзор рынка венчурных инвестиций
 
-  .report.summary
-    div
-      p Сделок в базе
-      p: strong = @overview.count
-    div
-      p Объем инвестиций
-      p: strong $#{@overview.amount}M
-    div
-      p Инвесторов
-      p: strong = @overview.investors
-    div
-      p Стартапов
-      p: strong = @overview.projects
+  - if @overview.summed
 
-  .report
-    h2 Направления инвестиций
-    .directions
-      .circles
-        - @overview.root_directions.series.each do |direction|
-          a href={url_for params.merge(scope: direction.scope == @overview.scope ? nil : direction.scope.id)}
-            .circle data-amount={direction.amount}
-              - if direction.scope == @overview.scope
-                .close
-              - else
-                .amount $#{direction.amount}M
-      .titles
-        - @overview.root_directions.series.each do |direction|
-          div = direction.name
+    .report.directions
+      h2 Направления инвестиций
+      .graph
+        .circles
+          - @overview.root_directions.series.each do |direction|
+            a href={url_for params.merge(scope: direction.scope == @overview.scope ? nil : direction.scope.id)}
+              .circle data-amount={direction.amount}
+                - if direction.scope == @overview.scope
+                  .close
+                - else
+                  .amount = direction.amount_string(0)
+        .titles
+          - @overview.root_directions.series.each do |direction|
+            div = direction.name
 
-    table
-      thead
-        tr
-          th Сектор
-          th Сумма в млн USD
-          th Кол-во сделок
-          th Посев
-          th Раунд A
-          th Раунд B
-          th Раунд C+
-          th Выход
-          th Нет данных
-      tbody
-        - @overview.directions.series.each do |direction|
+      .summary
+        div
+          p Сделок в базе
+          p: strong = @overview.summed.count
+        div
+          p Объем инвестиций
+          p: strong = @overview.summed.amount_string(0)
+        div
+          p Инвесторов
+          p: strong = @overview.totals.investors
+        div
+          p Стартапов
+          p: strong = @overview.totals.projects
+
+      table data-values={@overview.summed.to_json}
+        thead
           tr
-            td = direction.name
-            td #{direction.amount}M
-            td = direction.count
-            / td = direction.scopes[0]
+            th.left Сектор
+            th Сумма в млн USD
+            th Кол-во сделок
+            th Посев
+            th Раунд A
+            th Раунд B
+            th Раунд C+
+            th Выход
+            th Нет данных
+        tbody
+          - @overview.directions.series.each do |direction|
+            tr
+              td.left = direction.name
+              td = direction.amount_string
+              td = direction.count
+              td: .circle data-values={direction.for_round(1).to_json}
+              td: .circle data-values={direction.for_round(2).to_json}
+              td: .circle data-values={direction.for_round(3).to_json}
+              td: .circle data-values={direction.for_round(4,5,6).to_json}
+              td: .circle data-values={direction.for_round(7).to_json}
+              td: .circle data-values={direction.for_round(nil).to_json}
 
-  .report
-    h2 География инвестиций
-    p График показывает, откуда в основном пришли инвестиции. Хотя инвесторы из России ожидаемо являются основной движущей силой, интересно отметить немалое количество сделок с участием иностранных инвесторов.
+    .report
+      h2 География инвестиций
+      p График показывает, откуда в основном пришли инвестиции. Хотя инвесторы из России ожидаемо являются основной движущей силой, интересно отметить немалое количество сделок с участием иностранных инвесторов.
 
-    .map data-countries=@overview.geography.data.to_json
+      .map data-countries={@overview.geography.data.to_json}
 
-  / .report
-    h2 Венчурные инвестиции по кварталам
-    
-    = render "chart", chart: @overview.dynamics.main_chart
-    = render "chart", chart: @overview.dynamics.extra_chart
-    
-  .report
-    h2 Венчурные инвестиции по стадиям и раундам
-    
-    = render "chart", chart: @overview.rounds.chart
-    = render "chart", chart: @overview.stages.chart
+    .report
+      h2 Венчурные инвестиции по кварталам
+
+      = render "chart", chart: @overview.dynamics.main_chart
+      = render "chart", chart: @overview.dynamics.extra_chart
+
+    .report
+      h2 Венчурные инвестиции по стадиям и раундам
+
+      = render "chart", chart: @overview.rounds.chart
+      = render "chart", chart: @overview.stages.chart
+
+  - else
+    .report Нет данных

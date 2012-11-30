@@ -1,16 +1,16 @@
 # encoding: utf-8
 
 class DealsOverview
-  attr_reader :filter, :deals, :root_directions, :directions
+  NoDataError = Class.new(StandardError)
 
+  attr_reader :filter, :deals, :root_directions, :directions
   delegate :scope, :year, to: :filter
-  delegate :count, :amount, :investors, :projects, to: :totals
 
   def initialize(params = {})
     @filter = DealFilter.new(params)
 
     @deals = @filter.by_year.includes{investments.investor.locations}
-                            .includes{project.scopes}.to_a
+                            .includes{project.scopes}.where{amount != nil}.to_a
 
     if scope && scope.root?
       @root_directions  = DirectionsReport.new(deals)
@@ -40,5 +40,9 @@ class DealsOverview
 
   def totals
     @totals ||= TotalsReport.new(deals)
+  end
+
+  def summed
+    @summed ||= @directions.series.reduce(:+)
   end
 end

@@ -6,6 +6,8 @@ class DealsController < ApplicationController
 
   def overview
     @overview = DealsOverview.new params.slice(:year, :scope)
+  rescue DealsOverview::NoDataError
+    raise "lol"
   end
 
   def index

@@ -28,6 +28,7 @@ group :assets do
   gem "compass-rails"
   gem "chosen-rails"
   gem "jquery-ui-rails"
+  gem "sugar-rails"
 
   gem "coffee-rails", "~> 3.2.1"
   gem "sass-rails",   "~> 3.2.3"

@@ -72,7 +72,7 @@ class DealsOverview
       def options
         {
           titlePosition: "none",
-          chartArea: { width: "100%" }, 
+          chartArea: { width: "100%" },
           vAxis:  { gridlines: { color: "#fff" } , baselineColor: "#efeff0", textPosition: 'none' },
           hAxis:  { textStyle: { color: "#a0a2a5", fontSize: "10px" }}
         }
@@ -99,13 +99,12 @@ class DealsOverview
       end
 
       def data
-        data = @series.map { |period| [ period.name, period.count,
-                                        period.amount ] }
-
-        data.prepend ["Квартал", "Количество сделок", "Объем сделок, млн. долл. США"]
+        data = @series.map { |p| [ p.name, p.count, p.amount.round(1) ] }
+        data.prepend ["Квартал", "Количество сделок",
+                      "Объем сделок, млн. долл. США"]
         data
       end
-      
+
       def dom_id
         "dynamics-main-chart"
       end
@@ -129,7 +128,7 @@ class DealsOverview
       end
 
       def data
-        data = @series.map { |period| [ period.name, period.average_amount ] }
+        data = @series.map { |p| [ p.name, p.average_amount ] }
         data.prepend ["Квартал", "Средняя стоимость сделки"]
         data
       end

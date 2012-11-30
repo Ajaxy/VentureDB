@@ -21,7 +21,7 @@ class DealsOverview
       end
 
       def data
-        data = @series.map { |stage| [stage.name, stage.amount] }
+        data = @series.map { |s| [s.name, s.amount.round] }
         data.prepend ["Стадия", "Сумма сделок"]
         data
       end
@@ -53,10 +53,7 @@ class DealsOverview
     end
 
     def series
-      @series ||= begin
-        stages = @grouped_deals.map { |id, deals| Stage.new(id, deals) }
-        stages.select { |stage| stage.count > 0 }
-      end
+      @series ||= Deal::STAGES.map { |id, _| Stage.new(id, @grouped_deals[id]) }
     end
 
     def chart

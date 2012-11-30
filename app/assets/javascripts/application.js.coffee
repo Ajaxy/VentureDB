@@ -1,5 +1,7 @@
 #= require jquery
 #= require jquery_ujs
+#= require bootstrap-tooltip
+#= require sugar
 
 window.vent =
   sub: (event, fn) ->

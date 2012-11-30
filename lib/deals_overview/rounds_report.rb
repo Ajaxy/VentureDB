@@ -17,11 +17,11 @@ class DealsOverview
 
     class Chart
       def initialize(series)
-        @series = series
+        @series = series.select(&:name)
       end
 
       def data
-        data = @series.map { |round| [round.name, round.count, round.amount] }
+        data = @series.map { |r| [r.name, r.count, r.amount.round] }
         data.prepend ["Раунд", "Количество сделок", "Сумма сделок"]
         data
       end
@@ -50,14 +50,17 @@ class DealsOverview
 
 
     def add_deal(deal)
-      id = deal.round_id or return
-      @grouped_deals[id] << deal
+      @grouped_deals[deal.round_id] << deal
+    end
+
+    def data_for(id)
+      series.fetch(id.to_i)
     end
 
     def series
       @series ||= begin
-        rounds = @grouped_deals.map { |id, deals| Round.new(id, deals) }
-        rounds.select { |round| round.count > 0 }
+        ids = [nil, *Deal::ROUNDS.keys]
+        ids.map { |id| Round.new(id, @grouped_deals[id]) }
       end
     end
 
