@@ -7,11 +7,18 @@
     google.setOnLoadCallback (function(){ window.vent.pub("googleChartsLoaded") })
 
 section.overview
-  .date-select.input-append
-    = date_select_button "2010", "2010"
-    = date_select_button "2011", "2011"
-    = date_select_button "2012", "2012"
-    = date_select_button "Все", ""
+  .filters
+    .date-select
+      = date_select_button "2010", "2010"
+      = date_select_button "2011", "2011"
+      = date_select_button "2012", "2012"
+      = date_select_button "Все", ""
+
+    .sector-select.dropdown
+      a.dropdown-toggle data-toggle="dropdown" href="#" = @overview.filter.scope_name
+      ul.dropdown-menu role="menu"
+        - @overview.filter.scopes.each do |scope|
+          li = link_to scope.name, params.merge(scope: scope.id)
 
   h1 Обзор рынка венчурных инвестиций
 

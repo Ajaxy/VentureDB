@@ -1,11 +1,13 @@
 renderDirections = ->
+  $circlesRow = $(".directions .circles")
+  return if $circlesRow.length == 0
+
+  $circles    = $circlesRow.find(".circle")
+
   maxRadius   = 60
   minRadius   = 25
 
   backgrounds = ["9ba2ce", "b7554a", "ebb94a", "a9c48f", "2151a1", "bd6bc0"]
-
-  $circlesRow = $(".directions .circles")
-  $circles    = $circlesRow.find(".circle")
 
   width = 100 / $circles.length
   $circlesRow.find("> a").css("width": "#{width}%")
@@ -28,6 +30,9 @@ renderDirections = ->
       "background-color"  : "##{color}"
 
 renderDirectionsRounds = ->
+  $table = $(".directions table")
+  return if $table.length == 0
+
   maxRadius   = 11.5
   minRadius   = 4
 
@@ -37,12 +42,8 @@ renderDirectionsRounds = ->
   avgRadius   = (maxRadius + minRadius) / 2
   avgOpacity  = (maxOpacity + minOpacity) / 2
 
-  $table      = $(".directions table")
-
   avgAmount   = $table.data("values").average_amount
   avgCount    = $table.data("values").count / $table.find(".circle").length
-
-  console.log avgAmount, avgCount
 
   $table.find("tbody tr").each ->
     $row      = $(this)
@@ -78,15 +79,17 @@ renderDirectionsRounds = ->
         "opacity"         : opacity
 
 renderGeography = ->
+  $map = $(".map")
+  return if $map.length == 0
+
   maxRadius = 35.5
   minRadius = 8
   maxAmount = null
   minFontSize = 8
 
-  $map = $(".map")
-
   for [name, count, amount, x, y] in $map.data("countries")
     maxAmount ||= amount
+
     $circle = $("<div class='circle' title='#{name}'>#{amount}</div>")
     $circle.tooltip()
 

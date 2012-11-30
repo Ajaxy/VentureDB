@@ -75,6 +75,17 @@ class DealFilter
     @scope ||= Scope.where(id: params.scope.to_i).first if params.scope.present?
   end
 
+  def scope_name
+    @scope_name ||= scope ? scope.name : "Сектор"
+  end
+
+  def scopes
+    @scopes ||= begin
+      roots = ::Scope.roots.order(:name).to_a
+      [OpenStruct.new(name: "Сектор", id: nil), *roots]
+    end
+  end
+
   def year
     @year ||= begin
       year = params.year.to_i

@@ -22,7 +22,11 @@ class DealsOverview
     end
 
     def as_json(*)
-      { amount: amount.round(1), count: count, average_amount: average_amount }
+      {
+        amount: amount.round(1),
+        count: count,
+        average_amount: average_amount.round(1)
+      }
     end
 
     def +(other)

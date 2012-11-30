@@ -3,12 +3,16 @@
 @import "bootstrap/buttons"
 @import "bootstrap/tables"
 @import "bootstrap/forms"
-// @import "bootstrap/sprites"
 @import "bootstrap/pagination"
 @import "bootstrap/tooltip"
 
 @import "compass"
 @import "reset"
+
+$font: "PT Sans Caption", verdana, sans-serif
+$narrow-font: "PT Sans", $font
+
+@import "dropdown"
 
 @import "homepage"
 @import "promo"
@@ -21,7 +25,7 @@ html, body
   height: 100%
 
 body
-  font-family: "PT Sans Caption", arial, sans-serif
+  font-family: $font
   font-size: 14px
   background: #939393
 

@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require bootstrap-tooltip
+#= require bootstrap-dropdown
 #= require sugar
 
 window.vent =

@@ -1,16 +1,21 @@
 @import "bootstrap/mixins"
 
 section.overview
+  .filters
+    float: right
+    width: 222px
+    .sector-select
+      margin-top: 10px
   .report
     margin-top: 30px
-    @include clearfix
+    +clearfix
   .summary
     display: table
     border-collapse: collapse
     width: 100%
     height: 100px
     margin: 40px 0
-    @include box-shadow(inset 0 -3px 3px -3px rgba(0,0,0,.2), inset 0 2px 3px -3px rgba(0, 0, 0, 0.2))
+    +box-shadow(inset 0 -3px 3px -3px rgba(0,0,0,.2), inset 0 2px 3px -3px rgba(0, 0, 0, 0.2))
     > div
       display: table-cell
       padding: 1em
@@ -24,7 +29,7 @@ section.overview
         margin-top: 0.5em
       strong
         font-size: 4em
-        font-family: "PT Sans", "PT Sans Caption", verdana, sans-serif
+        font-family: $narrow-font
   .chart-container
     width: 50%
     float: left
@@ -95,6 +100,7 @@ section.overview
       background: image-url("map-circle.png") no-repeat
       text-align: center
       color: #b7554a
+      font-family: $narrow-font
       font-weight: bold
       position: absolute
       cursor: help

@@ -1,0 +1,55 @@
+.dropdown
+  position: relative
+  width: 100%
+  font-size: 12px
+  .dropdown-toggle
+    display: block
+    border: solid 1px #d1d1d1
+    border-radius: 5px
+    +box-shadow(0 1px 0 0 #f0f0f0)
+    background-color: #fff
+    +filter-gradient(#fff, #fafafa)
+    +background-image(linear-gradient(top, #fff, #fafafa))
+    padding: 5px 20px 5px 10px
+    color: inherit
+    position: relative
+    &:hover
+      text-decoration: none
+    &:after
+      content: ""
+      position: absolute
+      top: 50%
+      right: 8px
+      width: 7px
+      height: 4px
+      margin-top: -2px
+      background: image-url("dropdown-arrow.png") no-repeat
+  .dropdown-menu
+    display: none
+    position: absolute
+    list-style: none
+    padding: 0
+    margin-top: 5px
+    left: 0
+    top: 100%
+    background-color: white
+    +box-shadow(0 3px 8px 1px #ededed)
+    border-radius: 4px
+    z-index: 1000
+    min-width: 100%
+    font-size: 0.9em
+    li
+      a
+        display: block
+        padding: 5px 10px
+        color: inherit
+    li + li
+      border-top: solid 1px #f4f4f4
+  &.open
+    .dropdown-toggle
+      border-color: #e6e6e6
+      background-color: #f3f3f3
+      +filter-gradient(#f3f3f3, #f8f8f8)
+      +background-image(linear-gradient(top, #f3f3f3, #f8f8f8))
+    .dropdown-menu
+      display: block

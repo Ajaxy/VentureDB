@@ -130,6 +130,19 @@ section.deal
     margin-top: 0.5em
 
 .date-select
-  float: right
-  .btn:first-child
-    border-radius: 3px 0 0 3px
+  width: 100%
+  +box-sizing(border-box)
+  font-size: 12px
+  border: solid 1px #d1d1d1
+  border-radius: 5px
+  +box-shadow(0 1px 0 0 #f0f0f0)
+  overflow: hidden
+  font-family: $narrow-font
+  > a
+    display: inline-block
+    padding: 5px 0
+    color: inherit
+    width: 55px
+    text-align: center
+    &.active
+      background: #f8f8f8
