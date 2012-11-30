@@ -1,5 +1,5 @@
 javascript:
-  $(function(){   
+  $(function(){
       window.vent.sub("googleChartsLoaded", function(){
       var data = google.visualization.arrayToDataTable(#{raw chart.data.to_json});
 
@@ -9,6 +9,7 @@ javascript:
       chart.draw(data, options);
     });
   });
+
 .chart-container
-  .legend =chart.title
-  .chart id=[chart.dom_id]
+  .legend = chart.title
+  .chart id={chart.dom_id}

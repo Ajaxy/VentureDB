@@ -86,8 +86,8 @@ section.overview
     .report
       h2 Венчурные инвестиции по стадиям и раундам
 
-      = render "chart", chart: @overview.rounds.chart
       = render "chart", chart: @overview.stages.chart
+      = render "chart", chart: @overview.rounds.chart
 
   - else
     .report Нет данных
