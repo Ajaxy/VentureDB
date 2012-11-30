@@ -34,7 +34,9 @@ describe DealsOverview do
   end
 
   def overview(options = {})
-    DealsOverview.new(options)
+    @overviews ||= {}
+    return @overviews[options] if @overviews[options]
+    @overviews[options] = DealsOverview.new(options)
   end
 
   it "selects only deals for passed year" do
@@ -95,10 +97,15 @@ describe DealsOverview do
       scope2 = fabricate(Scope, name: "bar")
       scope3 = fabricate(Scope, name: "foo/sub").move_to_child_of(scope1)
 
-      create_deal
-      create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
-      create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
-      create_deal(scopes: [scope1, scope3], amount: 30 * MONEY_RATE)
+      deal1 = create_deal
+      deal2 = create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
+      deal3 = create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
+      deal4 = create_deal(scopes: [scope1, scope3], amount: 30 * MONEY_RATE)
+
+      overview.directions.series.should == overview.root_directions.series
+
+      overview.deals.size.should == 4
+      overview.deals.should      == [deal1, deal2, deal3, deal4]
 
       directions = overview.directions.series
       directions.size.should == 2
@@ -118,12 +125,24 @@ describe DealsOverview do
       scope3 = fabricate(Scope, name: "foo/sub2").move_to_child_of(scope1)
       scope4 = fabricate(Scope, name: "foo/sub3").move_to_child_of(scope1)
 
-      create_deal
-      create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
-      create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
-      create_deal(scopes: [scope2, scope3], amount: 30 * MONEY_RATE)
+      deal1 = create_deal
+      deal2 = create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
+      deal3 = create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
+      deal4 = create_deal(scopes: [scope2, scope3], amount: 30 * MONEY_RATE)
 
-      directions = overview(scope: scope1.id).directions.series
+      overview = overview(scope: scope1.id)
+
+      overview.deals.size.should == 3
+      overview.deals.should      == [deal2, deal3, deal4]
+
+      root_directions = overview.root_directions.series
+      root_directions.size.should == 1
+
+      root_directions[0].scope.should  == scope1
+      root_directions[0].count.should  == 4
+      root_directions[0].amount.should == 90
+
+      directions = overview.directions.series
       directions.size.should == 2
 
       directions[0].scope.should  == scope2
@@ -159,12 +178,17 @@ describe DealsOverview do
 
   describe "dynamics" do
     it "groups data by quarters if year is passed" do
-      create_deal
-      create_deal(contract_date: "10.01.2012", amount: 10 * MONEY_RATE)
-      create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
-      create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
+      deal1 = create_deal
+      deal2 = create_deal(contract_date: "10.01.2012", amount: 10 * MONEY_RATE)
+      deal3 = create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
+      deal4 = create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
 
-      periods = overview(year: 2012).dynamics.series
+      overview = overview(year: 2012)
+
+      overview.deals.size.should == 3
+      overview.deals.should      == [deal2, deal3, deal4]
+
+      periods = overview.dynamics.series
       periods.size.should == 4
 
       periods[0].average_amount.should == 15
@@ -179,6 +203,8 @@ describe DealsOverview do
       create_deal(contract_date: "10.01.2012", amount: 20 * MONEY_RATE)
       create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
       create_deal(contract_date: "10.04.2012", amount: 40 * MONEY_RATE)
+
+      overview.deals.size.should == 5
 
       periods = overview.dynamics.series
       periods.size.should == 3

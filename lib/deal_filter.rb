@@ -29,6 +29,10 @@ class DealFilter
     filter(Deal.scoped)
   end
 
+  def by_year
+    year ? Deal.for_year(year) : Deal.scoped
+  end
+
   def amount(string)
     return unless string.present?
 

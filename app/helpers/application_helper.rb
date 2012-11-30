@@ -15,7 +15,7 @@ module ApplicationHelper
   def date_select_button(text, param)
     html_class = "btn"
     html_class += " btn-primary" if param == params[:year].to_s
-    link_to text, { year: param }, class: html_class
+    link_to text, params.merge(year: param), class: html_class
   end
 
   def b(*args, &block)

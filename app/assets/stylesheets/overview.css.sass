@@ -43,7 +43,7 @@ section.overview
     .circles
       display: table-row
       height: 120px
-      > div
+      > a
         display: table-cell
         text-align: center
         vertical-align: middle
@@ -52,7 +52,15 @@ section.overview
           display: inline-block
           vertical-align: middle
           color: white
-          font-weight: bold
+          .close
+            display: inline-block
+            vertical-align: middle
+            background: image-url("close.png") no-repeat
+            height: 19px
+            width: 19px
+          .amount
+            font-weight: bold
+
     .titles
       display: table-row
       > div

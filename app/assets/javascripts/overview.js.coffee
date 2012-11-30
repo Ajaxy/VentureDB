@@ -8,7 +8,7 @@ renderDirections = ->
   $circles    = $circlesRow.find(".circle")
 
   width = 100 / $circles.length
-  $circlesRow.find("> div").css("width": "#{width}%")
+  $circlesRow.find("> a").css("width": "#{width}%")
 
   maxAmount = $circles.first().data("amount")
 

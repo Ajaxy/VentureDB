@@ -33,18 +33,18 @@ section.overview
     h2 Направления инвестиций
     .directions
       .circles
-        - @overview.directions.series.each do |direction|
-          div
-            .circle data-amount={direction.amount} $#{direction.amount}M
+        - @overview.root_directions.series.each do |direction|
+          a href={url_for params.merge(scope: direction.scope == @overview.scope ? nil : direction.scope.id)}
+            .circle data-amount={direction.amount}
+              - if direction.scope == @overview.scope
+                .close
+              - else
+                .amount $#{direction.amount}M
       .titles
-        - @overview.directions.series.each do |direction|
-          div
-            - if direction.scope.root?
-              = link_to direction.name, scope: direction.scope.id
-            - else
-              = direction.name
+        - @overview.root_directions.series.each do |direction|
+          div = direction.name
 
-    / table
+    table
       thead
         tr
           th Сектор
@@ -62,7 +62,7 @@ section.overview
             td = direction.name
             td #{direction.amount}M
             td = direction.count
-            td = direction.scopes[0]
+            / td = direction.scopes[0]
 
   .report
     h2 География инвестиций
@@ -70,7 +70,7 @@ section.overview
 
     .map data-countries=@overview.geography.data.to_json
 
-  .report
+  / .report
     h2 Венчурные инвестиции по кварталам
     
     = render "chart", chart: @overview.dynamics.main_chart

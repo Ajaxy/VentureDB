@@ -1,24 +1,29 @@
 # encoding: utf-8
 
 class DealsOverview
-  attr_reader :filter
+  attr_reader :filter, :deals, :root_directions, :directions
+
+  delegate :scope, :year, to: :filter
   delegate :count, :amount, :investors, :projects, to: :totals
 
   def initialize(params = {})
     @filter = DealFilter.new(params)
-  end
 
-  def deals
-    @deals ||= filter.deals.includes{investments.investor.locations}
-                           .includes{project.scopes}.to_a
-  end
+    @deals = @filter.by_year.includes{investments.investor.locations}
+                            .includes{project.scopes}.to_a
 
-  def directions
-    @directions ||= DirectionsReport.new(deals, filter.scope)
+    if scope && scope.root?
+      @root_directions  = DirectionsReport.new(deals)
+      @directions       = DirectionsReport.new(deals, scope)
+      @deals            = @root_directions.deals_for(scope)
+    else
+      @root_directions  = DirectionsReport.new(deals)
+      @directions       = @root_directions
+    end
   end
 
   def dynamics
-    @dynamics ||= DynamicsReport.new(deals, filter.year)
+    @dynamics ||= DynamicsReport.new(deals, year)
   end
 
   def geography

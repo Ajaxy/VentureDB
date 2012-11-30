@@ -30,6 +30,10 @@ class DealsOverview
       end
     end
 
+    def deals_for(scope)
+      @grouped_deals[scope].uniq
+    end
+
     def series
       @series ||= begin
         scopes = @grouped_deals.map { |scope, deals| Scope.new(scope, deals) }
