@@ -1,6 +1,11 @@
 - content_for :head do
   = javascript_include_tag "overview"
-
+  = javascript_include_tag "https://www.google.com/jsapi"
+  
+  javascript:
+    google.load ("visualization", "1", { packages:["corechart"] })
+    google.setOnLoadCallback (function(){ window.vent.pub("googleChartsLoaded") })
+    
 section.overview
   .date-select.input-append
     = date_select_button "2010", "2010"
@@ -63,9 +68,12 @@ section.overview
 
   .report
     h2 Венчурные инвестиции по кварталам
-
+    
     = render "chart", chart: @overview.dynamics.main_chart
     = render "chart", chart: @overview.dynamics.extra_chart
-
+    
+  .report
+    h2 Венчурные инвестиции по стадиям и раундам
+    
     = render "chart", chart: @overview.rounds.chart
     = render "chart", chart: @overview.stages.chart

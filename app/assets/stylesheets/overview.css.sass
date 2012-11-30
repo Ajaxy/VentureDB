@@ -1,6 +1,9 @@
+@import "bootstrap/mixins"
+
 section.overview
   .report
     margin-top: 30px
+    @include clearfix
   .summary
     display: table
     border-collapse: collapse
@@ -21,10 +24,18 @@ section.overview
       strong
         font-size: 4em
         font-family: "PT Sans", "PT Sans Caption", verdana, sans-serif
-  .chart
-    width: 600px
-    height: 350px
-    margin: 0 auto
+  .chart-container
+    width: 50%
+    float: left
+    overflow: hidden
+    .legend
+      margin: 15px 10px 15px 0
+      padding: 0 50px 10px 0
+      color: #60656e
+      border-bottom: 1px solid #f1f1f2
+    .chart
+      height: 300px
+      margin: 15px 10px
   .directions
     display: table
     width: 100%

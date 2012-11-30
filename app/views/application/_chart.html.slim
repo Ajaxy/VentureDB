@@ -1,16 +1,14 @@
-= javascript_include_tag "https://www.google.com/jsapi"
-
 javascript:
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+  $(function(){   
+      window.vent.sub("googleChartsLoaded", function(){
+      var data = google.visualization.arrayToDataTable(#{raw chart.data.to_json});
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(#{raw chart.data.to_json});
+      var options = #{raw chart.options.to_json};
 
-    var options = #{raw chart.options.to_json};
-
-    var chart = new google.visualization.#{chart.type}(document.getElementById("#{chart.dom_id}"));
-    chart.draw(data, options);
-  }
-
-.chart id=[chart.dom_id]
+      var chart = new google.visualization.#{chart.type}(document.getElementById("#{chart.dom_id}"));
+      chart.draw(data, options);
+    });
+  });
+.chart-container
+  .legend =chart.title
+  .chart id=[chart.dom_id]

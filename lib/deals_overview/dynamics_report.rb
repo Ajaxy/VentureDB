@@ -71,8 +71,10 @@ class DealsOverview
 
       def options
         {
-          title:  title,
-          vAxis:  { title: "Миллионы $" },
+          titlePosition: "none",
+          chartArea: { width: "100%" }, 
+          vAxis:  { gridlines: { color: "#fff" } , baselineColor: "#efeff0", textPosition: 'none' },
+          hAxis:  { textStyle: { color: "#a0a2a5", fontSize: "10px" }}
         }
       end
     end
@@ -81,7 +83,10 @@ class DealsOverview
       def options
         super.merge(
           seriesType: "bars",
-          series:     { 1 => { type: "line", pointSize: 10 } },
+          series:   { 1 => { type: "line", pointSize: 6 } },
+          colors:   ["#efeff0", "#b7554a"],
+          axisTitlePosition: 'none',
+          legend: { position: "bottom", alignment: "start", textStyle: {color: "#a0a2a5", fontSize: "12px"} },
         )
       end
 
@@ -97,16 +102,24 @@ class DealsOverview
         data = @series.map { |period| [ period.name, period.count,
                                         period.amount ] }
 
-        data.prepend ["Квартал", "Количество сделок", "Объем сделок"]
+        data.prepend ["Квартал", "Количество сделок", "Объем сделок, млн. долл. США"]
         data
       end
-
+      
       def dom_id
         "dynamics-main-chart"
       end
     end
 
     class ExtraChart < Chart
+      def options
+        super.merge(
+          seriesType: "bars",
+          colors:   ["#efeff0"],
+          axisTitlePosition: 'none',
+          legend: { position: "bottom", alignment: "start", textStyle: {color: "#a0a2a5", fontSize: "12px"} },
+        )
+      end
       def title
         "Средняя стоимость венчурной сделки"
       end
