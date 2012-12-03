@@ -54,7 +54,6 @@ class DealsOverview
     end
 
     def chart
-      # raise Chart.new(series).options.inspect
       Chart.new(series)
     end
   end

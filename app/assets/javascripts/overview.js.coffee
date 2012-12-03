@@ -118,24 +118,25 @@ setFiltersPosition = ->
   offset          = $filters.offset().top
   origMarginTop   = parseInt $filters.css("margin-top")
   marginTop       = 5
-  opacity         = 0.8
 
   $(window).scroll ->
     console.log $filters.css("opacity")
     if $(window).scrollTop() >= offset - marginTop
-      if $filters.css("opacity") != "#{opacity}"
+      unless $filters.data("fixed")
         $filters.css
           "position"    : "fixed"
           "top"         : 0
           "left"        : $filters.offset().left
           "margin-top"  : marginTop
-          "opacity"     : opacity
+          "opacity"     : 0.8
           "z-index"     : 500
-    else if $filters.css("opacity") == "#{opacity}"
+        $filters.data("fixed", true)
+    else if $filters.data("fixed")
       $filters.css
         "position"      : "static"
         "opacity"       : 1
         "margin-top"    : origMarginTop
+      $filters.data("fixed", false)
 
 jQuery ->
   renderDirections()
