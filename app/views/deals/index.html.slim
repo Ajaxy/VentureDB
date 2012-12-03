@@ -1,5 +1,13 @@
+section.deals-stream
+  h1 Поток сделок
+  - @deals.each do |deal|
+    .deal
+      .date         = deal.date
+      .description  = deal.description
+      .meta         = deal.meta
+  = paginate @deals
 
-.filters
+/ .filters
   = form_for @filter.params, as: :filter, url: "", method: :get do |f|
     div = f.collection_select :scope, Scope.all, :id, :name, include_blank: "<Сфера деятельности>"
     div = f.select :round, Deal::ROUNDS.invert, include_blank: "<Раунд финансирования>"
@@ -16,7 +24,7 @@
     div = f.text_field :search, placeholder: "Поиск"
     div = f.submit "Фильтровать"
 
-table.table.table-striped
+/ table.table.table-striped
   thead
     tr
       th        Проект
@@ -37,4 +45,4 @@ table.table.table-striped
         td.center = deal.amount
         td.center = deal.contract_date
 
-= paginate @deals
+

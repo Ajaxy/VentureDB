@@ -132,6 +132,10 @@ class Deal < ActiveRecord::Base
     STAGES[stage_id]
   end
 
+  def date
+    contract_date || announcement_date
+  end
+
   def exit_type
     EXIT_TYPES[exit_type_id]
   end

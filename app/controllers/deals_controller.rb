@@ -15,7 +15,7 @@ class DealsController < ApplicationController
     @filter = DealFilter.new(params[:filter])
     scope   = paginate Deal.includes{[project.authors, investors.actor]}
     scope   = @sorter.sort(scope)
-    @deals  = decorate @filter.filter(scope).uniq
+    @deals  = StreamDealDecorator.decorate @filter.filter(scope).uniq
   end
 
   def show

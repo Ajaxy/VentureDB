@@ -12,6 +12,12 @@ class ApplicationDecorator < Draper::Base
     strings.join("<br>").html_safe
   end
 
+  def millions(amount, options = {})
+    options = options.merge(units: { unit: "руб.", thousand: "тыс. руб.", million: "млн руб."})
+    options[:precision] ||= 0
+    h.number_to_human amount, options
+  end
+
   def roubles(amount)
     "#{h.number_with_delimiter amount, delimiter: " "} руб."
   end

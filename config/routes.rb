@@ -17,14 +17,14 @@ Venture::Application.routes.draw do
   end
 
   scope "/deals" do
-    get "/overview(/:year)" => "deals#overview", as: :cabinet_overview
-    get "/"                 => "deals#index", as: :cabinet_deals
-    get "/:id"              => "deals#show", as: :cabinet_deal
+    get "/overview(/:year)" => "deals#overview",  as: :cabinet_overview
+    get "/stream"           => "deals#index",     as: :cabinet_deals
+    get "/:id"              => "deals#show",      as: :cabinet_deal
   end
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"
-  #for test purposes
-  get "/subscribed" => "home#subscribed"
+
+  get "/subscribed"  => "home#subscribed"
   post "/subscribed" => "home#participate"
 end
