@@ -72,23 +72,14 @@ describe DealsOverview do
     create_deal(contract_date: "10.04.2012", amount: 50 * MONEY_RATE,
                 investors: [investor2], project: project2)
 
-    # overview.amount.should == 150
-    # overview.count.should  == 6
+    overview(year: 2010).totals.investors.should == 0
+    overview(year: 2010).totals.projects.should  == 0
 
-    # overview(year: 2010).amount.should    == 10
-    # overview(year: 2010).count.should     == 1
-    overview(year: 2010).investors.should == 0
-    overview(year: 2010).projects.should  == 0
+    overview(year: 2011).totals.investors.should == 1
+    overview(year: 2011).totals.projects.should  == 1
 
-    # overview(year: 2011).amount.should    == 50
-    # overview(year: 2011).count.should     == 2
-    overview(year: 2011).investors.should == 1
-    overview(year: 2011).projects.should  == 1
-
-    # overview(year: 2012).amount.should    == 90
-    # overview(year: 2012).count.should     == 2
-    overview(year: 2012).investors.should == 2
-    overview(year: 2012).projects.should  == 2
+    overview(year: 2012).totals.investors.should == 2
+    overview(year: 2012).totals.projects.should  == 2
   end
 
   describe "directions" do
@@ -139,11 +130,13 @@ describe DealsOverview do
       scope2 = fabricate(Scope, name: "foo/sub1").move_to_child_of(scope1)
       scope3 = fabricate(Scope, name: "foo/sub2").move_to_child_of(scope1)
       scope4 = fabricate(Scope, name: "foo/sub3").move_to_child_of(scope1)
+      scope5 = fabricate(Scope, name: "bar")
 
       deal1 = create_deal
       deal2 = create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
       deal3 = create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
       deal4 = create_deal(scopes: [scope2, scope3], amount: 30 * MONEY_RATE)
+      deal5 = create_deal(scopes: [scope5],         amount: 40 * MONEY_RATE)
 
       overview = overview(scope: scope1.id)
 
@@ -151,14 +144,18 @@ describe DealsOverview do
       overview.deals.should      == [deal2, deal3, deal4]
 
       root_directions = overview.root_directions.series
-      root_directions.size.should == 1
+      root_directions.size.should == 2
 
       root_directions[0].scope.should  == scope1
       root_directions[0].count.should  == 4
       root_directions[0].amount.should == 90
 
+      root_directions[1].scope.should  == scope5
+      root_directions[1].count.should  == 1
+      root_directions[1].amount.should == 40
+
       directions = overview.directions.series
-      directions.size.should == 2
+      directions.size.should == 3
 
       directions[0].scope.should  == scope2
       directions[0].count.should  == 2
@@ -167,6 +164,10 @@ describe DealsOverview do
       directions[1].scope.should  == scope3
       directions[1].count.should  == 1
       directions[1].amount.should == 30
+
+      directions[2].scope.should  == scope1
+      directions[2].count.should  == 1
+      directions[2].amount.should == 10
     end
   end
 
