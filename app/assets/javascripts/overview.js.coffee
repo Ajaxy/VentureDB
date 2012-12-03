@@ -120,7 +120,6 @@ setFiltersPosition = ->
   marginTop       = 5
 
   $(window).scroll ->
-    console.log $filters.css("opacity")
     if $(window).scrollTop() >= offset - marginTop
       unless $filters.data("fixed")
         $filters.css
