@@ -21,6 +21,10 @@ class DealsOverview
       @average_amount ||= count == 0 ? 0 : (amount / count.to_f).round(3)
     end
 
+    def average_amount_string
+      @average_amount_string ||= "$#{average_amount}M"
+    end
+
     def as_json(*)
       {
         amount: amount.round(1),

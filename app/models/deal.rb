@@ -37,6 +37,16 @@ class Deal < ActiveRecord::Base
     7 => "Выход",
   }
 
+  ROUNDS_SHORT = {
+    1 => "Посев",
+    2 => "A",
+    3 => "B",
+    4 => "C",
+    5 => "D",
+    6 => "E",
+    7 => "Выход",
+  }
+
   EXIT_TYPES = {
     1 => "MBO",
     2 => "LBO",

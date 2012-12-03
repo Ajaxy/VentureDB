@@ -30,7 +30,7 @@ renderDirections = ->
       "background-color"  : "##{color}"
 
 renderDirectionsRounds = ->
-  $table = $(".directions table")
+  $table = $("#directions-by-rounds")
   return if $table.length == 0
 
   maxRadius   = 11.5
@@ -64,9 +64,9 @@ renderDirectionsRounds = ->
       $circle.attr("title", title)
       $circle.tooltip(html: true)
 
-      radius = Math.sqrt(amount / avgAmount) * avgRadius
-      radius = minRadius if radius < minRadius
-      radius = maxRadius if radius > maxRadius
+      radius  = Math.sqrt(amount / avgAmount) * avgRadius
+      radius  = minRadius if radius < minRadius
+      radius  = maxRadius if radius > maxRadius
 
       opacity = Math.sqrt(count / avgCount) * avgOpacity
       opacity = minOpacity if opacity < minOpacity
@@ -108,10 +108,37 @@ renderGeography = ->
       "left"            : "#{x - radius}px"
       "top"             : "#{y - radius}px"
 
-
     $(".map").append($circle)
+
+setFiltersPosition = ->
+  $page = $(".overview")
+  return if $page.length == 0
+
+  $filters        = $page.find(".filters")
+  offset          = $filters.offset().top
+  origMarginTop   = parseInt $filters.css("margin-top")
+  marginTop       = 5
+  opacity         = 0.8
+
+  $(window).scroll ->
+    console.log $filters.css("opacity")
+    if $(window).scrollTop() >= offset - marginTop
+      if $filters.css("opacity") != "#{opacity}"
+        $filters.css
+          "position"    : "fixed"
+          "top"         : 0
+          "left"        : $filters.offset().left
+          "margin-top"  : marginTop
+          "opacity"     : opacity
+          "z-index"     : 500
+    else if $filters.css("opacity") == "#{opacity}"
+      $filters.css
+        "position"      : "static"
+        "opacity"       : 1
+        "margin-top"    : origMarginTop
 
 jQuery ->
   renderDirections()
   renderGeography()
   renderDirectionsRounds()
+  setFiltersPosition()

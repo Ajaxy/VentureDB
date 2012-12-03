@@ -3,9 +3,10 @@
 section.overview
   .filters
     float: right
-    width: 222px
+    margin-top: 20px
     .sector-select
-      margin-top: 10px
+      margin-left: 10px
+      width: 222px
   .report
     margin-top: 30px
     +clearfix
@@ -40,7 +41,7 @@ section.overview
       color: #60656e
       border-bottom: 1px solid #f1f1f2
     .chart
-      height: 300px
+      height: 250px
       margin: 15px 10px
   .report.directions
     .graph
@@ -67,20 +68,6 @@ section.overview
               width: 19px
             .amount
               font-weight: bold
-    table
-      th, td
-        border: solid 1px #e3e3e3
-        padding: 5px 15px
-        text-align: center
-        &.left
-          text-align: left
-      .circle
-        display: inline-block
-        background: #9ba2ce
-      td:last-child
-        .circle
-          background: black
-
     .titles
       display: table-row
       > div
@@ -104,3 +91,34 @@ section.overview
       font-weight: bold
       position: absolute
       cursor: help
+  table
+    border-collapse: separate
+    width: 100%
+    th, td
+      border: solid #e3e3e3
+      border-width: 0 1px 1px 0
+      padding: 5px 15px
+      text-align: center
+      &.left
+        text-align: left
+    .circle
+      display: inline-block
+      background: #9ba2ce
+    td:last-child
+      .circle
+        background: black
+    tr:first-child
+      th
+        border-top-width: 1px
+      th:first-child
+        border-top-left-radius: 4px
+      th:last-child
+        border-top-right-radius: 4px
+    tr:last-child
+      td:first-child
+        border-bottom-left-radius: 4px
+      td:last-child
+        border-bottom-right-radius: 4px
+    td, th
+      &:first-child
+        border-left-width: 1px

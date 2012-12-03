@@ -64,30 +64,12 @@ class DealsOverview
       end
     end
 
-    class Chart
-      def initialize(series)
-        @series = series
-      end
-
-      def options
+    class MainChart < BaseChart
+      def extra_options
         {
-          titlePosition: "none",
-          chartArea: { width: "100%" },
-          vAxis:  { gridlines: { color: "#fff" } , baselineColor: "#efeff0", textPosition: 'none' },
-          hAxis:  { textStyle: { color: "#a0a2a5", fontSize: "10px" }}
-        }
-      end
-    end
-
-    class MainChart < Chart
-      def options
-        super.merge(
+          series:     with_line,
           seriesType: "bars",
-          series:   { 1 => { type: "line", pointSize: 6 } },
-          colors:   ["#efeff0", "#b7554a"],
-          axisTitlePosition: 'none',
-          legend: { position: "bottom", alignment: "start", textStyle: {color: "#a0a2a5", fontSize: "12px"} },
-        )
+        }
       end
 
       def title
@@ -101,7 +83,7 @@ class DealsOverview
       def data
         data = @series.map { |p| [ p.name, p.count, p.amount.round(1) ] }
         data.prepend ["Квартал", "Количество сделок",
-                      "Объем сделок, млн. долл. США"]
+                      "Объем сделок, млн долл. США"]
         data
       end
 
@@ -110,15 +92,11 @@ class DealsOverview
       end
     end
 
-    class ExtraChart < Chart
-      def options
-        super.merge(
-          seriesType: "bars",
-          colors:   ["#efeff0"],
-          axisTitlePosition: 'none',
-          legend: { position: "bottom", alignment: "start", textStyle: {color: "#a0a2a5", fontSize: "12px"} },
-        )
+    class ExtraChart < BaseChart
+      def extra_options
+        {}
       end
+
       def title
         "Средняя стоимость венчурной сделки"
       end
@@ -129,7 +107,7 @@ class DealsOverview
 
       def data
         data = @series.map { |p| [ p.name, p.average_amount ] }
-        data.prepend ["Квартал", "Средняя стоимость сделки"]
+        data.prepend ["Квартал", "Средняя стоимость сделки, млн долл. США"]
         data
       end
 

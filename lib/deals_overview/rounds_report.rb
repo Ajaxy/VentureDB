@@ -13,16 +13,21 @@ class DealsOverview
       def name
         Deal::ROUNDS[@id]
       end
+
+      def short_name
+        Deal::ROUNDS_SHORT[@id]
+      end
     end
 
-    class Chart
+    class Chart < BaseChart
       def initialize(series)
         @series = series.select(&:name)
       end
 
       def data
-        data = @series.map { |r| [r.name, r.count, r.amount.round] }
-        data.prepend ["Раунд", "Количество сделок", "Сумма сделок"]
+        data = @series.map { |r| [r.short_name, r.count, r.amount.round] }
+        data.prepend ["Раунд", "Количество сделок",
+                      "Объем сделок, млн долл. США"]
         data
       end
 
@@ -34,12 +39,11 @@ class DealsOverview
         "Объем инвестирования и количество сделок по раундам инвестирования"
       end
 
-      def options
+      def extra_options
         {
-          title: title,
-          vAxis:  { title: "Миллионы $" },
-          seriesType: "bars",
-          series:     { 1 => { type: "line", pointSize: 10 } },
+          series:         with_line,
+          type:           "columns",
+          vAxis:          hidden_axis,
         }
       end
 

@@ -15,14 +15,10 @@ class DealsOverview
       end
     end
 
-    class Chart
-      def initialize(series)
-        @series = series
-      end
-
+    class Chart < BaseChart
       def data
         data = @series.map { |s| [s.name, s.amount.round] }
-        data.prepend ["Стадия", "Сумма сделок"]
+        data.prepend ["Стадия", "Объем сделок, млн долл. США"]
         data
       end
 
@@ -34,10 +30,11 @@ class DealsOverview
         "Объем инвестирования и количество сделок по стадиям проекта"
       end
 
-      def options
+      def extra_options
         {
-          title:  title,
-          hAxis:  { title: "Миллионы $" },
+          chartArea:      { width: "50%" },
+          hAxis:          hidden_axis,
+          series:         with_line,
         }
       end
 
@@ -57,6 +54,7 @@ class DealsOverview
     end
 
     def chart
+      # raise Chart.new(series).options.inspect
       Chart.new(series)
     end
   end

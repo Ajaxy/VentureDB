@@ -130,8 +130,10 @@ section.deal
     margin-top: 0.5em
 
 .date-select
-  width: 100%
-  +box-sizing(border-box)
+  display: inline-block
+  vertical-align: middle
+  // width: 100%
+  // +box-sizing(border-box)
   font-size: 12px
   border: solid 1px #d1d1d1
   border-radius: 5px
@@ -144,5 +146,6 @@ section.deal
     color: inherit
     width: 55px
     text-align: center
+    background: white
     &.active
       background: #f8f8f8
