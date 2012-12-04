@@ -22,13 +22,13 @@ class DealsOverview
     end
 
     def average_amount_string
-      @average_amount_string ||= "$#{average_amount}M"
+      @average_amount_string ||= "$#{average_amount.round(2)}M"
     end
 
     def as_json(*)
       {
-        amount: amount.round(1),
-        count: count,
+        amount:         amount.round(1),
+        count:          count,
         average_amount: average_amount.round(1)
       }
     end

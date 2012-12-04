@@ -103,7 +103,6 @@ renderGeography = ->
       "width"           : "#{radius*2}px"
       "height"          : "#{radius*2}px"
       "line-height"     : "#{radius*2}px"
-      "background-size" : "#{radius*2}px"
       "font-size"       : "#{fontSize}px"
       "left"            : "#{x - radius}px"
       "top"             : "#{y - radius}px"

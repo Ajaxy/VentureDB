@@ -10,12 +10,12 @@ class DealsOverview
         @scope = scope
       end
 
-      def name
-        scope.short_name
-      end
-
       def for_round(*ids)
         Array(ids).map { |id| rounds.data_for(id) }.reduce(:+)
+      end
+
+      def name
+        scope.short_name
       end
 
       private

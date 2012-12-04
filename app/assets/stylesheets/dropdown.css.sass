@@ -9,11 +9,21 @@
     border-radius: 5px
     +box-shadow(0 1px 0 0 #f0f0f0)
     background-color: #fff
-    +filter-gradient(#fff, #fafafa)
     +background-image(linear-gradient(top, #fff, #fafafa))
     padding: 5px 20px 5px 10px
     color: inherit
     position: relative
+    div
+      white-space: nowrap
+      overflow: hidden
+      position: relative
+      &:after
+        content: ""
+        position: absolute
+        right: 0
+        width: 50px
+        height: 100%
+        +background-image(linear-gradient(left, rgba(255,255,255, 0), #fcfcfc))
     &:hover
       text-decoration: none
     &:after

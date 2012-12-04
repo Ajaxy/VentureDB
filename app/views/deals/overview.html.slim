@@ -17,7 +17,8 @@ section.overview
       = date_select_button "Все", ""
 
     .sector-select.dropdown
-      a.dropdown-toggle data-toggle="dropdown" href="#" = @overview.filter.scope_name
+      a.dropdown-toggle data-toggle="dropdown" href="#"
+        div = @overview.filter.scope_name
       ul.dropdown-menu role="menu"
         - @overview.filter.scopes.each do |scope|
           li = link_to scope.name, params.merge(scope: scope.id)
@@ -28,15 +29,17 @@ section.overview
       .graph
         .circles
           - @overview.root_directions.series.each do |direction|
-            a href={url_for params.merge(scope: direction.scope == @overview.scope ? nil : direction.scope.id)}
-              .circle data-amount={direction.amount}
-                - if direction.scope == @overview.scope
+            - current = direction.scope == @overview.scope
+            = link_to params.merge(scope: current ? nil : direction.scope.id) do
+              .circle data-amount={direction.amount} class=("fade" if @overview.scope && !current)
+                - if current
                   .close
                 - else
                   .amount = direction.amount_string(0)
         .titles
           - @overview.root_directions.series.each do |direction|
-            div = direction.name
+            - current = direction.scope == @overview.scope
+            div class=("fade" if @overview.scope && !current) = direction.name
 
       .summary
         div
