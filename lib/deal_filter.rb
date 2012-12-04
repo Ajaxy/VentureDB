@@ -26,11 +26,11 @@ class DealFilter
   end
 
   def deals
-    filter(Deal.scoped)
+    filter(Deal.published)
   end
 
   def by_year
-    year ? Deal.for_year(year) : Deal.scoped
+    year ? Deal.for_year(year) : Deal.published
   end
 
   def amount(string)

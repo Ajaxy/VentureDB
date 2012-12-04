@@ -10,7 +10,7 @@ class DealsOverview
     @filter = DealFilter.new(params)
 
     @deals = @filter.by_year.includes{investments.investor.locations}
-                            .includes{project.scopes}.where{amount != nil}.to_a
+                            .includes{project.scopes}.to_a
 
     if scope && scope.root?
       @root_directions  = DirectionsReport.new(deals)

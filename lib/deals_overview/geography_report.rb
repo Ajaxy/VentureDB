@@ -14,7 +14,7 @@ class DealsOverview
 
 
     def add_deal(deal)
-      locs = deal.investments.map { |i| i.investor.locations }.reduce(:+)
+      locs = deal.investments.map { |inv| inv.locations }.reduce(:+)
       return unless locs
 
       locs.each do |location|

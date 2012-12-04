@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 class Admin::DealsController < Admin::BaseController
-  before_filter :find_deal, only: [:show, :edit, :update, :destroy]
+  before_filter :find_deal, only: [:show, :edit, :update, :destroy,
+                                   :publish, :unpublish]
 
   def index
     @sorter = DealSorter.new(params, view_context)
@@ -20,8 +21,8 @@ class Admin::DealsController < Admin::BaseController
   def create
     @deal = Deal.new(permitted_params.deal)
 
-    if @deal.save && @deal.publish
-      redirect_to :deals, notice: "Сделка успешно добавлена."
+    if @deal.save && @deal.undraft
+      redirect_to @deal, notice: "Сделка успешно добавлена."
     else
       render :new
     end
@@ -31,11 +32,27 @@ class Admin::DealsController < Admin::BaseController
   end
 
   def update
-    if @deal.update_attributes(permitted_params.deal) && @deal.publish
-      redirect_to :deals, notice: "Сделка успешно обновлена."
+    raise_404 if @deal.published?
+
+    if @deal.update_attributes(permitted_params.deal) && @deal.undraft
+      redirect_to @deal, notice: "Сделка успешно обновлена."
     else
       render :edit
     end
+  end
+
+  def publish
+    if @deal.publish
+      redirect_to @deal
+    else
+      flash.now.alert = @deal.errors[:publish].join("<br>").html_safe
+      render :edit
+    end
+  end
+
+  def unpublish
+    @deal.unpublish
+    redirect_to @deal
   end
 
   private

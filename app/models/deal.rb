@@ -9,8 +9,6 @@ class Deal < ActiveRecord::Base
   has_many :investments
   has_many :investors, through: :investments
 
-  validates :project_id, :investments, presence: true
-
   STATUSES = {
     1 => "Анонсированная",
     2 => "В процессе",
@@ -54,6 +52,14 @@ class Deal < ActiveRecord::Base
     4 => "Поглощение",
     5 => "IPO",
   }
+
+  def self.published
+    where{published == true}
+  end
+
+  def self.unpublished
+    where{published == false}
+  end
 
   def self.in_scope(scope)
     joins{project.scopes}
@@ -179,10 +185,30 @@ class Deal < ActiveRecord::Base
     alias_method "#{attr}_before_type_cast", attr
   end
 
-  def publish
+  def undraft
     project.try(:publish)
     investments.each(&:publish)
     informer.try(:publish)
     true
+  end
+
+  def publish
+    errors.add :publish, "Не указан проект" unless project
+    errors.add :publish, "Не указан раунд инвестиций" unless round
+    errors.add :publish, "Не указана стадия развития компании" unless stage
+    errors.add :publish, "Не указана дата сделки" unless date
+    errors.add :publish, "Не указана стоимость" unless amount
+    errors.add :publish, "Лог ошибок не пуст" if errors_log?
+
+    if errors.any?
+      false
+    else
+      update_attribute :published, true
+      true
+    end
+  end
+
+  def unpublish
+    update_attribute :published, false
   end
 end

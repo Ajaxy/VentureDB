@@ -1,5 +1,14 @@
 
 = form_for @deal, html: { class: "deal" } do |f|
+  - if @deal.published?
+    .deal-status.alert.alert-success
+      = link_to "Редактировать", [:unpublish, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
+      | Сделка опубликована, она участвует в подсчете статистики.
+  - elsif @deal.persisted?
+    .deal-status.alert.alert-info
+      = link_to "Опубликовать", [:publish, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
+      | Сделка не опубликована, она не участвует в подсчете статистики.
+
   hr
   .row
     .span4
@@ -39,11 +48,11 @@
 
         .control-group
           = f.label :status_id, "Статус сделки"
-          = f.select :status_id, Deal::STATUSES.invert, {}, class: "span5 chzn"
+          = f.select :status_id, Deal::STATUSES.invert, { include_blank: true }, class: "span5 chzn"
 
         .control-group
           = f.label :round_id, "Раунд финансирования"
-          = f.select :round_id, Deal::ROUNDS.invert, {}, class: "span5 chzn"
+          = f.select :round_id, Deal::ROUNDS.invert, { include_blank: true }, class: "span5 chzn"
 
         .control-group.exit-type
           = f.label :exit_type_id, "Тип выхода"
@@ -51,7 +60,7 @@
 
         .control-group
           = f.label :stage_id, "Стадия развития компании"
-          = f.select :stage_id, Deal::STAGES.invert, {}, class: "span5 chzn"
+          = f.select :stage_id, Deal::STAGES.invert, { include_blank: true }, class: "span5 chzn"
 
   hr
   .row
@@ -136,11 +145,12 @@
           h5 Лог ошибок
           = f.text_area :errors_log, class: "span8", rows: 4
 
-  .form-actions
-    .offset4
-      button.btn.btn-large.btn-primary == @deal.persisted? ? "Сохранить" : "Создать сделку"
-      '   
-      a.btn.btn-large href="javascript:void(0)" Отмена
+  - unless @deal.published?
+    .form-actions
+      .offset4
+        button.btn.btn-large.btn-primary == @deal.persisted? ? "Сохранить" : "Создать сделку"
+        '   
+        a.btn.btn-large href="javascript:void(0)" Отмена
 
 - content_for :popups do
   #new_project.container-popup.hide

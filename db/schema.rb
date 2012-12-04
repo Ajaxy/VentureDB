@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129145754) do
+ActiveRecord::Schema.define(:version => 20121204150707) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20121129145754) do
     t.text     "errors_log"
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
+    t.boolean  "published",                      :default => false
   end
 
   add_index "deals", ["exit_type_id"], :name => "index_deals_on_exit_type_id"

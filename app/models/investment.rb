@@ -30,4 +30,9 @@ class Investment < ActiveRecord::Base
     super
     investor.try(:publish)
   end
+
+  def locations
+    investor ? investor.locations : []
+  end
 end
+

@@ -8,10 +8,17 @@ Venture::Application.routes.draw do
 
   scope "/admin", module: :admin do
     root to: "deals#index"
+
+    resources :deals do
+      member do
+        post :publish
+        post :unpublish
+      end
+    end
+
     resources :projects
     resources :people
     resources :companies
-    resources :deals
     resources :investments
     resources :investors
   end
