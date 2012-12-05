@@ -32,7 +32,7 @@ class DealsOverview
 
       def extra_options
         {
-          chartArea:      { width: "50%" },
+          chartArea:      { width: "50%", height: "85%" },
           hAxis:          hidden_axis,
           series:         with_line,
         }

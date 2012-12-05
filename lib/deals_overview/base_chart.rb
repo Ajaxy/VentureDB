@@ -21,7 +21,7 @@ class DealsOverview
 
     def base_options
       {
-        chartArea:      { width: "100%", height: "80%" },
+        chartArea:      { width: "100%" },
         colors:         [ GRAY_COLOR, "#b7554a" ],
         fontName:       "PT Sans",
         hAxis:          axis_options,
