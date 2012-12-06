@@ -26,13 +26,14 @@ class StreamDealDecorator < DealDecorator
   end
 
   def meta
-    scopes    = deal.project.scopes.includes(:parent)
-    locations = deal.investments.map { |i| i.investor.locations }.reduce(:+) || []
+    scopes    = deal.project ? deal.project.scopes.includes(:parent) : []
+    locations = deal.investments.map { |inv| inv.locations }.reduce(:+) || []
 
     [*scopes.map(&:full_name), *locations.map(&:name).uniq].join(", ")
   end
 
   def project_link
+    return "—" unless deal.project
     h.link_to project_name, deal.project
   end
 

@@ -1,8 +1,6 @@
 # encoding: utf-8
 
 class DealsOverview
-  NoDataError = Class.new(StandardError)
-
   attr_reader :filter, :deals, :root_directions, :directions
   delegate :scope, :year, to: :filter
 

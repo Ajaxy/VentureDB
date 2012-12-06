@@ -200,12 +200,14 @@ class Deal < ActiveRecord::Base
     errors.add :publish, "Не указана стоимость" unless amount
     errors.add :publish, "Лог ошибок не пуст" if errors_log?
 
-    if errors.any?
-      false
-    else
-      update_attribute :published, true
-      true
+    errors.add :publish, "Не указано инвестиций" unless investments.any?
+
+    investments.each do |inv|
+      errors.add :publish, "Не указан инвестор" unless inv.investor
     end
+
+    update_attribute :published, errors.empty?
+    errors.empty?
   end
 
   def unpublish
