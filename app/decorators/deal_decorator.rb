@@ -5,8 +5,9 @@ class DealDecorator < ApplicationDecorator
 
   def id
     value = "%06d" % deal.id
+
     if deal.errors_log?
-      errors = h.simple_format(deal.errors_log)
+      errors = h.simple_format(h.html_escape deal.errors_log)
       tag :span, value, rel: "tooltip", title: errors, class: "errors_log"
     else
       value
