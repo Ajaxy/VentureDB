@@ -1,0 +1,8 @@
+.cabinet-page.project.profile
+  h1 = @project.name
+  = @project.scopes.map(&:full_name).join(", ")
+  div = simple_format @project.description
+
+  section
+    h2 Инвестиции и гранты
+    .deals-stream = render StreamDealDecorator.decorate(@project.deals)

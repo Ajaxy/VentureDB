@@ -16,4 +16,9 @@ class ProjectDecorator < ApplicationDecorator
     return "—" unless authors.any?
     list authors.map(&:full_name)
   end
+
+  def market_names
+    return "—" unless markets.any?
+    list markets.map(&:name)
+  end
 end

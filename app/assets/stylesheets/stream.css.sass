@@ -14,7 +14,7 @@ body.cabinet
     .dropdown
       width: 100%
 
-  section.deals-stream
+  section.with-aside
     margin-right: 210px
     margin-top: -40px
     padding-top: 40px
@@ -25,23 +25,31 @@ body.cabinet
       margin: 15px 0
       input
         width: 90%
-    .deal
-      border-top: solid 2px #f7f7f7
-      .date
-        margin: 20px 0 10px
-        font-size: 0.8em
-        font-weight: bold
-        text-transform: uppercase
-        letter-spacing: 1px
-      .description
-        font-size: 1.1em
-      .meta
-        margin: 10px 0 20px
-        font-size: 0.95em
-        color: #b3b3b3
     .pagination
       margin-top: 60px
       font-size: 1.1em
       a
         color: #6e6e6e
         padding: 8px 14px
+
+.deals-stream
+  .deal
+    border-top: solid 2px #f7f7f7
+    .date
+      margin: 20px 0 10px
+      font-size: 0.8em
+      font-weight: bold
+      text-transform: uppercase
+      letter-spacing: 1px
+    .description
+      font-size: 1.1em
+    .meta
+      margin: 10px 0 20px
+      font-size: 0.95em
+      color: #b3b3b3
+
+.profile
+  .deals-stream
+    .deal
+      .description
+        font-size: 1em

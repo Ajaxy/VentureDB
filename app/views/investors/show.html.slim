@@ -1,0 +1,8 @@
+.cabinet-page.investor.profile
+  h1 = @investor.name
+  p = @investor.description
+
+  section
+    h2 Хроника
+    .deals-stream = render StreamDealDecorator.decorate(@investor.deals)
+

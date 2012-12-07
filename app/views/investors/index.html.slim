@@ -1,0 +1,16 @@
+.cabinet-page
+  aside
+    p filters
+
+  section.with-aside
+    h1 Инвесторы
+
+    table.table
+      - @investors.each do |investor|
+        tr
+          td = investor.link
+          td = investor.count
+          td = investor.amount
+
+    = paginate @investors
+

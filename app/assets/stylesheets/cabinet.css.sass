@@ -80,31 +80,32 @@ $text-color: #60656e
           background: white
           border: solid #dedfe1
           border-width: 1px 0
-    .cabinet-page
-      padding: 40px
+  .cabinet-page
+    padding: 40px
+    min-height: 300px
+    background: white
+    border: solid #dedfe1
+    border-width: 0 0 1px 1px
+    color: $text-color
+    line-height: 1.5
+    &.deals
       margin-left: 219px
-      min-height: 300px
-      background: white
-      border: solid #dedfe1
-      border-width: 0 0 1px 1px
-      color: $text-color
+    h1
+      font-size: 2em
+    h2
+      font-size: 1.5em
       line-height: 1.5
-      h1
-        font-size: 2em
-      h2
-        font-size: 1.5em
-        line-height: 1.5
-      .table
-        margin: 30px -40px
-        td
-          border: 0
-        td, th
-          &.center
-            text-align: center
-          &:first-child
-            padding-left: 40px
-          &:last-child
-            padding-right: 40px
+    .table
+      margin: 30px -40px
+      td
+        border: 0
+      td, th
+        &.center
+          text-align: center
+        &:first-child
+          padding-left: 40px
+        &:last-child
+          padding-right: 40px
 
 .filters
   select
@@ -147,3 +148,7 @@ section.deal
     background: white
     &.active
       background: #f8f8f8
+
+.profile
+  > section
+    margin: 20px 0

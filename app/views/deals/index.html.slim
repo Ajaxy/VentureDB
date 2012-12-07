@@ -1,26 +1,26 @@
-aside
-  div
-    = @filter.year_select(from: 2011)
-  div
-    p Сектор деятельности
-    = @filter.sector_select
-  div
-    p Раунд инвестиций
-    = @filter.round_select
-  div
-    p Сортировать по
-    = @filter.sort_select
+.main-area
+  = render "deals-submenu"
 
-section.deals-stream
-  h1 Поток сделок
+  .cabinet-page.deals
+    aside
+      div
+        = @filter.year_select(from: 2011)
+      div
+        p Сектор деятельности
+        = @filter.sector_select
+      div
+        p Раунд инвестиций
+        = @filter.round_select
+      div
+        p Сортировать по
+        = @filter.sort_select
 
-  = form_tag "", method: :get do
-    = text_field_tag :search, @filter.params.search, placeholder: "Поиск по названию проекта"
+    section.with-aside
+      h1 Поток сделок
 
-  - @deals.each do |deal|
-    .deal
-      .date         = deal.date
-      .description  = deal.description
-      .meta         = deal.meta
+      = form_tag "", method: :get do
+        = text_field_tag :search, @filter.params.search, placeholder: "Поиск по названию проекта"
 
-  = paginate @deals
+      .deals-stream = render @deals
+
+      = paginate @deals

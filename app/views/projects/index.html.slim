@@ -1,0 +1,16 @@
+.cabinet-page
+  aside
+    p filters
+
+  section.with-aside
+    h1 Проекты
+
+    table.table
+      - @projects.each do |project|
+        tr
+          td = project.link
+          td = project.scope_names
+          td = project.market_names
+
+    = paginate @projects
+
