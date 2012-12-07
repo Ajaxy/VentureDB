@@ -1,4 +1,4 @@
-# encoding: utf-8
+  # encoding: utf-8
 
 class DealFilter
   LAST_YEARS = 3
@@ -11,7 +11,7 @@ class DealFilter
 
   def filter(deals)
     deals = deals.in_stage(params.stage.to_i)
-    deals = deals.in_round(params.round.to_i)
+    deals = deals.in_round(round)             if round
     deals = deals.with_investor_type(params.investor.to_i)
 
     deals = deals.for_year(year)              if year
@@ -71,6 +71,21 @@ class DealFilter
     date
   end
 
+  def round
+    @round ||= begin
+      val = params.round.to_i
+      val if Deal::ROUNDS[val]
+    end
+  end
+
+  def round_name
+    rounds.invert[round]
+  end
+
+  def rounds
+    @rounds ||= { "Раунд" => nil }.merge(Deal::ROUNDS.invert)
+  end
+
   def scope
     @scope ||= Scope.where(id: params.scope.to_i).first if params.scope.present?
   end
@@ -89,7 +104,11 @@ class DealFilter
   def year
     @year ||= begin
       year = params.year.to_i
-      year if year.in?(Time.current.year - LAST_YEARS + 1 .. Time.current.year)
+      year if year.in?(start_year .. Time.current.year)
     end
+  end
+
+  def start_year
+    Time.current.year - LAST_YEARS + 1
   end
 end

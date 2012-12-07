@@ -21,8 +21,7 @@ class StreamDealDecorator < DealDecorator
       h.link_to investor.name, "#"
     end.to_sentence
 
-    h.raw "#{project_link} привлекли #{amount} " +
-          "#{round} от #{investor_links}"
+    h.raw "#{project_link} привлекли #{amount} #{round} от #{investor_links}"
   end
 
   def meta

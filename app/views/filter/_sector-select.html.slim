@@ -1,0 +1,6 @@
+.sector-select.dropdown
+  a.dropdown-toggle data-toggle="dropdown" href="#"
+    div = filter.scope_name
+  ul.dropdown-menu role="menu"
+    - filter.scopes.each do |scope|
+      li = link_to scope.name, filter.params_with(scope: scope.id)

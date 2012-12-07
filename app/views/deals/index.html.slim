@@ -1,3 +1,16 @@
+aside
+  div
+    = @filter.year_select(from: 2011)
+  div
+    p Направление деятельности стартапа
+    = @filter.sector_select
+  div
+    p Раунд инвестиций
+    = @filter.round_select
+  div
+    p Сортировать по
+    = @filter.sort_select
+
 section.deals-stream
   h1 Поток сделок
   - @deals.each do |deal|

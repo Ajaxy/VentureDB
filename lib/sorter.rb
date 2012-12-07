@@ -4,13 +4,19 @@ class Sorter
   attr_reader :params
   attr_reader :view
 
-  def initialize(params, view)
-    @params = params
-    @view   = view
+  def initialize(params, view, options = {})
+    @params   = params
+    @view     = view
+    @options  = options
   end
 
   def sortable_columns
     {}
+  end
+
+  def current_column
+    param = params[:sort].try(:to_sym)
+    param.in?(sortable_columns.keys) ? param : default_column
   end
 
   def header(name, column, html_options = {})
@@ -30,14 +36,13 @@ class Sorter
 
   private
 
-  def current_column
-    param = params[:sort].try(:to_sym)
-    param.in?(sortable_columns.keys) ? param : sortable_columns.keys[0]
-  end
-
   def current_direction
     param = params[:direction].try(:to_sym)
     param.in?(:asc, :desc) ? param : default_direction(current_column)
+  end
+
+  def default_column
+    @options[:default] || sortable_columns.keys[0]
   end
 
   def default_direction(column)

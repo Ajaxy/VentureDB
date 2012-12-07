@@ -22,7 +22,8 @@ class DealSorter < Sorter
     when :amount
       scope.order("amount #{current_direction} nulls last")
     when :date
-      scope.order("contract_date #{current_direction} nulls last")
+      # scope.order("contract_date #{current_direction} nulls last")
+      scope.order{coalesce(contract_date, announcement_date).desc}
     else
       raise ArgumentError.new("bad current_column #{current_column.inspect}")
     end

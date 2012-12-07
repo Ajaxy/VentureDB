@@ -5,11 +5,11 @@ class DealsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @sorter = DealSorter.new(params, view_context)
-    @filter = DealFilter.new(params[:filter])
+    @sorter = DealSorter.new(params, view_context, default: :date)
+    @filter = decorate DealFilter.new(params), view: view_context, sorter: @sorter
     scope   = Deal.includes{[project.authors, investors.actor]}.published
     scope   = paginate @sorter.sort(scope)
-    @deals  = StreamDealDecorator.decorate @filter.filter(scope).uniq
+    @deals  = StreamDealDecorator.decorate @filter.filter(scope)
   end
 
   def overview
