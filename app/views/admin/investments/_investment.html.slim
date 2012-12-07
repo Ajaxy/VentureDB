@@ -1,6 +1,6 @@
 .entry data-id=[investment.id]
   .controls
-    span = link_to [:edit, investment], remote: true do
+    span = link_to [:edit, :admin, investment], remote: true do
       i.icon-edit
     span: i.icon-remove
   = hidden_field_tag "deal[investment_ids][]", investment.id

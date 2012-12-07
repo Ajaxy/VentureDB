@@ -1,7 +1,7 @@
 button type="button" class="close" data-dismiss="dialog" aria-hidden="true" &times;
 h3 Инвестиция
 
-.container = form_for investment, html: { class: "investment" }, remote: true do |f|
+.container = form_for [:admin, investment], html: { class: "investment" }, remote: true do |f|
   .row
     .span4
     .span8
@@ -14,7 +14,7 @@ h3 Инвестиция
             .add: button.btn.btn-small.new_investor type="button" Создать нового
           - if investment.investor && investment.investor.actor
             = link_to "«#{investment.investor.actor.name}» — редактировать",
-              [:edit, investment.investor.actor], target: "_blank"
+              [:edit, :admin, investment.investor.actor], target: "_blank"
   hr
   .row
     .span4

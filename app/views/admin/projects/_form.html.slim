@@ -1,4 +1,4 @@
-.container = form_for project, html: { class: "project" }, remote: remote do |f|
+.container = form_for [:admin, project], html: { class: "project" }, remote: remote do |f|
   h1 Проект
   hr
   .row
@@ -56,4 +56,4 @@
 
 - content_for :popups do
   #new_author.modal.hide.fade.popup-form
-    = render "admin/people/form", person: Person.new, type: "author"
+    = render "admin/people/form", person: Person.new, person_type: "author"

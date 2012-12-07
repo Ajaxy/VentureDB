@@ -22,7 +22,7 @@ class Admin::DealsController < Admin::BaseController
     @deal = Deal.new(permitted_params.deal)
 
     if @deal.save && @deal.undraft
-      redirect_to @deal, notice: "Сделка успешно добавлена."
+      redirect_to [:admin, @deal], notice: "Сделка успешно добавлена."
     else
       render :new
     end
@@ -35,7 +35,7 @@ class Admin::DealsController < Admin::BaseController
     raise_404 if @deal.published?
 
     if @deal.update_attributes(permitted_params.deal) && @deal.undraft
-      redirect_to @deal, notice: "Сделка успешно обновлена."
+      redirect_to [:admin, @deal], notice: "Сделка успешно обновлена."
     else
       render :edit
     end
@@ -43,7 +43,7 @@ class Admin::DealsController < Admin::BaseController
 
   def publish
     if @deal.publish
-      redirect_to @deal
+      redirect_to [:admin, @deal]
     else
       flash.now.alert = @deal.errors[:publish].join("<br>").html_safe
       render :edit
@@ -52,7 +52,7 @@ class Admin::DealsController < Admin::BaseController
 
   def unpublish
     @deal.unpublish
-    redirect_to @deal
+    redirect_to [:admin, @deal]
   end
 
   private

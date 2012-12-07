@@ -9,7 +9,7 @@ table.table
   tbody
     - @projects.each do |project|
       tr
-        td = project.link
+        td = project.link(scope: :admin)
         td = project.company_name
         td = project.scope_names
         td = project.author_names

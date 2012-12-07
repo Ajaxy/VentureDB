@@ -1,12 +1,12 @@
 
-= form_for @deal, html: { class: "deal" } do |f|
+= form_for [:admin, @deal], html: { class: "deal" } do |f|
   - if @deal.published?
     .deal-status.alert.alert-success
-      = link_to "Редактировать", [:unpublish, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
+      = link_to "Редактировать", [:unpublish, :admin, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
       | Сделка опубликована, она участвует в подсчете статистики.
   - elsif @deal.persisted?
     .deal-status.alert.alert-info
-      = link_to "Опубликовать", [:publish, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
+      = link_to "Опубликовать", [:publish, :admin, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
       | Сделка не опубликована, она не участвует в подсчете статистики.
 
   hr
@@ -23,7 +23,7 @@
           .add: button.btn.btn-small[type="button" href="#new_project"
                                      data-toggle="dialog"] Создать новый
         - if @deal.project
-          = link_to "«#{@deal.project.name}» — редактировать", @deal.project,
+          = link_to "«#{@deal.project.name}» — редактировать", [:admin, @deal.project],
             target: "_blank"
 
   hr
@@ -133,7 +133,7 @@
           .or = " или "
           .add: button.btn.btn-small type="button" href="#new_informer" data-toggle="modal" Добавить нового
         - if @deal.informer
-          = link_to "#{@deal.informer.name} — редактировать", edit_person_path(@deal.informer), target: "_blank"
+          = link_to "#{@deal.informer.name} — редактировать", [:edit, :admin, @deal.informer.becomes(Person)], target: "_blank"
 
         p
 
@@ -163,4 +163,4 @@
     = render "admin/investors/form", investor: InvestorForm.new
 
   #new_informer.modal.hide.fade.popup-form
-    = render "admin/people/form", person: Person.new, type: "informer"
+    = render "admin/people/form", person: Person.new, person_type: "informer"

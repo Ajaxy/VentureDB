@@ -6,7 +6,7 @@ Venture::Application.routes.draw do
     confirmations:  "users/confirmations",
   }
 
-  scope "/admin", module: :admin do
+  namespace :admin do
     root to: "deals#index"
 
     resources :deals do
@@ -17,17 +17,22 @@ Venture::Application.routes.draw do
     end
 
     resources :projects
-    resources :people
-    resources :companies
-    resources :investments
     resources :investors
+
+    resources :people
+    resources :investments
+    resources :companies
   end
 
   scope "/deals" do
-    get "/overview(/:year)" => "deals#overview",  as: :cabinet_overview
-    get "/stream"           => "deals#index",     as: :cabinet_deals
-    get "/:id"              => "deals#show",      as: :cabinet_deal
+    get "/" => redirect("/deals/overview")
+    get "/overview(/:year)" => "deals#overview",  as: :deals_overview
+    get "/stream"           => "deals#index",     as: :deals
+    # get "/:id"              => "deals#show",      as: :deal
   end
+
+  resources :projects
+  resources :investors
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"

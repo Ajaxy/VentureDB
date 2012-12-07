@@ -2,8 +2,9 @@
 
 class ApplicationDecorator < Draper::Base
   def link(options = {})
-    text = options[:text] || model.name
-    h.link_to text, model
+    text  = options[:text] || model.name
+    scope = options.delete(:scope)
+    h.link_to text, [scope, model].compact
   end
 
   private

@@ -62,5 +62,13 @@
       background-color: #f3f3f3
       +filter-gradient(#f3f3f3, #f8f8f8)
       +background-image(linear-gradient(top, #f3f3f3, #f8f8f8))
+      div
+        &:after
+          content: ""
+          position: absolute
+          right: 0
+          width: 50px
+          height: 100%
+          +background-image(linear-gradient(left, rgba(245,245,245, 0), #f5f5f5))
     .dropdown-menu
       display: block

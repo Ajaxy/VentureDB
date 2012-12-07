@@ -132,7 +132,7 @@ window.rebindInputs = (scope = document) ->
     window.informerForm = new InformerForm
     window.dealForm = new DealForm
 
-  $("[rel=tooltip]", scope).tooltip()
+  $("[rel=tooltip]", scope).tooltip(html: true)
 
 window.dialog = ($el) ->
   $el.dialog(resizable: false, width: 1000, zIndex: 1000)

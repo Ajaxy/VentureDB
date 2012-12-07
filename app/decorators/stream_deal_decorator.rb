@@ -5,7 +5,7 @@ class StreamDealDecorator < DealDecorator
 
   def amount
     if deal.amount?
-      millions(deal.amount)
+      tag :b, millions(deal.amount)
     else
       "неизвестную сумму"
     end

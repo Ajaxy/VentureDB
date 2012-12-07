@@ -28,7 +28,7 @@ class Admin::ProjectsController < Admin::BaseController
 
   def update
     if @project.update_attributes(permitted_params.project)
-      redirect_to :projects
+      redirect_to [:admin, @project], notice: "Проект успешно обновлен."
     else
       render :edit
     end

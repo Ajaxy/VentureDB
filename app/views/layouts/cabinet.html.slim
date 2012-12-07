@@ -11,15 +11,15 @@
         .link = link_to "Выйти", :destroy_user_session, method: "delete"
 
     nav
-      .link.active = link_to "Сделки", :cabinet_deals
-      .link = link_to "Инвесторы", "#"
-      .link = link_to "Проекты", "#"
+      .link.active = link_to "Сделки", :deals
+      .link = link_to "Инвесторы", :investors
+      .link = link_to "Проекты", :projects
 
   .main-area
     nav
       ul
-        li = cabinet_menu_link "Обзор рынка", :cabinet_overview, :overview
-        li = cabinet_menu_link "Поток сделок", :cabinet_deals, [:index, :show]
+        li = cabinet_menu_link "Обзор рынка", :deals_overview, :overview
+        li = cabinet_menu_link "Поток сделок", :deals, [:index, :show]
         li = cabinet_menu_link "Отчеты", "#"
 
     .cabinet-page = yield

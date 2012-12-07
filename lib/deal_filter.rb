@@ -79,11 +79,11 @@ class DealFilter
   end
 
   def round_name
-    rounds.invert[round]
+    rounds[round]
   end
 
   def rounds
-    @rounds ||= { "Раунд" => nil }.merge(Deal::ROUNDS.invert)
+    @rounds ||= { nil => "Раунд" }.merge(Deal::ROUNDS)
   end
 
   def scope

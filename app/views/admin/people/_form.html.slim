@@ -1,5 +1,5 @@
-= form_for person.becomes(Person), remote: true do |f|
-  = hidden_field_tag :type, type
+= form_for [:admin, person.becomes(Person)], remote: true do |f|
+  = hidden_field_tag :type, person_type
 
   .modal-header
     button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;

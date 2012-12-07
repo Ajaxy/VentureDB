@@ -2,5 +2,5 @@
   a.dropdown-toggle data-toggle="dropdown" href="#"
     div = filter.round_name
   ul.dropdown-menu role="menu"
-    - filter.rounds.each do |name, id|
+    - filter.rounds.each do |id, name|
       li = link_to name, filter.params_with(round: id)

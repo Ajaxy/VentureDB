@@ -2,7 +2,7 @@ aside
   div
     = @filter.year_select(from: 2011)
   div
-    p Направление деятельности стартапа
+    p Сектор деятельности
     = @filter.sector_select
   div
     p Раунд инвестиций
@@ -13,26 +13,14 @@ aside
 
 section.deals-stream
   h1 Поток сделок
+
+  = form_tag "", method: :get do
+    = text_field_tag :search, @filter.params.search, placeholder: "Поиск по названию проекта"
+
   - @deals.each do |deal|
     .deal
       .date         = deal.date
       .description  = deal.description
       .meta         = deal.meta
-  = paginate @deals
 
-/ .filters
-  = form_for @filter.params, as: :filter, url: "", method: :get do |f|
-    div = f.collection_select :scope, Scope.all, :id, :name, include_blank: "<Сфера деятельности>"
-    div = f.select :round, Deal::ROUNDS.invert, include_blank: "<Раунд финансирования>"
-    div = f.select :stage, Deal::STAGES.invert, include_blank: "<Стадия развития>"
-    div = f.select :investor, Investor::TYPES.invert, include_blank: "<Тип инвестора>"
-    div
-      ' Дата сделки:
-      ' с #{f.text_field :date_start, placeholder: "ДД.ММ.ГГГГ", class: "date"}
-      ' по #{f.text_field :date_end, placeholder: "ДД.ММ.ГГГГ", class: "date"}
-    div
-      ' Сумма сделки:
-      ' с #{f.text_field :amount_start, class: "amount"} млн руб.
-      ' по #{f.text_field :amount_end, class: "amount"} млн руб.
-    div = f.text_field :search, placeholder: "Поиск"
-    div = f.submit "Фильтровать"
+  = paginate @deals

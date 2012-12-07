@@ -1,6 +1,6 @@
 .entry data-id=[person.id]
   .controls
-    span = link_to edit_person_path(person), target: "_blank" do
+    span = link_to [:edit, :admin, person.becomes(Person)], target: "_blank" do
       i.icon-edit
     span: i.icon-remove
   = hidden_field_tag "project[author_ids][]", person.id

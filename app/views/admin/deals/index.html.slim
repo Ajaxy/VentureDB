@@ -1,4 +1,21 @@
-.pull-right = link_to "Новая сделка", [:new, :deal], class: "btn btn-primary"
+.pull-right = link_to "Новая сделка", [:new, :admin, :deal], class: "btn btn-primary"
+
+/ .filters
+  = form_for @filter.params, as: :filter, url: "", method: :get do |f|
+    div = f.collection_select :scope, Scope.all, :id, :name, include_blank: "<Сфера деятельности>"
+    div = f.select :round, Deal::ROUNDS.invert, include_blank: "<Раунд финансирования>"
+    div = f.select :stage, Deal::STAGES.invert, include_blank: "<Стадия развития>"
+    div = f.select :investor, Investor::TYPES.invert, include_blank: "<Тип инвестора>"
+    div
+      ' Дата сделки:
+      ' с #{f.text_field :date_start, placeholder: "ДД.ММ.ГГГГ", class: "date"}
+      ' по #{f.text_field :date_end, placeholder: "ДД.ММ.ГГГГ", class: "date"}
+    div
+      ' Сумма сделки:
+      ' с #{f.text_field :amount_start, class: "amount"} млн руб.
+      ' по #{f.text_field :amount_end, class: "amount"} млн руб.
+    div = f.text_field :search, placeholder: "Поиск"
+    div = f.submit "Фильтровать"
 
 table.table
   thead
@@ -13,7 +30,7 @@ table.table
     - @deals.each do |deal|
       tr
         td        = deal.id
-        td        = deal.link(text: deal.project_name)
+        td        = deal.link(scope: :admin, text: deal.project_name)
         td.center = deal.status
         td.center = deal.amount
         td.center = deal.contract_date
