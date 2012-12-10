@@ -140,7 +140,15 @@ class DealsOverview
       ExtraChart.new(series)
     end
 
+    def title
+      "Венчурные инвестиции по #{by_quarters? ? "кварталам" : "годам"}"
+    end
+
     private
+
+    def by_quarters?
+      !!@year
+    end
 
     def period_for(deal)
       periods.find { |period| period.includes?(deal) }
@@ -148,7 +156,7 @@ class DealsOverview
 
     def periods
       @periods ||= begin
-        if @year
+        if by_quarters?
           (1..4).map { |i| Quarter.new(@year, i) }
         else
           amount = DealFilter::LAST_YEARS

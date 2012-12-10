@@ -83,7 +83,7 @@ class DealFilter
   end
 
   def rounds
-    @rounds ||= { nil => "Раунд" }.merge(Deal::ROUNDS)
+    @rounds ||= { nil => "Все раунды" }.merge(Deal::ROUNDS)
   end
 
   def scope
@@ -91,13 +91,13 @@ class DealFilter
   end
 
   def scope_name
-    @scope_name ||= scope ? scope.name : "Сектор"
+    @scope_name ||= scope ? scope.name : "Все сектора"
   end
 
   def scopes
     @scopes ||= begin
       roots = ::Scope.roots.order(:name).to_a
-      [OpenStruct.new(name: "Сектор", id: nil), *roots]
+      [OpenStruct.new(name: "Все сектора", id: nil), *roots]
     end
   end
 

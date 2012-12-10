@@ -82,7 +82,7 @@
           .map data-countries={@overview.geography.data.to_json}
 
         .report
-          h2 Венчурные инвестиции по кварталам
+          h2 = @overview.dynamics.title
 
           = render "chart", chart: @overview.dynamics.main_chart
           = render "chart", chart: @overview.dynamics.extra_chart
