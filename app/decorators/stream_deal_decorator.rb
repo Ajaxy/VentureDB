@@ -27,7 +27,7 @@ class StreamDealDecorator < DealDecorator
   end
 
   def meta
-    scopes    = deal.project ? deal.project.scopes.includes(:parent) : []
+    scopes    = deal.project ? deal.project.scopes : []
     locations = deal.investments.map { |inv| inv.locations }.reduce(:+) || []
 
     [*scopes.map(&:full_name), *locations.map(&:name).uniq].join(", ")

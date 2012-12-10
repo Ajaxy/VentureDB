@@ -1,9 +1,12 @@
 .cabinet-page
   aside
-    p filters
+    div
+      p Сортировать по
+      = @filter.sort_select
 
   section.with-aside
     h1 Инвесторы
+    = render "search", placeholder: "Поиск"
 
     table.table
       - @investors.each do |investor|

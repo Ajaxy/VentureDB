@@ -4,7 +4,7 @@ class InvestorDecorator < ApplicationDecorator
   decorates :investor
 
   def amount
-    millions investor.investments.map { |inv| inv.deal.try(:amount) || 0 }.sum
+    millions investor.investments_amount
   end
 
   def count

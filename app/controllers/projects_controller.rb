@@ -6,8 +6,14 @@ class ProjectsController < ApplicationController
 
   def index
     @sorter   = ProjectSorter.new(params, view_context)
-    scope     = paginate Project.published.includes{[company, scopes, authors]}
-    @projects = decorate @sorter.sort(scope)
+    @filter   = decorate ProjectFilter.new(params), view: view_context,
+                                                    sorter: @sorter
+
+    scope     = Project.published.includes{[company, scopes, authors, markets]}
+    scope     = @sorter.sort(scope)
+    scope     = @filter.filter(scope)
+
+    @projects = decorate paginate(scope)
   end
 
   def show

@@ -4,7 +4,7 @@ class Sorter
   attr_reader :params
   attr_reader :view
 
-  def initialize(params, view, options = {})
+  def initialize(params, view = nil, options = {})
     @params   = params
     @view     = view
     @options  = options

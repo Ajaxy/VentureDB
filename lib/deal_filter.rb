@@ -1,13 +1,7 @@
   # encoding: utf-8
 
-class DealFilter
+class DealFilter < Filter
   LAST_YEARS = 3
-
-  attr_reader :params
-
-  def initialize(params)
-    @params = OpenStruct.new(params)
-  end
 
   def filter(deals)
     deals = deals.in_stage(params.stage.to_i)
@@ -84,21 +78,6 @@ class DealFilter
 
   def rounds
     @rounds ||= { nil => "Все раунды" }.merge(Deal::ROUNDS)
-  end
-
-  def scope
-    @scope ||= Scope.where(id: params.scope.to_i).first if params.scope.present?
-  end
-
-  def scope_name
-    @scope_name ||= scope ? scope.name : "Все сектора"
-  end
-
-  def scopes
-    @scopes ||= begin
-      roots = ::Scope.roots.order(:name).to_a
-      [OpenStruct.new(name: "Все сектора", id: nil), *roots]
-    end
   end
 
   def year

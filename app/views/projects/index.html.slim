@@ -1,9 +1,15 @@
 .cabinet-page
   aside
-    p filters
+    div
+      p Сектор деятельности
+      = @filter.sector_select
+    div
+      p Сортировать по
+      = @filter.sort_select
 
   section.with-aside
     h1 Проекты
+    = render "search", placeholder: "Поиск"
 
     table.table
       - @projects.each do |project|

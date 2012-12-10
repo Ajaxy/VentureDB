@@ -24,6 +24,22 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :company
 
+  def self.search(string)
+    return scoped unless string.present?
+    search = "%#{string}%"
+
+    joins{[ company.outer, authors.outer ]}
+    .where{ name.like(search) |
+            description.like(search) |
+            company.name.like(search) |
+            authors.first_name.like(search) |
+            authors.last_name.like(search) }
+  end
+
+  def self.in_scope(scope)
+    joins{scopes.outer}.where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
+  end
+
   def publish
     super
     authors.each(&:publish)

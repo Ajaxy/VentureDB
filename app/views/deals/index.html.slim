@@ -17,9 +17,7 @@
 
     section.with-aside
       h1 Поток сделок
-
-      = form_tag "", method: :get do
-        = text_field_tag :search, @filter.params.search, placeholder: "Поиск по названию проекта"
+      = render "search", placeholder: "Поиск по названию проекта"
 
       .deals-stream = render @deals
 

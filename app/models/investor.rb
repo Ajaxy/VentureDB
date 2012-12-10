@@ -49,7 +49,7 @@ class Investor < ActiveRecord::Base
   end
 
   def self.with_actor
-    where{(actor_id != nil) & (type_id != nil)}.includes(:actor)
+    where{(actor_id != nil) & (type_id != nil)}.includes{actor}
   end
 
   def actor_name
@@ -71,5 +71,9 @@ class Investor < ActiveRecord::Base
   def publish
     super
     actor.try(:publish)
+  end
+
+  def investments_amount
+    investments.map { |inv| inv.deal.try(:amount) || 0 }.sum
   end
 end

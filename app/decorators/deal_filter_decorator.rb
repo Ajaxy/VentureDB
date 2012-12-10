@@ -1,29 +1,8 @@
 # encoding: utf-8
 
-class DealFilterDecorator < ApplicationDecorator
-  def initialize(filter, options = {})
-    super
-    @view   = options[:view]
-    @sorter = options[:sorter]
-  end
-
-  def round_select
-    @view.render "filter/round-select", filter: self
-  end
-
-  def sector_select
-    @view.render "filter/sector-select", filter: self
-  end
-
+class DealFilterDecorator < FilterDecorator
   def sort_select
-    options = { "Сумме" => "amount", "Дате" => "date" }
-
-    links = options.map do |name, param|
-      html_class = "active" if param.to_s == @sorter.current_column.to_s
-      h.link_to name, params_with(sort: param), class: html_class
-    end.join.html_safe
-
-    tag :div, links, class: "horizontal-select sort"
+    render_sort_select("Сумме" => "amount", "Дате" => "date")
   end
 
   def year_select(options = {})
@@ -39,9 +18,5 @@ class DealFilterDecorator < ApplicationDecorator
     end.join.html_safe
 
     tag :div, links, class: "horizontal-select year"
-  end
-
-  def params_with(options)
-    @view.params.merge options.merge(page: nil)
   end
 end
