@@ -13,7 +13,7 @@ describe DealsOverview do
     locations = options.delete(:locations)
     investors = options.delete(:investors)
 
-    deal      = fabricate(Deal, options)
+    deal      = fabricate(Deal, options.merge(published: true))
 
     if scopes
       project = fabricate(Project, scopes: scopes)
