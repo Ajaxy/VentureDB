@@ -19,7 +19,9 @@ class StreamDealDecorator < DealDecorator
   def description
     investor_links = deal.investors.map { |i| h.decorate(i).link }.to_sentence
 
-    string = "#{project_link} привлекли #{amount} #{round}"
+    verb = deal.project.male? ? "привлек" : "привлекла"
+
+    string = "#{project_link} #{verb} #{amount} #{round}"
     string << " от #{investor_links}" if investor_links.present?
     h.raw string
   end

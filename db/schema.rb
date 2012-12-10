@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204150707) do
+ActiveRecord::Schema.define(:version => 20121210100640) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20121204150707) do
     t.text     "accelerators"
     t.text     "need_for_investments"
     t.text     "errors_log"
+    t.boolean  "gender",               :default => true
   end
 
   add_index "projects", ["company_id"], :name => "index_projects_on_company_id"

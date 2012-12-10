@@ -29,4 +29,8 @@ class Project < ActiveRecord::Base
     authors.each(&:publish)
     company.try(:publish)
   end
+
+  def male?
+    gender
+  end
 end
