@@ -136,8 +136,32 @@ setFiltersPosition = ->
         "margin-top"    : origMarginTop
       $filters.data("fixed", false)
 
-jQuery ->
+  $(window).scroll()
+
+onload = ->
   renderDirections()
   renderGeography()
   renderDirectionsRounds()
   setFiltersPosition()
+
+jQuery ->
+  onload()
+
+  $overview = $("section.overview")
+
+  $overview.on "click", "a", ->
+    url = $(this).attr("href")
+    return if url == "#"
+
+    $.ajax
+      url: url
+      beforeSend: ->
+        $overview.css(opacity: 0.35)
+      success: (data) ->
+        vent.unsub("googleChartsLoaded")
+        $overview.html(data)
+        onload()
+        vent.pub("googleChartsLoaded")
+        $overview.css(opacity: 1)
+
+    false

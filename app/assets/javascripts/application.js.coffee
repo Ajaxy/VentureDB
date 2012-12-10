@@ -8,6 +8,9 @@ window.vent =
   sub: (event, fn) ->
     $(@).bind(event, fn)
 
+  unsub: (event) ->
+    $(@).unbind(event)
+
   pub: (event) ->
     $(@).trigger(event)
 

@@ -16,6 +16,12 @@ class DealsController < ApplicationController
 
   def overview
     @overview = DealsOverview.new params.slice(:year, :scope)
+
+    if request.xhr?
+      render partial: "graphs"
+    else
+      render :overview
+    end
   end
 
   def show
