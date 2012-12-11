@@ -1,9 +1,6 @@
 # encoding: utf-8
 
-class ProjectsController < ApplicationController
-  layout "cabinet"
-  before_filter :authenticate_user!
-
+class ProjectsController < CabinetController
   def index
     @sorter   = ProjectSorter.new(params, view_context)
     @filter   = decorate ProjectFilter.new(params), view: view_context,
@@ -11,7 +8,7 @@ class ProjectsController < ApplicationController
 
     scope     = Project.published.includes{[company, scopes, authors, markets]}
     scope     = @sorter.sort(scope)
-    scope     = @filter.filter(scope)
+    scope     = @filter.filter(scope).uniq
 
     @projects = decorate paginate(scope)
   end

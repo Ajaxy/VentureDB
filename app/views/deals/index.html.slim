@@ -1,24 +1,21 @@
-.main-area
-  = render "deals-submenu"
 
-  .cabinet-page.deals
-    aside
-      div
-        = @filter.year_select(from: 2011)
-      div
-        p Сектор деятельности
-        = @filter.sector_select
-      div
-        p Раунд инвестиций
-        = @filter.round_select
-      div
-        p Сортировать по
-        = @filter.sort_select
+- content_for :aside do
+  div
+    = @filter.year_select(from: 2011)
+  div
+    p Сектор деятельности
+    = @filter.sector_select
+  div
+    p Раунд инвестиций
+    = @filter.round_select
+  div
+    p Сортировать по
+    = @filter.sort_select
 
-    section.with-aside
-      h1 Поток сделок
-      = render "search", placeholder: "Поиск по названию проекта"
+section.stream
+  h1 Хроника
+  = render "search", placeholder: "Поиск по названию проекта"
 
-      .deals-stream = render @deals
+  .deals-stream = render @deals
 
-      = paginate @deals
+  = paginate @deals

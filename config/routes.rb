@@ -24,15 +24,10 @@ Venture::Application.routes.draw do
     resources :companies
   end
 
-  scope "/deals" do
-    get "/" => redirect("/deals/overview")
-    get "/overview(/:year)" => "deals#overview",  as: :deals_overview
-    get "/stream"           => "deals#index",     as: :deals
-    # get "/:id"              => "deals#show",      as: :deal
-  end
-
-  resources :projects
-  resources :investors
+  resources :deals, only: %w[index]
+  resources :projects, only: %w[index show]
+  resources :investors, only: %w[index show]
+  resources :statistics, only: %w[index]
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"

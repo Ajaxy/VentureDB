@@ -19,7 +19,7 @@ section.intro
 
       /= link_to "Войти", :new_user_session
 
-footer
+- content_for :footer do
   p Copyright © 2012 Venture Database Inc. All rights reserved.
     #{link_to "Terms of Use", "#"} | #{link_to "Privacy Policy", "#"}
   p #{link_to image_tag("rvk.png"), "#"} Стратегический парнтер и

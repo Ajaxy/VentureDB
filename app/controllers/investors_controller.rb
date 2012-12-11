@@ -1,9 +1,6 @@
 # encoding: utf-8
 
-class InvestorsController < ApplicationController
-  layout "cabinet"
-  before_filter :authenticate_user!
-
+class InvestorsController < CabinetController
   def index
     @sorter     = InvestorSorter.new(params)
     @filter     = decorate InvestorFilter.new(params), view: view_context,
@@ -11,7 +8,7 @@ class InvestorsController < ApplicationController
 
     scope       = Investor.published.with_actor.includes{investments.deal}
     scope       = @sorter.sort(scope)
-    scope       = @filter.filter(scope)
+    scope       = @filter.filter(scope).uniq
 
     @investors  = decorate paginate(scope)
   end

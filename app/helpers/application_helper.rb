@@ -7,18 +7,6 @@ module ApplicationHelper
     content_tag :li, link, class: html_class
   end
 
-  def cabinet_main_menu_link(name, url, options = {})
-    html_class = "link"
-    html_class += " active" if url.to_s == controller_name.to_s
-    link = link_to name, url, options
-    content_tag :div, link, class: html_class
-  end
-
-  def cabinet_menu_link(name, url, actions = nil)
-    html_class = "active" if action_name.to_sym.in? Array(actions)
-    content_tag :li, link_to(name, url), class: html_class
-  end
-
   def date_select_button(text, param)
     html_class = "active" if param == params[:year].to_s
     link = link_to text, params.merge(year: param), class: html_class

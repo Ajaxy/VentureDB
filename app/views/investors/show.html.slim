@@ -1,8 +1,11 @@
-.cabinet-page.investor.profile
+/ - content_for :aside do
+  h3 Контакты
+  = @investor.company.contacts
+
+.investor.profile
   h1 = @investor.name
   p = @investor.description
 
   section
     h2 Хроника
     .deals-stream = render StreamDealDecorator.decorate(@investor.deals)
-

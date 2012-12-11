@@ -14,5 +14,7 @@ html
 
     /[ if lt IE 9 ]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
-  body class=[@body_class]
-    .container = content_for?(:content) ? yield(:content) : yield
+  body class={@body_class}
+    .container
+      = content_for?(:content) ? yield(:content) : yield
+      footer = yield :footer

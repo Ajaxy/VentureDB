@@ -2,7 +2,7 @@
 
 - content_for :content do
   header
-    .panel
+    .content-wrap
       = link_to "Venture Database", :root, id: "logo"
       nav
         - if current_user.admin?
@@ -10,11 +10,27 @@
         .link = link_to current_user.email, "#"
         .link = link_to "Выйти", :destroy_user_session, method: "delete"
 
-    nav
-      = cabinet_main_menu_link "Сделки", :deals
-      = cabinet_main_menu_link "Инвесторы", :investors
-      = cabinet_main_menu_link "Проекты", :projects
+  .main-area
+    .content-wrap
+      nav
+        ul
+          = @menu.item "Инвесторы", :investors
+          = @menu.item "Проекты", :projects
+          = @menu.item "Хроника", :deals
+          = @menu.item "Статистика", :statistics
 
-  = yield
+      - if content_for? :aside
+        aside = yield :aside
+
+      .content = yield
+
+- content_for :footer do
+  .content-wrap
+    .copy Venture Database © ООО «Венчур Датабэйс», #{Time.current.year}
+    nav
+      .link = link_to "О проекте", "javascript:void(0)"
+      .link = link_to "Блог", "javascript:void(0)"
+      .link = link_to "Услуги", "javascript:void(0)"
+      .link = link_to "Команда", "javascript:void(0)"
 
 = render template: "layouts/application"

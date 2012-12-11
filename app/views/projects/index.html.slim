@@ -1,22 +1,27 @@
-.cabinet-page
-  aside
-    div
-      p Сектор деятельности
-      = @filter.sector_select
-    div
-      p Сортировать по
-      = @filter.sort_select
+- content_for :aside do
+  div
+    p Сектор деятельности
+    = @filter.sector_select
+  div
+    p Сортировать по
+    = @filter.sort_select
 
-  section.with-aside
-    h1 Проекты
-    = render "search", placeholder: "Поиск"
+section.projects
+  h1 Проекты
+  = render "search", placeholder: "Поиск"
 
-    table.table
+  table.table.table-striped
+    thead
+      tr
+        th Название
+        th Секторы деятельности
+        th Рынки
+    tbody
       - @projects.each do |project|
         tr
           td = project.link
           td = project.scope_names
           td = project.market_names
 
-    = paginate @projects
+  = paginate @projects
 

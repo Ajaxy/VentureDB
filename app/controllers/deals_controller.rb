@@ -1,9 +1,6 @@
 # encoding: utf-8
 
-class DealsController < ApplicationController
-  layout "cabinet"
-  before_filter :authenticate_user!
-
+class DealsController < CabinetController
   def index
     @sorter = DealSorter.new(params, view_context, default: :date)
     @filter = decorate DealFilter.new(params), view: view_context,
@@ -16,16 +13,6 @@ class DealsController < ApplicationController
     scope   = @filter.filter(scope).uniq
 
     @deals  = StreamDealDecorator.decorate(scope)
-  end
-
-  def overview
-    @overview = DealsOverview.new params.slice(:year, :scope)
-
-    if request.xhr?
-      render partial: "graphs"
-    else
-      render :overview
-    end
   end
 
   def show

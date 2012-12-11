@@ -6,7 +6,4 @@
     google.load ("visualization", "1", { packages:["corechart"] })
     google.setOnLoadCallback (function(){ window.vent.pub("googleChartsLoaded") })
 
-.main-area
-  = render "deals-submenu"
-  .cabinet-page.deals
-    section.overview = render "graphs"
+section.overview = render "graphs"

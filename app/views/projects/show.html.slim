@@ -1,4 +1,4 @@
-.cabinet-page.project.profile
+.project.profile
   h1 = @project.name
   = @project.scopes.map(&:full_name).join(", ")
   div = simple_format @project.description
