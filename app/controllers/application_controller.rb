@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(*)
-    deals_overview_path
+    deals_path
   end
 
   def decorate(input, options = {})
