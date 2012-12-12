@@ -25,7 +25,7 @@ class DealsOverview
       end
 
       def data
-        data = @series.map { |r| [r.short_name, r.count, r.amount.round] }
+        data = series.map { |r| [r.short_name, r.count, r.amount.round] }
         data.prepend ["Раунд", "Количество сделок",
                       "Объем сделок, млн долл. США"]
         data
@@ -33,6 +33,10 @@ class DealsOverview
 
       def dom_id
         "rounds-chart"
+      end
+
+      def series
+        @series.select { |s| s.count > 0 }
       end
 
       def title

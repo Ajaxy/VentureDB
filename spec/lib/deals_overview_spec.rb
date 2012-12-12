@@ -233,39 +233,40 @@ describe DealsOverview do
 
   describe "stages" do
     it "groups data by deal stage" do
-      create_deal
+      create_deal(amount: 5 * MONEY_RATE)
       create_deal(stage_id: 3, amount: 10 * MONEY_RATE)
       create_deal(stage_id: 1, amount: 20 * MONEY_RATE)
       create_deal(stage_id: 4, amount: 30 * MONEY_RATE)
       create_deal(stage_id: 1, amount: 40 * MONEY_RATE)
 
-      stages = overview.stages.series
-      stages.size.should == 7
+      stages = overview.stages.chart.series
+      stages.size.should == 3
 
       stages[0].count.should  == 2
       stages[0].amount.should == 60
 
-      stages[2].count.should  == 1
-      stages[2].amount.should == 10
+      stages[1].count.should  == 1
+      stages[1].amount.should == 10
 
-      stages[3].count.should  == 1
-      stages[3].amount.should == 30
+      stages[2].count.should  == 1
+      stages[2].amount.should == 30
     end
   end
 
   describe "rounds" do
-    it "groups data by deal round" do
+    before do
       create_deal(amount: 5 * MONEY_RATE)
       create_deal(round_id: 4, amount: 10 * MONEY_RATE)
       create_deal(round_id: 1, amount: 20 * MONEY_RATE)
       create_deal(round_id: 3, amount: 30 * MONEY_RATE)
       create_deal(round_id: 1, amount: 40 * MONEY_RATE)
       create_deal(round_id: 4, amount: 50 * MONEY_RATE)
+    end
 
+    it "groups data by deal round" do
       rounds = overview.rounds
 
-      rounds.series.size.should     == 8
-      rounds.chart.data.size.should == 8
+      rounds.series.size.should == 8
 
       rounds.data_for(nil).count.should  == 1
       rounds.data_for(nil).amount.should == 5
@@ -278,6 +279,21 @@ describe DealsOverview do
 
       rounds.data_for(4).count.should  == 2
       rounds.data_for(4).amount.should == 60
+    end
+
+    it "show only rounds with deals on chart" do
+      series = overview.rounds.chart.series
+
+      series.size.should == 3
+
+      series[0].count.should  == 2
+      series[0].amount.should == 60
+
+      series[1].count.should  == 1
+      series[1].amount.should == 30
+
+      series[2].count.should  == 2
+      series[2].amount.should == 60
     end
   end
 end

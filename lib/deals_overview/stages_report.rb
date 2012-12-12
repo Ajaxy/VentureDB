@@ -17,13 +17,17 @@ class DealsOverview
 
     class Chart < BaseChart
       def data
-        data = @series.map { |s| [s.name, s.amount.round] }
+        data = series.map { |s| [s.name, s.amount.round] }
         data.prepend ["Стадия", "Объем сделок, млн долл. США"]
         data
       end
 
       def dom_id
         "stages-chart"
+      end
+
+      def series
+        @series.select { |s| s.count > 0 }
       end
 
       def title
