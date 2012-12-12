@@ -61,6 +61,6 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def project_attributes
-    %w[name description scope_ids market_ids author_ids gender]
+    %w[name description scope_ids market_ids author_ids]
   end
 end
