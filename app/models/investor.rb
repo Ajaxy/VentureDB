@@ -41,11 +41,27 @@ class Investor < ActiveRecord::Base
   end
 
   def person
-    actor.is_a?(Person) ? actor : Person.new
+    @person ||= is_person? ? actor : Person.new
   end
 
   def company
-    actor.is_a?(Company) ? actor : Company.new
+    @company ||= is_company? ? actor : Company.new
+  end
+
+  def company=(params)
+    actor.update_attributes(params) if is_company?
+  end
+
+  def person=(params)
+    actor.update_attributes(params) if is_person?
+  end
+
+  def is_company?
+    actor.is_a?(Company)
+  end
+
+  def is_person?
+    actor.is_a?(Person)
   end
 
   def self.with_actor

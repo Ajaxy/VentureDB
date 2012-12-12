@@ -12,9 +12,9 @@ h3 Инвестиция
             .search = f.collection_select :investor_id, Investor.with_actor.sort_by(&:name), :id, :name_and_type, { include_blank: "Найти инвестора" }, class: "chzn span5", id: dom_id(investment, :investor_id)
             .or = " или "
             .add: button.btn.btn-small.new_investor type="button" Создать нового
-          - if investment.investor && investment.investor.actor
-            = link_to "«#{investment.investor.actor.name}» — редактировать",
-              [:edit, :admin, investment.investor.actor], target: "_blank"
+          - if investment.investor
+            = link_to "«#{investment.investor.name}» — редактировать",
+              [:edit, :admin, investment.investor], target: "_blank"
   hr
   .row
     .span4

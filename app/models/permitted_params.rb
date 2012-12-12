@@ -53,7 +53,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def investor_attributes
-    %w[type_id]
+    %w[type_id location_ids]
   end
 
   def person_attributes

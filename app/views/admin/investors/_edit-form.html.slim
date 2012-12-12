@@ -1,0 +1,21 @@
+= form_for @form, method: :put, as: :investor, url: admin_investor_path(@investor.id), html: { class: "investor"} do |f|
+  h1 Редактирование инвестора
+
+  hr
+  fieldset
+    = f.label :location_ids, "Географические рынки осуществления операций"
+    = f.select :location_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите рынки"
+
+    - if investor.actor.is_a?(Person)
+      .person-fields = f.fields_for :person, investor.person do |f|
+        = render "person_fields", f: f
+
+    - if investor.actor.is_a?(Company)
+      .company-fields = f.fields_for :company, investor.company do |f|
+        = render "company_fields", f: f
+
+  .form-actions
+    .offset4
+      button.btn.btn-large.btn-primary Сохранить
+      '
+      = link_to "Отмена", [:admin, :investors], class: "btn btn-large"

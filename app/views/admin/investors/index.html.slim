@@ -7,7 +7,7 @@ table.table
   tbody
     - @investors.each do |investor|
       tr
-        td = investor.name
+        td = investor.link(scope: :admin)
         td = investor.type
 
 = paginate @investors

@@ -13,8 +13,9 @@ class InvestorForm
   attr_reader :person
 
   attribute :type_id, Integer
-  validates :type_id, presence: true
+  attribute :location_ids, Array[Integer]
 
+  validates :type_id, presence: true
   delegate :id, :name_and_type, to: :investor
 
   def actor
@@ -45,6 +46,10 @@ class InvestorForm
   private
 
   def persist!
-    @investor = Investor.create_draft(type_id: type_id, actor: actor)
+    @investor = Investor.create_draft(
+      type_id:      type_id,
+      location_ids: location_ids,
+      actor:        actor,
+    )
   end
 end

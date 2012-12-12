@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class User < ActiveRecord::Base
-  ADMIN_EMAILS = %w[ai@grow.bi]
+  self.inheritance_column = "_type"
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -13,6 +13,6 @@ class User < ActiveRecord::Base
   belongs_to :person
 
   def admin?
-    email.in?(ADMIN_EMAILS)
+    type == "admin"
   end
 end

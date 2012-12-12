@@ -50,9 +50,11 @@
 
   .form-actions
     .offset4
-      button.btn.btn-large.btn-primary == project.persisted? ? "Сохранить" : "Создать проект"
-      '   
-      a.btn.btn-large href="#" data-dismiss="dialog" Отмена
+      button.btn.btn-large.btn-primary
+        = project.persisted? ? "Сохранить" : "Создать проект"
+      '
+      a.btn.btn-large[ href={remote ? "#" : url_for([:admin, :project])}
+                       data-dismiss="dialog"] Отмена
 
 - content_for :popups do
   #new_author.modal.hide.fade.popup-form

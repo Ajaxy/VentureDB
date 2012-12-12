@@ -10,7 +10,7 @@ class Form
     rebindInputs($el)
 
   success: ($el = @popup) ->
-    $el.find(":input").val("").trigger("change")
+    $el.find(":input").not("[type=hidden]").val("").trigger("change")
     $el.find("select.chzn").trigger("liszt:updated")
     $el.find(".field_with_errors").each -> $(this).replaceWith $(this).html()
     $el.find(".entries-list").html("")
@@ -28,7 +28,7 @@ class AuthorsForm extends Form
         $.ajax
           dataType: "script"
           url:  "/admin/people/#{id}"
-          success: => $(this).val("").trigger("liszt:updated")
+          success: -> $(this).val("").trigger("liszt:updated")
 
   success: (id, entryHTML) ->
     super()
