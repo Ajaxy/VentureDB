@@ -1,8 +1,34 @@
+- content_for :aside do
+  - if @project.company_contacts
+    section
+      h3 Контакты
+      .text = simple_format @project.company_contacts
+
+  - if @project.authors.any?
+    section
+      h3 Основатели
+      - @project.authors.each do |person|
+        ul
+          li = person.name
+
 .project.profile
   h1 = @project.name
-  = @project.scopes.map(&:full_name).join(", ")
-  div = simple_format @project.description
+  .meta = @project.meta
+  .text = simple_format @project.description
 
-  section
-    h2 Инвестиции и гранты
-    .deals-stream = render StreamDealDecorator.decorate(@project.deals)
+  - if @project.markets.any?
+    section
+      h2 Географические рынки
+      ul
+        - @project.markets.each do |location|
+          li = location.name
+
+  - if @project.experience?
+    section
+      h2 Опыт участия в программах развития
+      .text = simple_format @project.experience
+
+  - if @project.deals.any?
+    section
+      h2 Инвестиции и гранты
+      .deals-stream = render StreamDealDecorator.decorate(@project.deals), inline: true

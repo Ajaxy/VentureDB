@@ -1,11 +1,22 @@
-/ - content_for :aside do
-  h3 Контакты
-  = @investor.company.contacts
+- content_for :aside do
+  - if @investor.company_contacts
+    section
+      h3 Контакты
+      .text = simple_format @investor.company_contacts
 
 .investor.profile
   h1 = @investor.name
-  p = @investor.description
+  .meta = @investor.meta
 
-  section
-    h2 Хроника
-    .deals-stream = render StreamDealDecorator.decorate(@investor.deals)
+  - if @investor.locations.any?
+    section
+      h2 Географические рынки
+      ul
+        - @investor.locations.each do |location|
+          li = location.name
+
+  - if @investor.deals.any?
+    section
+      h2 Хроника
+      .deals-stream = render StreamDealDecorator.decorate(@investor.deals), inline: true
+

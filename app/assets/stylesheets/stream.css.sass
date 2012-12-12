@@ -1,9 +1,9 @@
 
 .deals-stream
   .deal
-    border-top: solid 2px #f7f7f7
+    padding: 20px 0
     .date
-      margin: 20px 0 10px
+      margin-bottom: 10px
       font-size: 0.8em
       font-weight: bold
       text-transform: uppercase
@@ -11,9 +11,13 @@
     .description
       font-size: 1.1em
     .meta
-      margin: 10px 0 20px
+      margin-top: 10px
       font-size: 0.95em
       color: #b3b3b3
+  .deal + .deal
+    border-top: solid 2px #f7f7f7
+  .deal + .deal.inline
+    border-top: solid 1px #e6e6e6
 
 .profile
   .deals-stream

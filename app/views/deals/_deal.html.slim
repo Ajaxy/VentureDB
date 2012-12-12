@@ -1,4 +1,5 @@
-.deal
+.deal class={"inline" if local_assigns[:inline]}
   .date         = deal.date
   .description  = deal.description
-  .meta         = deal.meta
+  - unless local_assigns[:inline]
+    .meta       = deal.meta

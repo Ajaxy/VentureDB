@@ -17,13 +17,13 @@ class StreamDealDecorator < DealDecorator
   end
 
   def description
-    investor_links = deal.investors.map { |i| h.decorate(i).link }.to_sentence
+    verb = deal.investors.size == 1 ? "инвестировал" : "инвестировали"
+    h.raw "#{investor_links} #{verb} #{amount} #{round} в #{project_link}"
+  end
 
-    verb = deal.project.male? ? "привлек" : "привлекла"
-
-    string = "#{project_link} #{verb} #{amount} #{round}"
-    string << " от #{investor_links}" if investor_links.present?
-    h.raw string
+  def investor_links
+    return "Неизвестные инвесторы" if deal.investors.empty?
+    deal.investors.map { |i| h.decorate(i).link }.to_sentence
   end
 
   def meta

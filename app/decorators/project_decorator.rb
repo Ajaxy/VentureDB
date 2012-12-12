@@ -7,6 +7,10 @@ class ProjectDecorator < ApplicationDecorator
     company.try(:name) || "—"
   end
 
+  def company_contacts
+    company.contacts if company
+  end
+
   def scope_names
     return "—" unless scopes.any?
     list scopes.map(&:name)
@@ -20,5 +24,11 @@ class ProjectDecorator < ApplicationDecorator
   def market_names
     return "—" unless markets.any?
     list markets.map(&:name)
+  end
+
+  def meta
+    scope_names = project.scopes.map(&:full_name)
+    year        = company.creation_date.try(:year) if company
+    [*scope_names, year].compact.join(", ")
   end
 end

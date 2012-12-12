@@ -20,6 +20,7 @@ gem "russian"
 gem "simple_form"
 gem "strong_parameters"
 gem "squeel"
+gem "unicode_utils"
 gem "virtus"
 gem "unicorn"
 
@@ -45,7 +46,6 @@ group :development, :test do
   gem "quiet_assets"
   # gem "factory_girl_rails"
   gem "rspec-rails"
-  gem "unicode_utils"
 end
 
 group :production do

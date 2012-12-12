@@ -1,16 +1,17 @@
 
 - content_for :aside do
-  div
-    = @filter.year_select(from: 2011)
-  div
-    p Сектор деятельности
-    = @filter.sector_select
-  div
-    p Раунд инвестиций
-    = @filter.round_select
-  div
-    p Сортировать по
-    = @filter.sort_select
+  section
+    div
+      = @filter.year_select(from: 2011)
+    div
+      p Сектор деятельности
+      = @filter.sector_select
+    div
+      p Раунд инвестиций
+      = @filter.round_select
+    div
+      p Сортировать по
+      = @filter.sort_select
 
 section.stream
   h1 Хроника
