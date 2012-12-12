@@ -8,7 +8,7 @@ class InvestorDecorator < ApplicationDecorator
   end
 
   def count
-    investor.investments.size
+    investor.deals.size
   end
 
   def description
