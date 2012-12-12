@@ -1,0 +1,14 @@
+.pull-right = link_to "Добавить пользователя", [:new, :admin, :user], class: "btn btn-primary"
+
+table.table
+  thead
+    tr
+      th E-mail
+      th Тип
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.email
+        td = user.type
+
+= paginate @users

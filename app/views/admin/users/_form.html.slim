@@ -1,0 +1,20 @@
+.container = form_for [:admin, @user], html: { class: "user" } do |f|
+  h1 Пользователь
+  hr
+  .row
+    .span4
+    .span8
+      fieldset
+        legend Информация о пользователе
+        = f.text_field :email, class: "span8", placeholder: "Почта"
+        = f.text_field :password, class: "span8", placeholder: "Пароль"
+
+  .form-actions
+    .offset4
+      button.btn.btn-large.btn-primary == @user.persisted? ? "Сохранить" : "Создать"
+      '
+      = link_to "Отмена", [:admin, :projects], class: "btn btn-large"
+
+- content_for :popups do
+  #new_author.modal.hide.fade.popup-form
+    = render "admin/people/form", person: Person.new, person_type: "author"

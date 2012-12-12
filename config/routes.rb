@@ -18,6 +18,7 @@ Venture::Application.routes.draw do
 
     resources :projects
     resources :investors
+    resources :users
 
     resources :people
     resources :investments
