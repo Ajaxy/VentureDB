@@ -25,6 +25,11 @@ class InvestorDecorator < ApplicationDecorator
     [investor.type, *investor.locations.map(&:name)].join(", ")
   end
 
+  def location_names
+    return "—" unless locations.any?
+    list locations.map(&:name)
+  end
+
   def meta
     result  = tag :div, description, class: "pull-left"
     result += tag :div, creation_date, class: "pull-right" if creation_date

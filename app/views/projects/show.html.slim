@@ -19,9 +19,7 @@
   - if @project.markets.any?
     section
       h2 Географические рынки
-      ul
-        - @project.markets.each do |location|
-          li = location.name
+      = @project.market_names
 
   - if @project.experience?
     section

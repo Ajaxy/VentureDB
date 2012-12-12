@@ -11,9 +11,7 @@
   - if @investor.locations.any?
     section
       h2 Географические рынки
-      ul
-        - @investor.locations.each do |location|
-          li = location.name
+      = @investor.location_names
 
   - if @investor.deals.any?
     section
