@@ -1,4 +1,4 @@
-= form_for @form, method: :put, as: :investor, url: admin_investor_path(@investor.id), html: { class: "investor"} do |f|
+= form_for [:admin, @investor], html: { class: "investor"} do |f|
   h1 Редактирование инвестора
 
   hr
