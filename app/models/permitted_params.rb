@@ -31,6 +31,11 @@ class PermittedParams < Struct.new(:params, :user)
       company_attributes: company_attributes)
   end
 
+  def user
+    params.require(:user).permit(*user_attributes,
+      person_attributes: person_attributes)
+  end
+
   private
 
   def actor_attributes
@@ -62,5 +67,9 @@ class PermittedParams < Struct.new(:params, :user)
 
   def project_attributes
     %w[name description scope_ids market_ids author_ids]
+  end
+
+  def user_attributes
+    %w[type email password]
   end
 end

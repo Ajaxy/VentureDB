@@ -1,13 +1,24 @@
 .container = form_for [:admin, @user], html: { class: "user" } do |f|
   h1 Пользователь
   hr
-  .row
-    .span4
-    .span8
-      fieldset
-        legend Информация о пользователе
-        = f.text_field :email, class: "span8", placeholder: "Почта"
-        = f.text_field :password, class: "span8", placeholder: "Пароль"
+  fieldset
+    legend Информация о пользователе
+    = f.label :type, "Тип пользователя"
+    = f.select :type, User::TYPES.invert, {}, class: "span4 chzn"
+    p
+    - if @user.persisted?
+      p E-mail: #{b @user.email}
+    - else
+      = f.text_field :email, class: "span8", placeholder: "Почта", class: "span4"
+      br
+      = f.text_field :password, class: "span8", placeholder: "Пароль", class: "span4"
+
+  p
+
+  fieldset
+    legend Информация о персоне
+    = f.fields_for :person, (@user.person || Person.new) do |f|
+      = render "person_fields", f: f
 
   .form-actions
     .offset4

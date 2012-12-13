@@ -1,8 +1,10 @@
 # encoding: utf-8
 
 class Admin::UsersController < Admin::BaseController
+  before_filter :find_user, only: [:show, :edit, :update, :destroy]
+
   def index
-    @users = paginate(User.order(:email))
+    @users = decorate paginate(User.order(:email))
   end
 
   def show
@@ -14,14 +16,33 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def create
+    @user = User.new(permitted_params.user)
+
+    if @user.save
+      UserMailer.created(@user).deliver
+      redirect_to [:admin, :users], notice: "Пользователь добавлен."
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
+    if @user.update_attributes(permitted_params.user)
+      redirect_to [:admin, :users], notice: "Пользователь сохранен."
+    else
+      render :edit
+    end
   end
 
-  def destroy
+  # def destroy
+  # end
+
+  private
+
+  def find_user
+    @user = User.find(params[:id])
   end
 end
