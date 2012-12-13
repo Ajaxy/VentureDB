@@ -20,7 +20,7 @@ h1 Обзор рынка венчурных инвестиций
       .circles
         - @overview.root_directions.series.each do |direction|
           - current = direction.scope == @overview.scope
-          = link_to params.merge(scope: current ? nil : direction.scope.id), { class: "js-reload-stats"} do
+          = link_to params.merge(scope: current ? nil : direction.scope.id), class: "js-reload-stats" do
             .circle data-amount={direction.amount} class=("fade" if @overview.scope && !current)
               - if current
                 .close
@@ -61,7 +61,7 @@ h1 Обзор рынка венчурных инвестиций
         tbody
           - @overview.directions.series.each do |direction|
             tr
-              td.left = link_to direction.name, deals_path({:scope => direction.scope})
+              td.left = link_to direction.name, deals_path(scope: direction.scope)
               td = direction.amount_string
               td = direction.count
               td: .circle data-values={direction.for_round(1).to_json}

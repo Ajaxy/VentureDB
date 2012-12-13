@@ -135,10 +135,10 @@ class Deal < ActiveRecord::Base
     I18n.localize(date)
   end
 
-  def is_grant
-    investments.any?{|i| i.is_grant}
+  def is_grant?
+    investments.any? { |inv| inv.is_grant? }
   end
-  
+
   def status
     STATUSES[status_id]
   end

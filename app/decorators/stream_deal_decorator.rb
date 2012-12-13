@@ -10,7 +10,7 @@ class StreamDealDecorator < DealDecorator
       ". Сумма сделки не разглашается."
     end
   end
-  
+
   def grant_amount
     if deal.amount?
       "в размере " + tag(:b, millions(deal.amount))
@@ -18,9 +18,9 @@ class StreamDealDecorator < DealDecorator
       ". Сумма гранта не разглашается."
     end
   end
-  
+
   def verb
-    if deal.is_grant
+    if deal.is_grant?
       verb = deal.investors.size == 1 ? "выдал грант" : "выдали грант"
     else
       verb = deal.investors.size == 1 ? "инвестировал" : "инвестировали"
@@ -33,7 +33,7 @@ class StreamDealDecorator < DealDecorator
   end
 
   def description
-    if deal.is_grant
+    if deal.is_grant?
       h.raw "#{investor_links} #{verb} проекту #{project_link} #{grant_amount}"
     else
       h.raw "#{investor_links} #{verb} в #{project_link} #{amount}"
@@ -46,7 +46,9 @@ class StreamDealDecorator < DealDecorator
   end
 
   def meta
-    deal.project && deal.project.scopes.any? ? deal.project.scopes.first().full_name : ""
+    if deal.project && scope = deal.project.scopes.first
+      scope.full_name
+    end
   end
 
   def project_link
