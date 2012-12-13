@@ -23,8 +23,9 @@ class DealFilter < Filter
     filter(Deal.published)
   end
 
-  def by_year
-    year ? Deal.for_year(year) : Deal.published
+  def by_year(deals)
+    deals = deals.for_year(year) if year
+    deals
   end
 
   def amount(string)
@@ -71,7 +72,7 @@ class DealFilter < Filter
       val if Deal::ROUNDS[val]
     end
   end
-  
+
   def round_name
     rounds[round]
   end
@@ -86,7 +87,7 @@ class DealFilter < Filter
       val if Deal::STAGES[val]
     end
   end
-  
+
   def stage_name
     stages[stage]
   end
@@ -94,7 +95,7 @@ class DealFilter < Filter
   def stages
     @stages ||= { nil => "Все стадии" }.merge(Deal::STAGES)
   end
-  
+
   def year
     @year ||= begin
       year = params.year.to_i

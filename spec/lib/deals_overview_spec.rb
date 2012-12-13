@@ -192,44 +192,44 @@ describe DealsOverview do
     end
   end
 
-  describe "dynamics" do
-    it "groups data by quarters if year is passed" do
-      deal1 = create_deal
-      deal2 = create_deal(contract_date: "10.01.2012", amount: 10 * MONEY_RATE)
-      deal3 = create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
-      deal4 = create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
+  # describe "dynamics" do
+  #   it "groups data by quarters if year is passed" do
+  #     deal1 = create_deal
+  #     deal2 = create_deal(contract_date: "10.01.2012", amount: 10 * MONEY_RATE)
+  #     deal3 = create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
+  #     deal4 = create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
 
-      overview = overview(year: 2012)
+  #     overview = overview(year: 2012)
 
-      overview.deals.size.should == 3
-      overview.deals.should      == [deal2, deal3, deal4]
+  #     overview.deals.size.should == 3
+  #     overview.deals.should      == [deal2, deal3, deal4]
 
-      periods = overview.dynamics.series
-      periods.size.should == 4
+  #     periods = overview.dynamics.series
+  #     periods.size.should == 4
 
-      periods[0].average_amount.should == 15
-      periods[1].average_amount.should == 30
-      periods[2].average_amount.should == 0
-      periods[3].average_amount.should == 0
-    end
+  #     periods[0].average_amount.should == 15
+  #     periods[1].average_amount.should == 30
+  #     periods[2].average_amount.should == 0
+  #     periods[3].average_amount.should == 0
+  #   end
 
-    it "groups data by last 3 years if no year is passed" do
-      create_deal(amount: 0)
-      create_deal(contract_date: "31.12.2011", amount: 10 * MONEY_RATE)
-      create_deal(contract_date: "10.01.2012", amount: 20 * MONEY_RATE)
-      create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
-      create_deal(contract_date: "10.04.2012", amount: 40 * MONEY_RATE)
+  #   it "groups data by last 3 years if no year is passed" do
+  #     create_deal(amount: 0)
+  #     create_deal(contract_date: "31.12.2011", amount: 10 * MONEY_RATE)
+  #     create_deal(contract_date: "10.01.2012", amount: 20 * MONEY_RATE)
+  #     create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
+  #     create_deal(contract_date: "10.04.2012", amount: 40 * MONEY_RATE)
 
-      overview.deals.size.should == 5
+  #     overview.deals.size.should == 5
 
-      periods = overview.dynamics.series
-      periods.size.should == 3
+  #     periods = overview.dynamics.series
+  #     periods.size.should == 3
 
-      periods[0].average_amount.should == 0
-      periods[1].average_amount.should == 10
-      periods[2].average_amount.should == 30
-    end
-  end
+  #     periods[0].average_amount.should == 0
+  #     periods[1].average_amount.should == 10
+  #     periods[2].average_amount.should == 30
+  #   end
+  # end
 
   describe "stages" do
     it "groups data by deal stage" do

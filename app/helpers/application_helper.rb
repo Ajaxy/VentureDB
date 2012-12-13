@@ -10,7 +10,7 @@ module ApplicationHelper
   def date_select_button(text, param, options = {})
     html_class = options.delete(:class)
 
-    if param == params[:year].to_s
+    if param.to_s == params[:year].to_s
       html_class = [html_class, "active"].compact.join(" ")
     end
 
