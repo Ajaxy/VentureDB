@@ -20,10 +20,6 @@ class DealsOverview
     end
   end
 
-  def dynamics
-    @dynamics ||= DynamicsReport.new(deals, year)
-  end
-
   def geography
     @geography ||= GeographyReport.new(deals)
   end

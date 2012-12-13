@@ -2,4 +2,6 @@
   .date         = deal.date
   .description  = deal.description
   - unless local_assigns[:inline]
+    - if deal.round 
+      .round      = deal.round
     .meta       = deal.meta

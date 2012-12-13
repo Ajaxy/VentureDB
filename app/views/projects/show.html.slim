@@ -16,11 +16,6 @@
   .meta = @project.meta
   .text = simple_format @project.description
 
-  - if @project.markets.any?
-    section
-      h2 Географические рынки
-      = @project.market_names
-
   - if @project.experience?
     section
       h2 Опыт участия в программах развития

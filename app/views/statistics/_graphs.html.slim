@@ -3,10 +3,8 @@ h1 Обзор рынка венчурных инвестиций
 
 .filters
   .horizontal-select
-    = date_select_button "2010", "2010"
-    = date_select_button "2011", "2011"
-    = date_select_button "2012", "2012"
     = date_select_button "Все", ""
+    = date_select_button "2012", "2012"
 
   .sector-select.dropdown
     a.dropdown-toggle data-toggle="dropdown" href="#"
@@ -22,7 +20,7 @@ h1 Обзор рынка венчурных инвестиций
       .circles
         - @overview.root_directions.series.each do |direction|
           - current = direction.scope == @overview.scope
-          = link_to params.merge(scope: current ? nil : direction.scope.id) do
+          = link_to params.merge(scope: current ? nil : direction.scope.id), { class: "js-reload-stats"} do
             .circle data-amount={direction.amount} class=("fade" if @overview.scope && !current)
               - if current
                 .close
@@ -47,20 +45,31 @@ h1 Обзор рынка венчурных инвестиций
         p Стартапов
         p: strong = @overview.totals.projects
 
-    table
-      thead
-        tr
-          th.left Сектор
-          th Количество сделок
-          th Сумма
-          th Средний размер сделки
-      tbody
-        - @overview.directions.series.each do |direction|
+    .report
+      table#directions-by-rounds data-values={@overview.summed.to_json}
+        thead
           tr
-            td.left = direction.name
-            td = direction.count
-            td = direction.amount_string
-            td = direction.average_amount_string
+            th.left Сектор
+            th Сумма в млн USD
+            th Кол-во сделок
+            th Посев
+            th Раунд A
+            th Раунд B
+            th Раунд C+
+            th Выход
+            th Нет данных
+        tbody
+          - @overview.directions.series.each do |direction|
+            tr
+              td.left = link_to direction.name, deals_path({:scope => direction.scope})
+              td = direction.amount_string
+              td = direction.count
+              td: .circle data-values={direction.for_round(1).to_json}
+              td: .circle data-values={direction.for_round(2).to_json}
+              td: .circle data-values={direction.for_round(3).to_json}
+              td: .circle data-values={direction.for_round(4,5,6).to_json}
+              td: .circle data-values={direction.for_round(7).to_json}
+              td: .circle data-values={direction.for_round(nil).to_json}
 
 
   .report
@@ -70,42 +79,10 @@ h1 Обзор рынка венчурных инвестиций
     .map data-countries={@overview.geography.data.to_json}
 
   .report
-    h2 = @overview.dynamics.title
-
-    = render "chart", chart: @overview.dynamics.main_chart
-    = render "chart", chart: @overview.dynamics.extra_chart
-
-  .report
     h2 Венчурные инвестиции по стадиям и раундам
 
     = render "chart", chart: @overview.stages.chart
     = render "chart", chart: @overview.rounds.chart
-
-  .report
-    table#directions-by-rounds data-values={@overview.summed.to_json}
-      thead
-        tr
-          th.left Сектор
-          th Сумма в млн USD
-          th Кол-во сделок
-          th Посев
-          th Раунд A
-          th Раунд B
-          th Раунд C+
-          th Выход
-          th Нет данных
-      tbody
-        - @overview.directions.series.each do |direction|
-          tr
-            td.left = direction.name
-            td = direction.amount_string
-            td = direction.count
-            td: .circle data-values={direction.for_round(1).to_json}
-            td: .circle data-values={direction.for_round(2).to_json}
-            td: .circle data-values={direction.for_round(3).to_json}
-            td: .circle data-values={direction.for_round(4,5,6).to_json}
-            td: .circle data-values={direction.for_round(7).to_json}
-            td: .circle data-values={direction.for_round(nil).to_json}
 
 - else
   .report Нет данных

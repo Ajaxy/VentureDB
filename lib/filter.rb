@@ -16,13 +16,13 @@ class Filter
   end
 
   def scope_name
-    @scope_name ||= scope ? scope.name : "Все сектора"
+    @scope_name ||= scope ? scope.name : "Все секторы"
   end
 
   def scopes
     @scopes ||= begin
       roots = ::Scope.roots.order(:name).to_a
-      [OpenStruct.new(name: "Все сектора", id: nil), *roots]
+      [OpenStruct.new(name: "Все секторы", id: nil), *roots]
     end
   end
 end

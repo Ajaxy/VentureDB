@@ -7,7 +7,23 @@ class StreamDealDecorator < DealDecorator
     if deal.amount?
       tag :b, millions(deal.amount)
     else
-      "неизвестную сумму"
+      ". Сумма сделки не разглашается."
+    end
+  end
+  
+  def grant_amount
+    if deal.amount?
+      "в размере " + tag(:b, millions(deal.amount))
+    else
+      ". Сумма гранта не разглашается."
+    end
+  end
+  
+  def verb
+    if deal.is_grant
+      verb = deal.investors.size == 1 ? "выдал грант" : "выдали грант"
+    else
+      verb = deal.investors.size == 1 ? "инвестировал" : "инвестировали"
     end
   end
 
@@ -17,8 +33,11 @@ class StreamDealDecorator < DealDecorator
   end
 
   def description
-    verb = deal.investors.size == 1 ? "инвестировал" : "инвестировали"
-    h.raw "#{investor_links} #{verb} #{amount} #{round} в #{project_link}"
+    if deal.is_grant
+      h.raw "#{investor_links} #{verb} проекту #{project_link} #{grant_amount}"
+    else
+      h.raw "#{investor_links} #{verb} в #{project_link} #{amount}"
+    end
   end
 
   def investor_links
@@ -27,18 +46,11 @@ class StreamDealDecorator < DealDecorator
   end
 
   def meta
-    scopes    = deal.project ? deal.project.scopes : []
-    locations = deal.investments.map { |inv| inv.locations }.reduce(:+) || []
-
-    [*scopes.map(&:full_name), *locations.map(&:name).uniq].join(", ")
+    deal.project && deal.project.scopes.any? ? deal.project.scopes.first().full_name : ""
   end
 
   def project_link
     return "—" unless deal.project
     h.link_to project_name, deal.project
-  end
-
-  def round
-    "(#{deal.round})" if deal.round
   end
 end

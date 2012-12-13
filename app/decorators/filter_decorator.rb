@@ -11,6 +11,10 @@ class FilterDecorator < ApplicationDecorator
     @view.render "filter/round-select", filter: self
   end
 
+  def stage_select
+    @view.render "filter/stage-select", filter: self
+  end
+  
   def sector_select
     @view.render "filter/sector-select", filter: self
   end

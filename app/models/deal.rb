@@ -121,7 +121,6 @@ class Deal < ActiveRecord::Base
     for_period(Date.new(year) .. Date.new(year).end_of_year)
   end
 
-
   def amount_in_dollars
     (amount || 0) / (dollar_rate || DEFAULT_DOLLAR_RATE)
   end
@@ -136,6 +135,10 @@ class Deal < ActiveRecord::Base
     I18n.localize(date)
   end
 
+  def is_grant
+    investments.any?{|i| i.is_grant}
+  end
+  
   def status
     STATUSES[status_id]
   end

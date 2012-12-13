@@ -149,7 +149,7 @@ jQuery ->
 
   $overview = $("section.overview")
 
-  $overview.on "click", "a", ->
+  $overview.on "click", "a.js-reload-stats", ->
     url = $(this).attr("href")
     return if url == "#"
 

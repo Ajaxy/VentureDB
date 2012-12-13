@@ -9,6 +9,8 @@ class Investment < ActiveRecord::Base
   # validates :investor_id, :instrument_id, :share, presence: true
   delegate :name, :type, to: :investor, prefix: true, allow_nil: true
 
+  GRANT_INSTRUMENTS = [8,9]
+  
   INSTRUMENTS = {
     1  => "Обыкновенные акции",
     2  => "Привилегированные акции",
@@ -26,6 +28,10 @@ class Investment < ActiveRecord::Base
     INSTRUMENTS[instrument_id]
   end
 
+  def is_grant
+    GRANT_INSTRUMENTS.include? instrument_id
+  end
+  
   def publish
     super
     investor.try(:publish)

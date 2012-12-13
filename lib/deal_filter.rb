@@ -4,7 +4,7 @@ class DealFilter < Filter
   LAST_YEARS = 3
 
   def filter(deals)
-    deals = deals.in_stage(params.stage.to_i)
+    deals = deals.in_stage(stage)             if stage
     deals = deals.in_round(round)             if round
     deals = deals.with_investor_type(params.investor.to_i)
 
@@ -71,7 +71,7 @@ class DealFilter < Filter
       val if Deal::ROUNDS[val]
     end
   end
-
+  
   def round_name
     rounds[round]
   end
@@ -80,6 +80,21 @@ class DealFilter < Filter
     @rounds ||= { nil => "Все раунды" }.merge(Deal::ROUNDS)
   end
 
+  def stage
+    @stage ||= begin
+      val = params.stage.to_i
+      val if Deal::STAGES[val]
+    end
+  end
+  
+  def stage_name
+    stages[stage]
+  end
+
+  def stages
+    @stages ||= { nil => "Все стадии" }.merge(Deal::STAGES)
+  end
+  
   def year
     @year ||= begin
       year = params.year.to_i

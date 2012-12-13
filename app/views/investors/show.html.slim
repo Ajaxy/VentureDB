@@ -8,11 +8,6 @@
   h1 = @investor.name
   .meta = @investor.meta
 
-  - if @investor.locations.any?
-    section
-      h2 Географические рынки
-      = @investor.location_names
-
   - if @investor.deals.any?
     section
       h2 Хроника

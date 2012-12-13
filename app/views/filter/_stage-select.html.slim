@@ -1,0 +1,6 @@
+.stage-select.dropdown
+  a.dropdown-toggle data-toggle="dropdown" href="#"
+    div = filter.stage_name
+  ul.dropdown-menu role="menu"
+    - filter.stages.each do |id, name|
+      li = link_to name, filter.params_with(stage: id)
