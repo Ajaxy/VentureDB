@@ -10,8 +10,8 @@ class DealsOverview
         @scope = scope
       end
 
-      def for_round(*ids)
-        Array(ids).map { |id| rounds.data_for(id) }.reduce(:+)
+      def for_stage(id)
+        stages.data_for(id)
       end
 
       def name
@@ -20,8 +20,8 @@ class DealsOverview
 
       private
 
-      def rounds
-        @rounds ||= RoundsReport.new(deals)
+      def stages
+        @stages ||= StagesReport.new(deals)
       end
     end
 

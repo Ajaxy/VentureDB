@@ -89,8 +89,8 @@ describe DealsOverview do
       scope3 = fabricate(Scope, name: "foo/sub").move_to_child_of(scope1)
 
       deal1 = create_deal(amount: 0)
-      deal2 = create_deal(scopes: [scope1], round_id: 1, amount: 10 * MONEY_RATE)
-      deal3 = create_deal(scopes: [scope2], round_id: 2, amount: 20 * MONEY_RATE)
+      deal2 = create_deal(scopes: [scope1], stage_id: 1, amount: 10 * MONEY_RATE)
+      deal3 = create_deal(scopes: [scope2], stage_id: 2, amount: 20 * MONEY_RATE)
       deal4 = create_deal(scopes: [scope1, scope3], amount: 30 * MONEY_RATE)
 
       overview.directions.series.should == overview.root_directions.series
@@ -105,24 +105,21 @@ describe DealsOverview do
       directions[0].count.should  == 3
       directions[0].amount.should == 70
 
-      directions[0].for_round(1).count.should  == 1
-      directions[0].for_round(1).amount.should == 10
+      directions[0].for_stage(1).count.should  == 1
+      directions[0].for_stage(1).amount.should == 10
 
-      directions[0].for_round(nil).count.should   == 2
-      directions[0].for_round(nil).amount.should  == 60
-
-      directions[0].for_round(1, nil).count.should   == 3
-      directions[0].for_round(1, nil).amount.should  == 70
+      directions[0].for_stage(nil).count.should   == 2
+      directions[0].for_stage(nil).amount.should  == 60
 
       directions[1].scope.should  == scope2
       directions[1].count.should  == 1
       directions[1].amount.should == 20
 
-      directions[1].for_round(2).count.should   == 1
-      directions[1].for_round(2).amount.should  == 20
+      directions[1].for_stage(2).count.should   == 1
+      directions[1].for_stage(2).amount.should  == 20
 
-      directions[1].for_round(nil).count.should   == 0
-      directions[1].for_round(nil).amount.should  == 0
+      directions[1].for_stage(nil).count.should   == 0
+      directions[1].for_stage(nil).amount.should  == 0
     end
 
     it "groups date by sub-scope if scope is passed" do
@@ -232,24 +229,45 @@ describe DealsOverview do
   # end
 
   describe "stages" do
-    it "groups data by deal stage" do
+    before do
       create_deal(amount: 5 * MONEY_RATE)
       create_deal(stage_id: 3, amount: 10 * MONEY_RATE)
       create_deal(stage_id: 1, amount: 20 * MONEY_RATE)
       create_deal(stage_id: 4, amount: 30 * MONEY_RATE)
       create_deal(stage_id: 1, amount: 40 * MONEY_RATE)
+    end
 
-      stages = overview.stages.chart.series
-      stages.size.should == 3
+    it "groups data by deal stage" do
+      stages = overview.stages
 
-      stages[0].count.should  == 2
-      stages[0].amount.should == 60
+      stages.series.size.should == 6
 
-      stages[1].count.should  == 1
-      stages[1].amount.should == 10
+      stages.data_for(nil).count.should  == 1
+      stages.data_for(nil).amount.should == 5
 
-      stages[2].count.should  == 1
-      stages[2].amount.should == 30
+      stages.data_for(1).count.should  == 2
+      stages.data_for(1).amount.should == 60
+
+      stages.data_for(3).count.should  == 1
+      stages.data_for(3).amount.should == 10
+
+      stages.data_for(4).count.should  == 1
+      stages.data_for(4).amount.should == 30
+    end
+
+    it "show only stages with deals on chart" do
+      series = overview.stages.chart.series
+
+      series.size.should == 3
+
+      series[0].count.should  == 2
+      series[0].amount.should == 60
+
+      series[1].count.should  == 1
+      series[1].amount.should == 10
+
+      series[2].count.should  == 1
+      series[2].amount.should == 30
     end
   end
 

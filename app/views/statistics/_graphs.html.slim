@@ -52,24 +52,36 @@ h1 Обзор рынка венчурных инвестиций
             th.left Сектор
             th Сумма в млн USD
             th Кол-во сделок
-            th Посев
-            th Раунд A
-            th Раунд B
-            th Раунд C+
-            th Выход
+            th = Deal::STAGES[1]
+            th = Deal::STAGES[2]
+            th = Deal::STAGES[3]
+            th = Deal::STAGES[4]
+            th = Deal::STAGES[5]
             th Нет данных
         tbody
           - @overview.directions.series.each do |direction|
             tr
               td.left = link_to direction.name, deals_path(scope: direction.scope)
+
               td = direction.amount_string
               td = direction.count
-              td: .circle data-values={direction.for_round(1).to_json}
-              td: .circle data-values={direction.for_round(2).to_json}
-              td: .circle data-values={direction.for_round(3).to_json}
-              td: .circle data-values={direction.for_round(4,5,6).to_json}
-              td: .circle data-values={direction.for_round(7).to_json}
-              td: .circle data-values={direction.for_round(nil).to_json}
+
+              td = link_to deals_path(scope: direction.scope, stage: 1) do
+                .circle data-values={direction.for_stage(1).to_json}
+
+              td = link_to deals_path(scope: direction.scope, stage: 2) do
+                .circle data-values={direction.for_stage(2).to_json}
+
+              td = link_to deals_path(scope: direction.scope, stage: 3) do
+                .circle data-values={direction.for_stage(3).to_json}
+
+              td = link_to deals_path(scope: direction.scope, stage: 4) do
+                .circle data-values={direction.for_stage(4).to_json}
+
+              td = link_to deals_path(scope: direction.scope, stage: 5) do
+                .circle data-values={direction.for_stage(5).to_json}
+
+              td: .circle data-values={direction.for_stage(nil).to_json}
 
 
   .report

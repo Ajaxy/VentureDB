@@ -126,7 +126,7 @@ setFiltersPosition = ->
           "top"         : 0
           "left"        : $filters.offset().left
           "margin-top"  : marginTop
-          "opacity"     : 0.8
+          "opacity"     : 0.9
           "z-index"     : 500
         $filters.data("fixed", true)
     else if $filters.data("fixed")

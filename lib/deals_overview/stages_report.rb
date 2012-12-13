@@ -11,19 +11,27 @@ class DealsOverview
       end
 
       def name
-        "#{Deal::STAGES[@id]} (#{count})"
+        Deal::STAGES[@id]
       end
     end
 
     class Chart < BaseChart
+      def initialize(series)
+        @series = series.select(&:name)
+      end
+
       def data
-        data = series.map { |s| [s.name, s.amount.round] }
+        data = series.map { |s| [name(s), s.amount.round] }
         data.prepend ["Стадия", "Объем сделок, млн долл. США"]
         data
       end
 
       def dom_id
         "stages-chart"
+      end
+
+      def name(stage)
+        "#{stage.name} (#{stage.count})"
       end
 
       def series
@@ -49,12 +57,18 @@ class DealsOverview
 
 
     def add_deal(deal)
-      id = deal.stage_id or return
-      @grouped_deals[id] << deal
+      @grouped_deals[deal.stage_id] << deal
+    end
+
+    def data_for(id)
+      series.fetch(id.to_i)
     end
 
     def series
-      @series ||= Deal::STAGES.map { |id, _| Stage.new(id, @grouped_deals[id]) }
+      @series ||= begin
+        ids = [nil, *Deal::STAGES.keys]
+        ids.map { |id| Stage.new(id, @grouped_deals[id]) }
+      end
     end
 
     def chart
