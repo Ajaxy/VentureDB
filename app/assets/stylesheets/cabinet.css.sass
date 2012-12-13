@@ -104,16 +104,24 @@ $text-color: #60656e
         min-height: 300px
         h1
           font-size: 2.7em
+          line-height: 1
         h2
           font-size: 1.7em
           line-height: 1.8
         .table
           margin: 30px 0
-          thead
-            // +box-shadow(0 10px 3px -2px #eee)
+          tr:nth-child(even)
+            td, th
+              background: #f2f2f2
           th
             white-space: nowrap
             font-weight: normal
+            padding-bottom: 25px
+          tbody
+            tr:first-child
+              td
+                +box-shadow(inset 0 4px 2px -3px #ddd)
+                padding-top: 20px
           td
             border: 0
           td, th
