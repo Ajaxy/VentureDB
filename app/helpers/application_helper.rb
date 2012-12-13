@@ -7,8 +7,13 @@ module ApplicationHelper
     content_tag :li, link, class: html_class
   end
 
-  def date_select_button(text, param)
-    html_class = "active" if param == params[:year].to_s
+  def date_select_button(text, param, options = {})
+    html_class = options.delete(:class)
+
+    if param == params[:year].to_s
+      html_class = [html_class, "active"].compact.join(" ")
+    end
+
     link = link_to text, params.merge(year: param), class: html_class
   end
 
