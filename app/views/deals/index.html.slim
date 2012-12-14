@@ -16,13 +16,13 @@
       p Сортировать по
       = @filter.sort_select
 
-section.stream
+section.stream.deals
   h1 Хроника
   = render "search", placeholder: "Поиск по названию проекта или инвестора"
 
   - if @deals.any?
     .deals-stream = render @deals
-    = paginate @deals
+    = render "more-link", collection: @deals
   - else
     p По вашему запросу ничего не найдено.
 

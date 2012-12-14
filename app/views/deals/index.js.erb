@@ -1,0 +1,6 @@
+$("section.deals .deals-stream").append("<%=j render @deals %>");
+$("section.deals a.js-more-link").remove()
+
+<% unless @deals.last_page? %>
+  $("section.deals").append("<%=j render "more-link", collection: @deals %>");
+<% end %>

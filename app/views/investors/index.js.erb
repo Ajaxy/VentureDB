@@ -1,0 +1,6 @@
+$("section.investors table").append("<%=j @investors.map { |inv| render "investor-row", investor: inv}.join.html_safe %>");
+$("section.investors a.js-more-link").remove()
+
+<% unless @investors.last_page? %>
+  $("section.investors").append("<%=j render "more-link", collection: @investors %>");
+<% end %>

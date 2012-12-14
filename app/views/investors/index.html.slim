@@ -26,11 +26,8 @@ section.investors
           th Объем инвестиций
       tbody
         - @investors.each do |investor|
-          tr
-            td        = investor.link
-            td.center = investor.count
-            td        = investor.amount
+          = render "investor-row", investor: investor
 
-    = paginate @investors
+    = render "more-link", collection: @investors
   - else
     p По вашему запросу ничего не найдено.

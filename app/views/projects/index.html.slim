@@ -23,12 +23,9 @@ section.projects
           th Рынки
       tbody
         - @projects.each do |project|
-          tr
-            td = project.link
-            td = project.scope_names
-            td = project.market_names
+          = render "project-row", project: project
 
-    = paginate @projects
+    = render "more-link", collection: @projects
   - else
     p По вашему запросу ничего не найдено.
 
