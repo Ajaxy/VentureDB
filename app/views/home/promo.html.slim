@@ -5,17 +5,20 @@ header
 
 section.intro
   .wrapper
-    h2 Оператор статистики по венчурному рынку России.
-    p Профессионалы отрасли получают информацию по инвестиционным сделкам,
-      проектам и рынкам; корпорации узнают о новых бизнес-моделях и
-      инновационных идеях.
-
-    .note Доступ к статистике возможен только по приглашению
+    h2 Статистика венчурного рынка.
+    .features
+      div: p Хроника
+      div: p Инфраструктура
+      div: p Проекты
+      div: p Инвесторы
 
     .subscribe
-      = form_tag "", class: "input-append" do
-        input type="email" name="email" placeholder="Введите ваш e-mail"
-        button.btn type="submit" Отправить
+      = form_for Subscription.new, url: "" do |f|
+        p Чтобы получить доступ, заполните информацию о себе
+        .input = f.text_field :name, placeholder: "ФИО"
+        .input = f.text_field :company, placeholder: "Компания"
+        .input = f.text_field :email, placeholder: "E-mail"
+        .submit = f.submit "Получить доступ", class: "btn"
 
       /= link_to "Войти", :new_user_session
 

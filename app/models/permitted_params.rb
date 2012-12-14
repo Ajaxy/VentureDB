@@ -31,6 +31,10 @@ class PermittedParams < Struct.new(:params, :user)
       company_attributes: company_attributes)
   end
 
+  def subscription
+    params.require(:subscription).permit(*subscription_attributes)
+  end
+
   def user
     params.require(:user).permit(*user_attributes,
       person_attributes: person_attributes)
@@ -67,6 +71,10 @@ class PermittedParams < Struct.new(:params, :user)
 
   def project_attributes
     %w[name description scope_ids market_ids author_ids]
+  end
+
+  def subscription_attributes
+    %w[name company email]
   end
 
   def user_attributes

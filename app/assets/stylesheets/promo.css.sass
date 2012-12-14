@@ -37,14 +37,45 @@ body.promo
       margin-top: 12.5px
 
   section.intro
-    padding: 140px 0
+    padding: 70px 0
     color: white
     text-align: center
     &.success
       padding: 40px 0
     .wrapper
-      width: 550px
+      width: 520px
       margin: 0 auto
+    .features
+      display: table
+      width: 100%
+      height: 80px
+      margin: 40px 0
+      > div
+        display: table-cell
+        text-transform: uppercase
+        font-size: 0.7em
+        font-weight: bold
+        letter-spacing: 1px
+        vertical-align: bottom
+        padding: 5px 0
+        &:before
+          content: ""
+          display: inline-block
+          height: 29px
+          width: 32px
+          margin-bottom: 15px
+          background: image-url("promo-features.png") no-repeat
+      > div + div
+        border-left: solid 1px rgba(255, 255, 255, 0.2)
+      > div:nth-child(2)
+        &:before
+          background-position: -96px 0
+      > div:nth-child(3)
+        &:before
+          background-position: -32px 0
+      > div:nth-child(4)
+        &:before
+          background-position: -64px 0
     h2
       font-size: 2.2em
       margin-bottom: 0.5em
@@ -53,50 +84,52 @@ body.promo
       font-size: 1.6em
       margin-bottom: 0.5em
       line-height: 1.3
-    p
-      font-size: 1.2em
-      line-height: 1.5
-    .note
-      padding: 0 150px
-      margin: 35px 0
-      line-height: 1.3
     .subscribe
-      a
-        font-size: 1.2em
-        color: white
-        text-decoration: underline
-      form
-        padding-bottom: 15px
-        input, button
-          font-size: 16px
-          padding: 10px
+      background-color: #fafafa
+      padding: 30px 40px
+      color: #242424
+      width: 295px
+      margin: 0 auto
+      border-radius: 5px
+      p
+        font-size: 16px
+        margin-bottom: 1.5em
+        line-height: 1.3
+      .input
+        margin-bottom: 4px
         input
-          border-radius: 4px 0 0 4px
-        button
-          border-radius: 0 4px 4px 0
+          +box-sizing(border-box)
+          height: 30px
+          line-height: 30px
+          font-family: inherit
+          width: 100%
+      .submit
+        margin-top: 15px
+        input
+          padding: 10px 15px
+          font-size: 16px
+      // a
+      //   font-size: 1.2em
+      //   color: white
+      //   text-decoration: underline
+      // form
+      //   padding-bottom: 15px
+      //   input, button
+      //     font-size: 16px
+      //     padding: 10px
+      //   input
+      //     border-radius: 4px 0 0 4px
+      //   button
+      //     border-radius: 0 4px 4px 0
 
   section.promo
     background: #f7f8fa
     padding: 20px 0
-    .row
-      width: 850px
-      margin: 0 auto
-      padding: 50px 0
-    .row + .row
-      border-top: solid 1px #eaeaea
-    .row:first-child + .row
-      border-top: 0
-      padding-top: 0
     h2
       font-size: 2em
       margin-bottom: 0.75em
       color: #303030
-    .info
-      width: 420px
-      display: inline-block
-      vertical-align: middle
     .tagline
-      display: block
       text-align: center
       width: 700px
       margin: 0 auto
@@ -110,53 +143,25 @@ body.promo
         width: 730px
         display: block
         margin: 50px auto 0 auto
-    .img
-      width: 420px
-      display: inline-block
-      vertical-align: middle
+    .info
+      text-align: center
+      width: 700px
+      margin: 50px auto 0 auto
+      h2
+        font-size: 1.8em
+      p
+        font-size: 1.1em
+        width: 650px
+        margin: 0 auto
+        color: #757575
+        line-height: 1.5
       img
-        max-width: 360px
-      &:last-child
-        text-align: right
-    p
-      color: #757575
-      line-height: 1.5
-
-    .participate
-      background: white
-      padding: 50px
-      border: solid 1px #ebecee
-      border-width: 0 1px 2px 1px
-      .form-inputs
-        margin: 20px 0
-      .control-label
-        abbr
-          border: 0
-          color: #d2002e
-      .controls
-        input, textarea
-          width: 600px
-        textarea
-          height: 150px
-        .help-block
-          float: left
-          padding-right: 10px
-          position: relative
-          top: 5px
-
-  .container > footer
-    position: absolute
-    top: 100%
-    left: 0
-    width: 100%
-    background: #f7f8fa
-    padding: 30px 0
-    text-align: center
-    font-size: 0.9em
-    color: #666
-    img
-      position: relative
-      top: 3px
+        width: 730px
+        display: block
+        margin: 20px auto 0 auto
 
 .promo.success
   background-position: 0 -410px
+  p
+    line-height: 1.3
+    font-size: 1.1em

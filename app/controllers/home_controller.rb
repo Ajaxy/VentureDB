@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   end
 
   def subscribe
-    @subscription = Subscription.new(email: params[:email])
+    @subscription = Subscription.new(permitted_params.subscription)
 
     if @subscription.save
       redirect_to :subscribed

@@ -15,4 +15,7 @@ window.vent =
     $(@).trigger(event)
 
 jQuery ->
-  $(".promo button").click -> !! $("input[type=email]").val().match(/.@./)
+  $(".promo .submit input").click ->
+    return false unless $("#subscription_email").val().match(/.@./)
+    return false unless $("#subscription_name").val().length > 0
+    true
