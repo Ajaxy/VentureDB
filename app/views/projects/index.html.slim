@@ -11,18 +11,21 @@ section.projects
   h1 Проекты
   = render "search", placeholder: "Поиск"
 
-  table.table
-    thead
-      tr
-        th Название
-        th Секторы деятельности
-        th Рынки
-    tbody
-      - @projects.each do |project|
+  - if @projects.any?
+    table.table
+      thead
         tr
-          td = project.link
-          td = project.scope_names
-          td = project.market_names
+          th Название
+          th Секторы деятельности
+          th Рынки
+      tbody
+        - @projects.each do |project|
+          tr
+            td = project.link
+            td = project.scope_names
+            td = project.market_names
 
-  = paginate @projects
+    = paginate @projects
+  - else
+    p По вашему запросу ничего не найдено.
 

@@ -103,11 +103,12 @@ class Deal < ActiveRecord::Base
   def self.search(string)
     return scoped unless string.present?
     search = "%#{string}%"
-    joins{[ project.company.outer, project.authors.outer ]}
+    joins{[ project.company.outer, project.authors.outer, investors ]}
     .where{ project.name.like(search) |
             project.company.name.like(search) |
             project.authors.first_name.like(search) |
-            project.authors.last_name.like(search) }
+            project.authors.last_name.like(search) |
+            investors.name.like(search) }
   end
 
   def self.for_period(period)

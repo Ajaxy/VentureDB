@@ -18,8 +18,11 @@
 
 section.stream
   h1 Хроника
-  = render "search", placeholder: "Поиск по названию проекта"
+  = render "search", placeholder: "Поиск по названию проекта или инвестора"
 
-  .deals-stream = render @deals
+  - if @deals.any?
+    .deals-stream = render @deals
+    = paginate @deals
+  - else
+    p По вашему запросу ничего не найдено.
 
-  = paginate @deals

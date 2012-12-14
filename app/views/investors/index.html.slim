@@ -10,17 +10,20 @@ section.investors
 
   = render "search", placeholder: "Поиск"
 
-  table.table
-    thead
-      tr
-        th Название
-        th.center Кол-во сделок
-        th Объем инвестиций
-    tbody
-      - @investors.each do |investor|
+  - if @investors.any?
+    table.table
+      thead
         tr
-          td        = investor.link
-          td.center = investor.count
-          td        = investor.amount
+          th Название
+          th.center Кол-во сделок
+          th Объем инвестиций
+      tbody
+        - @investors.each do |investor|
+          tr
+            td        = investor.link
+            td.center = investor.count
+            td        = investor.amount
 
-  = paginate @investors
+    = paginate @investors
+  - else
+    p По вашему запросу ничего не найдено.
