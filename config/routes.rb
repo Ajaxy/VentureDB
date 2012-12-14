@@ -28,6 +28,7 @@ Venture::Application.routes.draw do
   resources :projects, only: %w[index show]
   resources :investors, only: %w[index show]
   resources :statistics, only: %w[index]
+  resources :researches, only: %w[index]
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"
