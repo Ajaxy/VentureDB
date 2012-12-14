@@ -20,7 +20,7 @@ class DealSorter < Sorter
     when :status
       scope.order("status_id #{current_direction}")
     when :amount
-      scope.order("amount #{current_direction} nulls last")
+      scope.order("amount_usd #{current_direction} nulls last")
     when :date
       scope.select("deals.*, coalesce(contract_date, announcement_date) AS date")
       .order("date DESC")

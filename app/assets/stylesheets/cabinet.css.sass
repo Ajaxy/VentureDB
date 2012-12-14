@@ -147,10 +147,9 @@ $text-color: #60656e
         //   a
         //     color: #6e6e6e
         //     padding: 8px 14px
-        .js-more-link
-          text-align: center
-          display: block
+        .more
           font-size: 1.1em
+          text-align: center
 
 .filters
   select
@@ -194,6 +193,18 @@ section.deal
     &.active
       background: #f8f8f8
 
+.button
+  display: inline-block
+  vertical-align: middle
+  font-size: 12px
+  border: solid 1px #d1d1d1
+  border-radius: 5px
+  +box-shadow(0 1px 0 0 #f0f0f0)
+  padding: 5px 10px
+  background-color: #fafafa
+  +background-image(linear-gradient(top, #fff, #fafafa))
+  color: inherit !important
+
 .profile
   > .meta
     color: #888
@@ -204,4 +215,8 @@ section.deal
     margin: 15px 0
     padding: 15px 0
     border-top: solid 2px #f7f7f7
+  table
+    margin-top: 20px
 
+.mdash
+  color: #aaa

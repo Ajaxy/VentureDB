@@ -3,8 +3,16 @@
 class ProjectDecorator < ApplicationDecorator
   decorates :project
 
+  def amount
+    investments_amount == 0 ? mdash : millions(investments_amount)
+  end
+
+  def count
+    investments_count == 0 ? mdash : investments_count
+  end
+
   def company_name
-    company.try(:name) || "—"
+    company.try(:name) || mdash
   end
 
   def company_contacts
@@ -12,17 +20,17 @@ class ProjectDecorator < ApplicationDecorator
   end
 
   def scope_names
-    return "—" unless scopes.any?
+    return mdash unless scopes.any?
     list scopes.map(&:name)
   end
 
   def author_names
-    return "—" unless authors.any?
+    return mdash unless authors.any?
     list authors.map(&:full_name)
   end
 
   def market_names
-    return "—" unless markets.any?
+    return mdash unless markets.any?
     list markets.map(&:name)
   end
 

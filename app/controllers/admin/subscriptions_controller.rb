@@ -9,13 +9,10 @@ class Admin::SubscriptionsController < Admin::BaseController
     @subscription = Subscription.find(params[:id])
     @user         = @subscription.create_user
 
-    if @user.save
-      UserMailer.created(@user).deliver
-      redirect_to [:admin, :subscriptions], notice: "Заявка одобрена."
-      @subscription.archive
-    else
-      render "admin/users/new"
-    end
+    UserMailer.created(@user).deliver if @user.save
+
+    @subscription.archive
+    redirect_to [:admin, :subscriptions], notice: "Заявка одобрена."
   end
 
   def destroy

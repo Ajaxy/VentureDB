@@ -1,4 +1,9 @@
-.pull-right = link_to "Добавить пользователя", [:new, :admin, :user], class: "btn btn-primary"
+
+.pull-left = link_to "Добавить пользователя", [:new, :admin, :user], class: "btn btn-primary"
+
+.total Всего пользователей: #{b User.count}
+
+br
 
 table.table
   thead

@@ -100,7 +100,12 @@ class Investor < ActiveRecord::Base
   end
 
   def investments_amount
-    investments.map { |inv| inv.deal.try(:amount) || 0 }.sum
+    @investments_amount ||=
+      deals.published.map { |deal| deal.try(:amount) || 0 }.sum
+  end
+
+  def investments_count
+    @investments_count ||= deals.published.size
   end
 
   private

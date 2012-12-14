@@ -4,7 +4,11 @@ class InvestorDecorator < ApplicationDecorator
   decorates :investor
 
   def amount
-    millions investor.investments_amount
+    investments_amount == 0 ? mdash : millions(investments_amount)
+  end
+
+  def count
+    investments_count == 0 ? mdash : investments_count
   end
 
   def creation_date
@@ -17,16 +21,12 @@ class InvestorDecorator < ApplicationDecorator
     company.contacts if company
   end
 
-  def count
-    investor.deals.size
-  end
-
   def description
     [investor.type, *investor.locations.map(&:name)].join(", ")
   end
 
   def location_names
-    return "—" unless locations.any?
+    return mdash unless locations.any?
     list locations.map(&:name)
   end
 

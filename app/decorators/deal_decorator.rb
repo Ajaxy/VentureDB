@@ -15,49 +15,49 @@ class DealDecorator < ApplicationDecorator
   end
 
   def project_name
-    project.try(:name) || "—"
+    project.try(:name) || mdash
   end
 
   def round
-    deal.round || "—"
+    deal.round || mdash
   end
 
   def status
-    deal.status || "—"
+    deal.status || mdash
   end
 
   def amount
-    return "—" unless deal.amount?
+    return mdash unless deal.amount?
     tag :span, roubles(deal.amount), class: "amount"
   end
 
   def value_before
-    return "—" unless deal.value_before?
+    return mdash unless deal.value_before?
     tag :span, roubles(deal.value_before), class: "amount"
   end
 
   def value_after
-    return "—" unless deal.value_after?
+    return mdash unless deal.value_after?
     tag :span, roubles(deal.value_after), class: "amount"
   end
 
   def contract_date
-    return "—" unless deal.contract_date?
+    return mdash unless deal.contract_date?
     h.localize(deal.contract_date)
   end
 
   def announcement_date
-    return "—" unless deal.announcement_date?
+    return mdash unless deal.announcement_date?
     h.localize(deal.announcement_date)
   end
 
   def investor_names
-    return "—" unless deal.investors.any?
+    return mdash unless deal.investors.any?
     list deal.investors.map(&:name)
   end
 
   def authors_list
-    return "—" unless deal.project.authors.any?
+    return mdash unless deal.project.authors.any?
     list project.authors.map(&:name)
   end
 end

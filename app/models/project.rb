@@ -50,7 +50,12 @@ class Project < ActiveRecord::Base
     company.try(:publish)
   end
 
-  def male?
-    gender
+  def investments_amount
+    @investments_amount ||=
+      deals.published.map { |deal| deal.try(:amount) || 0 }.sum
+  end
+
+  def investments_count
+    @investments_count ||= deals.published.size
   end
 end

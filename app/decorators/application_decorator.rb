@@ -15,10 +15,14 @@ class ApplicationDecorator < Draper::Base
     strings.join("<br>").html_safe
   end
 
+  def mdash
+    tag :span, "—", class: "mdash"
+  end
+
   def millions(amount, options = {})
-    options = options.merge(units: { unit: "$", thousand: "тыс. $", million: "млн $"})
+    options = options.merge(units: { unit: "", thousand: "тыс.", million: "млн"})
     options[:precision] ||= 0
-    h.number_to_human amount, options
+    "$#{h.number_to_human amount, options}"
   end
 
   def roubles(amount)

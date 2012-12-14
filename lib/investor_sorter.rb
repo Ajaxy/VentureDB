@@ -12,17 +12,15 @@ class InvestorSorter < Sorter
   def sort(scope)
     case current_column
     when :name
-      # NOTE: this will pull all existing records from the database
-      scope = scope.sort_by(&:name)
-      scope.reverse! if current_direction == :desc
-      scope
+      scope.order("name #{current_direction}")
     when :type
       scope.order("type_id #{current_direction}")
     when :investments
-      # NOTE: this will pull all existing records from the database
-      scope = scope.sort_by(&:investments_amount)
-      scope.reverse! if current_direction == :desc
-      scope
+      scope.joins{investments.deal.inner}
+           .select("investors.*, sum(deals.amount_usd) AS total_amount")
+           .order("total_amount desc nulls last")
+           .where{deals.published == true}
+           .group{id}
     else
       raise ArgumentError.new("bad current_column #{current_column.inspect}")
     end

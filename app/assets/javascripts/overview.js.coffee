@@ -29,7 +29,7 @@ renderDirections = ->
       "line-height"       : "#{radius*2}px"
       "background-color"  : "##{color}"
 
-renderDirectionsRounds = ->
+renderDirectionsStages = ->
   $table = $("#directions-by-rounds")
   return if $table.length == 0
 
@@ -114,6 +114,8 @@ setFiltersPosition = ->
   return if $page.length == 0
 
   $filters        = $page.find(".filters")
+  return if $filters.length == 0
+
   offset          = $filters.offset().top
   origMarginTop   = parseInt $filters.css("margin-top")
   marginTop       = 5
@@ -141,7 +143,7 @@ setFiltersPosition = ->
 onload = ->
   renderDirections()
   renderGeography()
-  renderDirectionsRounds()
+  renderDirectionsStages()
   setFiltersPosition()
 
 jQuery ->

@@ -1,3 +1,6 @@
+- content_for :head do
+  = javascript_include_tag "overview"
+
 - content_for :aside do
   - if @investor.company_contacts
     section
@@ -9,6 +12,34 @@
   .meta = @investor.meta
 
   - if @investor.deals.any?
+    section.overview
+      h2 Сделки по секторам
+
+      table#directions-by-rounds data-values={@directions.series.reduce(:+).to_json}
+        thead
+          tr
+            th.left Сектор
+            th Сумма в млн USD
+            th Кол-во сделок
+            th = Deal::STAGES[1]
+            th = Deal::STAGES[2]
+            th = Deal::STAGES[3]
+            th = Deal::STAGES[4]
+            th = Deal::STAGES[5]
+            th Нет данных
+        tbody
+          - @directions.series.each do |direction|
+            tr
+              td.left = link_to direction.name, deals_path(scope: direction.scope)
+              td = direction.amount_string
+              td = direction.count
+              td: .circle data-values={direction.for_stage(1).to_json}
+              td: .circle data-values={direction.for_stage(2).to_json}
+              td: .circle data-values={direction.for_stage(3).to_json}
+              td: .circle data-values={direction.for_stage(4).to_json}
+              td: .circle data-values={direction.for_stage(5).to_json}
+              td: .circle data-values={direction.for_stage(nil).to_json}
+
     section
       h2 Хроника
       .deals-stream = render StreamDealDecorator.decorate(@investor.deals.published), inline: true

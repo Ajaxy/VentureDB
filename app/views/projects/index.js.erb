@@ -1,5 +1,5 @@
 $("section.projects table").append("<%=j @projects.map { |project| render "project-row", project: project}.join.html_safe %>");
-$("section.projects a.js-more-link").remove()
+$("section.projects .more").remove()
 
 <% unless @projects.last_page? %>
   $("section.projects").append("<%=j render "more-link", collection: @projects %>");

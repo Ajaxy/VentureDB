@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   end
 
   def promo
+    redirect_to :deals if current_user
   end
 
   def subscribe

@@ -12,6 +12,7 @@
 
 section.projects
   h1 Проекты
+  p Поиск среди 400 молодых компаний.
   = render "search", placeholder: "Поиск"
 
   - if @projects.any?
@@ -20,7 +21,8 @@ section.projects
         tr
           th Название
           th Секторы деятельности
-          th Рынки
+          th.center Кол-во сделок
+          th Объем вложений
       tbody
         - @projects.each do |project|
           = render "project-row", project: project

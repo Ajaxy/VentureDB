@@ -69,17 +69,19 @@
 
       p.help-block Если стоимость компании до инвестиций вам неизвестна, оставьте поле пустым.
 
+      p.help-block Сумма в долларах обязательна для заполнения, если известна сумма сделки.
+
     .span8
       fieldset
         legend Финансовая сторона сделки
 
         = f.label :amount_usd, "Сумма сделки"
         .input-append
-          = f.text_field :amount_rub, class: "span2"
-          span.add-on РУБ
-        .input-append
           = f.text_field :amount_usd, class: "span2"
           span.add-on USD
+        .input-append
+          = f.text_field :amount_rub, class: "span2"
+          span.add-on РУБ
         .input-append
           = f.text_field :amount_eur, class: "span2"
           span.add-on EUR

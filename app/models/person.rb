@@ -9,8 +9,6 @@ class Person < ActiveRecord::Base
   has_many :project_authors, foreign_key: "author_id"
   # has_many :projects
 
-  validates :first_name, :last_name, presence: true
-
   def self.by_name
     # order(:first_name, :last_name)
     all.sort_by(&:full_name)

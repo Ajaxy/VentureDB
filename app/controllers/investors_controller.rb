@@ -15,5 +15,6 @@ class InvestorsController < CabinetController
 
   def show
     @investor = decorate Investor.find(params[:id])
+    @directions = DealsOverview::DirectionsReport.new(@investor.deals.published)
   end
 end

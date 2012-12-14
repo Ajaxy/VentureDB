@@ -52,7 +52,7 @@ class StreamDealDecorator < DealDecorator
   end
 
   def project_link
-    return "—" unless deal.project
+    return mdash unless deal.project
     h.link_to project_name, deal.project
   end
 end
