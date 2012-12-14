@@ -52,7 +52,7 @@ class PermittedParams < Struct.new(:params, :user)
 
   def deal_attributes
     %w[project_id announcement_date contract_date approx_date status_id
-      round_id exit_type_id stage_id amount dollar_rate euro_rate
+      round_id exit_type_id stage_id amount_rub amount_usd amount_eur
       approx_amount value_before value_after investment_ids informer_id
       mentions comments errors_log]
   end
