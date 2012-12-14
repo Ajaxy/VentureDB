@@ -6,9 +6,11 @@ class DealsOverview
 
   def initialize(params = {})
     @filter = DealFilter.new(params)
-    deals   = Deal.published
-    @deals  = @filter.by_year(deals).includes{investments.investor.locations}
-                                    .includes{project.scopes}.to_a
+
+    deals   = Deal.published.includes{investments.investor.locations}
+                            .includes{project.scopes}
+
+    @deals  = @filter.by_year(deals).to_a
 
     if scope && scope.root?
       @root_directions  = DirectionsReport.new(deals)

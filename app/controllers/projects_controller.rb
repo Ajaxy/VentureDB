@@ -6,7 +6,7 @@ class ProjectsController < CabinetController
     @filter   = decorate ProjectFilter.new(params), view: view_context,
                                                     sorter: @sorter
 
-    scope     = Project.published.includes{[company, scopes, authors, markets]}
+    scope     = Project.published.includes{[company, scopes, authors, deals]}
     scope     = @sorter.sort(scope)
     scope     = @filter.filter(scope).uniq
 

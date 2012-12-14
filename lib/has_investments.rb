@@ -10,6 +10,6 @@ module HasInvestments
   end
 
   def published_deals
-    @published_deals ||= deals.published.sort_by(&:date).reverse
+    @published_deals ||= deals.select(&:published).sort_by(&:date).reverse
   end
 end
