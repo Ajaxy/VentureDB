@@ -73,10 +73,16 @@
       fieldset
         legend Финансовая сторона сделки
 
-        = f.label :amount, "Сумма сделки"
+        = f.label :amount_usd, "Сумма сделки"
         .input-append
-          = f.text_field :amount, class: "span2"
-          span.add-on руб.
+          = f.text_field :amount_rub, class: "span2"
+          span.add-on РУБ
+        .input-append
+          = f.text_field :amount_usd, class: "span2"
+          span.add-on USD
+        .input-append
+          = f.text_field :amount_eur, class: "span2"
+          span.add-on EUR
 
         = f.label :approx_amount, class: "checkbox" do
           = f.check_box :approx_amount
@@ -93,19 +99,6 @@
             = f.label :value_after, "Стоимость компании после сделки"
             .input-append
               = f.text_field :value_after, class: "span2"
-              span.add-on руб.
-
-        p
-        .row
-          .control-group.span3
-            = f.label :dollar_rate, "Курс доллара на день сделки"
-            .input-append
-              = f.text_field :dollar_rate, class: "span2"
-              span.add-on руб.
-          .control-group.span4
-            = f.label :euro_rate, "Курс евро на день сделки"
-            .input-append
-              = f.text_field :euro_rate, class: "span2"
               span.add-on руб.
 
   hr

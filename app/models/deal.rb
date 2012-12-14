@@ -1,8 +1,6 @@
 # encoding: utf-8
 
 class Deal < ActiveRecord::Base
-  DEFAULT_DOLLAR_RATE = 30.0
-
   belongs_to :project
   belongs_to :informer, class_name: "Person"
 
@@ -120,8 +118,12 @@ class Deal < ActiveRecord::Base
     for_period(Date.new(year) .. Date.new(year).end_of_year)
   end
 
-  def amount_in_dollars
-    (amount || 0) / (dollar_rate || DEFAULT_DOLLAR_RATE)
+  def amount
+    amount_usd
+  end
+
+  def amount?
+    amount_usd?
   end
 
   def announcement_date_before_type_cast
@@ -161,30 +163,6 @@ class Deal < ActiveRecord::Base
   def exit_type_id=(val)
     val = nil unless round_id == 7
     super(val)
-  end
-
-  %w[amount value_before value_after].each do |attr|
-    define_method "#{attr}=" do |val|
-      val = val.gsub(/[  ]/, "") if val.respond_to?(:gsub)
-      super(val)
-    end
-  end
-
-  %w[euro_rate dollar_rate].each do |attr|
-    define_method "#{attr}=" do |val|
-      if val.is_a?(String) && val.present?
-        val = val.sub(",", ".") if val.respond_to?(:gsub)
-        val = (val.to_f.round(2) * 100).round
-      end
-      super(val)
-    end
-
-    define_method attr do
-      return unless self[attr]
-      self[attr] / 100.0
-    end
-
-    alias_method "#{attr}_before_type_cast", attr
   end
 
   def undraft

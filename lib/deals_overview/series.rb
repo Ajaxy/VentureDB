@@ -4,7 +4,7 @@ class DealsOverview
   class Series
     def amount
       @amount ||= begin
-        sum = deals.sum(&:amount_in_dollars)
+        sum = deals.sum(&:amount)
         sum.to_f / 1_000_000.0
       end
     end

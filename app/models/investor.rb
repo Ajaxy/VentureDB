@@ -87,7 +87,7 @@ class Investor < ActiveRecord::Base
   end
 
   def name_and_type
-    "#{actor_name} – #{type}"
+    "#{name} – #{type}"
   end
 
   def type

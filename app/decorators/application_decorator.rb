@@ -16,7 +16,7 @@ class ApplicationDecorator < Draper::Base
   end
 
   def millions(amount, options = {})
-    options = options.merge(units: { unit: "руб.", thousand: "тыс. руб.", million: "млн руб."})
+    options = options.merge(units: { unit: "$", thousand: "тыс. $", million: "млн $"})
     options[:precision] ||= 0
     h.number_to_human amount, options
   end

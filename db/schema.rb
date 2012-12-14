@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214112114) do
+ActiveRecord::Schema.define(:version => 20121214142030) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -40,9 +40,7 @@ ActiveRecord::Schema.define(:version => 20121214112114) do
     t.integer  "stage_id"
     t.integer  "exit_type_id"
     t.boolean  "approx_amount",                  :default => false
-    t.integer  "amount",            :limit => 8
-    t.integer  "dollar_rate"
-    t.integer  "euro_rate"
+    t.integer  "amount_rub",        :limit => 8
     t.integer  "value_before",      :limit => 8
     t.integer  "value_after",       :limit => 8
     t.integer  "informer_id"
@@ -54,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20121214112114) do
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
     t.boolean  "published",                      :default => false
+    t.integer  "amount_usd"
+    t.integer  "amount_eur"
   end
 
   add_index "deals", ["exit_type_id"], :name => "index_deals_on_exit_type_id"

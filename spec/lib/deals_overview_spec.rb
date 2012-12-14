@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe DealsOverview do
-  MONEY_RATE = Deal::DEFAULT_DOLLAR_RATE * 1_000_000
+  MONEY_RATE = 1_000_000
 
   def create_deal(options = {})
     scopes    = options.delete(:scopes)
@@ -36,10 +36,10 @@ describe DealsOverview do
   end
 
   it "selects only deals for passed year" do
-    deal1 = create_deal(amount: 0)
-    deal2 = create_deal(contract_date: "10.01.2011", amount: 0)
-    deal3 = create_deal(contract_date: "10.01.2012", amount: 0)
-    deal4 = create_deal(contract_date: "10.03.2012", amount: 0)
+    deal1 = create_deal(amount_usd: 0)
+    deal2 = create_deal(contract_date: "10.01.2011", amount_usd: 0)
+    deal3 = create_deal(contract_date: "10.01.2012", amount_usd: 0)
+    deal4 = create_deal(contract_date: "10.03.2012", amount_usd: 0)
 
     overview.deals.should == [deal1, deal2, deal3, deal4]
     overview(year: 2010).deals.should == []
@@ -53,19 +53,19 @@ describe DealsOverview do
     project1  = fabricate Project
     project2  = fabricate Project
 
-    create_deal(amount: 0)
-    create_deal(contract_date: "31.12.2010", amount: 10 * MONEY_RATE)
+    create_deal(amount_usd: 0)
+    create_deal(contract_date: "31.12.2010", amount_usd: 10 * MONEY_RATE)
 
-    create_deal(contract_date: "31.12.2011", amount: 20 * MONEY_RATE,
+    create_deal(contract_date: "31.12.2011", amount_usd: 20 * MONEY_RATE,
                 investors: [investor1], project: project1)
 
-    create_deal(contract_date: "10.01.2011", amount: 30 * MONEY_RATE,
+    create_deal(contract_date: "10.01.2011", amount_usd: 30 * MONEY_RATE,
                 investors: [investor1], project: project1)
 
-    create_deal(contract_date: "10.03.2012", amount: 40 * MONEY_RATE,
+    create_deal(contract_date: "10.03.2012", amount_usd: 40 * MONEY_RATE,
                 investors: [investor1, investor2], project: project1)
 
-    create_deal(contract_date: "10.04.2012", amount: 50 * MONEY_RATE,
+    create_deal(contract_date: "10.04.2012", amount_usd: 50 * MONEY_RATE,
                 investors: [investor2], project: project2)
 
     overview(year: 2010).totals.investors.should == 0
@@ -84,10 +84,10 @@ describe DealsOverview do
       scope2 = fabricate(Scope, name: "bar")
       scope3 = fabricate(Scope, name: "foo/sub").move_to_child_of(scope1)
 
-      deal1 = create_deal(amount: 0)
-      deal2 = create_deal(scopes: [scope1], stage_id: 1, amount: 10 * MONEY_RATE)
-      deal3 = create_deal(scopes: [scope2], stage_id: 2, amount: 20 * MONEY_RATE)
-      deal4 = create_deal(scopes: [scope1, scope3], amount: 30 * MONEY_RATE)
+      deal1 = create_deal(amount_usd: 0)
+      deal2 = create_deal(scopes: [scope1], stage_id: 1, amount_usd: 10 * MONEY_RATE)
+      deal3 = create_deal(scopes: [scope2], stage_id: 2, amount_usd: 20 * MONEY_RATE)
+      deal4 = create_deal(scopes: [scope1, scope3], amount_usd: 30 * MONEY_RATE)
 
       overview.directions.series.should == overview.root_directions.series
 
@@ -126,10 +126,10 @@ describe DealsOverview do
       scope5 = fabricate(Scope, name: "bar")
 
       deal1 = create_deal
-      deal2 = create_deal(scopes: [scope1],         amount: 10 * MONEY_RATE)
-      deal3 = create_deal(scopes: [scope2],         amount: 20 * MONEY_RATE)
-      deal4 = create_deal(scopes: [scope2, scope3], amount: 30 * MONEY_RATE)
-      deal5 = create_deal(scopes: [scope5],         amount: 40 * MONEY_RATE)
+      deal2 = create_deal(scopes: [scope1],         amount_usd: 10 * MONEY_RATE)
+      deal3 = create_deal(scopes: [scope2],         amount_usd: 20 * MONEY_RATE)
+      deal4 = create_deal(scopes: [scope2, scope3], amount_usd: 30 * MONEY_RATE)
+      deal5 = create_deal(scopes: [scope5],         amount_usd: 40 * MONEY_RATE)
 
       overview = overview(scope: scope1.id)
 
@@ -171,8 +171,8 @@ describe DealsOverview do
       location3 = fabricate(Location).move_to_child_of(location1)
 
       create_deal
-      create_deal(locations: [location1],            amount: 10 * MONEY_RATE)
-      create_deal(locations: [location3, location2], amount: 20 * MONEY_RATE)
+      create_deal(locations: [location1],            amount_usd: 10 * MONEY_RATE)
+      create_deal(locations: [location3, location2], amount_usd: 20 * MONEY_RATE)
 
       locations = overview.geography.series
       locations.size.should == 2
@@ -188,9 +188,9 @@ describe DealsOverview do
   # describe "dynamics" do
   #   it "groups data by quarters if year is passed" do
   #     deal1 = create_deal
-  #     deal2 = create_deal(contract_date: "10.01.2012", amount: 10 * MONEY_RATE)
-  #     deal3 = create_deal(contract_date: "10.03.2012", amount: 20 * MONEY_RATE)
-  #     deal4 = create_deal(contract_date: "10.04.2012", amount: 30 * MONEY_RATE)
+  #     deal2 = create_deal(contract_date: "10.01.2012", amount_usd: 10 * MONEY_RATE)
+  #     deal3 = create_deal(contract_date: "10.03.2012", amount_usd: 20 * MONEY_RATE)
+  #     deal4 = create_deal(contract_date: "10.04.2012", amount_usd: 30 * MONEY_RATE)
 
   #     overview = overview(year: 2012)
 
@@ -207,11 +207,11 @@ describe DealsOverview do
   #   end
 
   #   it "groups data by last 3 years if no year is passed" do
-  #     create_deal(amount: 0)
-  #     create_deal(contract_date: "31.12.2011", amount: 10 * MONEY_RATE)
-  #     create_deal(contract_date: "10.01.2012", amount: 20 * MONEY_RATE)
-  #     create_deal(contract_date: "10.03.2012", amount: 30 * MONEY_RATE)
-  #     create_deal(contract_date: "10.04.2012", amount: 40 * MONEY_RATE)
+  #     create_deal(amount_usd: 0)
+  #     create_deal(contract_date: "31.12.2011", amount_usd: 10 * MONEY_RATE)
+  #     create_deal(contract_date: "10.01.2012", amount_usd: 20 * MONEY_RATE)
+  #     create_deal(contract_date: "10.03.2012", amount_usd: 30 * MONEY_RATE)
+  #     create_deal(contract_date: "10.04.2012", amount_usd: 40 * MONEY_RATE)
 
   #     overview.deals.size.should == 5
 
@@ -226,11 +226,11 @@ describe DealsOverview do
 
   describe "stages" do
     before do
-      create_deal(amount: 5 * MONEY_RATE)
-      create_deal(stage_id: 3, amount: 10 * MONEY_RATE)
-      create_deal(stage_id: 1, amount: 20 * MONEY_RATE)
-      create_deal(stage_id: 4, amount: 30 * MONEY_RATE)
-      create_deal(stage_id: 1, amount: 40 * MONEY_RATE)
+      create_deal(amount_usd: 5 * MONEY_RATE)
+      create_deal(stage_id: 3, amount_usd: 10 * MONEY_RATE)
+      create_deal(stage_id: 1, amount_usd: 20 * MONEY_RATE)
+      create_deal(stage_id: 4, amount_usd: 30 * MONEY_RATE)
+      create_deal(stage_id: 1, amount_usd: 40 * MONEY_RATE)
     end
 
     it "groups data by deal stage" do
@@ -269,12 +269,12 @@ describe DealsOverview do
 
   describe "rounds" do
     before do
-      create_deal(amount: 5 * MONEY_RATE)
-      create_deal(round_id: 4, amount: 10 * MONEY_RATE)
-      create_deal(round_id: 1, amount: 20 * MONEY_RATE)
-      create_deal(round_id: 3, amount: 30 * MONEY_RATE)
-      create_deal(round_id: 1, amount: 40 * MONEY_RATE)
-      create_deal(round_id: 4, amount: 50 * MONEY_RATE)
+      create_deal(amount_usd: 5 * MONEY_RATE)
+      create_deal(round_id: 4, amount_usd: 10 * MONEY_RATE)
+      create_deal(round_id: 1, amount_usd: 20 * MONEY_RATE)
+      create_deal(round_id: 3, amount_usd: 30 * MONEY_RATE)
+      create_deal(round_id: 1, amount_usd: 40 * MONEY_RATE)
+      create_deal(round_id: 4, amount_usd: 50 * MONEY_RATE)
     end
 
     it "groups data by deal round" do
