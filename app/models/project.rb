@@ -40,6 +40,10 @@ class Project < ActiveRecord::Base
     joins{scopes.outer}.where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
   end
 
+  def self.in_round(round)
+    joins{deals.outer}.where{deals.round_id == round}
+  end
+
   def publish
     super
     authors.each(&:publish)

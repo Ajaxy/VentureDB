@@ -66,36 +66,6 @@ class DealFilter < Filter
     date
   end
 
-  def round
-    @round ||= begin
-      val = params.round.to_i
-      val if Deal::ROUNDS[val]
-    end
-  end
-
-  def round_name
-    rounds[round]
-  end
-
-  def rounds
-    @rounds ||= { nil => "Все раунды" }.merge(Deal::ROUNDS)
-  end
-
-  def stage
-    @stage ||= begin
-      val = params.stage.to_i
-      val if Deal::STAGES[val]
-    end
-  end
-
-  def stage_name
-    stages[stage]
-  end
-
-  def stages
-    @stages ||= { nil => "Все стадии" }.merge(Deal::STAGES)
-  end
-
   def year
     @year ||= begin
       year = params.year.to_i

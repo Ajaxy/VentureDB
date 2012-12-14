@@ -6,9 +6,9 @@ class InvestorsController < CabinetController
     @filter     = decorate InvestorFilter.new(params), view: view_context,
                                                        sorter: @sorter
 
-    scope       = Investor.published.with_actor.includes{investments.deal}
-    scope       = @sorter.sort(scope)
+    scope       = Investor.published.with_actor.includes{deals}
     scope       = @filter.filter(scope).uniq
+    scope       = @sorter.sort(scope)
 
     @investors  = decorate paginate(scope)
   end

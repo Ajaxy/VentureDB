@@ -2,13 +2,9 @@
 
 class InvestorFilter < Filter
   def filter(investors)
-    investors = find_by_name(investors) if search
+    investors = investors.search(search)  if search
+    investors = investors.in_round(round) if round
+    investors = investors.in_scope(scope) if scope
     investors
-  end
-
-  private
-
-  def find_by_name(investors)
-    investors.select { |inv| inv.name =~ /#{search}/i }
   end
 end

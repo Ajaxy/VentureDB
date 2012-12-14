@@ -1,8 +1,15 @@
 
 - content_for :aside do
   section
-    p Сортировать по
-    = @filter.sort_select
+    div
+      p Сектор деятельности
+      = @filter.sector_select
+    div
+      p Раунд инвестиций
+      = @filter.round_select
+    div
+      p Сортировать по
+      = @filter.sort_select
 
 section.investors
   h1 Инвесторы

@@ -42,6 +42,22 @@ class Investor < ActiveRecord::Base
                            (locations.lft < location.rgt)}
   end
 
+  def self.search(string)
+    return scoped unless string.present?
+    search = "%#{string}%"
+
+    where{ name.like(search) }
+  end
+
+  def self.in_round(round)
+    joins{deals.outer}.where{deals.round_id == round}
+  end
+
+  def self.in_scope(scope)
+    joins{deals.project.scopes}
+      .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
+  end
+
   def person
     @person ||= is_person? ? actor : Person.new
   end

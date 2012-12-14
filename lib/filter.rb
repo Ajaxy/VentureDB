@@ -11,6 +11,21 @@ class Filter
     params.search.to_s.strip.presence
   end
 
+  def round
+    @round ||= begin
+      val = params.round.to_i
+      val if Deal::ROUNDS[val]
+    end
+  end
+
+  def round_name
+    rounds[round]
+  end
+
+  def rounds
+    @rounds ||= { nil => "Все раунды" }.merge(Deal::ROUNDS)
+  end
+
   def scope
     @scope ||= Scope.where(id: params.scope.to_i).first if params.scope.present?
   end
@@ -24,5 +39,20 @@ class Filter
       roots = ::Scope.roots.order(:name).to_a
       [OpenStruct.new(name: "Все секторы", id: nil), *roots]
     end
+  end
+
+  def stage
+    @stage ||= begin
+      val = params.stage.to_i
+      val if Deal::STAGES[val]
+    end
+  end
+
+  def stage_name
+    stages[stage]
+  end
+
+  def stages
+    @stages ||= { nil => "Все стадии" }.merge(Deal::STAGES)
   end
 end
