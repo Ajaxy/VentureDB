@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     "admin"  => "Администратор",
   }
 
+  def self.generate_password
+    SecureRandom.send(:urlsafe_base64).first(8)
+  end
+
   def type
     self[:type].presence || "reader"
   end

@@ -11,6 +11,7 @@
     - else
       = f.text_field :email, class: "span8", placeholder: "Почта", class: "span4"
       br
+      - @user.password ||= User.generate_password
       = f.text_field :password, class: "span8", placeholder: "Пароль", class: "span4"
 
   p

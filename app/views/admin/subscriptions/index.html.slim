@@ -1,0 +1,21 @@
+
+table.table
+  thead
+    tr
+      th E-mail
+      th ФИО
+      th Компания
+      th Дата
+      th
+  tbody
+    - @subscriptions.each do |subscription|
+      tr
+        td = subscription.email
+        td = subscription.name
+        td = subscription.company
+        td = localize subscription.created_at, format: :short
+        td
+          =' link_to "Одобрить", [:approve, :admin, subscription], method: :post, class: "btn btn-small btn-success"
+          = link_to content_tag(:i, "", class: "icon-trash icon-white"), [:admin, subscription], method: :delete, class: "btn btn-small btn-danger"
+
+= paginate @subscriptions

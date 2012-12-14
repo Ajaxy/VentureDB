@@ -21,6 +21,8 @@ class Admin::UsersController < Admin::BaseController
     if @user.save
       UserMailer.created(@user).deliver
       redirect_to [:admin, :users], notice: "Пользователь добавлен."
+      subscriptions = Subscription.where(email: @user.email)
+      subscriptions.each(&:archive)
     else
       render :new
     end
