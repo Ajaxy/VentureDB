@@ -4,10 +4,6 @@ require "spec_helper"
 describe DealsOverview do
   MONEY_RATE = Deal::DEFAULT_DOLLAR_RATE * 1_000_000
 
-  def fabricate(klass, options = {})
-    klass.new(options).tap { |model| model.save!(validate: false) }
-  end
-
   def create_deal(options = {})
     scopes    = options.delete(:scopes)
     locations = options.delete(:locations)

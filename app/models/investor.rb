@@ -15,6 +15,8 @@ class Investor < ActiveRecord::Base
 
   validates :type_id, presence: true
 
+  after_create :set_name
+
   TYPES = {
     1  => "Государственный фонд",
     2  => "Государственная организация",
@@ -68,14 +70,6 @@ class Investor < ActiveRecord::Base
     where{(actor_id != nil) & (type_id != nil)}.includes{actor}
   end
 
-  def actor_name
-    actor.try(:name)
-  end
-
-  def name
-    actor_name
-  end
-
   def name_and_type
     "#{actor_name} – #{type}"
   end
@@ -91,5 +85,11 @@ class Investor < ActiveRecord::Base
 
   def investments_amount
     investments.map { |inv| inv.deal.try(:amount) || 0 }.sum
+  end
+
+  private
+
+  def set_name
+    update_column :name, actor.name if actor
   end
 end

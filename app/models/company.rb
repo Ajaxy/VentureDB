@@ -3,12 +3,10 @@
 class Company < ActiveRecord::Base
   include Trackable
   include Draftable
+  include InvestorActor
 
   has_many :users
   has_one :project
-
-  has_many :investors, as: :actor
-  has_many :investments, through: :investors
 
   # validates :name, :full_name, :form, :place, presence: true
   validates :name, presence: true

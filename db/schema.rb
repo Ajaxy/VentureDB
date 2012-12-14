@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213105140) do
+ActiveRecord::Schema.define(:version => 20121214092041) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -84,9 +84,11 @@ ActiveRecord::Schema.define(:version => 20121213105140) do
     t.boolean  "draft",      :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.string   "name"
   end
 
   add_index "investors", ["actor_id", "actor_type"], :name => "index_investors_on_actor_id_and_actor_type"
+  add_index "investors", ["name"], :name => "index_investors_on_name"
   add_index "investors", ["type_id"], :name => "index_investors_on_type_id"
 
   create_table "location_bindings", :force => true do |t|
