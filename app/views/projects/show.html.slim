@@ -24,4 +24,4 @@
   - if @project.deals.any?
     section
       h2 Инвестиции и гранты
-      .deals-stream = render StreamDealDecorator.decorate(@project.deals.published), inline: true
+      .deals-stream = render StreamDealDecorator.decorate(@project.published_deals), inline: true

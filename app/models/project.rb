@@ -2,6 +2,7 @@
 
 class Project < ActiveRecord::Base
   include Draftable
+  include HasInvestments
 
   has_many :project_authors
   has_many :authors, through: :project_authors
@@ -48,14 +49,5 @@ class Project < ActiveRecord::Base
     super
     authors.each(&:publish)
     company.try(:publish)
-  end
-
-  def investments_amount
-    @investments_amount ||=
-      deals.published.map { |deal| deal.try(:amount) || 0 }.sum
-  end
-
-  def investments_count
-    @investments_count ||= deals.published.size
   end
 end

@@ -2,6 +2,7 @@
 
 class Investor < ActiveRecord::Base
   include Draftable
+  include HasInvestments
 
   self.inheritance_column = "_type"
 
@@ -97,15 +98,6 @@ class Investor < ActiveRecord::Base
   def publish
     super
     actor.try(:publish)
-  end
-
-  def investments_amount
-    @investments_amount ||=
-      deals.published.map { |deal| deal.try(:amount) || 0 }.sum
-  end
-
-  def investments_count
-    @investments_count ||= deals.published.size
   end
 
   private
