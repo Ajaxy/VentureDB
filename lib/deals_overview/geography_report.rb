@@ -31,7 +31,9 @@ class DealsOverview
     end
 
     def data
-      series.map { |l| [l.name, l.count, l.amount.round, l.x, l.y ] }
+      SeriesDecorator.decorate(series).map do |l|
+        [l.name, l.count, l.amount, l.amount_string, l.x, l.y ]
+      end
     end
 
     private

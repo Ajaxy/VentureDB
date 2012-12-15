@@ -2,13 +2,16 @@
 
 class ProjectsController < CabinetController
   def index
-    @sorter   = ProjectSorter.new(params, view_context)
-    @filter   = decorate ProjectFilter.new(params), view: view_context,
-                                                    sorter: @sorter
+    @sorter = ProjectSorter.new(params, view_context)
+    @filter = decorate ProjectFilter.new(params), view: view_context,
+                                                  sorter: @sorter
 
-    scope     = Project.published.includes{[company, scopes, authors, deals]}
-    scope     = @sorter.sort(scope)
-    scope     = @filter.filter(scope).uniq
+    scope = Project.published.includes{[company, scopes, authors, deals]}
+    scope = scope.joins{deals.outer}
+                 .select("projects.*, sum(deals.amount_usd) AS deals_amount")
+                 .group{id}
+    scope = @sorter.sort(scope)
+    scope = @filter.filter(scope).uniq
 
     @projects = decorate paginate(scope)
   end

@@ -28,17 +28,17 @@ class DealDecorator < ApplicationDecorator
 
   def amount
     return mdash unless deal.amount?
-    tag :span, millions(deal.amount), class: "amount"
+    tag :span, dollars(deal.amount), class: "amount"
   end
 
   def value_before
     return mdash unless deal.value_before?
-    tag :span, millions(deal.value_before), class: "amount"
+    tag :span, dollars(deal.value_before), class: "amount"
   end
 
   def value_after
     return mdash unless deal.value_after?
-    tag :span, millions(deal.value_after), class: "amount"
+    tag :span, dollars(deal.value_after), class: "amount"
   end
 
   def contract_date

@@ -25,9 +25,8 @@ class DealsOverview
       end
 
       def data
-        data = series.map { |r| [r.short_name, r.count, r.amount.round] }
-        data.prepend ["Раунд", "Количество сделок",
-                      "Объем сделок, млн долл. США"]
+        data = series.map { |r| [r.short_name, r.count, r.millions] }
+        data.prepend ["Раунд", "Количество сделок", "Объем сделок, млн долл. США"]
         data
       end
 

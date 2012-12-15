@@ -99,23 +99,23 @@ describe DealsOverview do
 
       directions[0].scope.should  == scope1
       directions[0].count.should  == 3
-      directions[0].amount.should == 70
+      directions[0].millions.should == 70
 
       directions[0].for_stage(1).count.should  == 1
-      directions[0].for_stage(1).amount.should == 10
+      directions[0].for_stage(1).millions.should == 10
 
       directions[0].for_stage(nil).count.should   == 2
-      directions[0].for_stage(nil).amount.should  == 60
+      directions[0].for_stage(nil).millions.should  == 60
 
       directions[1].scope.should  == scope2
       directions[1].count.should  == 1
-      directions[1].amount.should == 20
+      directions[1].millions.should == 20
 
       directions[1].for_stage(2).count.should   == 1
-      directions[1].for_stage(2).amount.should  == 20
+      directions[1].for_stage(2).millions.should  == 20
 
       directions[1].for_stage(nil).count.should   == 0
-      directions[1].for_stage(nil).amount.should  == 0
+      directions[1].for_stage(nil).millions.should  == 0
     end
 
     it "groups date by sub-scope if scope is passed" do
@@ -141,34 +141,34 @@ describe DealsOverview do
 
       root_directions[0].scope.should  == scope1
       root_directions[0].count.should  == 4
-      root_directions[0].amount.should == 90
+      root_directions[0].millions.should == 90
 
       root_directions[1].scope.should  == scope5
       root_directions[1].count.should  == 1
-      root_directions[1].amount.should == 40
+      root_directions[1].millions.should == 40
 
       directions = overview.directions.series
       directions.size.should == 3
 
       directions[0].scope.should  == scope2
       directions[0].count.should  == 2
-      directions[0].amount.should == 50
+      directions[0].millions.should == 50
 
       directions[1].scope.should  == scope3
       directions[1].count.should  == 1
-      directions[1].amount.should == 30
+      directions[1].millions.should == 30
 
       directions[2].scope.should  == scope1
       directions[2].count.should  == 1
-      directions[2].amount.should == 10
+      directions[2].millions.should == 10
     end
   end
 
   describe "geography" do
     it "groups data by location" do
-      location1 = fabricate(Location)
-      location2 = fabricate(Location)
-      location3 = fabricate(Location).move_to_child_of(location1)
+      location1 = fabricate(Location, x: 1)
+      location2 = fabricate(Location, x: 1)
+      location3 = fabricate(Location, x: 1).move_to_child_of(location1)
 
       create_deal
       create_deal(locations: [location1],            amount_usd: 10 * MONEY_RATE)
@@ -177,10 +177,10 @@ describe DealsOverview do
       locations = overview.geography.series
       locations.size.should == 2
 
-      locations[0].amount.should == 30
+      locations[0].millions.should == 30
       locations[0].count.should  == 2
 
-      locations[1].amount.should == 20
+      locations[1].millions.should == 20
       locations[1].count.should  == 1
     end
   end
@@ -239,16 +239,16 @@ describe DealsOverview do
       stages.series.size.should == 6
 
       stages.data_for(nil).count.should  == 1
-      stages.data_for(nil).amount.should == 5
+      stages.data_for(nil).millions.should == 5
 
       stages.data_for(1).count.should  == 2
-      stages.data_for(1).amount.should == 60
+      stages.data_for(1).millions.should == 60
 
       stages.data_for(3).count.should  == 1
-      stages.data_for(3).amount.should == 10
+      stages.data_for(3).millions.should == 10
 
       stages.data_for(4).count.should  == 1
-      stages.data_for(4).amount.should == 30
+      stages.data_for(4).millions.should == 30
     end
 
     it "show only stages with deals on chart" do
@@ -257,13 +257,13 @@ describe DealsOverview do
       series.size.should == 3
 
       series[0].count.should  == 2
-      series[0].amount.should == 60
+      series[0].millions.should == 60
 
       series[1].count.should  == 1
-      series[1].amount.should == 10
+      series[1].millions.should == 10
 
       series[2].count.should  == 1
-      series[2].amount.should == 30
+      series[2].millions.should == 30
     end
   end
 
@@ -280,19 +280,19 @@ describe DealsOverview do
     it "groups data by deal round" do
       rounds = overview.rounds
 
-      rounds.series.size.should == 8
+      rounds.series.size.should == 6
 
       rounds.data_for(nil).count.should  == 1
-      rounds.data_for(nil).amount.should == 5
+      rounds.data_for(nil).millions.should == 5
 
       rounds.data_for(1).count.should  == 2
-      rounds.data_for(1).amount.should == 60
+      rounds.data_for(1).millions.should == 60
 
       rounds.data_for(3).count.should  == 1
-      rounds.data_for(3).amount.should == 30
+      rounds.data_for(3).millions.should == 30
 
       rounds.data_for(4).count.should  == 2
-      rounds.data_for(4).amount.should == 60
+      rounds.data_for(4).millions.should == 60
     end
 
     it "show only rounds with deals on chart" do
@@ -301,13 +301,13 @@ describe DealsOverview do
       series.size.should == 3
 
       series[0].count.should  == 2
-      series[0].amount.should == 60
+      series[0].millions.should == 60
 
       series[1].count.should  == 1
-      series[1].amount.should == 30
+      series[1].millions.should == 30
 
       series[2].count.should  == 2
-      series[2].amount.should == 60
+      series[2].millions.should == 60
     end
   end
 end

@@ -1,5 +1,5 @@
 
-h1 Обзор рынка венчурных инвестиций
+h1 Популярные направления инвестиций
 
 .filters
   .horizontal-select
@@ -15,19 +15,18 @@ h1 Обзор рынка венчурных инвестиций
 
 - if @overview.summed
   .report.directions
-    h2 Направления инвестиций
     .graph
       .circles
-        - @overview.root_directions.series.each do |direction|
+        - @overview.decorate(:root_directions).each do |direction|
           - current = direction.scope == @overview.scope
           = link_to params.merge(scope: current ? nil : direction.scope.id), class: "js-reload-stats" do
             .circle data-amount={direction.amount} class=("fade" if @overview.scope && !current)
               - if current
                 .close
               - else
-                .amount = direction.amount_string(0)
+                .amount = direction.amount_string
       .titles
-        - @overview.root_directions.series.each do |direction|
+        - @overview.decorate(:root_directions).each do |direction|
           - current = direction.scope == @overview.scope
           div class=("fade" if @overview.scope && !current) = direction.name
 
@@ -37,7 +36,7 @@ h1 Обзор рынка венчурных инвестиций
         p: strong = @overview.summed.count
       div
         p Объем инвестиций
-        p: strong = @overview.summed.amount_string(0)
+        p: strong = @overview.decorate(:summed).amount_string
       div
         p Инвесторов
         p: strong = @overview.totals.investors
@@ -46,7 +45,10 @@ h1 Обзор рынка венчурных инвестиций
         p: strong = @overview.totals.projects
 
     .report
-      table#directions-by-rounds data-values={@overview.summed.to_json}
+      h2 Средний размер инвестиции
+      p Размер кружка пропорционален среднему размеру сделки, а его интенсивность — общему объему инвестиций в компании на стадии развития, указанной в столбике.
+
+      table#directions-by-rounds data-values={@overview.decorate(:summed).to_json}
         thead
           tr
             th.left Сектор
@@ -57,9 +59,9 @@ h1 Обзор рынка венчурных инвестиций
             th = Deal::STAGES[3]
             th = Deal::STAGES[4]
             th = Deal::STAGES[5]
-            th Нет данных
+            / th Нет данных
         tbody
-          - @overview.directions.series.each do |direction|
+          - @overview.decorate(:directions).each do |direction|
             tr
               td.left = link_to direction.name, deals_path(scope: direction.scope)
 
@@ -81,7 +83,7 @@ h1 Обзор рынка венчурных инвестиций
               td = link_to deals_path(scope: direction.scope, stage: 5) do
                 .circle data-values={direction.for_stage(5).to_json}
 
-              td: .circle data-values={direction.for_stage(nil).to_json}
+              / td: .circle data-values={direction.for_stage(nil).to_json}
 
 
   .report

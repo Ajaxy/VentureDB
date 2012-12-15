@@ -11,7 +11,7 @@
   h1 = @investor.name
   .meta = @investor.meta
 
-  - if @investor.deals.any?
+  - if @investor.published_deals.any?
     section.overview
       h2 Сделки по секторам
 
@@ -19,7 +19,7 @@
         thead
           tr
             th.left Сектор
-            th Сумма в млн USD
+            th Сумма
             th Кол-во сделок
             th = Deal::STAGES[1]
             th = Deal::STAGES[2]
@@ -28,7 +28,7 @@
             th = Deal::STAGES[5]
             th Нет данных
         tbody
-          - @directions.series.each do |direction|
+          - SeriesDecorator.decorate(@directions.series).each do |direction|
             tr
               td.left = link_to direction.name, deals_path(scope: direction.scope)
               td = direction.amount_string

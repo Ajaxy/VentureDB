@@ -19,15 +19,35 @@ class ApplicationDecorator < Draper::Base
     tag :span, "—", class: "mdash"
   end
 
-  def millions(amount)
+  def dollars(amount, options = {})
+    units = { unit: "" }
+
+    case options[:format]
+    when :short
+      units[:thousand] = "K"
+      units[:million]  = "M"
+      units[:billion]  = "B"
+
+      format = "%n%u"
+      default_precision = amount >= 1_000_000_000 ? 1 : 0
+    else
+      units[:thousand] = "тыс."
+      units[:million]  = "млн"
+      units[:billion]  = "млрд"
+      default_precision = amount >= 1_000_000 ? 1 : 0
+    end
+
+    precision = options.delete(:precision) || default_precision
+
     options = {
-      units: { unit: "", thousand: "тыс.", million: "млн"},
-      precision: amount >= 1_000_000 ? 1 : 0,
+      units: units,
+      precision: precision,
       strip_insignificant_zeros: true,
       separator: ",",
+      format: format,
     }
 
-    "$" + h.number_to_human(amount, options)
+    "$" + h.number_to_human(amount, options).gsub(" ", " ")
   end
 
   def roubles(amount)

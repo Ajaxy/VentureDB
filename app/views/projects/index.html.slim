@@ -12,8 +12,8 @@
 
 section.projects
   h1 Проекты
-  p Поиск среди 400 молодых компаний.
-  = render "search", placeholder: "Поиск"
+  p Поиск среди 400 молодых компаний и инновационных проектов.
+  = render "search", placeholder: "Введите название компании или фамилию автора проекта"
 
   - if @projects.any?
     table.table
@@ -21,7 +21,6 @@ section.projects
         tr
           th Название
           th Секторы деятельности
-          th.center Кол-во сделок
           th Объем вложений
       tbody
         - @projects.each do |project|

@@ -1,15 +1,7 @@
 # encoding: utf-8
 
-class ProjectDecorator < ApplicationDecorator
+class ProjectDecorator < HasInvestmentsDecorator
   decorates :project
-
-  def amount
-    investments_amount == 0 ? mdash : millions(investments_amount)
-  end
-
-  def count
-    investments_count == 0 ? mdash : investments_count
-  end
 
   def company_name
     company.try(:name) || mdash

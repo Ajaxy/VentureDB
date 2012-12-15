@@ -21,7 +21,7 @@ class DealsOverview
       end
 
       def data
-        data = series.map { |s| [name(s), s.amount.round] }
+        data = series.map { |s| [name(s), s.millions] }
         data.prepend ["Стадия", "Объем сделок, млн долл. США"]
         data
       end

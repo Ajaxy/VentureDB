@@ -41,4 +41,10 @@ class DealsOverview
   def summed
     @summed ||= @directions.series.reduce(:+)
   end
+
+  def decorate(report_name)
+    report = send(report_name)
+    report = report.series if report.respond_to?(:series)
+    SeriesDecorator.decorate(report)
+  end
 end

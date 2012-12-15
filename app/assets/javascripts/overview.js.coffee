@@ -54,12 +54,13 @@ renderDirectionsStages = ->
     $circles.each ->
       $circle = $(this)
 
-      count   = $circle.data("values").count
-      amount  = $circle.data("values").average_amount
+      count         = $circle.data("values").count
+      amount        = $circle.data("values").average_amount
+      amountString  = $circle.data("values").amount_string
 
       return if count == 0 || amount == 0
 
-      title   = "Количество сделок: #{count}<br>Средний размер: $#{amount}M"
+      title   = "Количество сделок: #{count}<br>Средний размер: #{amountString}"
 
       $circle.attr("title", title)
       $circle.tooltip(html: true)
@@ -87,11 +88,25 @@ renderGeography = ->
   maxAmount = null
   minFontSize = 8
 
-  for [name, count, amount, x, y] in $map.data("countries")
+  pluralize = (num, form1, form2, form3) =>
+    num = Math.round(num*1)
+    forms = ["#{num} #{form1}", "#{num} #{form2}", "#{num} #{form3}"]
+
+    return forms[2] if 10 < (num % 100) < 20
+    return forms[0] if num % 10 == 1
+    return forms[1] if num % 10 in [2..4]
+    forms[2]
+
+  for [name, count, amount, amountString, x, y] in $map.data("countries")
     maxAmount ||= amount
 
-    $circle = $("<div class='circle' title='#{name}'>#{amount}</div>")
-    $circle.tooltip()
+    amountRounded = Math.round(amount / 1000000)
+    countString = pluralize count, "сделка", "сделки", "сделок"
+
+    tooltip = "#{name}<br>#{countString}<br>#{amountString}"
+
+    $circle = $("<div class='circle' title='#{tooltip}'>#{amountRounded}</div>")
+    $circle.tooltip(html: true)
 
     radius = Math.sqrt(amount / maxAmount) * maxRadius
     radius = minRadius if radius < minRadius

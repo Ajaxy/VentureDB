@@ -3,10 +3,7 @@
 class DealsOverview
   class Series
     def amount
-      @amount ||= begin
-        sum = deals.sum(&:amount)
-        sum.to_f / 1_000_000.0
-      end
+      @amount ||= deals.sum(&:amount).to_f
     end
 
     def amount_string(precision = 1)
@@ -25,11 +22,15 @@ class DealsOverview
       @average_amount_string ||= "$#{average_amount.round(2)}M"
     end
 
+    def millions
+      (amount / 1_000_000).round
+    end
+
     def as_json(*)
       {
         amount:         amount.round(1),
         count:          count,
-        average_amount: average_amount.round(1)
+        average_amount: average_amount.round(2)
       }
     end
 

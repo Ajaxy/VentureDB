@@ -54,6 +54,10 @@ class Investor < ActiveRecord::Base
     joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
   end
 
+  def self.in_stage(stage)
+    joins{deals.outer}.where{(deals.stage_id == stage) & (deals.published == true)}
+  end
+
   def self.in_scope(scope)
     joins{deals.project.scopes}
       .where{deals.published == true}

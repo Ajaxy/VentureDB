@@ -21,7 +21,7 @@
       h2 Опыт участия в программах развития
       .text = simple_format @project.experience
 
-  - if @project.deals.any?
+  - if @project.published_deals.any?
     section
       h2 Инвестиции и гранты
       .deals-stream = render StreamDealDecorator.decorate(@project.published_deals), inline: true

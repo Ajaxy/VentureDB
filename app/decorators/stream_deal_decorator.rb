@@ -5,7 +5,7 @@ class StreamDealDecorator < DealDecorator
 
   def amount
     if deal.amount?
-      " " + tag(:b, millions(deal.amount))
+      " " + tag(:b, dollars(deal.amount))
     else
       ". Сумма сделки не разглашается."
     end
@@ -13,7 +13,7 @@ class StreamDealDecorator < DealDecorator
 
   def grant_amount
     if deal.amount?
-      " в размере " + tag(:b, millions(deal.amount))
+      " в размере " + tag(:b, dollars(deal.amount))
     else
       ". Сумма гранта не разглашается."
     end

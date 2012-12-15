@@ -63,7 +63,7 @@ body.promo
         letter-spacing: 1px
         vertical-align: bottom
         padding: 5px 0
-        width: 33.33%
+        // width: 33.33%
         &:before
           content: ""
           display: inline-block
@@ -73,13 +73,18 @@ body.promo
           background: image-url("promo-features.png") no-repeat
       > div + div
         border-left: solid 1px rgba(255, 255, 255, 0.2)
+      > div:nth-child(1)
+        width: 100px
       > div:nth-child(2)
+        width: 180px
         &:before
           background-position: -96px 0
       > div:nth-child(3)
+        width: 120px
         &:before
           background-position: -32px 0
       > div:nth-child(4)
+        width: 120px
         &:before
           background-position: -64px 0
     h2

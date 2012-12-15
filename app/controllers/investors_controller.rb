@@ -2,13 +2,16 @@
 
 class InvestorsController < CabinetController
   def index
-    @sorter     = InvestorSorter.new(params)
-    @filter     = decorate InvestorFilter.new(params), view: view_context,
-                                                       sorter: @sorter
+    @sorter = InvestorSorter.new(params)
+    @filter = decorate InvestorFilter.new(params), view: view_context,
+                                                   sorter: @sorter
 
-    scope       = Investor.published.with_actor.includes{deals}
-    scope       = @filter.filter(scope).uniq
-    scope       = @sorter.sort(scope)
+    scope = Investor.published.with_actor.includes{deals}
+    scope = scope.joins{deals.outer}
+                 .select("investors.*, count(deals.id) AS deals_count ")
+                 .group{id}
+    scope = @filter.filter(scope).uniq
+    scope = @sorter.sort(scope)
 
     @investors  = decorate paginate(scope)
   end

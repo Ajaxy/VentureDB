@@ -1,15 +1,7 @@
 # encoding: utf-8
 
-class InvestorDecorator < ApplicationDecorator
+class InvestorDecorator < HasInvestmentsDecorator
   decorates :investor
-
-  def amount
-    investments_amount == 0 ? mdash : millions(investments_amount)
-  end
-
-  def count
-    investments_count == 0 ? mdash : investments_count
-  end
 
   def creation_date
     return unless date = investor.company.try(:creation_date)
