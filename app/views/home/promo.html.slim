@@ -2,6 +2,8 @@
 
 header
   h1 Venture Database
+  - unless current_user
+    .enter = link_to "Войти", :new_user_session
 
 section.intro
   .wrapper
