@@ -42,7 +42,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.in_round(round)
-    joins{deals.outer}.where{deals.round_id == round}
+    joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
   end
 
   def publish

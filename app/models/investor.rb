@@ -51,11 +51,12 @@ class Investor < ActiveRecord::Base
   end
 
   def self.in_round(round)
-    joins{deals.outer}.where{deals.round_id == round}
+    joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
   end
 
   def self.in_scope(scope)
     joins{deals.project.scopes}
+      .where{deals.published == true}
       .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
   end
 
