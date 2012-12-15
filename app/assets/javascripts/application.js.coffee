@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require jquery.placeholder
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
 #= require sugar
@@ -15,6 +16,8 @@ window.vent =
     $(@).trigger(event)
 
 jQuery ->
+  $("input, textarea").placeholder();
+
   $(".promo .submit input").click ->
     return false unless $("#subscription_email").val().match(/.@./)
     return false unless $("#subscription_name").val().length > 0

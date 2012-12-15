@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "spec_helper"
 
-describe Subscription, focus: true do
+describe Subscription do
   describe "#create_user" do
     it "creates user with proper fields" do
       sub   = fabricate Subscription, email: "foo@bar.com", name: "John Doe"
