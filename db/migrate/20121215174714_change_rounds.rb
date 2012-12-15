@@ -6,7 +6,7 @@ class ChangeRounds < ActiveRecord::Migration
       id = 4 if id.in?(5, 6)
       id = 5 if id == 7
 
-      deal.update_column :stage_id, id
+      deal.update_column :round_id, id if id != deal.round_id
     end
   end
 
