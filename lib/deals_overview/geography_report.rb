@@ -26,7 +26,7 @@ class DealsOverview
     def series
       @series ||= begin
         locs = @grouped_deals.map { |loc, deals| Location.new(loc, deals) }
-        locs.select { |loc| loc.amount.round > 0 }.sort_by(&:amount).reverse
+        locs.select { |l| l.amount.round > 0 && l.x }.sort_by(&:amount).reverse
       end
     end
 

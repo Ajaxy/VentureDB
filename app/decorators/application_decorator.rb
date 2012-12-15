@@ -24,9 +24,10 @@ class ApplicationDecorator < Draper::Base
       units: { unit: "", thousand: "тыс.", million: "млн"},
       precision: amount >= 1_000_000 ? 1 : 0,
       strip_insignificant_zeros: true,
+      separator: ",",
     }
 
-    "$" + h.number_to_human(amount, options).sub(/(?<=\d)\.(?=\d)/, ",")
+    "$" + h.number_to_human(amount, options)
   end
 
   def roubles(amount)

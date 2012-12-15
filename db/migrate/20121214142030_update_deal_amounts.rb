@@ -18,7 +18,10 @@ class UpdateDealAmounts < ActiveRecord::Migration
 
     Deal.find_each do |deal|
       next unless deal.amount_rub
-      rate = (rates[deal.date] || default_rate)
+
+      rate = (0..20).map { |i| rates[deal.date - i] }.compact.first if deal.date
+      rate ||= default_rate
+
       usd = deal.amount_rub / rate
       deal.update_column :amount_usd, usd.round
     end
