@@ -17,11 +17,11 @@ class ProjectSorter < Sorter
       scope.joins{company.outer}
            .order("companies.name #{current_direction} nulls last")
     when :investments
-      scope.joins{investments.deal.outer}
+      scope.joins{deals.outer}
            .select("projects.*, sum(deals.amount_usd) AS total_amount")
            .order("total_amount desc nulls last")
-           .where{deals.published == true}
            .group{id}
+           .where{deals.published == true}
     else
       raise ArgumentError.new("bad current_column #{current_column.inspect}")
     end
