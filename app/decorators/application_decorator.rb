@@ -19,10 +19,14 @@ class ApplicationDecorator < Draper::Base
     tag :span, "—", class: "mdash"
   end
 
-  def millions(amount, options = {})
-    options = options.merge(units: { unit: "", thousand: "тыс.", million: "млн"})
-    options[:precision] ||= 0
-    "$#{h.number_to_human amount, options}"
+  def millions(amount)
+    options = {
+      units: { unit: "", thousand: "тыс.", million: "млн"},
+      precision: amount >= 1_000_000 ? 1 : 0,
+      strip_insignificant_zeros: true,
+    }
+
+    "$" + h.number_to_human(amount, options).sub(/(?<=\d)\.(?=\d)/, ",")
   end
 
   def roubles(amount)
