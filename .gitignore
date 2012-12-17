@@ -16,3 +16,5 @@
 
 # Ignore assets
 /public/assets
+
+/public/downloads

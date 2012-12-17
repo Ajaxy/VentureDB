@@ -40,3 +40,12 @@ namespace :deploy do
 
   after "deploy:update_code", "deploy:migrate"
 end
+
+namespace :downloads do
+  desc "Symlink the downloads directory into latest release"
+  task :symlink, roles: :app do
+    run "mkdir -p #{shared_path}/downloads"
+    run "ln -nfs #{shared_path}/downloads #{release_path}/public/"
+  end
+  after "deploy:finalize_update", "downloads:symlink"
+end

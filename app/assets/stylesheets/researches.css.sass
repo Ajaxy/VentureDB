@@ -6,16 +6,14 @@ section.researches
     .research
       display: inline-block
       border-top: solid 5px #69c7d0
-      width: 280px
-      height: 230px
+      width: 190px
+      height: 255px
       margin: 15px
+      position: relative
       +box-shadow(0 1px 5px 1px #dadada)
-      @media (max-width: 1200px)
-        width: 240px
-      > div
+      .title, .date, .tags
         padding: 10px 15px
       .title
-        font-size: 1.2em
         height: 130px
       .date
         border: solid #e5e5e5
@@ -23,6 +21,31 @@ section.researches
       .date, .tags
         font-size: 0.9em
         line-height: 20px
+      .download
+        display: none
+        position: absolute
+        top: 0
+        left: 0
+        height: 100%
+        width: 100%
+        background: rgba(255, 255, 255, 0.9)
+        text-align: center
+        color: #60656e
+        .btn
+          color: inherit !important
+          font-weight: bold
+          margin-top: 85px
+        .type
+          margin-top: 25px
+          font-size: 1.3em
+          font-weight: bold
+          letter-spacing: 7px
+        .size
+          margin-top: 5px
+          font-size: 0.9em
+      &:hover
+        .download
+          display: block
   .write-us
     float: left
     margin-top: 30px
