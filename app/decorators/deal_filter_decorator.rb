@@ -1,6 +1,10 @@
 # encoding: utf-8
 
 class DealFilterDecorator < FilterDecorator
+  def type_select
+    @view.render "filter/deal-type-select", filter: self
+  end
+
   def sort_select
     render_sort_select("Сумме" => "amount", "Дате" => "date")
   end

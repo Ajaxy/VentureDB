@@ -114,6 +114,19 @@ class Deal < ActiveRecord::Base
     for_period(Date.new(year) .. Date.new(year).end_of_year)
   end
 
+  def self.for_type(type)
+    ids = Investment::GRANT_INSTRUMENTS
+
+    case type
+    when "grants"
+      joins{investments}.where{investments.instrument_id.in ids}
+    when "investments"
+      joins{investments}.where{coalesce(investments.instrument_id, 0).not_in ids}
+    else
+      raise ArgumentError
+    end
+  end
+
   def amount
     amount_usd
   end

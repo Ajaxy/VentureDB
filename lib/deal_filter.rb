@@ -6,6 +6,8 @@ class DealFilter < Filter
   def filter(deals)
     deals = deals.in_stage(stage)             if stage
     deals = deals.in_round(round)             if round
+    deals = deals.for_type(type)              if type
+
     deals = deals.with_investor_type(params.investor.to_i)
 
     deals = deals.for_year(year)              if year
@@ -64,6 +66,22 @@ class DealFilter < Filter
     date = date(params.date_end)
     params.date_end = nil unless date
     date
+  end
+
+  def type
+    @type ||= params.type if types[params.type]
+  end
+
+  def type_name
+    @type_name ||= types[type]
+  end
+
+  def types
+    {
+      nil           => "Все",
+      "grants"      => "Гранты",
+      "investments" => "Инвестиции",
+    }
   end
 
   def year
