@@ -5,7 +5,9 @@
     span: i.icon-remove
   = hidden_field_tag "deal[investment_ids][]", investment.id
   strong = investment.investor_name
-  br
-  span Финансовый инструмент: #{investment.instrument}
-  br
-  span Доля: #{investment.share}
+  - if investment.instrument.present?
+    br
+    span Финансовый инструмент: #{investment.instrument}
+  - if investment.share.present?
+    br
+    span Доля: #{investment.share}
