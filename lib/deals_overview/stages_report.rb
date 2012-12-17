@@ -17,12 +17,18 @@ class DealsOverview
 
     class Chart < BaseChart
       def initialize(series)
-        @series = series.select(&:name)
+        @series = SeriesDecorator.decorate series.select(&:name)
       end
 
       def data
-        data = series.map { |s| [name(s), s.millions] }
-        data.prepend ["Стадия", "Объем сделок, млн долл. США"]
+        data = series.map { |s| [name(s), s.millions, s.tooltip] }
+
+        data.prepend([
+          { type: "string", label: "Стадия" },
+          { type: "number", label: "Объем сделок, млн долл. США" },
+          { type: "string", role: "tooltip", p: { html: true } },
+        ])
+
         data
       end
 
@@ -47,6 +53,7 @@ class DealsOverview
           chartArea:      { width: "50%", height: "85%" },
           hAxis:          hidden_axis,
           series:         with_line,
+          tooltip:        { isHtml: true },
         }
       end
 

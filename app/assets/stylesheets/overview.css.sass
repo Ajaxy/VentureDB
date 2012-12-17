@@ -34,7 +34,8 @@ section.overview
   .chart-container
     width: 50%
     float: left
-    overflow: hidden
+    max-width: 450px
+    // overflow: hidden
     .legend
       margin: 15px 10px 15px 0
       padding: 0 50px 10px 0
@@ -126,3 +127,10 @@ section.overview
     td, th
       &:first-child
         border-left-width: 1px
+
+.google-visualization-tooltip
+  border: 0 !important
+
+.chart
+  .tooltip
+    white-space: nowrap

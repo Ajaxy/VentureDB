@@ -1,12 +1,11 @@
 javascript:
   $(function(){
       window.vent.sub("googleChartsLoaded", function(){
-      var data = google.visualization.arrayToDataTable(#{raw chart.data.to_json});
-
+      var data = #{raw chart.data.to_json};
       var options = #{raw chart.options.to_json};
-
       var chart = new google.visualization.#{chart.type}(document.getElementById("#{chart.dom_id}"));
-      chart.draw(data, options);
+
+      drawChart(chart, data, options);
     });
   });
 

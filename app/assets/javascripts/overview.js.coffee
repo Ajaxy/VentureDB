@@ -161,6 +161,15 @@ onload = ->
   renderDirectionsStages()
   setFiltersPosition()
 
+window.drawChart = (chart, data, options) ->
+  [header, data...] = data
+
+  dataTable = new google.visualization.DataTable
+  dataTable.addColumn(column) for column in header
+  dataTable.addRows(data)
+
+  chart.draw(dataTable, options)
+
 jQuery ->
   onload()
 
