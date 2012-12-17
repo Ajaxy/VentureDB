@@ -25,7 +25,7 @@ class DealsOverview
 
         data.prepend([
           { type: "string", label: "Стадия" },
-          { type: "number", label: "Объем сделок, млн долл. США" },
+          { type: "number", label: "Объем сделок" },
           { type: "string", role: "tooltip", p: { html: true } },
         ])
 

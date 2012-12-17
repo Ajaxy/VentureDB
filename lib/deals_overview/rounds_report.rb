@@ -31,7 +31,7 @@ class DealsOverview
           { type: "string", label: "Раунд" },
           { type: "number", label: "Количество сделок" },
           { type: "string", role: "tooltip", p: { html: true } },
-          { type: "number", label: "Объем сделок, млн долл. США" },
+          { type: "number", label: "Объем сделок" },
           { type: "string", role: "tooltip", p: { html: true } },
         ])
 
