@@ -16,17 +16,18 @@ ssh-add -K
 
 #### Чтобы развернуть приложение на сервере (на нем уже должны стоять нужные пакеты)
 ```
-cap staging deploy:setup
-cap staging deploy:cold deploy:seed
+cap deploy:setup
+cap deploy:cold deploy:seed
 ```
 
 #### Чтобы обновить код
 ```
-cap staging deploy
+cap deploy
 ```
 
 
-#### Production
-- Профиль production деплоится с ветки deploy (получить ветку в первый раз `git checkout --track origin/deploy`)
-- Команды все те же что для staging, только заменить staging на production.
-
+#### Бэкап базы данных
+```
+ssh root@venture.bi "pg_dump venture_staging > venture_backup.sql" && rsync -v root@venture.bi:venture_backup.sql .
+```
+По окончании операции файл `venture_backup.sql` окажется в текущей директории.  Здесь `venture_staging` — имя базы данных.
