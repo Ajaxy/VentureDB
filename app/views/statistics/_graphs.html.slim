@@ -69,19 +69,19 @@ h1 Популярные направления инвестиций
               td = direction.count
 
               td = link_to deals_path(scope: direction.scope, stage: 1) do
-                .circle data-values={direction.for_stage(1).to_json}
+                .circle data-values={direction.for_stage(1).to_json(:average_amount)}
 
               td = link_to deals_path(scope: direction.scope, stage: 2) do
-                .circle data-values={direction.for_stage(2).to_json}
+                .circle data-values={direction.for_stage(2).to_json(:average_amount)}
 
               td = link_to deals_path(scope: direction.scope, stage: 3) do
-                .circle data-values={direction.for_stage(3).to_json}
+                .circle data-values={direction.for_stage(3).to_json(:average_amount)}
 
               td = link_to deals_path(scope: direction.scope, stage: 4) do
-                .circle data-values={direction.for_stage(4).to_json}
+                .circle data-values={direction.for_stage(4).to_json(:average_amount)}
 
               td = link_to deals_path(scope: direction.scope, stage: 5) do
-                .circle data-values={direction.for_stage(5).to_json}
+                .circle data-values={direction.for_stage(5).to_json(:average_amount)}
 
               / td: .circle data-values={direction.for_stage(nil).to_json}
 

@@ -56,7 +56,7 @@ renderDirectionsStages = ->
 
       count         = $circle.data("values").count
       amount        = $circle.data("values").average_amount
-      amountString  = $circle.data("values").amount_string
+      amountString  = $circle.data("values").average_amount_string
 
       return if count == 0 || amount == 0
 

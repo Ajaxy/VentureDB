@@ -6,20 +6,12 @@ class DealsOverview
       @amount ||= deals.sum(&:amount).to_f
     end
 
-    def amount_string(precision = 1)
-      @amount_string ||= "$#{amount.round(precision)}M"
-    end
-
     def count
       @count ||= deals.size
     end
 
     def average_amount
       @average_amount ||= count == 0 ? 0 : (amount / count.to_f).round(3)
-    end
-
-    def average_amount_string
-      @average_amount_string ||= "$#{average_amount.round(2)}M"
     end
 
     def millions
