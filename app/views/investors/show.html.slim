@@ -33,11 +33,11 @@
               td.left = link_to direction.name, deals_path(scope: direction.scope)
               td = direction.amount_string
               td = direction.count
-              td: .circle data-values={direction.for_stage(1).to_json}
-              td: .circle data-values={direction.for_stage(2).to_json}
-              td: .circle data-values={direction.for_stage(3).to_json}
-              td: .circle data-values={direction.for_stage(4).to_json}
-              td: .circle data-values={direction.for_stage(5).to_json}
+              td: .circle data-values={direction.for_stage(1).to_json(:average_amount)}
+              td: .circle data-values={direction.for_stage(2).to_json(:average_amount)}
+              td: .circle data-values={direction.for_stage(3).to_json(:average_amount)}
+              td: .circle data-values={direction.for_stage(4).to_json(:average_amount)}
+              td: .circle data-values={direction.for_stage(5).to_json(:average_amount)}
               td: .circle data-values={direction.for_stage(nil).to_json}
 
     section
