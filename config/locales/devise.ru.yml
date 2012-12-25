@@ -5,7 +5,7 @@ ru:
   errors:
     messages:
       expired: "устарела. Пожалуйста, запросите новую"
-      not_found: "не найдена"
+      not_found: "не найден"
       already_confirmed: "уже подтверждена. Пожалуйста, попробуйте войти в систему"
       not_locked: "не заблокирована"
       not_saved:

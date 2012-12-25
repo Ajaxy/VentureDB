@@ -69,6 +69,6 @@ Venture::Application.configure do
   config.action_mailer.delivery_method     = :sendmail
 
   config.middleware.use ExceptionNotifier,
-    sender_address:        "error@venture.com",
-    exception_recipients:  "tycooon@yandex.ru"
+    sender_address:        "error@venturedatabase.ru",
+    exception_recipients:  "am@grow.bi"
 end

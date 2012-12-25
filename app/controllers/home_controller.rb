@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class HomeController < ApplicationController
+  respond_to :html, :json
+
   def index
   end
 
@@ -10,11 +12,10 @@ class HomeController < ApplicationController
 
   def subscribe
     @subscription = Subscription.new(permitted_params.subscription)
-
-    if @subscription.save
-      redirect_to :subscribed
+    if @subscription.save 
+      respond_with @subscription, location: nil
     else
-      render :promo
+      respond_with @subscription
     end
   end
 
