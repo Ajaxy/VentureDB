@@ -15,6 +15,7 @@ html
 
     /[ if lt IE 9 ]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+
   body class={@body_class}
     .container
       = content_for?(:content) ? yield(:content) : yield
@@ -27,5 +28,5 @@ html
             .link = link_to "Блог", "javascript:void(0)"
             .link = link_to "Услуги", "javascript:void(0)"
             .link = link_to "Команда", "javascript:void(0)"
-
   = render "copiny"
+
