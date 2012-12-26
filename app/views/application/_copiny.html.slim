@@ -1,0 +1,7 @@
+javascript:
+  (function(){
+    var copiny = document.createElement('script'); copiny.type = 'text/javascript'; copiny.async = true;
+    copiny.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.copiny.com/static/js/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(copiny, s);
+    console.log("copiny inserted");
+  })();
