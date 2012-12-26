@@ -45,7 +45,7 @@ class Investor < ActiveRecord::Base
 
   def self.search(string)
     return scoped unless string.present?
-    search = "%#{string}%"
+    search = "%#{string}%".gsub('.','_')
 
     where{ name.like(search) }
   end

@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
 
   def self.search(string)
     return scoped unless string.present?
-    search = "%#{string}%"
+    search = "%#{string}%".gsub('.','_')
 
     joins{[ company.outer, authors.outer ]}
     .where{ name.like(search) |

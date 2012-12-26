@@ -96,7 +96,7 @@ class Deal < ActiveRecord::Base
 
   def self.search(string)
     return scoped unless string.present?
-    search = "%#{string}%"
+    search = "%#{string}%".gsub('.','_')
     joins{[ project.company.outer, project.authors.outer, investors ]}
     .where{ project.name.like(search) |
             project.company.name.like(search) |
