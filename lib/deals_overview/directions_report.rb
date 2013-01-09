@@ -33,7 +33,8 @@ class DealsOverview
 
     def add_deal(deal)
       scopes = deal.project.try(:scopes) or return
-      scopes = scopes.map { |scope| find_scope_for(scope) }.compact.uniq
+      scopes = scopes.map { |scope| find_scope_for(scope) }.compact
+      scopes.uniq! if @scope.blank?
 
       scopes.each do |scope|
         @grouped_deals[scope] << deal
