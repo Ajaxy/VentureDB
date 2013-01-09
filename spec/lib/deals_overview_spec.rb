@@ -134,9 +134,9 @@ describe DealsOverview do
       directions.size.should == 2
 
       directions[0].count.should == 1
-      directions[0].millions.should == 30
-      directions[1].count.should == 1
       directions[0].millions.should == 40
+      directions[1].count.should == 1
+      directions[1].millions.should == 30
     end
 
     it "groups data by sub-scope if scope is passed" do
