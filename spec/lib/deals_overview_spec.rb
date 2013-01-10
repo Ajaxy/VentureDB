@@ -36,46 +36,50 @@ describe DealsOverview do
   end
 
   it "selects only deals for passed year" do
+    current_year = Time.now.year
+
     deal1 = create_deal(amount_usd: 0)
-    deal2 = create_deal(contract_date: "10.01.2012", amount_usd: 0)
-    deal3 = create_deal(contract_date: "10.01.2013", amount_usd: 0)
-    deal4 = create_deal(contract_date: "10.03.2013", amount_usd: 0)
+    deal2 = create_deal(contract_date: Date.new(current_year - 1, 1, 10), amount_usd: 0)
+    deal3 = create_deal(contract_date: Date.new(current_year, 1, 10), amount_usd: 0)
+    deal4 = create_deal(contract_date: Date.new(current_year, 3, 10), amount_usd: 0)
 
     overview.deals.should == [deal1, deal2, deal3, deal4]
-    overview(year: 2011).deals.should == []
-    overview(year: 2012).deals.should == [deal2]
-    overview(year: 2013).deals.should == [deal3, deal4]
+    overview(year: current_year - 2).deals.should == []
+    overview(year: current_year - 1).deals.should == [deal2]
+    overview(year: current_year).deals.should == [deal3, deal4]
   end
 
   it "shows total values" do
+    current_year = Time.now.year
+
     investor1 = fabricate Investor
     investor2 = fabricate Investor
     project1  = fabricate Project
     project2  = fabricate Project
 
     create_deal(amount_usd: 0)
-    create_deal(contract_date: "31.12.2011", amount_usd: 10 * MONEY_RATE)
+    create_deal(contract_date: Date.new(current_year - 2, 12, 31), amount_usd: 10 * MONEY_RATE)
 
-    create_deal(contract_date: "31.12.2012", amount_usd: 20 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year - 1, 12, 31), amount_usd: 20 * MONEY_RATE,
                 investors: [investor1], project: project1)
 
-    create_deal(contract_date: "10.01.2012", amount_usd: 30 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year - 1, 1, 10), amount_usd: 30 * MONEY_RATE,
                 investors: [investor1], project: project1)
 
-    create_deal(contract_date: "10.03.2013", amount_usd: 40 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year, 3, 10), amount_usd: 40 * MONEY_RATE,
                 investors: [investor1, investor2], project: project1)
 
-    create_deal(contract_date: "10.04.2013", amount_usd: 50 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year, 4, 10), amount_usd: 50 * MONEY_RATE,
                 investors: [investor2], project: project2)
 
-    overview(year: 2011).totals.investors.should == 0
-    overview(year: 2011).totals.projects.should  == 0
+    overview(year: current_year - 2).totals.investors.should == 0
+    overview(year: current_year - 2).totals.projects.should  == 0
 
-    overview(year: 2012).totals.investors.should == 1
-    overview(year: 2012).totals.projects.should  == 1
+    overview(year: current_year - 1).totals.investors.should == 1
+    overview(year: current_year - 1).totals.projects.should  == 1
 
-    overview(year: 2013).totals.investors.should == 2
-    overview(year: 2013).totals.projects.should  == 2
+    overview(year: current_year).totals.investors.should == 2
+    overview(year: current_year).totals.projects.should  == 2
   end
 
   describe "directions" do
