@@ -28,9 +28,12 @@ jQuery ->
     if xhr.getResponseHeader "Location"
       top.location.href = xhr.getResponseHeader "Location"
       return false
-      
+
     $(".form-body", e.currentTarget).fadeOut "fast", ->
       $(".form-success", e.currentTarget).fadeIn("fast")
+
+  $(".promo form.new_subscription").on "ajax:success", (e, data, status, xhr) ->
+    $("input.btn, span.or", e.currentTarget).hide()
 
   $(".promo form").on "ajax:error", (e, data, status, xhr) ->
     data = $.parseJSON(data.responseText)

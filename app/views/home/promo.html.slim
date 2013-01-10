@@ -24,9 +24,9 @@ section.intro
           .input = f.text_field :name, placeholder: "ФИО", required: true
           .input = f.text_field :company, placeholder: "Компания", required: true
           .input = f.text_field :email, placeholder: "E-mail", required: true, html: { type: "email" }
-        .submit 
+        .submit
           = f.submit "Получить доступ", class: "btn"
-          span  или 
+          span.or  или
           = link_to "войти", :new_user_session, { class: "js-switch-form", data: { form: ".sign-in" } }
 
     .sign-in.active
@@ -35,13 +35,13 @@ section.intro
         .input = f.text_field :email, required: true, autofocus: true, placeholder: "Email"
         .input = f.password_field :password, required: false, placeholder: "Пароль"
         .input
-          label.check-box for="user_remember_me" 
+          label.check-box for="user_remember_me"
             = f.check_box :remember_me, checked: true
             = "Запомнить меня"
             = link_to "Забыли пароль?", :user_password, { class: "js-switch-form light", data: { form: ".restore-password" } }
         .submit
           = f.submit "Войти", class: "btn"
-          span или 
+          span или
           = link_to "зарегистрироваться", :root, { class: "js-switch-form", data: { form: ".subscribe" } }
 
     .restore-password
@@ -53,7 +53,7 @@ section.intro
           .input = f.text_field :email, required: true, autofocus: true, placeholder: "Email"
         .submit
           = f.submit "Выслать инструкции", class: "btn"
-          span или 
+          span или
           = link_to "войти", :new_user_session, { class: "js-switch-form", data: { form: ".sign-in" } }
 
 - content_for :footer do
