@@ -36,46 +36,50 @@ describe DealsOverview do
   end
 
   it "selects only deals for passed year" do
+    current_year = Time.now.year
+
     deal1 = create_deal(amount_usd: 0)
-    deal2 = create_deal(contract_date: "10.01.2011", amount_usd: 0)
-    deal3 = create_deal(contract_date: "10.01.2012", amount_usd: 0)
-    deal4 = create_deal(contract_date: "10.03.2012", amount_usd: 0)
+    deal2 = create_deal(contract_date: Date.new(current_year - 1, 1, 10), amount_usd: 0)
+    deal3 = create_deal(contract_date: Date.new(current_year, 1, 10), amount_usd: 0)
+    deal4 = create_deal(contract_date: Date.new(current_year, 3, 10), amount_usd: 0)
 
     overview.deals.should == [deal1, deal2, deal3, deal4]
-    overview(year: 2010).deals.should == []
-    overview(year: 2011).deals.should == [deal2]
-    overview(year: 2012).deals.should == [deal3, deal4]
+    overview(year: current_year - 2).deals.should == []
+    overview(year: current_year - 1).deals.should == [deal2]
+    overview(year: current_year).deals.should == [deal3, deal4]
   end
 
   it "shows total values" do
+    current_year = Time.now.year
+
     investor1 = fabricate Investor
     investor2 = fabricate Investor
     project1  = fabricate Project
     project2  = fabricate Project
 
     create_deal(amount_usd: 0)
-    create_deal(contract_date: "31.12.2010", amount_usd: 10 * MONEY_RATE)
+    create_deal(contract_date: Date.new(current_year - 2, 12, 31), amount_usd: 10 * MONEY_RATE)
 
-    create_deal(contract_date: "31.12.2011", amount_usd: 20 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year - 1, 12, 31), amount_usd: 20 * MONEY_RATE,
                 investors: [investor1], project: project1)
 
-    create_deal(contract_date: "10.01.2011", amount_usd: 30 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year - 1, 1, 10), amount_usd: 30 * MONEY_RATE,
                 investors: [investor1], project: project1)
 
-    create_deal(contract_date: "10.03.2012", amount_usd: 40 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year, 3, 10), amount_usd: 40 * MONEY_RATE,
                 investors: [investor1, investor2], project: project1)
 
-    create_deal(contract_date: "10.04.2012", amount_usd: 50 * MONEY_RATE,
+    create_deal(contract_date: Date.new(current_year, 4, 10), amount_usd: 50 * MONEY_RATE,
                 investors: [investor2], project: project2)
 
-    overview(year: 2010).totals.investors.should == 0
-    overview(year: 2010).totals.projects.should  == 0
+    overview(year: current_year - 2).totals.investors.should == 0
+    overview(year: current_year - 2).totals.projects.should  == 0
 
-    overview(year: 2011).totals.investors.should == 1
-    overview(year: 2011).totals.projects.should  == 1
+    overview(year: current_year - 1).totals.investors.should == 1
+    overview(year: current_year - 1).totals.projects.should  == 1
 
-    overview(year: 2012).totals.investors.should == 2
-    overview(year: 2012).totals.projects.should  == 2
+    overview(year: current_year).totals.investors.should == 2
+    overview(year: current_year).totals.projects.should  == 2
   end
 
   describe "directions" do
@@ -98,14 +102,14 @@ describe DealsOverview do
       directions.size.should == 2
 
       directions[0].scope.should  == scope1
-      directions[0].count.should  == 3
-      directions[0].millions.should == 70
+      directions[0].count.should  == 2
+      directions[0].millions.should == 40
 
       directions[0].for_stage(1).count.should  == 1
       directions[0].for_stage(1).millions.should == 10
 
-      directions[0].for_stage(nil).count.should   == 2
-      directions[0].for_stage(nil).millions.should  == 60
+      directions[0].for_stage(nil).count.should   == 1
+      directions[0].for_stage(nil).millions.should  == 30
 
       directions[1].scope.should  == scope2
       directions[1].count.should  == 1
@@ -118,7 +122,28 @@ describe DealsOverview do
       directions[1].for_stage(nil).millions.should  == 0
     end
 
-    it "groups date by sub-scope if scope is passed" do
+    it "groups data by scope if subscopes of the same scope present" do
+      scope1 = fabricate(Scope, name: "foo")
+      scope2 = fabricate(Scope, name: "foo/sub1").move_to_child_of(scope1)
+      scope3 = fabricate(Scope, name: "foo/sub2").move_to_child_of(scope1)
+      scope4 = fabricate(Scope, name: "bar")
+
+      deal1 = create_deal(scopes: [scope2, scope3], amount_usd: 30 * MONEY_RATE)
+      deal2 = create_deal(scopes: [scope4],         amount_usd: 40 * MONEY_RATE)
+
+      overview.deals.size.should == 2
+      overview.deals.should      == [deal1, deal2]
+
+      directions = overview.directions.series
+      directions.size.should == 2
+
+      directions[0].count.should == 1
+      directions[0].millions.should == 40
+      directions[1].count.should == 1
+      directions[1].millions.should == 30
+    end
+
+    it "groups data by sub-scope if scope is passed" do
       scope1 = fabricate(Scope, name: "foo")
       scope2 = fabricate(Scope, name: "foo/sub1").move_to_child_of(scope1)
       scope3 = fabricate(Scope, name: "foo/sub2").move_to_child_of(scope1)
@@ -140,8 +165,8 @@ describe DealsOverview do
       root_directions.size.should == 2
 
       root_directions[0].scope.should  == scope1
-      root_directions[0].count.should  == 4
-      root_directions[0].millions.should == 90
+      root_directions[0].count.should  == 3
+      root_directions[0].millions.should == 60
 
       root_directions[1].scope.should  == scope5
       root_directions[1].count.should  == 1
