@@ -5,7 +5,7 @@ class SearchController < ApplicationController
 
   def suggest
     suggester = Suggester.new(params[:query], params[:entites])
-    entites = SuggestEntityDecorator.decorate(suggester.suggest)
+    entites   = suggester.suggest
 
     respond_with(entites)
   end

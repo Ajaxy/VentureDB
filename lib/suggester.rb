@@ -9,9 +9,11 @@ class Suggester
   end
 
   def suggest
-    entites_classes.map do |klass|
-      klass.search(@query)
+    found = entites_classes.map do |klass|
+      klass.search(@query).limit(SEARCH_AUTOSUGGEST_LIMIT)
     end.flatten
+
+    SuggestEntityDecorator.decorate(found).sort_by(&:name).first(SEARCH_AUTOSUGGEST_LIMIT)
   end
 
   private
