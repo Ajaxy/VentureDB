@@ -11,8 +11,13 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error(status, exception)
+    if Rails.env.production?
+      # notify about exception anyway
+      ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
+    end
+
     respond_to do |format|
-      format.html { render template: "errors/error_#{status}", layout: 'layouts/application',
+      format.html { render template: "errors/error_#{status}", layout: 'application',
         status: status }
       format.all { render nothing: true, status: status }
     end

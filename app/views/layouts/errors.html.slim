@@ -3,7 +3,9 @@
 - content_for :content do
   = render partial: 'header'
 
-  .main-area
+  .main-area.error
     = yield
+
+    = render partial: 'menu'
 
 = render template: "layouts/application"
