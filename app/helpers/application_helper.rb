@@ -21,7 +21,7 @@ module ApplicationHelper
     content_tag :strong, *args, &block
   end
 
-  def search_field(placeholder, entites)
+  def search_field(placeholder, entites = '')
     entites_string = Array(entites).join(',')
     autosuggest    = !entites_string.empty?
 
