@@ -1,14 +1,7 @@
 - @body_class = "cabinet"
 
 - content_for :content do
-  header
-    .content-wrap
-      = link_to "Venture Database", :root, id: "logo"
-      nav
-        - if current_user.admin?
-          .link = link_to "Панель управления", "/admin"
-        .link = link_to current_user.email, "#"
-        .link = link_to "Выйти", :destroy_user_session, method: "delete"
+  = render partial: 'header'
 
   .main-area
     .content-wrap

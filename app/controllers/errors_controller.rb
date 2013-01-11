@@ -1,4 +1,4 @@
-class ErrorsController < ApplicationController
+class ErrorsController < CabinetController
   def error_404
   end
 

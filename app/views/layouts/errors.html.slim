@@ -1,0 +1,9 @@
+- @body_class = "cabinet"
+
+- content_for :content do
+  = render partial: 'header'
+
+  .main-area
+    = yield
+
+= render template: "layouts/application"
