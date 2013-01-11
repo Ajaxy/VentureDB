@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
 
     respond_to do |format|
-      format.html { render template: "errors/error_#{status}", layout: 'application',
+      format.html { render template: "errors/error_#{status}", layout: 'errors',
         status: status }
       format.all { render nothing: true, status: status }
     end

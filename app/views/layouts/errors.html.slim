@@ -1,11 +1,11 @@
 - @body_class = "cabinet"
 
 - content_for :content do
-  = render partial: 'header'
+  = render partial: 'header' if current_user.present?
 
   .main-area.error
     = yield
 
-    = render partial: 'menu'
+    = render partial: 'menu' if current_user.present?
 
 = render template: "layouts/application"
