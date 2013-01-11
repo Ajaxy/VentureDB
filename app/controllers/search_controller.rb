@@ -4,9 +4,9 @@ class SearchController < ApplicationController
   respond_to :json
 
   def suggest
-    suggester = Suggester.new(params[:query], params[:entites])
-    entites   = suggester.suggest
+    suggester = Suggester.new(params[:query], params[:entities])
+    entities   = suggester.suggest
 
-    respond_with(entites)
+    respond_with(entities)
   end
 end

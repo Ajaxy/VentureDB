@@ -61,14 +61,14 @@ jQuery ->
         url:  "/search/suggest"
         data: {
           query   : query
-          entites : this.$element.data("autosuggest-entites")
+          entities : this.$element.data("autosuggest-entities")
         }
         success: (response) ->
-          that.entites = response
+          that.entities = response
           titles       = $.map(response, (item) -> item.title)
 
           process(titles)
     updater: (item) ->
-      window.location = $.grep(this.entites, (element, index) -> element.title == item)[0].url
+      window.location = $.grep(this.entities, (element, index) -> element.title == item)[0].url
       item
   })

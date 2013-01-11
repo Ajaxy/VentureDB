@@ -21,11 +21,11 @@ module ApplicationHelper
     content_tag :strong, *args, &block
   end
 
-  def search_field(placeholder, entites = '')
-    entites_string = Array(entites).join(',')
-    autosuggest    = !entites_string.empty?
+  def search_field(placeholder, entities = '')
+    entities_string = Array(entities).join(',')
+    autosuggest    = !entities_string.empty?
 
-    render partial: 'search', locals: { placeholder: placeholder, entites: entites_string,
+    render partial: 'search', locals: { placeholder: placeholder, entities: entities_string,
       autosuggest: autosuggest }
   end
 end
