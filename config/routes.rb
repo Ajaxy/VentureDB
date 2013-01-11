@@ -41,4 +41,6 @@ Venture::Application.routes.draw do
 
   get "/subscribed"  => "home#subscribed"
   post "/subscribed" => "home#participate"
+
+  match '*not_found', to: 'errors#error_404'
 end
