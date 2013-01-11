@@ -59,10 +59,9 @@ jQuery ->
       $.ajax
         dataType: "json"
         url:  "/search/suggest"
-        data: {
-          query   : query
+        data:
+          query    : query
           entities : this.$element.data("autosuggest-entities")
-        }
         success: (response) ->
           that.entities = response
           titles       = $.map(response, (item) -> item.title)
