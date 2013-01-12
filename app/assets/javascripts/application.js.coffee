@@ -52,23 +52,26 @@ jQuery ->
     $($el.data("form")).addClass("active")
     return false
 
-  $("input[type=search][data-autosuggest='true']").typeahead({
+  $("input[type=search][data-autosuggest='true']").typeahead
     minLength: 2
+
     source: (query, process) ->
-      that = this
+      typeahead = @
       $.ajax
         dataType: "json"
         url:  "/search/suggest"
-        data: {
-          query   : query
-          entities : this.$element.data("autosuggest-entities")
-        }
+        data:
+          query     : query
+          entities  : @$element.data "autosuggest-entities"
         success: (response) ->
-          that.entities = response
-          titles       = $.map(response, (item) -> item.title)
+          typeahead.items = response
+          process $.map(response, (item) -> item.title)
 
-          process(titles)
-    updater: (item) ->
-      window.location = $.grep(this.entities, (element, index) -> element.title == item)[0].url
-      item
-  })
+    updater: (selectedText) ->
+      return selectedText unless @$element.data("autosuggest-navigate") == "true"
+
+      selectedItem = $.grep(@items, (item) -> item.title == selectedText)[0]
+      return selectedText unless selectedItem && selectedItem.url
+      window.location.href = selectedItem.url
+      return ""
+  
