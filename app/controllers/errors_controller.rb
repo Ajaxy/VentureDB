@@ -6,6 +6,7 @@ class ErrorsController < ApplicationController
   before_filter :init_menu
 
   def error_404
+    render status: 404
   end
 
   def error_500
