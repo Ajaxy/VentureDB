@@ -11,10 +11,4 @@ class ErrorsController < ApplicationController
 
   def error_500
   end
-
-  private
-
-  def init_menu
-    @menu = CabinetMenu.new(view_context)
-  end
 end
