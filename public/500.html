@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
+  <title>Возникла ошибка</title>
+  <meta charset="UTF-8" />
+  <link href="/assets/application.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/errors.css" media="all" rel="stylesheet" type="text/css" />
 </head>
+<body class="cabinet">
+  <div class="container">
+    <header>
+      <div class="content-wrap">
+        <a id="logo" href="/">Venture Database</a>
+      </div>
+    </header>
 
-<body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
+    <div class="main-area error">
+      <div class="error_text error_500">
+          <p class="code">500</p>
+          <p class="description">
+            Извините, возникла ошибка. Мы получили уведомление и все исправим.
+            <a href="/">Вернуться на главную</a>
+          </p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="content-wrap">
+        <div class="copy">Venture Database &copy; ООО «Венчур Датабэйс», 2013</div>
+        <nav>
+          <div class="link"><a href="javascript:void(0)">О проекте</a></div>
+          <div class="link"><a href="javascript:void(0)">Блог</a></div>
+          <div class="link"><a href="javascript:void(0)">Услуги</a></div>
+          <div class="link"><a href="javascript:void(0)">Команда</a></div>
+        </nav>
+      </div>
+    </footer>
   </div>
 </body>
 </html>
