@@ -68,7 +68,7 @@ jQuery ->
           process $.map(response, (item) -> item.title)
 
     updater: (selectedText) ->
-      return selectedText unless @$element.data("autosuggest-navigate") == "true"
+      return selectedText unless @$element.data("autosuggest-navigate") == true
 
       selectedItem = $.grep(@items, (item) -> item.title == selectedText)[0]
       return selectedText unless selectedItem && selectedItem.url

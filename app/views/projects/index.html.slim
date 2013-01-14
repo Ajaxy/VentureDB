@@ -13,7 +13,8 @@
 section.projects
   h1 Проекты
   p Поиск среди 400 молодых компаний и инновационных проектов.
-  = search_field "Введите название компании или фамилию автора проекта", "project"
+  = search_field "Введите название компании или фамилию автора проекта",
+    entities: "project", navigate: true
 
   - if @projects.any?
     table.table

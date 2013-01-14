@@ -15,7 +15,7 @@ section.investors
   h1 Инвесторы
   p Поиск среди 200 венчурных фондов, управляющих компаний и бизнес-ангелов.
 
-  = search_field "Введите название фонда или фамилию инвестора", "investor"
+  = search_field "Введите название фонда или фамилию инвестора", entities: "investor", navigate: true
 
   - if @investors.any?
     table.table
