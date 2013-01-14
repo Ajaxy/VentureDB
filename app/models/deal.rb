@@ -45,6 +45,14 @@ class Deal < ActiveRecord::Base
     5 => "IPO",
   }
 
+  define_index do
+    indexes project.name
+    indexes project.company.name
+    indexes project.authors.first_name
+    indexes project.authors.last_name
+    indexes investors.name
+  end
+
   def self.published
     where{published == true}
   end
@@ -94,7 +102,8 @@ class Deal < ActiveRecord::Base
     where{amount <= value}
   end
 
-  def self.search(string)
+  # renamed from .search to avoid confict with thinking sphinx
+  def self.sql_search(string)
     return scoped unless string.present?
     search = "%#{string}%".gsub('.','_')
     joins{[ project.company.outer, project.authors.outer, investors ]}

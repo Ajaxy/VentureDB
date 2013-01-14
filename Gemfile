@@ -23,6 +23,7 @@ gem "squeel"
 gem "unicode_utils"
 gem "virtus"
 gem "unicorn"
+gem "thinking-sphinx", "~>2.0.14"
 
 group :assets do
   gem "bootstrap-sass"

@@ -38,12 +38,17 @@ class Investor < ActiveRecord::Base
 
   PERSON_TYPES = [11, 13]
 
+  define_index do
+    indexes name
+  end
+
   def self.in_location(location)
     joins{locations}.where{(locations.lft >= location.lft) &
                            (locations.lft < location.rgt)}
   end
 
-  def self.search(string)
+  # renamed from .search to avoid confict with thinking sphinx
+  def self.sql_search(string)
     return scoped unless string.present?
     search = "%#{string}%".gsub('.','_')
 

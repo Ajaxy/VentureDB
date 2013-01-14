@@ -25,7 +25,16 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :company
 
-  def self.search(string)
+  define_index do
+    indexes name
+    indexes description
+    indexes company.name
+    indexes authors.first_name
+    indexes authors.last_name
+  end
+
+  # renamed from .search to avoid confict with thinking sphinx
+  def self.sql_search(string)
     return scoped unless string.present?
     search = "%#{string}%".gsub('.','_')
 

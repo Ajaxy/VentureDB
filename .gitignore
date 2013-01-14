@@ -7,11 +7,17 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore sphinx's generated config
+/config/*.sphinx.conf
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore sphinx's indexes
+/db/sphinx
+
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log
 /tmp
 
 # Ignore assets

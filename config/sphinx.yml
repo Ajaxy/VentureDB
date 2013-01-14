@@ -1,0 +1,11 @@
+defaults: &defaults
+  morphology: stem_enru
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
