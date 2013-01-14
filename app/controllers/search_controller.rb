@@ -3,6 +3,9 @@
 class SearchController < ApplicationController
   respond_to :json
 
+  def index
+  end
+
   def suggest
     suggester = Suggester.new(params[:query], params[:entities])
     entities   = suggester.suggest
