@@ -3,25 +3,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  rescue_from Exception, with: lambda { |exception| render_error 500, exception }
-  rescue_from ActionController::RoutingError, ActionController::UnknownController,
-    ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
-    with: lambda { |exception| render_error 404, exception }
-
   private
-
-  def render_error(status, exception)
-    if Rails.env.production?
-      # notify about exception anyway
-      ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
-    end
-
-    respond_to do |format|
-      format.html { render template: "errors/error_#{status}", layout: 'errors',
-        status: status }
-      format.all { render nothing: true, status: status }
-    end
-  end
 
   def after_sign_in_path_for(*)
     deals_path

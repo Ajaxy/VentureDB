@@ -1,0 +1,71 @@
+.error .error_text {
+  margin: 150px auto;
+}
+.error .error_text .code {
+  float: left;
+  padding-right: 30px;
+  font-size: 3.5em;
+  font-weight: bold;
+  border-right: 1px solid #efeff0;
+}
+.error .error_text .description {
+  font-size: 1.8em;
+  padding-left: 140px;
+}
+.error nav ul {
+  list-style-type: none;
+  height: 80px;
+  width: 675px;
+  margin: auto;
+  border-top: 1px solid #efeff0;
+  border-bottom: 1px solid #efeff0;
+}
+.error nav ul li {
+  float: left;
+}
+.error nav ul li:last-child a {
+  padding-right: 0;
+}
+.error nav ul a {
+  padding-right: 32px;
+  padding-left: 32px;
+  display: block;
+  position: relative;
+  line-height: 80px;
+  text-decoration: none;
+  color: #60656e;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+.error nav ul a:hover {
+  text-decoration: underline;
+}
+.error nav ul a:before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 31px;
+  height: 13px;
+  width: 13px;
+  background: url(/assets/menu-icons.png) no-repeat;
+}
+.error nav ul a.projects:before {
+  background-position: -13px 0;
+}
+.error nav ul a.statistics:before {
+  background-position: -26px 0;
+}
+.error nav ul a.researches:before {
+  background-position: -39px 0;
+}
+.error nav ul a.deals:before {
+  background-position: -52px 0;
+}
+.error .error_text.error_500 {
+  width: 750px;
+}
+.error .error_text.error_400 {
+  width: 275px;
+}
