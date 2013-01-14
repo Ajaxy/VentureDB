@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class SearchController < ApplicationController
+class SearchController < CabinetController
   respond_to :json
 
   def index
