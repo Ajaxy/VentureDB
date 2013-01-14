@@ -12,16 +12,29 @@ describe SearchController do
     end
   end
 
-  it "searches for specified type and return json" do
-    fabricate(Investor, name: 'Test investor 1')
-    fabricate(Investor, name: 'Test investor 2')
-    fabricate(Investor, name: 'Another investor')
+  describe 'search specific type' do
+    before do
+      fabricate(Investor, name: 'Test investor')
+      fabricate(Project, name: 'Test project')
+    end
 
-    get :suggest, query: 'test', entities: 'investor', format: 'json'
+    it "searches for investors" do
+      get :suggest, query: 'test', entities: 'investor', format: 'json'
 
-    response.should be_success
-    result = JSON.parse(response.body)
-    result.size.should eq 2
+      response.should be_success
+      result = JSON.parse(response.body)
+      result.size.should eq 1
+      result[0]["type"].should eq 'investor'
+    end
+
+    it "searches for project" do
+      get :suggest, query: 'test', entities: 'project', format: 'json'
+
+      response.should be_success
+      result = JSON.parse(response.body)
+      result.size.should eq 1
+      result[0]["type"].should eq 'project'
+    end
   end
 
   it "searches for mixed types" do
@@ -33,6 +46,28 @@ describe SearchController do
     response.should be_success
     result = JSON.parse(response.body)
     result.size.should eq 2
+  end
+
+  it "searches for all when 'all' type passed" do
+    fabricate(Investor, name: 'Test investor')
+    fabricate(Project, name: 'Test project')
+
+    get :suggest, query: 'test', entities: 'all', format: 'json'
+
+    response.should be_success
+    result = JSON.parse(response.body)
+    result.size.should eq 2
+  end
+
+  it 'returns empty array when not found' do
+    fabricate(Investor, name: 'Test investor')
+    fabricate(Project, name: 'Test project')
+
+    get :suggest, query: 'qwert', entities: 'all', format: 'json'
+
+    response.should be_success
+    result = JSON.parse(response.body)
+    result.size.should eq 0
   end
 
   it "returns no more than SEARCH_AUTOSUGGEST_LIMIT entities" do

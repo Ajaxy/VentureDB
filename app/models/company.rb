@@ -18,4 +18,11 @@ class Company < ActiveRecord::Base
       create_tracking_user(user, params)
     end
   end
+
+  def self.search(query)
+    return scoped unless query.present?
+    search = "%#{query}%".gsub('.','_')
+
+    where{ name.like(search) }
+  end
 end
