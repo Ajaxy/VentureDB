@@ -4,6 +4,6 @@
 = form_tag "", method: :get, class: "search" do
   = hidden_field_tag :sort, @sorter.current_column
   = text_field_tag :search, @filter.search, placeholder: placeholder,
-    type: 'search', data: { autosuggest: autosuggest, autosuggest_entities: entities },
+    data: { autosuggest: autosuggest, autosuggest_entities: entities },
     autocomplete: 'off'
   button type="submit" = image_tag "search.png"

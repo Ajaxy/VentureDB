@@ -52,7 +52,7 @@ jQuery ->
     $($el.data("form")).addClass("active")
     return false
 
-  $("input[type=search][data-autosuggest='true']").typeahead
+  $("input[data-autosuggest='true']").typeahead
     minLength: 2
 
     source: (query, process) ->
@@ -74,4 +74,4 @@ jQuery ->
       return selectedText unless selectedItem && selectedItem.url
       window.location.href = selectedItem.url
       return ""
-  
+
