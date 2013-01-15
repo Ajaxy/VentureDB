@@ -22,7 +22,7 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def self.search_by_name(query)
+  def self.suggest(query)
     return scoped unless query.present?
     search = "%#{query}%".gsub('.','_')
 
