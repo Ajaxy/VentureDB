@@ -72,3 +72,5 @@ module Venture
     config.assets.precompile += %w( .svg .eot .woff .ttf )
   end
 end
+
+SEARCH_AUTOSUGGEST_LIMIT = 5
