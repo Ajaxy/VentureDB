@@ -7,11 +7,9 @@ class Admin::SubscriptionsController < Admin::BaseController
 
   def approve
     @subscription = Subscription.find(params[:id])
-    @user         = @subscription.create_user
-
-    UserMailer.created(@user).deliver if @user.save
-
+    @subscription.approve
     @subscription.archive
+
     redirect_to [:admin, :subscriptions], notice: "Заявка одобрена."
   end
 
