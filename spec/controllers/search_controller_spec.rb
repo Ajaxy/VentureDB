@@ -12,7 +12,7 @@ describe SearchController do
     end
   end
 
-  describe 'search specific type' do
+  describe 'search for specific type' do
     before do
       fabricate(Investor, name: 'Test investor')
       fabricate(Project, name: 'Test project')
@@ -51,6 +51,18 @@ describe SearchController do
   it "searches for all when 'all' type passed" do
     fabricate(Investor, name: 'Test investor')
     fabricate(Project, name: 'Test project')
+
+    get :suggest, query: 'test', entities: 'all', format: 'json'
+
+    response.should be_success
+    result = JSON.parse(response.body)
+    result.size.should eq 2
+  end
+
+  it 'seaches only by names' do
+    fabricate(Investor, name: 'Test investor')
+    fabricate(Project, name: 'Test project')
+    fabricate(Project, name: 'Just project', description: 'test in description')
 
     get :suggest, query: 'test', entities: 'all', format: 'json'
 
