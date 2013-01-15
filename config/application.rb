@@ -73,3 +73,4 @@ module Venture
 end
 
 AUTO_CONFIRM_SUBSCRIPTION = true
+SUBSCRIPTION_CONFIRMATION_FROM_ADDR = "ai@venture.bi"

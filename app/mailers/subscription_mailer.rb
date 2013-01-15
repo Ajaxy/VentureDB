@@ -2,7 +2,7 @@
 
 class SubscriptionMailer < ActionMailer::Base
   helper :application
-  default from: "admin@venture.bi"
+  default from: SUBSCRIPTION_CONFIRMATION_FROM_ADDR
 
   def approved(user)
     @user = user
