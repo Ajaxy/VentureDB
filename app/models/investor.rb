@@ -50,6 +50,13 @@ class Investor < ActiveRecord::Base
     where{ name.like(search) }
   end
 
+  def self.suggest(string)
+    return scoped unless string.present?
+    search = "%#{string}%".gsub('.','_')
+
+    where{ name.like(search) }
+  end
+
   def self.in_round(round)
     joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
   end
