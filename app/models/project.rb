@@ -33,6 +33,14 @@ class Project < ActiveRecord::Base
     indexes authors.last_name
   end
 
+
+  def self.suggest(string)
+    return scoped unless string.present?
+    search = "%#{string}%".gsub('.','_')
+
+    where{ name.like(search) }
+  end
+
   # renamed from .search to avoid confict with thinking sphinx
   def self.sql_search(string)
     return scoped unless string.present?
