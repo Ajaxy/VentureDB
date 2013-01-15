@@ -23,6 +23,7 @@ module Venture
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W[#{config.root}/lib]
+    config.autoload_paths += Dir["#{config.root}/app/**/concerns"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -64,7 +65,7 @@ module Venture
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = "1.0"
-    
+
     # Add the fonts path
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     # Precompile additional assets

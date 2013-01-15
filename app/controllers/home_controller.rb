@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
   def subscribe
     @subscription = Subscription.new(permitted_params.subscription)
-    if @subscription.save 
+    if @subscription.save
       respond_with @subscription, location: nil
     else
       respond_with @subscription
