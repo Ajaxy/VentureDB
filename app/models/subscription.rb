@@ -10,6 +10,14 @@ class Subscription < ActiveRecord::Base
     where{archived_at == nil}
   end
 
+  def user_registered?
+    email.present? and user.present?
+  end
+
+  def user
+    @user ||= User.find_by_email(self.email)
+  end
+
   def archive
     update_attribute :archived_at, Time.current
   end

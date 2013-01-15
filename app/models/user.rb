@@ -31,4 +31,9 @@ class User < ActiveRecord::Base
   def admin?
     type == "admin"
   end
+
+  def remind_already_registered
+    send(:generate_reset_password_token!)
+    UserMailer.remind_already_registered(self).deliver
+  end
 end
