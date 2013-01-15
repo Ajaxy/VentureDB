@@ -22,6 +22,17 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def self.search(query)
+    return scoped unless query.present?
+    search = "%#{query}%".gsub('.','_')
+
+    where do
+      first_name.like(search) |
+      middle_name.like(search) |
+      last_name.like(search)
+    end
+  end
+
   def full_name
     if middle_name?
       "#{last_name} #{first_name} #{middle_name}"
