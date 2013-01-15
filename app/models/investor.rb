@@ -50,6 +50,10 @@ class Investor < ActiveRecord::Base
     where{ name.like(search) }
   end
 
+  def self.search_by_name(string)
+    search(string)
+  end
+
   def self.in_round(round)
     joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
   end

@@ -3,14 +3,14 @@
 class Suggester
   ALLOWED_ENTITY_TYPES = %w[investor project company person]
 
-  def initialize(query, entites_string)
-    @query          = query
-    @entites_string = entites_string
+  def initialize(query, entities_string)
+    @query           = query
+    @entities_string = entities_string
   end
 
   def suggest
-    found = entites_classes.map do |klass|
-      klass.search(@query).limit(SEARCH_AUTOSUGGEST_LIMIT)
+    found = entities_classes.map do |klass|
+      klass.search_by_name(@query).limit(SEARCH_AUTOSUGGEST_LIMIT)
     end.flatten
 
     SuggestEntityDecorator.decorate(found).sort_by(&:name).first(SEARCH_AUTOSUGGEST_LIMIT)
@@ -18,15 +18,15 @@ class Suggester
 
   private
 
-  def entites
-    if @entites_string == 'all'
+  def entities
+    if @entities_string == 'all'
       ALLOWED_ENTITY_TYPES
     else
-      @entites_string.split(',') & ALLOWED_ENTITY_TYPES
+      @entities_string.split(',') & ALLOWED_ENTITY_TYPES
     end
   end
 
-  def entites_classes
-    entites.map { |entity| entity.classify.constantize }
+  def entities_classes
+    entities.map { |entity| entity.classify.constantize }
   end
 end

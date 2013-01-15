@@ -25,6 +25,13 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :company
 
+  def self.search_by_name(string)
+    return scoped unless string.present?
+    search = "%#{string}%".gsub('.','_')
+
+    where{ name.like(search) }
+  end
+
   def self.search(string)
     return scoped unless string.present?
     search = "%#{string}%".gsub('.','_')
