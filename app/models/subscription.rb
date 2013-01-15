@@ -1,9 +1,8 @@
 # encoding: utf-8
 
 class Subscription < ActiveRecord::Base
-  validates :email, format: /.@./, uniqueness: true
+  validates :email, format: /.@./
   validates :name, presence: true
-  validate  :user_already_registered, on: :create
 
   after_save :approve, if: :auto_confirm_subscription?
 
@@ -39,13 +38,5 @@ class Subscription < ActiveRecord::Base
 
   def auto_confirm_subscription?
     AUTO_CONFIRM_SUBSCRIPTION
-  end
-
-  private
-
-  def user_already_registered
-    if User.exists?(email: self.email)
-      errors.add(:email, "уже использован")
-    end
   end
 end

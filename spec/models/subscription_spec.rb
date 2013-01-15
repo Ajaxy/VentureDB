@@ -20,22 +20,6 @@ describe Subscription do
     end
   end
 
-  describe 'validations' do
-    it 'should validate uniqueness of email' do
-      user = fabricate(Subscription, email: 'foo@example.com')
-      subscription = Subscription.new(email: 'foo@example.com')
-      subscription.should_not be_valid
-      subscription.should have_at_least(1).errors_on(:email)
-    end
-
-    it 'should add error if user with email already exists' do
-      user = fabricate(User, email: 'foo@example.com')
-      subscription = Subscription.new(email: 'foo@example.com')
-      subscription.should_not be_valid
-      subscription.should have(1).errors_on(:email)
-    end
-  end
-
   describe "#create_user" do
     it "creates user with proper fields" do
       sub   = fabricate Subscription, email: "foo@bar.com", name: "John Doe"
