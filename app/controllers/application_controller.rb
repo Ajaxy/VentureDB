@@ -20,7 +20,8 @@ class ApplicationController < ActionController::Base
     end
 
     decorator = "#{klass}Decorator".constantize rescue ApplicationDecorator
-    decorator.decorate(input, options)
+    method = input.respond_to?(:each) ? decorator.method(:decorate_collection) : decorator.method(:decorate)
+    method.call(input, options)
   end
   helper_method :decorate
 

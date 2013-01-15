@@ -12,7 +12,7 @@ class DealsController < CabinetController
     scope   = paginate @sorter.sort(scope)
     scope   = @filter.filter(scope).uniq
 
-    @deals  = StreamDealDecorator.decorate(scope)
+    @deals  = PaginatingDecorator.decorate(scope)
   end
 
   def show

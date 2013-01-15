@@ -13,7 +13,7 @@ class InvestorsController < CabinetController
     scope = @filter.filter(scope).uniq
     scope = @sorter.sort(scope)
 
-    @investors  = decorate paginate(scope)
+    @investors = PaginatingDecorator.decorate paginate(scope)
   end
 
   def show

@@ -27,4 +27,8 @@ class InvestorDecorator < HasInvestmentsDecorator
     result += tag :div, creation_date, class: "pull-right" if creation_date
     result
   end
+
+  private
+
+  def investor; source; end
 end

@@ -13,7 +13,7 @@ class ProjectsController < CabinetController
     scope = @sorter.sort(scope)
     scope = @filter.filter(scope).uniq
 
-    @projects = decorate paginate(scope)
+    @projects = PaginatingDecorator.decorate paginate(scope)
   end
 
   def show
