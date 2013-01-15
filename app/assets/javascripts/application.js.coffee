@@ -3,6 +3,7 @@
 #= require jquery.placeholder
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
+#= require bootstrap-typeahead
 #= require sugar
 
 window.vent =
@@ -50,4 +51,27 @@ jQuery ->
     $(".active").removeClass("active")
     $($el.data("form")).addClass("active")
     return false
+
+  $("input[data-autosuggest='true']").typeahead
+    minLength: 2
+
+    source: (query, process) ->
+      typeahead = @
+      $.ajax
+        dataType: "json"
+        url:  "/search/suggest"
+        data:
+          query     : query
+          entities  : @$element.data "autosuggest-entities"
+        success: (response) ->
+          typeahead.items = response
+          process $.map(response, (item) -> item.title)
+
+    updater: (selectedText) ->
+      return selectedText unless @$element.data("autosuggest-navigate") == true
+
+      selectedItem = $.grep(@items, (item) -> item.title == selectedText)[0]
+      return selectedText unless selectedItem && selectedItem.url
+      window.location.href = selectedItem.url
+      return ""
 

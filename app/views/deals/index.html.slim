@@ -22,7 +22,8 @@
 section.stream.deals
   h1 Хроника
   p Новости о последних инвестиционных сделках и выданных грантах.
-  = render "search", placeholder: "Поиск по названию проекта или инвестора"
+  = search_field "Поиск по названию проекта или инвестора", entities: %w[project investor],
+    navigate: false
 
   - if @deals.any?
     .deals-stream = render @deals

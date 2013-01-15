@@ -20,4 +20,13 @@ module ApplicationHelper
   def b(*args, &block)
     content_tag :strong, *args, &block
   end
+
+  def search_field(placeholder, options = {})
+    entities_string = Array(options[:entities]).join(',')
+    autosuggest     = !entities_string.empty?
+    navigate        = options[:navigate] || false
+
+    render partial: 'search', locals: { placeholder: placeholder, entities: entities_string,
+      autosuggest: autosuggest, navigate: navigate }
+  end
 end

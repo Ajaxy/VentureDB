@@ -23,6 +23,7 @@ module Venture
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W[#{config.root}/lib]
+    config.autoload_paths += Dir["#{config.root}/app/**/concerns"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -74,3 +75,4 @@ end
 
 AUTO_CONFIRM_SUBSCRIPTION = true
 SUBSCRIPTION_CONFIRMATION_FROM_ADDR = "ai@venture.bi"
+SEARCH_AUTOSUGGEST_LIMIT = 5
