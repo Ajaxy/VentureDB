@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe SearchController do
+  include Devise::TestHelpers
+
+  before (:each) do
+    user = fabricate(User)
+    sign_in user
+  end
+
   describe "GET #suggest" do
     it "returns empty result when now allowed entity type passed" do
       get :suggest, query: 'foo', entities: 'bar', format: 'json'
