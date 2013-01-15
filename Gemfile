@@ -47,6 +47,7 @@ group :development, :test do
   gem "quiet_assets"
   # gem "factory_girl_rails"
   gem "rspec-rails"
+  gem "database_cleaner"
 end
 
 group :production do

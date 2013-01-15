@@ -1,11 +1,13 @@
 defaults: &defaults
   morphology: stem_enru
+  port: 9312
 
 development:
   <<: *defaults
 
 test:
   <<: *defaults
+  port: 9313
 
 production:
   <<: *defaults

@@ -1,12 +1,13 @@
+# encoding: utf-8
+
 require 'spec_helper'
+require 'support/sphinx_environment'
 
 describe SearchController do
   include Devise::TestHelpers
 
-  before (:each) do
-    user = fabricate(User)
-    sign_in user
-  end
+  let(:user) { fabricate(User) }
+  before (:each) { sign_in user }
 
   describe "GET #suggest" do
     it "returns empty result when now allowed entity type passed" do
@@ -99,5 +100,51 @@ describe SearchController do
     response.should be_success
     result = JSON.parse(response.body)
     result.size.should eq SEARCH_AUTOSUGGEST_LIMIT
+  end
+
+  describe "GET #index" do
+    sphinx_environment :deals, :projects, :investors, :users do
+      it "searches for deals, projects and investors" do
+        investor = fabricate(Investor, name: 'Test investor')
+        project1 = fabricate(Project, description: 'Test project')
+        project2 = fabricate(Project, name: 'Test project')
+        deal = fabricate(Deal, project_id: project2.id)
+
+        ThinkingSphinx::Test.index
+
+        get :index, search: 'test'
+
+        assigns(:records).map(&:model).should =~ [investor, project1, project2, deal]
+      end
+
+      it "finds records with words permutations" do
+        investor = fabricate(Investor, name: 'Павел Черкашин')
+
+        ThinkingSphinx::Test.index
+
+        get :index, search: "Черкашин Павел"
+        assigns(:records).map(&:model).should =~ [investor]
+      end
+
+      it "finds records with extra words" do
+        project = fabricate(Project, name: 'Социальные прекрасные сети')
+
+        ThinkingSphinx::Test.index
+
+        get :index, search: "социальные сети"
+        assigns(:records).map(&:model).should =~ [project]
+      end
+
+      it "takes in account russian morphology" do
+        project1 = fabricate(Project, name: "Социальные сети")
+        project2 = fabricate(Project, name: "Социальная сеть")
+        project3 = fabricate(Project, name: "Социальных сетей")
+
+        ThinkingSphinx::Test.index
+
+        get :index, search: 'социальные'
+        assigns(:records).map(&:model).should =~ [project1, project2, project3]
+      end
+    end
   end
 end

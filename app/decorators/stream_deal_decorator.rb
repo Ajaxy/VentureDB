@@ -42,7 +42,7 @@ class StreamDealDecorator < DealDecorator
 
   def investor_links
     return "Неизвестные инвесторы" if deal.investors.empty?
-    deal.investors.map { |i| h.decorate(i).link }.to_sentence
+    deal.investors.map { |i| i.decorate.link }.to_sentence
   end
 
   def meta

@@ -1,2 +1,9 @@
 section.stream.deals
   h1 Поиск
+
+  = form_tag "", method: :get, class: "search" do
+    = text_field_tag :search, params[:search], placeholder: "Поиск по проектам, инвесторам и сделкам"
+    button type="submit" = image_tag "search.png"
+
+- @records.each do |record|
+  = render record
