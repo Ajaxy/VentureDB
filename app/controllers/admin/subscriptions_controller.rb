@@ -2,7 +2,8 @@
 
 class Admin::SubscriptionsController < Admin::BaseController
   def index
-    @subscriptions = decorate paginate(Subscription.present.order{id.desc})
+    @subscriptions = PaginatingDecorator.decorate(
+      paginate(Subscription.present.order{id.desc}))
   end
 
   def approve
