@@ -24,6 +24,7 @@ gem "unicode_utils"
 gem "virtus"
 gem "unicorn"
 gem "thinking-sphinx", "~>2.0.14"
+gem "whenever", :require => false
 
 group :assets do
   gem "bootstrap-sass"
