@@ -26,7 +26,9 @@ class ApplicationController < ActionController::Base
   helper_method :decorate
 
   def paginate(scope, per = 50)
-    scope = Kaminari.paginate_array(scope) if scope.is_a?(Array)
+    if scope.is_a?(Array) and not scope.is_a?(ThinkingSphinx::Search)
+      scope = Kaminari.paginate_array(scope)
+    end
     scope.page(params[:page]).per(per)
   end
 

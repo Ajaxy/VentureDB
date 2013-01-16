@@ -12,11 +12,11 @@ class InvestorSorter < Sorter
   def sort(scope)
     case current_column
     when :name
-      scope.order("name #{current_direction}")
+      scope.order_by_name(current_direction)
     when :type
-      scope.order("type_id #{current_direction}")
+      scope.order_by_type(current_direction)
     when :investments
-      scope.joins{deals.outer}.order("deals_count DESC")
+      scope.order_by_investments
     else
       raise ArgumentError.new("bad current_column #{current_column.inspect}")
     end

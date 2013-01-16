@@ -6,6 +6,7 @@ class Deal < ActiveRecord::Base
 
   has_many :investments
   has_many :investors, through: :investments
+  has_many :scopes, through: :project
 
   STATUSES = {
     1 => "Анонсированная",
@@ -52,8 +53,55 @@ class Deal < ActiveRecord::Base
     indexes project.authors.last_name
     indexes investors.name
 
+    has stage_id
+    has round_id
+    has investments.instrument_id, as: :type_id
+    has scopes(:id), as: :scope_ids
+    has "coalesce(deals.contract_date, deals.announcement_date)", as: :started_at,
+      type: :datetime
+    has amount_usd, type: :integer
+
     where "deals.published = 't'"
   end
+
+  sphinx_scope(:in_stage) { |stage|
+    { with: { stage_id: stage } }
+  }
+
+  sphinx_scope(:in_round) { |round|
+    { with: { round_id: round } }
+  }
+
+  sphinx_scope(:for_type) { |type|
+    ids = Investment::GRANT_INSTRUMENTS
+
+    case type
+    when "grants"
+      { with: { type_id: ids } }
+    when "investments"
+      { without: { type_id: ids } }
+    else
+      raise ArgumentError
+    end
+  }
+
+  sphinx_scope(:in_scope) { |scope|
+    { with: { scope_ids: scope.id } }
+  }
+
+  sphinx_scope(:for_year) { |year|
+    beginning_of_year = Date.new(year).beginning_of_year
+    end_of_year       = Date.new(year).end_of_year
+    { with: { started_at: beginning_of_year..end_of_year } }
+  }
+
+  sphinx_scope(:order_by_amount) { |direction|
+    { order: :amount_usd, sort_mode: direction }
+  }
+
+  sphinx_scope(:order_by_started_at) { |direction|
+    { order: :started_at, sort_mode: direction }
+  }
 
   def self.published
     where{published == true}
@@ -102,18 +150,6 @@ class Deal < ActiveRecord::Base
 
   def self.to_amount(value)
     where{amount <= value}
-  end
-
-  # renamed from .search to avoid confict with thinking sphinx
-  def self.sql_search(string)
-    return scoped unless string.present?
-    search = "%#{string}%".gsub('.','_')
-    joins{[ project.company.outer, project.authors.outer, investors ]}
-    .where{ project.name.like(search) |
-            project.company.name.like(search) |
-            project.authors.first_name.like(search) |
-            project.authors.last_name.like(search) |
-            investors.name.like(search) }
   end
 
   def self.for_period(period)
