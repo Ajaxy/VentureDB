@@ -8,6 +8,7 @@ load "config/recipes/nginx"
 load "config/recipes/unicorn"
 load "config/recipes/postgresql"
 load "config/recipes/misc"
+load "config/recipes/sphinx"
 
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
