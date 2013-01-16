@@ -25,23 +25,41 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :company
 
+  define_index do
+    indexes "ltrim(projects.name)", as: :name, sortable: true
+    indexes description
+    indexes company.name
+    indexes authors.first_name
+    indexes authors.last_name
+
+    where "projects.draft = 'f'"
+
+    has scopes(:id), as: :scope_ids
+    has deals(:round_id), as: :round_ids
+    has "SUM(DISTINCT deals.amount_usd)", as: :total_amount, type: :integer
+  end
+
+  sphinx_scope(:in_scope) { |scope|
+    { with: { scope_ids: scope.id } }
+  }
+
+  sphinx_scope(:in_round) { |round|
+    { with: { round_ids: round } }
+  }
+
+  sphinx_scope(:order_by_name) { |direction|
+    { order: :name, sort_mode: direction }
+  }
+
+  sphinx_scope(:order_by_investments) {
+    { order: :total_amount, sort_mode: :desc }
+  }
+
   def self.suggest(string)
     return scoped unless string.present?
     search = "%#{string}%".gsub('.','_')
 
     where{ name.like(search) }
-  end
-
-  def self.search(string)
-    return scoped unless string.present?
-    search = "%#{string}%".gsub('.','_')
-
-    joins{[ company.outer, authors.outer ]}
-    .where{ name.like(search) |
-            description.like(search) |
-            company.name.like(search) |
-            authors.first_name.like(search) |
-            authors.last_name.like(search) }
   end
 
   def self.in_scope(scope)
@@ -56,5 +74,9 @@ class Project < ActiveRecord::Base
     super
     authors.each(&:publish)
     company.try(:publish)
+  end
+
+  def deals_amount
+    @deals_amount ||= deals.published.sum(:amount_usd)
   end
 end

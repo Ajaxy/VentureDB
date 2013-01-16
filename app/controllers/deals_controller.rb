@@ -5,14 +5,13 @@ class DealsController < CabinetController
     @sorter = DealSorter.new(params, view_context, default: :date)
     @filter = decorate DealFilter.new(params), view: view_context,
                                                sorter: @sorter
-
-    scope   = Deal.published.includes{[project.authors, project.scopes.parent,
-                                       investors.actor, investors.locations]}
-
+    scope   = Deal.search(
+      include: [ project: [:authors, scopes: [:parent]], investors: [:actor, :locations] ]
+    )
     scope   = paginate @sorter.sort(scope)
-    scope   = @filter.filter(scope).uniq
+    scope   = @filter.filter(scope)
 
-    @deals  = StreamDealDecorator.decorate(scope)
+    @deals  = PaginatingDecorator.decorate(paginate scope)
   end
 
   def show

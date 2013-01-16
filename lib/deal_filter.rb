@@ -4,11 +4,12 @@ class DealFilter < Filter
   LAST_YEARS = 3
 
   def filter(deals)
+    deals = deals.search(params.search.strip) if params.search.present?
     deals = deals.in_stage(stage)             if stage
     deals = deals.in_round(round)             if round
     deals = deals.for_type(type)              if type
 
-    deals = deals.with_investor_type(params.investor.to_i)
+    deals = deals.with_investor_type(params.investor.to_i) if params.investor.present?
 
     deals = deals.for_year(year)              if year
     deals = deals.in_scope(scope)             if scope
@@ -16,7 +17,6 @@ class DealFilter < Filter
     deals = deals.to_date(date_end)           if date_end
     deals = deals.from_amount(amount_start)   if amount_start
     deals = deals.to_amount(amount_end)       if amount_end
-    deals = deals.search(params.search.strip) if params.search.present?
 
     deals
   end

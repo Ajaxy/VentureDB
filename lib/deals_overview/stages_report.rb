@@ -17,7 +17,7 @@ class DealsOverview
 
     class Chart < BaseChart
       def initialize(series)
-        @series = SeriesDecorator.decorate series.select(&:name)
+        @series = SeriesDecorator.decorate_collection series.select(&:name)
       end
 
       def data

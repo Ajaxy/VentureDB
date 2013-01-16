@@ -1,0 +1,6 @@
+$("section.search .search-results").append("<%=j render partial: 'result_item', collection: @records %>");
+$("section.search .more").remove()
+
+<% unless @records.last_page? %>
+  $("section.search").append("<%=j render "more-link", collection: @records %>");
+<% end %>

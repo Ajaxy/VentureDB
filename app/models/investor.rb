@@ -13,6 +13,8 @@ class Investor < ActiveRecord::Base
 
   has_many :investments
   has_many :deals, through: :investments
+  has_many :projects, through: :deals
+  has_many :scopes, through: :projects
 
   validates :type_id, presence: true
 
@@ -38,16 +40,35 @@ class Investor < ActiveRecord::Base
 
   PERSON_TYPES = [11, 13]
 
+  define_index do
+    indexes "ltrim(investors.name)", as: :name, sortable: true
+
+    where "investors.draft = 'f'"
+
+    has scopes(:id), as: :scope_ids
+    has deals(:stage_id), as: :stage_ids
+    has "COUNT(deals.id)", as: :deals_count, type: :integer
+  end
+
+  sphinx_scope(:in_scope) { |scope|
+    { with: { scope_ids: scope.id } }
+  }
+
+  sphinx_scope(:in_stage) { |stage|
+    { with: { stage_ids: stage } }
+  }
+
+  sphinx_scope(:order_by_name) { |direction|
+    { order: :name, sort_mode: direction }
+  }
+
+  sphinx_scope(:order_by_investments) {
+    { order: :deals_count, sort_mode: :desc }
+  }
+
   def self.in_location(location)
     joins{locations}.where{(locations.lft >= location.lft) &
                            (locations.lft < location.rgt)}
-  end
-
-  def self.search(string)
-    return scoped unless string.present?
-    search = "%#{string}%".gsub('.','_')
-
-    where{ name.like(search) }
   end
 
   def self.suggest(string)
@@ -69,6 +90,10 @@ class Investor < ActiveRecord::Base
     joins{deals.project.scopes}
       .where{deals.published == true}
       .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
+  end
+
+  def self.order_by_type(direction)
+    order("type_id #{direction}")
   end
 
   def person
@@ -110,6 +135,10 @@ class Investor < ActiveRecord::Base
   def publish
     super
     actor.try(:publish)
+  end
+
+  def deals_count
+    @deals_count ||= deals.published.count
   end
 
   private

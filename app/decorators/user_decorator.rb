@@ -10,4 +10,6 @@ class UserDecorator < ApplicationDecorator
   def link
     super(text: user.email, scope: :admin)
   end
+
+  def user; source; end
 end
