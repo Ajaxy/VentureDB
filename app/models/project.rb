@@ -31,6 +31,8 @@ class Project < ActiveRecord::Base
     indexes company.name
     indexes authors.first_name
     indexes authors.last_name
+
+    where "projects.draft = 'f'"
   end
 
 

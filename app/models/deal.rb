@@ -51,6 +51,8 @@ class Deal < ActiveRecord::Base
     indexes project.authors.first_name
     indexes project.authors.last_name
     indexes investors.name
+
+    where "deals.published = 't'"
   end
 
   def self.published

@@ -40,6 +40,8 @@ class Investor < ActiveRecord::Base
 
   define_index do
     indexes name
+
+    where "investors.draft = 'f'"
   end
 
   def self.in_location(location)
