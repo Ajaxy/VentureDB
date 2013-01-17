@@ -25,3 +25,6 @@
     section
       h2 Инвестиции и гранты
       .deals-stream = render StreamDealDecorator.decorate(@project.published_deals), inline: true
+
+  - if current_user.admin?
+    = link_to "Редактировать", edit_admin_project_path(@project), class: "button"
