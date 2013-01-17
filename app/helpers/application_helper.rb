@@ -29,4 +29,8 @@ module ApplicationHelper
     render partial: 'search', locals: { placeholder: placeholder, entities: entities_string,
       autosuggest: autosuggest, navigate: navigate }
   end
+
+  def markdown(text)
+    BlueCloth.new(text).to_html.html_safe
+  end
 end

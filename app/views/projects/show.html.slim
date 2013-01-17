@@ -14,7 +14,7 @@
 .project.profile
   h1 = @project.name
   .meta = @project.meta
-  .text = simple_format @project.description
+  .text = markdown @project.description
 
   - if @project.experience?
     section
