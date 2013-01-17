@@ -12,10 +12,16 @@ class HomeController < ApplicationController
 
   def subscribe
     @subscription = Subscription.new(permitted_params.subscription)
-    if @subscription.save
+
+    if @subscription.user_registered?
+      @subscription.user.remind_already_registered
       respond_with @subscription, location: nil
     else
-      respond_with @subscription
+      if @subscription.save
+        respond_with @subscription, location: nil
+      else
+        respond_with @subscription
+      end
     end
   end
 
