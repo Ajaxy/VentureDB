@@ -31,6 +31,6 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    BlueCloth.new(text).to_html.html_safe
+    GitHub::Markdown.render_gfm(text).html_safe
   end
 end

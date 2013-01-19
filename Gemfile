@@ -23,7 +23,7 @@ gem "squeel"
 gem "unicode_utils"
 gem "virtus"
 gem "unicorn"
-gem "bluecloth"
+gem "github-markdown"
 
 group :assets do
   gem "bootstrap-sass"
