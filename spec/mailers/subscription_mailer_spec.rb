@@ -6,14 +6,20 @@ describe SubscriptionMailer do
     sub.create_user
   end
 
-  let(:mail) { SubscriptionMailer.approved(approved_user) }
+  describe "#approved" do
+    let(:mail) { SubscriptionMailer.approved(approved_user) }
 
-  it 'should have proper recipient' do
-    mail.to.should eq [approved_user.email]
-  end
+    it 'should have proper recipient' do
+      mail.to.should eq [approved_user.email]
+    end
 
-  it "should contain user's login and password" do
-    mail.body.encoded.should match(approved_user.email)
-    mail.body.encoded.should match(approved_user.password)
+    it "should contain user's login and password" do
+      mail.body.encoded.should match(approved_user.email)
+      mail.body.encoded.should match(approved_user.password)
+    end
+
+    it "should contain link to the site" do
+      mail.body.encoded.should match(Regexp.escape(root_url))
+    end
   end
 end
