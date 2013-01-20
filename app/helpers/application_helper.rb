@@ -29,8 +29,4 @@ module ApplicationHelper
     render partial: 'search', locals: { placeholder: placeholder, entities: entities_string,
       autosuggest: autosuggest, navigate: navigate }
   end
-
-  def markdown(text)
-    GitHub::Markdown.render_gfm(text).html_safe
-  end
 end

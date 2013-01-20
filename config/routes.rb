@@ -43,4 +43,6 @@ Venture::Application.routes.draw do
 
   get "/subscribed"  => "home#subscribed"
   post "/subscribed" => "home#participate"
+
+  post "/markdown/preview" => "markdown#preview"
 end
