@@ -2,9 +2,7 @@
 h1 Популярные направления инвестиций
 
 .filters
-  .horizontal-select
-    = date_select_button "Все", nil, class: "js-reload-stats"
-    = date_select_button "2012", "2012", class: "js-reload-stats"
+  .horizontal-select = years_select
 
   .sector-select.dropdown
     a.dropdown-toggle data-toggle="dropdown" href="#"

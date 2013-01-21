@@ -10,8 +10,9 @@ class DealFilterDecorator < FilterDecorator
   end
 
   def year_select(options = {})
-    start_year = options[:from] || model.start_year
-    years = start_year .. Time.current.year
+    current_year = Time.current.year
+    start_year = options[:from] || current_year - 2
+    years = start_year .. (current_year - 1)
 
     year_options = years.map { |year| [year.to_s, year.to_s] }
     year_options << ["Все", nil]
