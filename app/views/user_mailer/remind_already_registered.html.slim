@@ -1,0 +1,10 @@
+p Добрый день!
+
+p Вы отправили заявку на доступ к проекту Venture Database, но у вас уже есть учетная запись.
+  Вы можете войти
+  #{link_to 'войти', root_path}
+  под своим паролем, или
+  #{link_to 'сбросить пароль', edit_user_password_url(reset_password_token: @user.reset_password_token)}
+  , если вы его забыли.
+
+p Команда проекта Venture Database

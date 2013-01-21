@@ -4,8 +4,18 @@ class Subscription < ActiveRecord::Base
   validates :email, format: /.@./
   validates :name, presence: true
 
+  after_save :approve, if: :auto_confirm_subscription?
+
   def self.present
     where{archived_at == nil}
+  end
+
+  def user_registered?
+    email.present? and user.present?
+  end
+
+  def user
+    @user ||= User.find_by_email(self.email)
   end
 
   def archive
@@ -27,5 +37,14 @@ class Subscription < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def approve
+    user = create_user
+    SubscriptionMailer.approved(user).deliver if user.save
+  end
+
+  def auto_confirm_subscription?
+    AUTO_CONFIRM_SUBSCRIPTION
   end
 end

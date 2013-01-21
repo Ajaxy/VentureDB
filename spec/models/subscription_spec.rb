@@ -2,6 +2,24 @@
 require "spec_helper"
 
 describe Subscription do
+  describe 'callbacks' do
+    describe 'auto approve' do
+      it 'fires #approve when AUTO_CONFIRM_SUBSCRIPTION is true' do
+        subscription = Subscription.new(email: 'foo@bar.com', name: 'John Doe')
+        subscription.stub(:auto_confirm_subscription?) { true }
+        subscription.should_receive(:approve)
+        subscription.save
+      end
+
+      it 'does not file #approve when AUTO_CONFIRM_SUBSCRIPTION is false' do
+        subscription = Subscription.new(email: 'foo@bar.com', name: 'John Doe')
+        subscription.stub(:auto_confirm_subscription?) { false }
+        subscription.should_not_receive(:approve)
+        subscription.save
+      end
+    end
+  end
+
   describe "#create_user" do
     it "creates user with proper fields" do
       sub   = fabricate Subscription, email: "foo@bar.com", name: "John Doe"

@@ -13,11 +13,11 @@ class DealsOverview
     @deals  = @filter.by_year(deals).to_a
 
     if scope && scope.root?
-      @root_directions  = DirectionsReport.new(deals)
-      @directions       = DirectionsReport.new(deals, scope)
+      @root_directions  = DirectionsReport.new(@deals)
+      @directions       = DirectionsReport.new(@deals, scope)
       @deals            = @root_directions.deals_for(scope)
     else
-      @root_directions  = DirectionsReport.new(deals)
+      @root_directions  = DirectionsReport.new(@deals)
       @directions       = @root_directions
     end
   end
