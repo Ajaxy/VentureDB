@@ -13,6 +13,8 @@ class Investor < ActiveRecord::Base
 
   has_many :investments
   has_many :deals, through: :investments
+  has_many :projects, through: :deals
+  has_many :scopes, through: :projects
 
   validates :type_id, presence: true
 
@@ -38,16 +40,17 @@ class Investor < ActiveRecord::Base
 
   PERSON_TYPES = [11, 13]
 
+  define_index do
+    indexes "ltrim(investors.name)", as: :name
+
+    where "investors.draft = 'f'"
+  end
+
+  include Searchable
+
   def self.in_location(location)
     joins{locations}.where{(locations.lft >= location.lft) &
                            (locations.lft < location.rgt)}
-  end
-
-  def self.search(string)
-    return scoped unless string.present?
-    search = "%#{string}%".gsub('.','_')
-
-    where{ name.like(search) }
   end
 
   def self.suggest(string)
@@ -69,6 +72,18 @@ class Investor < ActiveRecord::Base
     joins{deals.project.scopes}
       .where{deals.published == true}
       .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
+  end
+
+  def self.order_by_type(direction)
+    order("type_id #{direction}")
+  end
+
+  def self.order_by_name(direction)
+    order("name #{direction}")
+  end
+
+  def self.order_by_investments
+    joins{deals.outer}.order("deals_count DESC")
   end
 
   def person

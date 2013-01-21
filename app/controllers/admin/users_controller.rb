@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::BaseController
   before_filter :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = decorate paginate(User.order(:email))
+    @users = PaginatingDecorator.decorate paginate(User.order(:email))
   end
 
   def show

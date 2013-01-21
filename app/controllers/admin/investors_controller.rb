@@ -6,7 +6,7 @@ class Admin::InvestorsController < Admin::BaseController
   def index
     @sorter    = InvestorSorter.new(params, view_context)
     scope      = @sorter.sort(Investor.published.with_actor)
-    @investors = decorate paginate(scope)
+    @investors = PaginatingDecorator.decorate paginate(scope)
   end
 
   def create

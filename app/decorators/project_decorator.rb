@@ -31,4 +31,8 @@ class ProjectDecorator < HasInvestmentsDecorator
     year        = company.creation_date.try(:year) if company
     [*scope_names, year].compact.join(", ")
   end
+
+  private
+
+  def project; source; end
 end

@@ -31,7 +31,7 @@ class DealsOverview
     end
 
     def data
-      SeriesDecorator.decorate(series).map do |l|
+      SeriesDecorator.decorate_collection(series).map do |l|
         [l.name, l.count, l.amount, l.amount_string, l.x, l.y ]
       end
     end

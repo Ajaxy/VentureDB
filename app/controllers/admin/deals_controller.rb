@@ -7,7 +7,7 @@ class Admin::DealsController < Admin::BaseController
   def index
     @sorter = DealSorter.new(params, view_context)
     scope   = paginate Deal.includes{[project, investors.actor]}
-    @deals  = decorate @sorter.sort(scope)
+    @deals  = PaginatingDecorator.decorate @sorter.sort(scope)
   end
 
   def show
