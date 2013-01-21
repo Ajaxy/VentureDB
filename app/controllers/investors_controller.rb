@@ -9,6 +9,7 @@ class InvestorsController < CabinetController
     scope = Investor.published.with_actor.includes{deals}
     scope = scope.joins{deals.outer}
                  .select("investors.*, count(deals.id) AS deals_count ")
+                 .where{deals.published == true}
                  .group{id}
 
     scope = @filter.filter(scope)
