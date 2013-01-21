@@ -6,7 +6,11 @@ class ProjectsController < CabinetController
     @filter = decorate ProjectFilter.new(params), view: view_context,
                                                   sorter: @sorter
 
-    scope = Project.search(include: [:company, :scopes, :authors, :deals])
+    scope = Project.published.includes{[company, scopes, authors, deals]}
+    scope = scope.joins{deals.outer}
+                 .select("projects.*, sum(deals.amount_usd) AS deals_amount")
+                 .group{id}
+
     scope = @sorter.sort(scope)
     scope = @filter.filter(scope)
 

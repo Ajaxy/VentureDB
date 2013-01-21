@@ -41,30 +41,12 @@ class Investor < ActiveRecord::Base
   PERSON_TYPES = [11, 13]
 
   define_index do
-    indexes "ltrim(investors.name)", as: :name, sortable: true
+    indexes "ltrim(investors.name)", as: :name
 
     where "investors.draft = 'f'"
-
-    has scopes(:id), as: :scope_ids
-    has deals(:stage_id), as: :stage_ids
-    has "COUNT(deals.id)", as: :deals_count, type: :integer
   end
 
-  sphinx_scope(:in_scope) { |scope|
-    { with: { scope_ids: scope.id } }
-  }
-
-  sphinx_scope(:in_stage) { |stage|
-    { with: { stage_ids: stage } }
-  }
-
-  sphinx_scope(:order_by_name) { |direction|
-    { order: :name, sort_mode: direction }
-  }
-
-  sphinx_scope(:order_by_investments) {
-    { order: :deals_count, sort_mode: :desc }
-  }
+  include Searchable
 
   def self.in_location(location)
     joins{locations}.where{(locations.lft >= location.lft) &
@@ -94,6 +76,14 @@ class Investor < ActiveRecord::Base
 
   def self.order_by_type(direction)
     order("type_id #{direction}")
+  end
+
+  def self.order_by_name(direction)
+    order("name #{direction}")
+  end
+
+  def self.order_by_investments
+    joins{deals.outer}.order("deals_count DESC")
   end
 
   def person
@@ -135,10 +125,6 @@ class Investor < ActiveRecord::Base
   def publish
     super
     actor.try(:publish)
-  end
-
-  def deals_count
-    @deals_count ||= deals.published.count
   end
 
   private
