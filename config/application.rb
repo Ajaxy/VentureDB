@@ -74,5 +74,5 @@ module Venture
 end
 
 AUTO_CONFIRM_SUBSCRIPTION = true
-SUBSCRIPTION_CONFIRMATION_FROM_ADDR = "ai@venture.bi"
+FROM_EMAIL_ADDRESS = "ai@venturedatabase.ru"
 SEARCH_AUTOSUGGEST_LIMIT = 5
