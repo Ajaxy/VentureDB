@@ -35,6 +35,9 @@ jQuery ->
 
   $(".promo form.new_subscription").on "ajax:success", (e, data, status, xhr) ->
     $("input.btn, span.or", e.currentTarget).hide()
+    $submit = $(".submit", e.currentTarget)
+    $submit.addClass "submitted"
+    $submit.find('a').addClass "btn"
 
   $(".promo form").on "ajax:error", (e, data, status, xhr) ->
     data = $.parseJSON(data.responseText)

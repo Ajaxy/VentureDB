@@ -17,5 +17,9 @@ describe SubscriptionMailer do
       mail.body.encoded.should match(approved_user.email)
       mail.body.encoded.should match(approved_user.password)
     end
+
+    it "should contain link to the site" do
+      mail.body.encoded.should match(Regexp.escape(root_url))
+    end
   end
 end
