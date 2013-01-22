@@ -2,7 +2,7 @@
   =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
   =' f.text_field :first_name, class: "span3", placeholder: "Имя"
   =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
-= f.text_area :description, class: "span8 js-markdown", placeholder: "Описание инвестора", rows: 6
+= f.markdown_textarea :description, class: "span8", placeholder: "Описание инвестора", rows: 6
 .form-horizontal.control-group
   =' f.email_field :email, class: "span3", placeholder: "Email"
   =' f.text_field :phone, class: "span3", placeholder: "Телефон"

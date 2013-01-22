@@ -8,7 +8,7 @@
       fieldset
         legend Информация о проекте
         = f.text_field :name, class: "span8", placeholder: "Название проекта"
-        = f.text_area :description, class: "span8 js-markdown", rows: 6, placeholder: "Краткое бизнес-описание"
+        = f.markdown_textarea :description, class: "span8", rows: 6, placeholder: "Краткое бизнес-описание"
 
         = f.label :scope_ids, "Сектор и сфера деятельности"
         = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
