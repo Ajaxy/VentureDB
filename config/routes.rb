@@ -36,7 +36,8 @@ Venture::Application.routes.draw do
   resources :statistics, only: %w[index]
   resources :researches, only: %w[index]
 
-  get "search/suggest" => "search#suggest"
+  get "/search" => "search#index"
+  get "/search/suggest" => "search#suggest"
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"

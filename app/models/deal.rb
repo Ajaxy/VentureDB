@@ -6,6 +6,7 @@ class Deal < ActiveRecord::Base
 
   has_many :investments
   has_many :investors, through: :investments
+  has_many :scopes, through: :project
 
   STATUSES = {
     1 => "Анонсированная",
@@ -44,6 +45,18 @@ class Deal < ActiveRecord::Base
     4 => "Поглощение",
     5 => "IPO",
   }
+
+  define_index do
+    indexes project.name
+    indexes project.company.name
+    indexes project.authors.first_name
+    indexes project.authors.last_name
+    indexes investors.name
+
+    where "deals.published = 't'"
+  end
+
+  include Searchable
 
   def self.published
     where{published == true}
@@ -94,17 +107,6 @@ class Deal < ActiveRecord::Base
     where{amount <= value}
   end
 
-  def self.search(string)
-    return scoped unless string.present?
-    search = "%#{string}%".gsub('.','_')
-    joins{[ project.company.outer, project.authors.outer, investors ]}
-    .where{ project.name.like(search) |
-            project.company.name.like(search) |
-            project.authors.first_name.like(search) |
-            project.authors.last_name.like(search) |
-            investors.name.like(search) }
-  end
-
   def self.for_period(period)
     where{coalesce(contract_date, announcement_date) >= period.begin}.
     where{coalesce(contract_date, announcement_date) <= period.end}
@@ -125,6 +127,15 @@ class Deal < ActiveRecord::Base
     else
       raise ArgumentError
     end
+  end
+
+  def self.order_by_amount(direction)
+    order("amount_usd #{direction} nulls last")
+  end
+
+  def self.order_by_started_at(direction)
+    select("deals.*, coalesce(contract_date, announcement_date) AS date")
+      .order("date DESC")
   end
 
   def amount

@@ -20,12 +20,15 @@ class ApplicationController < ActionController::Base
     end
 
     decorator = "#{klass}Decorator".constantize rescue ApplicationDecorator
-    decorator.decorate(input, options)
+    method = input.respond_to?(:each) ? decorator.method(:decorate_collection) : decorator.method(:decorate)
+    method.call(input, options)
   end
   helper_method :decorate
 
   def paginate(scope, per = 50)
-    scope = Kaminari.paginate_array(scope) if scope.is_a?(Array)
+    if scope.is_a?(Array) and not scope.is_a?(ThinkingSphinx::Search)
+      scope = Kaminari.paginate_array(scope)
+    end
     scope.page(params[:page]).per(per)
   end
 

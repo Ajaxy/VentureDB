@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-class ApplicationDecorator < Draper::Base
+class ApplicationDecorator < Draper::Decorator
   delegate :downcase, :upcase, to: :UnicodeUtils
+  delegate_all
 
   def link(options = {})
     text  = options[:text] || model.name

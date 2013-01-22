@@ -2,9 +2,9 @@
 
 class FilterDecorator < ApplicationDecorator
   def initialize(filter, options = {})
+    @view   = options.delete(:view)
+    @sorter = options.delete(:sorter)
     super
-    @view   = options[:view]
-    @sorter = options[:sorter]
   end
 
   def round_select
@@ -14,7 +14,7 @@ class FilterDecorator < ApplicationDecorator
   def stage_select
     @view.render "filter/stage-select", filter: self
   end
-  
+
   def sector_select
     @view.render "filter/sector-select", filter: self
   end

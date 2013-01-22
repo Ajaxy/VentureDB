@@ -30,7 +30,7 @@
             th = Deal::STAGES[5]
             th Нет данных
         tbody
-          - SeriesDecorator.decorate(@directions.series).each do |direction|
+          - SeriesDecorator.decorate_collection(@directions.series).each do |direction|
             tr
               td.left = link_to direction.name, deals_path(scope: direction.scope)
               td = direction.amount_string

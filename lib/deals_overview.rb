@@ -44,7 +44,11 @@ class DealsOverview
 
   def decorate(report_name)
     report = send(report_name)
-    report = report.series if report.respond_to?(:series)
-    SeriesDecorator.decorate(report)
+    if report.respond_to?(:series)
+      SeriesDecorator.decorate_collection(report.series)
+    else
+      SeriesDecorator.decorate(report)
+    end
+
   end
 end
