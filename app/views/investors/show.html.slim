@@ -10,6 +10,8 @@
 .investor.profile
   h1 = @investor.name
   .meta = @investor.meta
+  - if @investor.actor.description.present?
+    .text = markdown @investor.actor.description
 
   - if @investor.published_deals.any?
     section.overview
@@ -44,3 +46,5 @@
       h2 Хроника
       .deals-stream = render StreamDealDecorator.decorate(@investor.published_deals), inline: true
 
+  - if current_user.admin?
+    = link_to "Редактировать", admin_investor_path(@investor), class: "button"

@@ -14,7 +14,7 @@
 .project.profile
   h1 = @project.name
   .meta = @project.meta
-  .text = simple_format @project.description
+  .text = markdown @project.description
 
   - if @project.experience?
     section
@@ -25,3 +25,6 @@
     section
       h2 Инвестиции и гранты
       .deals-stream = render StreamDealDecorator.decorate(@project.published_deals), inline: true
+
+  - if current_user.admin?
+    = link_to "Редактировать", edit_admin_project_path(@project), class: "button"

@@ -23,6 +23,7 @@ gem "squeel"
 gem "unicode_utils"
 gem "virtus"
 gem "unicorn"
+gem "github-markdown"
 gem "thinking-sphinx", "~>2.0.14"
 gem "whenever", :require => false
 

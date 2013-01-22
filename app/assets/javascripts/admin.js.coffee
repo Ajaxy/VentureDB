@@ -3,6 +3,8 @@
 #= require jquery.ui.all
 #= require bootstrap
 #= require chosen-jquery
+#= require jquery.autosize
+#= require lib/markdown
 
 class Form
   error: (formHTML, $el = @popup) ->
@@ -169,3 +171,6 @@ jQuery ->
     $form.data("target", "#" + $(this).closest(".container-popup").attr("id"))
     $form.modal("show")
     false
+
+  $("textarea.js-markdown").markdown
+    url: "/markdown/preview"
