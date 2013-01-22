@@ -25,23 +25,23 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :company
 
+  define_index do
+    indexes "ltrim(projects.name)", as: :name
+    indexes description
+    indexes company.name
+    indexes authors.first_name
+    indexes authors.last_name
+
+    where "projects.draft = 'f'"
+  end
+
+  include Searchable
+
   def self.suggest(string)
     return scoped unless string.present?
     search = "%#{string}%".gsub('.','_')
 
     where{ name.like(search) }
-  end
-
-  def self.search(string)
-    return scoped unless string.present?
-    search = "%#{string}%".gsub('.','_')
-
-    joins{[ company.outer, authors.outer ]}
-    .where{ name.like(search) |
-            description.like(search) |
-            company.name.like(search) |
-            authors.first_name.like(search) |
-            authors.last_name.like(search) }
   end
 
   def self.in_scope(scope)
@@ -50,6 +50,18 @@ class Project < ActiveRecord::Base
 
   def self.in_round(round)
     joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
+  end
+
+  def self.order_by_name(direction)
+    order("projects.name #{direction}")
+  end
+
+  def self.order_by_investments
+    joins{deals.outer}
+      .select("projects.*, sum(deals.amount_usd) AS total_amount")
+      .order("total_amount desc nulls last")
+      .group{id}
+      .where{deals.published == true}
   end
 
   def publish

@@ -9,11 +9,13 @@ class ProjectsController < CabinetController
     scope = Project.published.includes{[company, scopes, authors, deals]}
     scope = scope.joins{deals.outer}
                  .select("projects.*, sum(deals.amount_usd) AS deals_amount")
+                 .where{deals.published == true}
                  .group{id}
-    scope = @sorter.sort(scope)
-    scope = @filter.filter(scope).uniq
 
-    @projects = decorate paginate(scope)
+    scope = @sorter.sort(scope)
+    scope = @filter.filter(scope)
+
+    @projects = PaginatingDecorator.decorate paginate(scope)
   end
 
   def show

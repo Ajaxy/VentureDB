@@ -6,7 +6,7 @@ class Admin::ProjectsController < Admin::BaseController
   def index
     @sorter   = ProjectSorter.new(params, view_context)
     scope     = paginate Project.published.includes{[company, scopes, authors]}
-    @projects = decorate @sorter.sort(scope)
+    @projects = PaginatingDecorator.decorate @sorter.sort(scope)
   end
 
   def create

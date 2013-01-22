@@ -1,12 +1,17 @@
 require "rvm/capistrano"
 require "bundler/capistrano"
 require "capistrano_colors"
+require "thinking_sphinx/deploy/capistrano"
 
 load "config/recipes/base"
 load "config/recipes/nginx"
 load "config/recipes/unicorn"
 load "config/recipes/postgresql"
 load "config/recipes/misc"
+load "config/recipes/sphinx"
+
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 
 set :host, "176.58.108.251"
 server host, :web, :app, :db, primary: true

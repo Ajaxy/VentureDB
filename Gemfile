@@ -23,6 +23,8 @@ gem "squeel"
 gem "unicode_utils"
 gem "virtus"
 gem "unicorn"
+gem "thinking-sphinx", "~>2.0.14"
+gem "whenever", :require => false
 
 group :assets do
   gem "bootstrap-sass"
@@ -46,6 +48,7 @@ group :development, :test do
   gem "quiet_assets"
   # gem "factory_girl_rails"
   gem "rspec-rails"
+  gem "database_cleaner"
 end
 
 group :production do
