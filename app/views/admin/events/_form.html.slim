@@ -6,7 +6,7 @@
       fieldset
         legend Информация о мероприятии
         = f.text_field :name, class: "span8", placeholder: "Название мероприятия"
-        = f.text_area :description, class: "span8", rows: 6, placeholder: "Описание мероприятия"
+        = f.markdown_textarea :description, class: "span8", rows: 6, placeholder: "Описание мероприятия"
 
   .form-actions
     .offset4
