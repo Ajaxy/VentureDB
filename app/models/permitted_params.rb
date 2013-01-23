@@ -51,7 +51,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def company_attributes
-    %w[name full_name form place]
+    %w[name full_name form place description]
   end
 
   def deal_attributes
@@ -70,7 +70,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def person_attributes
-    %w[first_name last_name middle_name email phone]
+    %w[first_name last_name middle_name email phone description]
   end
 
   def project_attributes

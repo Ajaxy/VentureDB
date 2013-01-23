@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130123080302) do
+=======
+ActiveRecord::Schema.define(:version => 20130117121826) do
+>>>>>>> entity_show_improvements
 
   create_table "companies", :force => true do |t|
     t.string   "name"
