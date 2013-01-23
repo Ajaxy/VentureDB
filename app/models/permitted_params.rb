@@ -40,6 +40,10 @@ class PermittedParams < Struct.new(:params, :user)
       person_attributes: person_attributes)
   end
 
+  def event
+    params.require(:event).permit(:name, :description)
+  end
+
   private
 
   def actor_attributes

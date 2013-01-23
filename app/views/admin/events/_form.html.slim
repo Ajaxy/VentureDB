@@ -1,0 +1,17 @@
+= form_for [:admin, @event], html: { class: "event" } do |f|
+  h1 Мероприятие
+  hr
+  .row
+    .span8
+      fieldset
+        legend Информация о мероприятии
+        = f.text_field :name, class: "span8", placeholder: "Название мероприятия"
+        = f.text_area :description, class: "span8", rows: 6, placeholder: "Описание мероприятия"
+
+  .form-actions
+    .offset4
+      button.btn.btn-large.btn-primary
+        = @event.persisted? ? "Сохранить" : "Создать"
+      '
+      a.btn.btn-large[ href=url_for([:admin, :events])
+                       data-dismiss="dialog"] Отмена
