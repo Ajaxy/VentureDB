@@ -13,5 +13,4 @@
       button.btn.btn-large.btn-primary
         = @event.persisted? ? "Сохранить" : "Создать"
       '
-      a.btn.btn-large[ href=url_for([:admin, :events])
-                       data-dismiss="dialog"] Отмена
+      = link_to "Отмена", [:admin, :events], class: "btn btn-large"
