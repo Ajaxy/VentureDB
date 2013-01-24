@@ -208,7 +208,7 @@ jQuery ->
         .data(id: entityId)
       $entry.append $controls
       $entry.append $input
-      $entry.append("<strong>" + selectedText + "</strong>")
+      $entry.append("<strong>" + selectedText.replace(/\(.*\)$/, '') + "</strong>")
 
       $entriesList.append($entry)
 

@@ -6,8 +6,9 @@ class SearchController < CabinetController
   CLASSES_FOR_SEARCH = [Deal, Project, Investor].freeze
 
   def index
-    records  = ThinkingSphinx.search(params[:search], classes: CLASSES_FOR_SEARCH).
-      page(params[:page])
+    records  = ThinkingSphinx
+      .search(params[:search], classes: CLASSES_FOR_SEARCH)
+      .page(params[:page])
     @records = PaginatingDecorator.decorate records
   end
 
@@ -15,6 +16,6 @@ class SearchController < CabinetController
     suggester = Suggester.new(params[:query], params[:entities])
     entities  = suggester.suggest
 
-    respond_with(entities)
+    respond_with(entities.as_json(title_with_type: suggester.multi_entities?))
   end
 end
