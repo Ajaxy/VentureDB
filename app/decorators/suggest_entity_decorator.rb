@@ -7,6 +7,7 @@ class SuggestEntityDecorator < ApplicationDecorator
 
   def as_json(options = {})
     {
+      id:    id,
       type:  source.class.name.downcase,
       title: title,
       url:   helpers.url_for(source)

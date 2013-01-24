@@ -3,7 +3,7 @@
 table.table
   thead
     tr
-      th Название
+      th = @sorter.header "Название", :name
   tbody
     - @events.each do |event|
       tr

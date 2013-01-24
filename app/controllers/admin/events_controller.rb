@@ -4,8 +4,9 @@ class Admin::EventsController < Admin::BaseController
   before_filter :find_event, only: [:show, :edit, :update, :destroy]
 
   def index
+    @sorter  = EventSorter.new(params, view_context)
     scope    = paginate Event.scoped
-    @events  = PaginatingDecorator.decorate scope
+    @events  = PaginatingDecorator.decorate @sorter.sort(scope)
   end
 
   def show

@@ -174,3 +174,43 @@ jQuery ->
 
   $("textarea.js-markdown").markdown
     url: "/markdown/preview"
+
+  $("form.event input[data-autosuggest='true']").typeahead
+    minLength: 2
+
+    source: (query, process) ->
+      typeahead = @
+      $.ajax
+        dataType: "json"
+        url:  "/search/suggest"
+        data:
+          query     : query
+          entities  : @$element.data "autosuggest-entities"
+        success: (response) ->
+          typeahead.items = response
+          process $.map(response, (item) -> item.title)
+
+    updater: (selectedText) ->
+      selectedItem = $.grep(@items, (item) -> item.title == selectedText)[0]
+      $entriesList = @.$element.siblings ".entries-list"
+      inputName    = "event[" + selectedItem.type + "_" + $entriesList.data("type") + "_ids][]"
+      entityId     = selectedItem.id
+
+      $input = $("<input/>").
+        attr(type: "hidden", name: inputName).
+        val(entityId)
+
+      $controls = $("<div/>").addClass "controls"
+      $controls.append $("<span/>").append($("<i/>").addClass("icon-remove"))
+
+      $entry = $("<div/>")
+        .addClass("entry")
+        .data(id: entityId)
+      $entry.append $controls
+      $entry.append $input
+      $entry.append("<strong>" + selectedText + "</strong>")
+
+      $entriesList.append($entry)
+
+      return ""
+
