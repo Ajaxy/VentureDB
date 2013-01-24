@@ -87,6 +87,7 @@ class PermittedParams < Struct.new(:params, :user)
 
   def event_attributes
     %w[name description investor_organizer_ids project_organizer_ids
-      investor_participant_ids project_participant_ids]
+      investor_organizer_ids project_participant_ids
+      company_organizer_ids company_participant_ids]
   end
 end

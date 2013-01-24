@@ -1,14 +1,15 @@
 class Event < ActiveRecord::Base
+  INVOLVED_CLASSES = [Project, Investor, Company].freeze
+
   has_many :event_organizers
   has_many :event_participants
-  has_many :project_organizers, through: :event_organizers,
-    source: :organizer, source_type: 'Project'
-  has_many :investor_organizers, through: :event_organizers,
-    source: :organizer, source_type: 'Investor'
-  has_many :project_participants, through: :event_participants,
-    source: :participant, source_type: 'Project'
-  has_many :investor_participants, through: :event_participants,
-    source: :participant, source_type: 'Investor'
+
+  INVOLVED_CLASSES.each do |klass|
+    has_many "#{klass.to_s.downcase}_organizers", through: :event_organizers,
+      source: :organizer, source_type: klass.to_s
+    has_many "#{klass.to_s.downcase}_participants", through: :event_participants,
+      source: :participant, source_type: klass.to_s
+  end
 
   validates :name, presence: true
 

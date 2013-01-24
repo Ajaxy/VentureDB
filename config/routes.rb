@@ -36,6 +36,7 @@ Venture::Application.routes.draw do
   resources :investors, only: %w[index show]
   resources :statistics, only: %w[index]
   resources :researches, only: %w[index]
+  resources :companies, only: %w[show]
 
   get "/search" => "search#index"
   get "/search/suggest" => "search#suggest"

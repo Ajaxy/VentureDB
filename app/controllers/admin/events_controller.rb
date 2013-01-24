@@ -32,7 +32,7 @@ class Admin::EventsController < Admin::BaseController
 
   def update
     if @event.update_attributes(permitted_params.event)
-      redirect_to [:admin, @event], notice: "Событие успешно обновлено."
+      redirect_to [:admin, @event], notice: "Мероприятие успешно обновлено."
     else
       render :edit
     end
