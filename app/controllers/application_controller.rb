@@ -46,4 +46,9 @@ class ApplicationController < ActionController::Base
       raise_404
     end
   end
+
+  def markdown(text)
+    GitHub::Markdown.render_gfm(text).html_safe
+  end
+  helper_method :markdown
 end

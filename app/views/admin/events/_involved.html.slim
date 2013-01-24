@@ -1,0 +1,15 @@
+- Event::INVOLVED_CLASSES.each do |klass|
+  = hidden_field_tag "event[#{klass.to_s.downcase}_#{type}_ids][]"
+
+= text_field_tag :search, '', placeholder: "Поиск по названию проекта или инвестора",
+  data: { autosuggest: true, autosuggest_entities: "project,investor,company" },
+  autocomplete: 'off', class: "span8"
+
+.entries-list data-type=type
+  - entities.each do |entity|
+    .entry
+      .controls
+        span
+          i.icon-remove
+      = hidden_field_tag "event[#{entity.class.to_s.downcase}_#{type}_ids][]", entity.id
+      strong = entity.name

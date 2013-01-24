@@ -1,0 +1,11 @@
+.markdown-container
+  ul.nav.nav-tabs
+    li.active = link_to("Редактировать", "#edit_#{random_id}", data: { toggle: "tab" })
+    li = link_to("Предпросмотр", "#preview_#{random_id}", data: { toggle: "tab" }, class: "toggle-preview")
+
+  .tab-content
+    .tab-pane.active id="edit_#{random_id}" = textarea
+    .tab-pane.preview id="preview_#{random_id}"
+
+  = render partial: "markdown_help", locals: { random_id: random_id }
+  = link_to("Справка по markdown", "#markdown_help_#{random_id}", style: "display: inline-block; margin-bottom: 20px", data: { toggle: "modal"}, role: "button")

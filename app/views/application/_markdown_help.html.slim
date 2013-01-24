@@ -1,0 +1,52 @@
+div id="markdown_help_#{random_id}" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true"
+  div class="modal-body"
+    h3 Форматирование текста
+    p Заголовки
+    pre
+      |
+        # Это тег &lt;h1&gt;
+        ## Это тег &lt;h2&gt;
+        ### Это тег &lt;h3&gt;
+
+    p Стили текста
+    pre
+      |
+        *Этот текст будет курсивным*
+        _Этот текст тоже будет курсивным_
+        **Этот текст будет жирным**
+        __Этот текст тоже будет жирным__
+
+
+    h3 Списки
+    p Неупорядоченные
+    pre
+      |
+        * Элемент 1
+        * Элемент 2
+          * Элемент 2a
+          * Элемент 2b
+
+    p Упорядоченные
+    pre
+      |
+        1. Элемент 1
+        2. Элемент 2
+        3. Элемент 3
+          * Элемент 3a
+          * Элемент 3b
+
+    h3 Прочее
+    p Изображения
+    pre
+      |
+        ![Логотип](/images/logo.png)\n
+        Формат: ![Alt text](url)
+
+    p Ссылки
+    pre
+      |
+        http://google.com - автоматически!\n
+        [Google](http://google.com)
+
+  div class="modal-footer"
+    button class="btn" data-dismiss="modal" aria-hidden="true" Закрыть
