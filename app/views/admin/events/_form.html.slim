@@ -1,0 +1,35 @@
+= form_for [:admin, @event], html: { class: "event" } do |f|
+  h1 Мероприятие
+  hr
+  .row
+    .span4
+      p Общая информация о мероприятии.
+    .span8
+      fieldset
+        legend Информация о мероприятии
+        = f.text_field :name, class: "span8", placeholder: "Название мероприятия"
+        = f.markdown_textarea :description, class: "span8", rows: 6, placeholder: "Описание мероприятия"
+  hr
+  .row
+    .span4
+      p.help-block Укажите одного или нескольких организаторов мероприятия
+    .span8
+      fieldset
+        legend Организаторы мероприятия
+        = render partial: "involved", locals: { entities: @event.organizers, type: "organizer" }
+
+  hr
+  .row
+    .span4
+      p.help-block Укажите одного или нескольких участников мероприятия
+    .span8
+      fieldset
+        legend Участники мероприятия
+        = render partial: "involved", locals: { entities: @event.participants, type: "participant" }
+
+  .form-actions
+    .offset4
+      button.btn.btn-large.btn-primary
+        = @event.persisted? ? "Сохранить" : "Создать"
+      '
+      = link_to "Отмена", [:admin, :events], class: "btn btn-large"

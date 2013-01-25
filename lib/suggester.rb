@@ -13,8 +13,13 @@ class Suggester
       klass.suggest(@query).limit(SEARCH_AUTOSUGGEST_LIMIT)
     end.flatten
 
-    SuggestEntityDecorator.decorate_collection(found).sort_by(&:name).
-      first(SEARCH_AUTOSUGGEST_LIMIT)
+    SuggestEntityDecorator.decorate_collection(found)
+      .sort_by(&:name)
+      .first(SEARCH_AUTOSUGGEST_LIMIT)
+  end
+
+  def multi_entities?
+    entities_classes.size > 1
   end
 
   private

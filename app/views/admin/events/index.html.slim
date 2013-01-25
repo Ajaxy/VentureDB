@@ -1,0 +1,13 @@
+.pull-right = link_to "Новое мероприятие", [:new, :admin, :event], class: "btn btn-primary"
+
+table.table
+  thead
+    tr
+      th = @sorter.header "Название", :name
+  tbody
+    - @events.each do |event|
+      tr
+        td = event.link(scope: :admin)
+
+= paginate @events
+

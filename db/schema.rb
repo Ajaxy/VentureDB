@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215174714) do
+ActiveRecord::Schema.define(:version => 20130123114212) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20121215174714) do
     t.text     "employees"
     t.text     "founders"
     t.text     "direction"
+    t.text     "description"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
@@ -62,6 +63,31 @@ ActiveRecord::Schema.define(:version => 20121215174714) do
   add_index "deals", ["round_id"], :name => "index_deals_on_round_id"
   add_index "deals", ["stage_id"], :name => "index_deals_on_stage_id"
   add_index "deals", ["status_id"], :name => "index_deals_on_status_id"
+
+  create_table "event_organizers", :force => true do |t|
+    t.integer "event_id"
+    t.string  "organizer_type"
+    t.integer "organizer_id"
+  end
+
+  add_index "event_organizers", ["event_id"], :name => "index_event_organizers_on_event_id"
+  add_index "event_organizers", ["organizer_type", "organizer_id"], :name => "index_event_organizers_on_organizer_type_and_organizer_id"
+
+  create_table "event_participants", :force => true do |t|
+    t.string  "participant_type"
+    t.integer "participant_id"
+    t.integer "event_id"
+  end
+
+  add_index "event_participants", ["event_id"], :name => "index_event_participants_on_event_id"
+  add_index "event_participants", ["participant_type", "participant_id"], :name => "index_event_participants_on_participant_type_and_participant_id"
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "investments", :force => true do |t|
     t.integer  "investor_id"
@@ -138,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20121215174714) do
     t.boolean  "draft",       :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.text     "description"
   end
 
   create_table "project_authors", :force => true do |t|

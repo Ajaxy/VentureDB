@@ -28,6 +28,7 @@ Venture::Application.routes.draw do
 
     resources :people
     resources :investments
+    resources :events
   end
 
   resources :deals, only: %w[index]
@@ -35,6 +36,7 @@ Venture::Application.routes.draw do
   resources :investors, only: %w[index show]
   resources :statistics, only: %w[index]
   resources :researches, only: %w[index]
+  resources :companies, only: %w[show]
 
   get "/search" => "search#index"
   get "/search/suggest" => "search#suggest"
@@ -44,4 +46,6 @@ Venture::Application.routes.draw do
 
   get "/subscribed"  => "home#subscribed"
   post "/subscribed" => "home#participate"
+
+  post "/markdown/preview" => "markdown#preview"
 end

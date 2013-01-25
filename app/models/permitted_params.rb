@@ -40,6 +40,10 @@ class PermittedParams < Struct.new(:params, :user)
       person_attributes: person_attributes)
   end
 
+  def event
+    params.require(:event).permit(*event_attributes)
+  end
+
   private
 
   def actor_attributes
@@ -47,7 +51,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def company_attributes
-    %w[name full_name form place]
+    %w[name full_name form place description]
   end
 
   def deal_attributes
@@ -66,7 +70,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def person_attributes
-    %w[first_name last_name middle_name email phone]
+    %w[first_name last_name middle_name email phone description]
   end
 
   def project_attributes
@@ -79,5 +83,11 @@ class PermittedParams < Struct.new(:params, :user)
 
   def user_attributes
     %w[type email password]
+  end
+
+  def event_attributes
+    %w[name description investor_organizer_ids project_organizer_ids
+      investor_organizer_ids project_participant_ids
+      company_organizer_ids company_participant_ids]
   end
 end
