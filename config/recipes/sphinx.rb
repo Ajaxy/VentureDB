@@ -1,6 +1,6 @@
-before 'deploy:update_code', 'thinking_sphinx:stop'
-after 'deploy:update_code', 'sphinx:create_config'
-after 'deploy:update_code', 'thinking_sphinx:start'
+before "deploy:update_code", "thinking_sphinx:stop"
+after "deploy:update_code", "thinking_sphinx:start"
+after "deploy:update_code", "sphinx:reindex"
 
 namespace :sphinx do
   desc "Symlink Sphinx indexes"
@@ -8,10 +8,10 @@ namespace :sphinx do
     run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
   end
 
-  desc "Create searchd config"
-  task :create_config, roles: [:app] do
-    run("cd #{deploy_to}/current && /usr/bin/env rake ts:config RAILS_ENV=production")
+  desc "Regenerate indexes"
+  task :reindex, roles: [:app] do
+    run("cd #{deploy_to}/current && #{rake} ts:reindex RAILS_ENV=production")
   end
 end
 
-after 'deploy:finalize_update', 'sphinx:symlink_indexes'
+after "deploy:finalize_update", "sphinx:symlink_indexes"
