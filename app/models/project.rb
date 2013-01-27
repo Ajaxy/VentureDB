@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :company
 
-  define_index do
+  define_index "projects_index" do
     indexes "ltrim(projects.name)", as: :name
     indexes description
     indexes company.name
@@ -33,6 +33,17 @@ class Project < ActiveRecord::Base
     indexes authors.last_name
 
     where "projects.draft = 'f'"
+  end
+
+  define_index "projects_prefix_index" do
+    indexes "ltrim(projects.name)", as: :name
+    indexes description
+    indexes company.name
+    indexes authors.first_name
+    indexes authors.last_name
+
+    where "projects.draft = 'f'"
+    set_property min_prefix_len: 3
   end
 
   include Searchable
