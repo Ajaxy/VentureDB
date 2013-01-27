@@ -103,6 +103,11 @@ describe SearchController do
   end
 
   describe "GET #index" do
+    it "left @records unassigned when no query was passed" do
+      get :index
+      assigns(:records).should be_nil
+    end
+
     sphinx_environment :deals, :projects, :investors, :users do
       it "searches for deals, projects and investors" do
         investor = fabricate(Investor, name: 'Test investor')
