@@ -46,7 +46,7 @@ class Deal < ActiveRecord::Base
     5 => "IPO",
   }
 
-  define_index do
+  define_index "deals_index" do
     indexes project.name
     indexes project.company.name
     indexes project.authors.first_name
@@ -54,6 +54,17 @@ class Deal < ActiveRecord::Base
     indexes investors.name
 
     where "deals.published = 't'"
+  end
+
+  define_index "deals_prefix_index" do
+    indexes project.name
+    indexes project.company.name
+    indexes project.authors.first_name
+    indexes project.authors.last_name
+    indexes investors.name
+
+    where "deals.published = 't'"
+    set_property min_prefix_len: 3
   end
 
   include Searchable

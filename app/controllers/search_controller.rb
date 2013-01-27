@@ -8,7 +8,7 @@ class SearchController < CabinetController
   def index
     if params[:search].present?
       records  = ThinkingSphinx
-        .search(params[:search], classes: CLASSES_FOR_SEARCH)
+        .search(params[:search], classes: CLASSES_FOR_SEARCH, star: true)
         .page(params[:page])
       @records = PaginatingDecorator.decorate records
     end

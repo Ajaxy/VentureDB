@@ -1,5 +1,6 @@
 defaults: &defaults
   morphology: stem_enru
+  enable_star: true
   port: 9312
 
 development:

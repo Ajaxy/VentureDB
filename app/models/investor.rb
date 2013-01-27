@@ -40,10 +40,17 @@ class Investor < ActiveRecord::Base
 
   PERSON_TYPES = [11, 13]
 
-  define_index do
+  define_index "investors_index" do
     indexes "ltrim(investors.name)", as: :name
 
     where "investors.draft = 'f'"
+  end
+
+  define_index "prefix_investors_index" do
+    indexes "ltrim(investors.name)", as: :name
+
+    where "investors.draft = 'f'"
+    set_property min_prefix_len: 3
   end
 
   include Searchable

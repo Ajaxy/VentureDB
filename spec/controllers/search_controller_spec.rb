@@ -131,8 +131,17 @@ describe SearchController do
         assigns(:records).map(&:model).should =~ [investor]
       end
 
+      it "find records with query as a part of word" do
+        investor = fabricate(Investor, name: "Microsoft")
+
+        ThinkingSphinx::Test.index
+
+        get :index, search: "micro"
+        assigns(:records).map(&:model).should =~ [investor]
+      end
+
       it "finds records with extra words" do
-        project = fabricate(Project, name: 'Социальные прекрасные сети')
+        project = fabricate(Project, name: "Социальные прекрасные сети")
 
         ThinkingSphinx::Test.index
 
@@ -147,7 +156,7 @@ describe SearchController do
 
         ThinkingSphinx::Test.index
 
-        get :index, search: 'социальные'
+        get :index, search: "социальные"
         assigns(:records).map(&:model).should =~ [project1, project2, project3]
       end
     end
