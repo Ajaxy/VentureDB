@@ -103,6 +103,11 @@ describe SearchController do
   end
 
   describe "GET #index" do
+    it "left @records unassigned when no query was passed" do
+      get :index
+      assigns(:records).should be_nil
+    end
+
     sphinx_environment :deals, :projects, :investors, :users do
       it "searches for deals, projects and investors" do
         investor = fabricate(Investor, name: 'Test investor')
@@ -126,8 +131,17 @@ describe SearchController do
         assigns(:records).map(&:model).should =~ [investor]
       end
 
+      it "find records with query as a part of word" do
+        investor = fabricate(Investor, name: "Microsoft")
+
+        ThinkingSphinx::Test.index
+
+        get :index, search: "micro"
+        assigns(:records).map(&:model).should =~ [investor]
+      end
+
       it "finds records with extra words" do
-        project = fabricate(Project, name: 'Социальные прекрасные сети')
+        project = fabricate(Project, name: "Социальные прекрасные сети")
 
         ThinkingSphinx::Test.index
 
@@ -142,7 +156,7 @@ describe SearchController do
 
         ThinkingSphinx::Test.index
 
-        get :index, search: 'социальные'
+        get :index, search: "социальные"
         assigns(:records).map(&:model).should =~ [project1, project2, project3]
       end
     end
