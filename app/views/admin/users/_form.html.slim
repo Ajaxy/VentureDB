@@ -19,7 +19,7 @@
   fieldset
     legend Информация о персоне
     = f.fields_for :person, (@user.person || Person.new) do |f|
-      = render "person_fields", f: f
+      = render "person_fields", f: f, placeholder: "Описание"
 
   .form-actions
     .offset4
