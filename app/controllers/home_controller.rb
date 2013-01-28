@@ -15,10 +15,14 @@ class HomeController < ApplicationController
 
     if @subscription.user_registered?
       @subscription.user.remind_already_registered
-      respond_with @subscription, location: nil
+      respond_with(@subscription, location: nil) do |format|
+        format.html { redirect_to root_path }
+      end
     else
       if @subscription.save
-        respond_with @subscription, location: nil
+        respond_with(@subscription, location: nil) do |format|
+          format.html { redirect_to root_path }
+        end
       else
         respond_with @subscription
       end
