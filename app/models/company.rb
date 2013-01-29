@@ -29,8 +29,4 @@ class Company < ActiveRecord::Base
   def self.order_by_name(direction)
     order("#{table_name}.name #{direction}")
   end
-
-  def self.order_by_place(direction)
-    order("#{table_name}.place #{direction}")
-  end
 end

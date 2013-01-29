@@ -4,7 +4,7 @@ table.table
   thead
     tr
       th = @sorter.header "Название", :name
-      th = @sorter.header "Местонахождение", :name
+      th Местонахождение
   tbody
     - @companies.each do |company|
       tr
