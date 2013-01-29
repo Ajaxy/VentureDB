@@ -25,7 +25,7 @@
         legend Информация о компании
         - f.object.company ||= Company.new
         = f.fields_for :company do |f|
-          = render "company_fields", f: f
+          = render "admin/companies/company_fields", f: f
 
   hr
   .row

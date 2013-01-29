@@ -1,0 +1,14 @@
+.pull-right = link_to "Новая компания", [:new, :admin, :company], class: "btn btn-primary"
+
+table.table
+  thead
+    tr
+      th = @sorter.header "Название", :name
+      th = @sorter.header "Местонахождение", :name
+  tbody
+    - @companies.each do |company|
+      tr
+        td = company.link(scope: :admin)
+        td = company.place
+
+= paginate @companies
