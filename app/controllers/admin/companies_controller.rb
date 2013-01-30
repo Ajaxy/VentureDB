@@ -18,7 +18,7 @@ class Admin::CompaniesController < Admin::BaseController
   end
 
   def create
-    @companu = Company.new(permitted_params.company)
+    @company = Company.new(permitted_params.company)
 
     if @company.save
       redirect_to [:admin, @company], notice: "Компания успешно добавлена."

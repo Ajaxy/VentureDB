@@ -1,3 +1,5 @@
+= f.label :type_id, "Тип компании"
+= f.select :type_id, Company::TYPES.invert, { include_blank: true }, class: "chzn span8"
 = f.text_field :name, class: "span8", placeholder: "Краткое название компании"
 = f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
 = f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
