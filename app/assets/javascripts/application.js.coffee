@@ -33,6 +33,9 @@ jQuery ->
     $(".form-body", e.currentTarget).fadeOut "fast", ->
       $(".form-success", e.currentTarget).fadeIn("fast")
 
+  $(".promo form.new_subscription").on "submit", (e) ->
+    $(this).find("input[type='submit']").attr('disabled', 'disabled')
+
   $(".promo form.new_subscription").on "ajax:success", (e, data, status, xhr) ->
     $("input.btn, span.or", e.currentTarget).hide()
     $submit = $(".submit", e.currentTarget)
@@ -48,6 +51,7 @@ jQuery ->
       data.error = errors.join ", "
     $div = $ ".form-error", e.currentTarget
     $div.html( data.error ).fadeIn("fast")
+    $(this).find("input[type='submit']").removeAttr('disabled')
 
   $(".promo .js-switch-form").on "click", (e) ->
     $el = $(e.currentTarget)
