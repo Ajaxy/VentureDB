@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
   end
 
   def markdown(text)
+    return "" if text.blank?
     GitHub::Markdown.render_gfm(text).html_safe
   end
   helper_method :markdown
