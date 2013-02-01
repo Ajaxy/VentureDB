@@ -12,4 +12,4 @@ test:
 
 production:
   <<: *defaults
-  pid_file: /srv/venture.staging/shared/pids/searchd.pid
+  pid_file: /srv/venture/shared/pids/searchd.pid
