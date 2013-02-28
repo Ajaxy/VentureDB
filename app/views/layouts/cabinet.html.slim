@@ -10,6 +10,8 @@
       - if content_for? :aside
         aside = yield :aside
 
-      .content = yield
+      .content
+        = yield :extended_search
+        = yield
 
 = render template: "layouts/application"

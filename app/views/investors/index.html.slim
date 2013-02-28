@@ -1,15 +1,25 @@
-
-- content_for :aside do
-  section
-    div
-      p Сектор деятельности
-      = @filter.sector_select
-    div
-      p Стадия развития
-      = @filter.stage_select
-    div
-      p Сортировать по
-      = @filter.sort_select
+- content_for :extended_search do
+  = simple_form_for :search, html: {class: 'extended-search'} do |f|
+    .sectors
+      = f.label :sector, label: 'Секторы инвестиций', required: false
+      .checkbox-wrap
+        = f.input_field :sector, as: :check_boxes, collection: ['Интернет','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы','Связь','Финансы']
+    .rounds
+      = f.input :round, as: :check_boxes, label: 'Раунды инвестиций', required: false, collection: ['Раунд1','Раунд2','Раунд3']
+    .investor-types
+      = f.input :investor_type, as: :check_boxes, label: 'Типы инвесторов', required: false, collection: ['Тип1','Тип2','Тип3']
+    .other
+      .deal-types
+        = f.input :investor_type, as: :check_boxes, label: 'Тип сделки', required: false, collection: ['Инвестиции','Гранты']
+      .invest-date
+        p Дата последней инвестиции
+        = f.label :from, required: false, label: 'с'
+        = f.input_field :from, class: 'datepicker', data:{'date-format' => "dd.mm.yyyy"}
+        = f.label :till, required: false, label: 'по'
+        = f.input_field :till, class: 'datepicker', data:{'date-format' => "dd.mm.yyyy"}
+      .sort_by
+        = f.input :sort_by, label: 'Сортировать по', required: false, collection: ['Инвестициям', 'Секторам', 'Раундам']
+      = f.button :submit, 'Применить фильтр'
 
 section.investors
   h1 Инвесторы
