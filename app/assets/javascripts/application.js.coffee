@@ -4,7 +4,8 @@
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
 #= require bootstrap-typeahead
-#= require bootstrap-datepicker
+#= require bootstrap-datepicker/core
+#= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 #= require sugar
 
 window.vent =
@@ -83,4 +84,8 @@ jQuery ->
       window.location.href = selectedItem.url
       return ""
 
-  $('.datepicker').datepicker()
+  $('.datepicker').datepicker({
+      language: 'ru',
+      autoclose: true,
+      format: "dd.mm.yyyy"
+    });
