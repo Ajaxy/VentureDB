@@ -81,6 +81,43 @@ class Investor < ActiveRecord::Base
       .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
   end
 
+  def self.in_scopes(scope_arr)
+    joins{deals.project.scopes}
+      .where{deals.published == true}
+      .where{scopes.id.in scope_arr}
+  end
+
+  def self.in_rounds(rounds)
+    joins{deals.outer}.where{(deals.round_id.in rounds) & (deals.published == true)}
+  end
+
+  def self.in_stages(stages)
+    joins{deals.outer}.where{(deals.stage_id.in stages) & (deals.published == true)}
+  end
+
+  def self.in_types(types)
+    ids = Investment::GRANT_INSTRUMENTS
+    types.delete_if{|type| type.blank?}
+    deal_types = where{}
+    case types
+    when ['1']
+      deal_types = joins{investments}.where{coalesce(investments.instrument_id, 0).not_in ids}
+    when ['2']
+      deal_types = joins{investments}.where{investments.instrument_id.in ids}
+    end
+    deal_types.joins{deals.outer}.where{(deals.published == true)}
+  end
+
+  def self.from_date(from)
+    joins{deals.outer}.where{deals.published == true}
+      .where('? < investments.created_at', from)
+  end
+
+  def self.till_date(till)
+    joins{deals.outer}.where{deals.published == true}
+      .where('investments.created_at < ?', till)
+  end
+
   def self.order_by_type(direction)
     order("type_id #{direction}")
   end

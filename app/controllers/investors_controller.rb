@@ -3,7 +3,7 @@
 class InvestorsController < CabinetController
   def index
     @sorter = InvestorSorter.new(params)
-    @filter = decorate InvestorFilter.new(params), view: view_context,
+    @filter = decorate InvestorFilter.new(params[:extended_search]), view: view_context,
                                                    sorter: @sorter
 
     scope = Investor.published.with_actor.includes{deals}

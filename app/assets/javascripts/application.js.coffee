@@ -88,4 +88,11 @@ jQuery ->
       language: 'ru',
       autoclose: true,
       format: "dd.mm.yyyy"
-    });
+  });
+
+  $('.extended-search').submit ->
+    $('input[value=""]').attr('name','')
+    if $('#extended_search_from').val() == ''
+      $('#extended_search_from').attr('name', '')
+    if $('#extended_search_till').val() == ''
+      $('#extended_search_till').attr('name', '')
