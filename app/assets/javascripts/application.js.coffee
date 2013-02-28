@@ -4,6 +4,7 @@
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
 #= require bootstrap-typeahead
+#= require bootstrap-datepicker
 #= require sugar
 
 window.vent =
@@ -82,3 +83,4 @@ jQuery ->
       window.location.href = selectedItem.url
       return ""
 
+  $('.datepicker').datepicker()
