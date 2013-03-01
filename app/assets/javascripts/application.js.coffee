@@ -93,6 +93,10 @@ jQuery ->
   $('.extended-search').submit ->
     $('input[value=""]').attr('name','')
     if $('#extended_search_from').val() == ''
-      $('#extended_search_from').attr('name', '')
+      $('#extended_search_from').attr 'name', ''
     if $('#extended_search_till').val() == ''
-      $('#extended_search_till').attr('name', '')
+      $('#extended_search_till').attr 'name', ''
+
+  $('#toggle_extended_search').click ->
+    $('form.extended-search').slideToggle()
+    return false

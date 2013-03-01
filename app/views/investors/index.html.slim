@@ -1,35 +1,11 @@
-- content_for :extended_search do
-  = simple_form_for :extended_search, method: :get, html: {class: 'extended-search'} do |f|
-    .sectors
-      = f.label :sector, label: 'Секторы инвестиций', required: false
-      .checkbox-wrap
-        - nested_set_options(Scope) do |sector|
-          = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
-            = check_box_tag("extended_search_sector_#{sector.id}", sector.id, false, name: "extended_search[sector][]")
-            = sector.name
-    .rounds
-      = f.input :round, as: :check_boxes, label: 'Раунды инвестиций', required: false, collection: Deal::ROUNDS.map{|id,name| [name,id]}
-    .investor-types
-      = f.input :investor_type, as: :check_boxes, label: 'Типы инвесторов', required: false, collection: Investor::TYPES.map{|id,name| [name,id]}
-    .other
-      .deal-types
-        = f.input :deal_type, as: :check_boxes, label: 'Тип сделки', required: false, collection: [['Инвестиции', 1],['Гранты',2]]
-      .invest-date
-        p Дата последней инвестиции
-        = f.label :from, required: false, label: 'с'
-        = f.input_field :from, class: 'datepicker'
-        = f.label :till, required: false, label: 'по'
-        = f.input_field :till, class: 'datepicker'
-      .sort_by
-        - sort_types = [['Инвестициям', 1], ['Секторам', 2], ['Раундам', 3]]
-        = f.input :sort_by, label: 'Сортировать по', required: false, collection: sort_types, selected: sort_types.first
-      = f.button :submit, 'Применить фильтр'
-
 section.investors
   h1 Инвесторы
   p Поиск среди 200 венчурных фондов, управляющих компаний и бизнес-ангелов.
 
   = search_field "Введите название фонда или фамилию инвестора", entities: "investor", navigate: true
+
+  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
+  = render 'search/extended_search'
 
   - if @investors.any?
     table.table
