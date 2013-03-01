@@ -1,4 +1,6 @@
 tr
   td = investor.link
+  td = investor.locations.try(:first).try(:full_name)
   td = investor.type
-  td.center = investor.count
+  td = investor.link(text: 'контакты')
+  td = investor.link(text: investor.deal_string)

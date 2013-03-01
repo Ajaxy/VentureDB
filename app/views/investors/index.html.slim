@@ -11,9 +11,11 @@ section.investors
     table.table
       thead
         tr
-          th Название
-          th Тип
-          th.center Активность
+          th Имя
+          th Страна регистрации
+          th Тип инвестора
+          th Контакты
+          th Сделки
       tbody
         - @investors.each do |investor|
           = render "investor-row", investor: investor
