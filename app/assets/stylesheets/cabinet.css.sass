@@ -110,17 +110,16 @@ $text-color: #60656e
           display: none
           height: 280px
           margin: 10px
-          .sectors, .rounds, .investor-types, .other
-            float: left
-            margin-right: 15px
-            height: 100%
-          .sectors, .rounds, .investor-types
-            width: 19%
+          .rounds
+            width: 14%
+          .investor-types
+            width: 21%
+          .sectors
+            width: 22%
             .checkbox-wrap
-              height: 85%
-              overflow-y: auto
               .checkbox.nested
                 padding-left: 40px
+                width: 75%
               .checkbox:first-child
                 padding-top: 5px
           .other
@@ -137,6 +136,14 @@ $text-color: #60656e
                 width: 30%
                 display: inline-block
                 padding: 2px 5px
+          .sectors, .investor-types
+            .control-group
+              overflow-y: auto
+              height: 100%
+          .sectors, .rounds, .investor-types, .other
+            float: left
+            margin-right: 15px
+            height: 100%
 
         margin-left: 180px
         min-height: 300px
