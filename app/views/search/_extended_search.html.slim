@@ -1,0 +1,26 @@
+= simple_form_for :extended_search, method: :get, html: {class: 'extended-search'} do |f|
+  .sectors
+    .control-group
+      = f.label :sector, label: 'Секторы инвестиций', required: false
+      .checkbox-wrap
+        - nested_set_options(Scope) do |sector|
+          = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
+            = check_box_tag("extended_search_sector_#{sector.id}", sector.id, (@filter.params.sector.try(:include?,sector.id.to_s)), name: "extended_search[sector][]")
+            = sector.name
+  .rounds
+    = f.input :round, as: :check_boxes, label: 'Раунды инвестиций', required: false, collection: Deal::ROUNDS.map{|id,name| [name,id]}, checked: @filter.params.round.try(:map, &proc{|id| id.to_i})
+  .investor-types
+    = f.input :investor_type, as: :check_boxes, label: 'Типы инвесторов', required: false, collection: Investor::TYPES.map{|id,name| [name,id]}, checked: @filter.params.investor_type.try(:map, &proc{|id| id.to_i})
+  .other
+    .deal-types
+      = f.input :deal_type, as: :check_boxes, label: 'Тип сделки', required: false, collection: [['Инвестиции', 1],['Гранты',2]], checked: @filter.params.deal_type.try(:map, &proc{|id| id.to_i})
+    .invest-date
+      p Дата последней инвестиции
+      = f.label :from, required: false, label: 'с'
+      = f.input_field :from, value: @filter.params.from, class: 'datepicker'
+      = f.label :till, required: false, label: 'по'
+      = f.input_field :till, value: @filter.params.till, class: 'datepicker'
+    .sort_by
+      - sort_types = [['Инвестициям', 1], ['Названию', 2]]
+      = f.input :sort_type, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_type || sort_types.first
+    = f.button :submit, 'Применить фильтр'

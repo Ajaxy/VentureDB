@@ -105,6 +105,46 @@ $text-color: #60656e
       aside + .content
         margin-right: 230px
       .content
+        form.extended-search
+          +clearfix
+          display: none
+          height: 280px
+          margin: 10px
+          .rounds
+            width: 14%
+          .investor-types
+            width: 21%
+          .sectors
+            width: 22%
+            .checkbox-wrap
+              .checkbox.nested
+                padding-left: 40px
+                width: 75%
+              .checkbox:first-child
+                padding-top: 5px
+          .other
+            width: 32%
+            .invest-date
+              > p + label
+                margin-left: 0
+              > label
+                margin: 0 10px 0 5px
+                display: inline-block
+              > input
+                text-align: center
+                margin-top: 10px
+                width: 30%
+                display: inline-block
+                padding: 2px 5px
+          .sectors, .investor-types
+            .control-group
+              overflow-y: auto
+              height: 100%
+          .sectors, .rounds, .investor-types, .other
+            float: left
+            margin-right: 15px
+            height: 100%
+
         margin-left: 180px
         min-height: 300px
         h1

@@ -10,6 +10,7 @@
       - if content_for? :aside
         aside = yield :aside
 
-      .content = yield
+      .content
+        = yield
 
 = render template: "layouts/application"
