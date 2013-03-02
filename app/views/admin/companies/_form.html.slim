@@ -1,0 +1,12 @@
+= form_for [:admin, @company], html: { class: "company" } do |f|
+  h1 Компания
+  hr
+
+  = render partial: "company_fields", locals: { f: f }
+
+  .form-actions
+    .offset4
+      button.btn.btn-large.btn-primary
+        = @company.persisted? ? "Сохранить" : "Создать"
+      '
+      = link_to "Отмена", [:admin, :companies], class: "btn btn-large"

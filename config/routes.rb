@@ -29,6 +29,7 @@ Venture::Application.routes.draw do
     resources :people
     resources :investments
     resources :events
+    resources :companies
   end
 
   resources :deals, only: %w[index]

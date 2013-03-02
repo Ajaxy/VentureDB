@@ -8,3 +8,8 @@
 .form-horizontal.control-group
   =' f.email_field :email, class: "span3", placeholder: "Email"
   =' f.text_field :phone, class: "span3", placeholder: "Телефон"
+.form-horizontal.control-group
+  =' f.label :expert, class: "checkbox" do
+    =' f.check_box :expert
+    = "Эксперт"
+

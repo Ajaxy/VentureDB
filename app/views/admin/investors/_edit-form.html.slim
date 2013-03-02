@@ -12,7 +12,7 @@
 
     - if investor.actor.is_a?(Company)
       .company-fields = f.fields_for :company, investor.company do |f|
-        = render "company_fields", f: f
+        = render "admin/companies/company_fields", f: f
 
   .form-actions
     .offset4
