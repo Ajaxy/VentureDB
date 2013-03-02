@@ -18,7 +18,7 @@
       = render "person_fields", f: f
 
     .company-fields = f.fields_for :company, f.object.company do |f|
-      = render "company_fields", f: f
+      = render "admin/companies/company_fields", f: f
 
   .modal-footer
     a.btn data-dismiss="modal" Отмена

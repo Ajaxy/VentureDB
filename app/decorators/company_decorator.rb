@@ -1,0 +1,2 @@
+class CompanyDecorator < ApplicationDecorator
+end
