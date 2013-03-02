@@ -9,6 +9,7 @@ class InvestorFilter < Filter
     investors = investors.in_types(params.deal_type) if params.deal_type
     investors = investors.from_date(Time.zone.parse(params.from)) unless params.from.blank?
     investors = investors.till_date(Time.zone.parse(params.till)) unless params.till.blank?
+    investors = investors.sort_type(params.sort_type) if params.sort_type
     investors
   end
 end

@@ -21,6 +21,6 @@
       = f.label :till, required: false, label: 'по'
       = f.input_field :till, value: @filter.params.till, class: 'datepicker'
     .sort_by
-      - sort_types = [['Инвестициям', 1], ['Секторам', 2], ['Раундам', 3]]
-      = f.input :sort_by, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_by || sort_types.first
+      - sort_types = [['Инвестициям', 1], ['Названию', 2]]
+      = f.input :sort_type, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_type || sort_types.first
     = f.button :submit, 'Применить фильтр'
