@@ -1,7 +1,7 @@
 
 source :rubygems
 
-gem "rails", "3.2.8"
+gem "rails", "3.2.12"
 gem "pg"
 
 gem "capistrano"
@@ -28,6 +28,7 @@ gem "thinking-sphinx", "~>2.0.14"
 gem "whenever", :require => false
 
 group :assets do
+  gem 'bootstrap-datepicker-rails'
   gem "bootstrap-sass"
   gem "compass-rails"
   gem "chosen-rails"
@@ -42,6 +43,9 @@ end
 group :development do
   gem "awesome_print"
   gem "letter_opener"
+  gem "better_errors"
+  gem 'binding_of_caller'
+  gem 'debugger'
 end
 
 group :development, :test do

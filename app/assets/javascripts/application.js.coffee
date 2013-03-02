@@ -4,6 +4,8 @@
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
 #= require bootstrap-typeahead
+#= require bootstrap-datepicker/core
+#= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 #= require sugar
 
 window.vent =
@@ -82,3 +84,26 @@ jQuery ->
       window.location.href = selectedItem.url
       return ""
 
+  $('.datepicker').datepicker({
+      language: 'ru',
+      autoclose: true,
+      format: "dd.mm.yyyy"
+  });
+
+  $('.extended-search').submit ->
+    $('input[value=""]').attr('name','')
+    if $('#extended_search_from').val() == ''
+      $('#extended_search_from').attr 'name', ''
+    if $('#extended_search_till').val() == ''
+      $('#extended_search_till').attr 'name', ''
+
+  $('#toggle_extended_search').click ->
+    $('form.extended-search').slideToggle()
+    return false
+
+  $('.checkbox-wrap > label.checkbox:not(.nested) input:checkbox').click ->
+    label = $(this).parent()
+    if !label.hasClass('nested')
+      label.nextUntil('label:not(.nested)')
+      .children()
+      .attr('checked', ($(this).attr('checked') != undefined))

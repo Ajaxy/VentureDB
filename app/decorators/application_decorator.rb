@@ -10,6 +10,19 @@ class ApplicationDecorator < Draper::Decorator
     h.link_to text, [scope, model].compact
   end
 
+  def deal_string(count = self.count)
+  strcount = count.to_s
+    return strcount + ' сделок' if (strcount.length > 1) and (strcount[-2] == '1')
+    case strcount[strcount.length-1]
+    when '1'
+      return strcount + ' сделка'
+    when '2','3','4'
+      return strcount + ' сделки'
+    else
+      return strcount + ' сделок'
+    end
+  end
+
   private
 
   def list(strings)

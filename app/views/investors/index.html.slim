@@ -1,29 +1,21 @@
-
-- content_for :aside do
-  section
-    div
-      p Сектор деятельности
-      = @filter.sector_select
-    div
-      p Стадия развития
-      = @filter.stage_select
-    div
-      p Сортировать по
-      = @filter.sort_select
-
 section.investors
   h1 Инвесторы
   p Поиск среди 200 венчурных фондов, управляющих компаний и бизнес-ангелов.
 
   = search_field "Введите название фонда или фамилию инвестора", entities: "investor", navigate: true
 
+  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
+  = render 'search/extended_search'
+
   - if @investors.any?
     table.table
       thead
         tr
-          th Название
-          th Тип
-          th.center Активность
+          th Имя
+          th Страна регистрации
+          th Тип инвестора
+          th Контакты
+          th Сделки
       tbody
         - @investors.each do |investor|
           = render "investor-row", investor: investor
