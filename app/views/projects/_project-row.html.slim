@@ -1,4 +1,6 @@
 tr
-  td        = project.link
-  td        = project.scope_names
-  td        = project.amount
+  td = project.link
+  td = project.first_location
+  td = project.scope_names
+  td = project.link text: 'контакты'
+  td.center = project.link text: project.deal_string

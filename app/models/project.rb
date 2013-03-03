@@ -80,4 +80,8 @@ class Project < ActiveRecord::Base
     authors.each(&:publish)
     company.try(:publish)
   end
+
+  def deals_count
+    deals.count
+  end
 end

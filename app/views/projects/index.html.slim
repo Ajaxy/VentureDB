@@ -38,8 +38,10 @@ section.projects
       thead
         tr
           th Название
-          th Секторы деятельности
-          th Объем вложений
+          th Страна регистрации
+          th Индустрия
+          th Контакты
+          th Сделки компании
       tbody
         - @projects.each do |project|
           = render "project-row", project: project
