@@ -107,4 +107,16 @@ jQuery ->
     if !label.hasClass('nested')
       label.nextUntil('label:not(.nested)')
       .children()
-      .attr('checked', ($(this).attr('checked') != undefined))
+      .attr 'checked', ($(this).attr('checked') != undefined)
+  $("#slider-range").slider
+    range: true,
+    min: 0,
+    max: 10000000,
+    values: [0, 10000000],
+    slide: (event, ui) ->
+      $(".amounts > p").first().text "$" + ui.values[0]
+      $(".amounts > p").last().text "$" + ui.values[1]
+  $(".amounts > p").first().
+    text "$" + $("#slider-range").slider("values", 0)
+  $(".amounts > p").last().
+    text "$" + $("#slider-range").slider("values", 1);

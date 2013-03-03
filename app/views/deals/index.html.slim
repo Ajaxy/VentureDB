@@ -4,6 +4,37 @@ section.stream.deals
   = search_field "Поиск по названию проекта или инвестора", entities: %w[project investor],
     navigate: false
 
+  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
+  = simple_form_for :extended_search, method: :get, html: {class: 'extended-search'}, defaults: {required: false} do |f|
+    .block.sectors
+      .control-group
+        = f.label :sector, label: 'Секторы инвестиций', required: false
+        .checkbox-wrap
+          - nested_set_options(Scope) do |sector|
+            = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
+              = check_box_tag("extended_search_sector_#{sector.id}", sector.id, (@filter.params.sector.try(:include?,sector.id.to_s)), name: "extended_search[sector][]")
+              = sector.name
+    .block.selects
+      .rounds
+        = f.input :round, label: 'Раунд', collection: Deal::ROUNDS.map{|id,name| [name,id]}, selected: @filter.params.round.try(:map, &proc{|id| id.to_i})
+      .stages
+        = f.input :stage, label: 'Стадия', collection: Deal::STAGES.map{|id,name| [name,id]}, selected: @filter.params.stage.try(:map, &proc{|id| id.to_i})
+      .years
+        = f.input :year, label: 'Год', collection: (Time.current.year-2..Time.current.year), selected: Time.current.year
+      = f.button :submit, 'Применить фильтр'
+    .block.other
+      .amount-range
+        p: label Сумма сделки
+        .amounts
+          p 0
+          p 10млн
+        #slider-range
+      .deal-types
+        = f.input :deal_type, as: :check_boxes, label: 'Тип сделки', collection: [['Инвестиции', 1],['Гранты',2]], checked: @filter.params.deal_type.try(:map, &proc{|id| id.to_i}), item_wrapper_class: 'inline'
+      .sort_by
+        - sort_types = [['Сумме', 1], ['Названию', 2]]
+        = f.input :sort_type, label: 'Сортировать по', collection: sort_types, selected: @filter.params.sort_type || sort_types.first
+
   - if @deals.any?
     table.table
       thead
