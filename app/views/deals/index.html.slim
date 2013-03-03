@@ -1,24 +1,3 @@
-
-- content_for :aside do
-  section
-    div
-      = @filter.year_select
-    div
-      p Сектор деятельности
-      = @filter.sector_select
-    div
-      p Раунд инвестиций
-      = @filter.round_select
-    div
-      p Стадия развития
-      = @filter.stage_select
-    div
-      p Тип
-      = @filter.type_select
-    div
-      p Сортировать по
-      = @filter.sort_select
-
 section.stream.deals
   h1 Хроника
   p Новости о последних инвестиционных сделках и выданных грантах.
@@ -26,8 +5,20 @@ section.stream.deals
     navigate: false
 
   - if @deals.any?
-    .deals-stream = render @deals
+    table.table
+      thead
+        tr
+          th Дата сделки
+          th Компания
+          th Индустрия
+          th Инвестор
+          th Сумма сделки
+          th Детали
+      tbody
+        - @deals.each do |deal|
+          = render "deal-row", deal: deal
+
     = render "more-link", collection: @deals
+
   - else
     p По вашему запросу ничего не найдено.
-

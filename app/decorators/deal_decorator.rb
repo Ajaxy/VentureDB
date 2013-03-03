@@ -114,6 +114,11 @@ class DealDecorator < ApplicationDecorator
     h.link_to project_name, deal.project
   end
 
+  def details_link
+    return mdash unless deal.project
+    h.link_to 'Детали сделки', deal.project
+  end
+
   private
 
   def deal; source; end
