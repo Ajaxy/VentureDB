@@ -6,6 +6,7 @@
 #= require bootstrap-typeahead
 #= require bootstrap-datepicker/core
 #= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
+#= require jquery.ui.slider
 #= require sugar
 
 window.vent =
