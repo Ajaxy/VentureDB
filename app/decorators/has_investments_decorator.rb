@@ -9,6 +9,19 @@ class HasInvestmentsDecorator < ApplicationDecorator
     model.deals_count.to_i
   end
 
+  def deal_string(count = self.count)
+    strcount = count.to_s
+    return strcount + ' сделок' if (strcount.length > 1) and (strcount[-2] == '1')
+    case strcount[strcount.length-1]
+    when '1'
+      return strcount + ' сделка'
+    when '2','3','4'
+      return strcount + ' сделки'
+    else
+      return strcount + ' сделок'
+    end
+  end
+
   def amount
     deals_amount == 0 ? mdash : dollars(deals_amount)
   end
