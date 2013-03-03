@@ -82,6 +82,12 @@ class Deal < ActiveRecord::Base
       .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
   end
 
+  def self.in_scopes(scope_arr)
+    joins{project.scopes}
+      .where{published == true}
+      .where{scopes.id.in scope_arr}
+  end
+
   def self.in_location(location)
     joins{investments.investor.locations}
       .where{(locations.lft >= location.lft) & (locations.lft < location.rgt)}
@@ -111,11 +117,11 @@ class Deal < ActiveRecord::Base
   end
 
   def self.from_amount(value)
-    where{amount >= value}
+    where{amount_usd >= value}
   end
 
   def self.to_amount(value)
-    where{amount <= value}
+    where{amount_usd <= value}
   end
 
   def self.for_period(period)
@@ -140,13 +146,22 @@ class Deal < ActiveRecord::Base
     end
   end
 
+  def self.sort_type(type)
+    case type
+    when '2'
+      order_by_amount('DESC')
+    else
+      order_by_started_at('DESC')
+    end
+  end
+
   def self.order_by_amount(direction)
     order("amount_usd #{direction} nulls last")
   end
 
   def self.order_by_started_at(direction)
     select("deals.*, coalesce(contract_date, announcement_date) AS date")
-      .order("date DESC")
+      .order("date #{direction}")
   end
 
   def amount

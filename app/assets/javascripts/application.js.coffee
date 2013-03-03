@@ -85,18 +85,16 @@ jQuery ->
       window.location.href = selectedItem.url
       return ""
 
-  $('.datepicker').datepicker({
-      language: 'ru',
-      autoclose: true,
-      format: "dd.mm.yyyy"
-  });
+  $('.datepicker').datepicker
+    language: 'ru',
+    autoclose: true,
+    format: "dd.mm.yyyy"
 
   $('.extended-search').submit ->
     $('input[value=""]').attr('name','')
-    if $('#extended_search_from').val() == ''
-      $('#extended_search_from').attr 'name', ''
-    if $('#extended_search_till').val() == ''
-      $('#extended_search_till').attr 'name', ''
+    $('select').each ->
+      if $(this).val() == ''
+        $(this).attr 'name',''
 
   $('#toggle_extended_search').click ->
     $('form.extended-search').slideToggle()
@@ -108,15 +106,19 @@ jQuery ->
       label.nextUntil('label:not(.nested)')
       .children()
       .attr 'checked', ($(this).attr('checked') != undefined)
+  amount_start = $('#extended_search_amount_start').val()
+  amount_end = $('#extended_search_amount_end').val()
   $("#slider-range").slider
     range: true,
     min: 0,
     max: 10000000,
-    values: [0, 10000000],
+    values:[amount_start, amount_end],
     slide: (event, ui) ->
+      $('#extended_search_amount_start').val ui.values[0]
+      $('#extended_search_amount_end').val ui.values[1]
       $(".amounts > p").first().text "$" + ui.values[0]
       $(".amounts > p").last().text "$" + ui.values[1]
   $(".amounts > p").first().
-    text "$" + $("#slider-range").slider("values", 0)
+    text "$" + $('#extended_search_amount_start').val()
   $(".amounts > p").last().
-    text "$" + $("#slider-range").slider("values", 1);
+    text "$" + $('#extended_search_amount_end').val()
