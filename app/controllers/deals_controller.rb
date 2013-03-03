@@ -2,13 +2,11 @@
 
 class DealsController < CabinetController
   def index
-    @sorter = DealSorter.new(params, view_context, default: :date)
-    @filter = decorate DealFilter.new(params), view: view_context,
-                                               sorter: @sorter
+    search = params[:search] ? params[:search] : params[:extended_search]
+    @filter = decorate DealFilter.new(search), view: view_context
 
     scope   = Deal.published.includes{[project.authors, project.scopes.parent,
                                        investors.actor, investors.locations]}
-    scope   = @sorter.sort(scope)
     scope   = @filter.filter(scope)
 
     @deals  = PaginatingDecorator.decorate(paginate scope)

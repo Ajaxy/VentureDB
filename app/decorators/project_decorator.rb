@@ -32,6 +32,10 @@ class ProjectDecorator < HasInvestmentsDecorator
     [*scope_names, year].compact.join(", ")
   end
 
+  def first_location
+    location_bindings.try(:first).try(:location).try(:full_name) || mdash
+  end
+
   private
 
   def project; source; end

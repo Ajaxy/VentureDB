@@ -59,8 +59,53 @@ class Project < ActiveRecord::Base
     joins{scopes.outer}.where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
   end
 
+  def self.in_scopes(scope_arr)
+    joins{scopes}.where{scopes.id.in scope_arr}.group{scopes.id}.
+      where{deals.published == true}
+  end
+
   def self.in_round(round)
-    joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
+    joins{deals.outer}.where{deals.round_id == round}.
+      where{deals.published == true}
+  end
+
+  def self.in_stage(stage)
+    joins{deals.outer}.where{deals.stage_id == stage}.
+      where{deals.published == true}
+  end
+
+  def self.from_amount(value)
+    joins{deals.outer}.group{id}.
+      where{deals.published == true}.
+      having{sum(deals.amount_usd) > value}
+  end
+
+  def self.to_amount(value)
+    joins{deals.outer}.group{id}.
+      where{deals.published == true}.
+      having{sum(deals.amount_usd) < value}
+  end
+
+  def self.for_type(type)
+    ids = Investment::GRANT_INSTRUMENTS
+
+    case type
+    when "grants"
+      joins{investments}.where{investments.instrument_id.in ids}
+    when "investments"
+      joins{investments}.where{coalesce(investments.instrument_id, 0).not_in ids}
+    else
+      raise ArgumentError
+    end
+  end
+
+  def self.sort_type(type)
+    case type
+    when '2'
+      order_by_investments
+    else
+      order_by_name('ASC')
+    end
   end
 
   def self.order_by_name(direction)
@@ -68,16 +113,19 @@ class Project < ActiveRecord::Base
   end
 
   def self.order_by_investments
-    joins{deals.outer}
-      .select("projects.*, sum(deals.amount_usd) AS total_amount")
-      .order("total_amount desc nulls last")
-      .group{id}
-      .where{deals.published == true}
+    joins{deals.outer}.
+      where{deals.published == true}.
+      group{id}.
+      order("sum(deals.amount_usd) desc nulls last")
   end
 
   def publish
     super
     authors.each(&:publish)
     company.try(:publish)
+  end
+
+  def deals_count
+    deals.count
   end
 end
