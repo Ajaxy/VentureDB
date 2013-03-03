@@ -92,6 +92,7 @@ jQuery ->
 
   $('.extended-search').submit ->
     $('input[value=""]').attr('name','')
+    $('input[input="submit"]').attr('name','')
     $('select').each ->
       if $(this).val() == ''
         $(this).attr 'name',''

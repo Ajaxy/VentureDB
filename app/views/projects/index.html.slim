@@ -16,21 +16,23 @@ section.projects
               = sector.name
     .block.selects
       .rounds
-        = f.input :round, label: 'Раунд', collection: Deal::ROUNDS.map{|id,name| [name,id]}, selected: @filter.params.round.try(:map, &proc{|id| id.to_i})
+        = f.input :round, label: 'Раунд', collection: @filter.rounds.map{|k,v|[v,k]}, selected: @filter.round
       .stages
-        = f.input :stage, label: 'Стадия', collection: Deal::STAGES.map{|id,name| [name,id]}, selected: @filter.params.stage.try(:map, &proc{|id| id.to_i})
+        = f.input :stage, label: 'Стадия', collection: @filter.stages.map{|k,v|[v,k]}, selected: @filter.stage
       .deal-types
-        = f.input :deal_type, as: :check_boxes, label: 'Тип сделки', collection: [['Инвестиции', 1],['Гранты',2]], checked: @filter.params.deal_type.try(:map, &proc{|id| id.to_i}), item_wrapper_class: 'inline'
+        = f.input :deal_type, as: :check_boxes, label: 'Тип сделки', collection: [['Инвестиции', 1],['Гранты', 2]], checked: @filter.params.deal_type.try(:map, &proc{|id| id.to_i}), item_wrapper_class: 'inline'
       = f.button :submit, 'Применить фильтр'
     .block.other
       .amount-range
+        = f.hidden_field :amount_start, value: @filter.params.amount_start || 0
+        = f.hidden_field :amount_end, value: @filter.params.amount_end || 10000000
         p: label Сумма сделки
         .amounts
           p 0
           p 10млн
         #slider-range
       .sort_by
-        - sort_types = [['Инвестициям', 1], ['Названию', 2]]
+        - sort_types = [['Названию', 1], ['Инвестициям', 2]]
         = f.input :sort_type, label: 'Сортировать по', collection: sort_types, selected: @filter.params.sort_type || sort_types.first
 
   - if @projects.any?
