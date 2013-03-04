@@ -12,18 +12,24 @@ class DealFilter < Filter
     when ['2']
       params.type = 'grants'
     end
+
     # deals = deals.with_investor_type(params.investor.to_i) if params.investor.present?
     # deals = deals.from_date(date_start)         if date_start
     # deals = deals.to_date(date_end)             if date_end
 
     deals = deals.in_scopes(params.sector)      if params.sector
-    deals = deals.in_round(round)               if round
-    deals = deals.in_stage(stage)               if stage
+    deals = deals.in_rounds(params.round)       if params.round
+    deals = deals.in_stages(params.stage)       if params.stage
     deals = deals.for_year(year)                if year
-    deals = deals.from_amount(params.amount_start.to_i)   if params.amount_start
-    deals = deals.to_amount(params.amount_end.to_i)       if params.amount_end
+
+    amount_start, amount_end = get_amount_vars params.amount_range.to_i
+    if amount_start && amount_end
+      deals = deals.in_amount_range amount_start.to_i,
+                                    amount_end.to_i
+    end
+
     deals = deals.for_type(type)                if type
-    deals = deals.sort_type(params.sort_type)     if params.sort_type
+    deals = deals.sort_type(params.sort_type)   if params.sort_type
 
     deals
   end
@@ -101,4 +107,26 @@ class DealFilter < Filter
   def start_year
     Time.current.year - LAST_YEARS + 1
   end
+
+  private
+
+  def get_amount_vars(range)
+    case range
+    when 1
+      return [0,50000]
+    when 2
+      return [50000,100000]
+    when 3
+      return [100000,250000]
+    when 4
+      return [250000,500000]
+    when 5
+      return [500000,1000000]
+    when 6
+      return [1000000,5000000]
+    when 7
+      return [5000000,2000000000]
+    end
+  end
+
 end

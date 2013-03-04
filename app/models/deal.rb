@@ -103,9 +103,17 @@ class Deal < ActiveRecord::Base
     where{stage_id == stage}
   end
 
+  def self.in_stages(stages)
+    where{(stage_id.in stages) & (deals.published == true)}
+  end
+
   def self.in_round(round)
     return scoped unless Deal::ROUNDS[round]
     where{round_id == round}
+  end
+
+  def self.in_rounds(rounds)
+    where{(round_id.in rounds) & (deals.published == true)}
   end
 
   def self.with_investor_type(type)
@@ -119,6 +127,10 @@ class Deal < ActiveRecord::Base
 
   def self.to_date(value)
     where{contract_date <= value}
+  end
+
+  def self.in_amount_range(from, to)
+    where{(amount_usd >= from) & (amount_usd <= to)}
   end
 
   def self.from_amount(value)

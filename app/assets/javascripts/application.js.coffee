@@ -101,7 +101,7 @@ jQuery ->
     $('form.extended-search').slideToggle()
     return false
 
-  $('.checkbox-wrap > label.checkbox:not(.nested) input:checkbox').click ->
+  $('.sectors label.checkbox:not(.nested) input:checkbox').click ->
     label = $(this).parent()
     if !label.hasClass('nested')
       label.nextUntil('label:not(.nested)')
