@@ -1,4 +1,5 @@
-= simple_form_for :extended_search, method: :get, default: {label: false}, html: {class: 'extended-search'}, defaults: {required: false} do |f|
+= simple_form_for :extended_search, method: :get, default: {label: false}, html: {class: "extended-search #{@filter.params.opened || ''}"}, defaults: {required: false} do |f|
+  = f.hidden_field :opened, value: 'opened'
   .block.horizontal
     h2 Выберите тип инвестора
     .investor-types
