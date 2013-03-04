@@ -21,14 +21,14 @@ set :branch, "master"
 set :nginx_server_names, "venture.stage.grow.bi venturedatabase.ru " +
                          "www.venturedatabase.ru venture.bi"
 
-set :user, "venture"
+set :user, "root"
 set :deploy_to, -> { "/srv/#{application}" }
 set :deploy_via, :remote_cache
 set :use_sudo, false
 default_run_options[:pty] = true
 
 set :scm, "git"
-set :repository, "git@github.com:AndreyM/VentureDB.git"
+set :repository, "git@github.com:mereskin/VentureDB.git"
 
 set :rvm_type, :system
 set :rvm_ruby_string, "ruby-1.9.3-p286@#{application}"
