@@ -23,7 +23,7 @@ set :nginx_server_names, "venture.stage.grow.bi venturedatabase.ru " +
 
 set :user, "root"
 set :deploy_to, -> { "/srv/#{application}" }
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 set :use_sudo, false
 default_run_options[:pty] = true
 
