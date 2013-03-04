@@ -69,9 +69,23 @@ class Project < ActiveRecord::Base
       where{deals.published == true}
   end
 
+  def self.in_rounds(rounds)
+    joins{deals.outer}.where{(deals.round_id.in rounds) & (deals.published == true)}
+  end
+
   def self.in_stage(stage)
     joins{deals.outer}.where{deals.stage_id == stage}.
       where{deals.published == true}
+  end
+
+  def self.in_stages(stages)
+    joins{deals.outer}.where{(deals.stage_id.in stages) & (deals.published == true)}
+  end
+
+  def self.in_amount_range(from, to)
+    joins{deals.outer}.group{id}.
+      where{deals.published == true}.
+      where{(deals.amount_usd >= from) & (deals.amount_usd <= to)}
   end
 
   def self.from_amount(value)

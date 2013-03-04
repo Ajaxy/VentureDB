@@ -8,6 +8,7 @@
 #= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 #= require jquery.ui.slider
 #= require sugar
+#= require chosen-jquery
 
 window.vent =
   sub: (event, fn) ->
@@ -101,7 +102,7 @@ jQuery ->
     $('form.extended-search').slideToggle()
     return false
 
-  $('.checkbox-wrap > label.checkbox:not(.nested) input:checkbox').click ->
+  $('.sectors label.checkbox:not(.nested) input:checkbox').click ->
     label = $(this).parent()
     if !label.hasClass('nested')
       label.nextUntil('label:not(.nested)')
@@ -123,3 +124,4 @@ jQuery ->
     text "$" + $('#extended_search_amount_start').val()
   $(".amounts > p").last().
     text "$" + $('#extended_search_amount_end').val()
+  $('form.extended-search select').chosen({ disable_search_threshold: 1000 })

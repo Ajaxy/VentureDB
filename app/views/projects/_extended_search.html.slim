@@ -1,0 +1,38 @@
+= simple_form_for :extended_search, method: :get, default: {label: false}, html: {class: "extended-search #{@filter.params.opened || ''}"}, defaults: {required: false} do |f|
+  = f.hidden_field :opened, value: 'opened'
+  .block.horizontal
+    h2 Выберите сектор
+    .sectors
+      - nested_set_options(Scope) do |sector|
+        = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
+          = check_box_tag("extended_search_sector_#{sector.id}", sector.id, (@filter.params.sector.try(:include?,sector.id.to_s)), name: "extended_search[sector][]")
+          = sector.name
+  .block.horizontal
+    h2 Выберите раунд
+    .rounds
+      = f.input_field :round, as: :check_boxes, collection: Deal::ROUNDS.map{|id,name| [name,id]}, checked: @filter.params.round.try(:map, &proc{|id| id.to_i})
+  .block.horizontal
+    h2 Выберите стадию
+    .stages
+      = f.input_field :stage, as: :check_boxes, collection: Deal::STAGES.map{|id,name| [name,id]}, checked: @filter.params.stage.try(:map, &proc{|id| id.to_i})
+  .clear-both
+  h2 Параметры сделок, в которых инвестор принимал участие
+  .block.form-inline
+    - amount_ranges = {            \
+        "Все сделки"          => 0,\
+        "0 тыс. - 50 тыс."    => 1,\
+        "50 тыс. - 100 тыс."  => 2,\
+        "100 тыс. - 250 тыс." => 3,\
+        "250 тыс. - 500 тыс." => 4,\
+        "500 тыс. - 1 млн"    => 5,\
+        "1 млн - 5 млн"       => 6,\
+        "более 5 млн"         => 7 \
+      }
+    = f.label :amount, label: 'Размер, $', required: false
+    = f.input_field :amount_range, collection: amount_ranges, selected: @filter.params.amount_range
+    = f.input_field :deal_type, collection: @filter.deal_types.map{|k,v|[v,k]}, selected: @filter.deal_type
+  h2 Сортировать по
+  .block.form-inline.sort
+    - sort_types = [['Инвестициям', 1], ['Названию', 2]]
+    = f.input_field :sort_type, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_type || sort_types.first
+  = f.button :submit, 'Искать'
