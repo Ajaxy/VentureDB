@@ -31,7 +31,7 @@ set :scm, "git"
 set :repository, "git@github.com:mereskin/VentureDB.git"
 
 set :rvm_type, :system
-set :rvm_ruby_string, "ruby-1.9.3-p286@#{application}"
+set :rvm_ruby_string, "ruby-1.9.3-p286"
 
 set :postgresql_password, "111"
 
