@@ -8,6 +8,7 @@
 #= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 #= require jquery.ui.slider
 #= require sugar
+#= require chosen-jquery
 
 window.vent =
   sub: (event, fn) ->
@@ -123,3 +124,4 @@ jQuery ->
     text "$" + $('#extended_search_amount_start').val()
   $(".amounts > p").last().
     text "$" + $('#extended_search_amount_end').val()
+  $('form.extended-search select').chosen({ disable_search_threshold: 1000 })
