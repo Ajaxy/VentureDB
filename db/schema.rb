@@ -32,6 +32,27 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
 
+  create_table "deal_exits", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
+
+  create_table "deal_rounds", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name",      :limit => 100
+    t.string  "full_name", :limit => 100
+  end
+
+  create_table "deal_stages", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
+
+  create_table "deal_statuses", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
+
   create_table "deals", :force => true do |t|
     t.integer  "project_id"
     t.boolean  "approx_date",                    :default => false
@@ -103,6 +124,11 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
   add_index "investments", ["deal_id"], :name => "index_investments_on_deal_id"
   add_index "investments", ["instrument_id"], :name => "index_investments_on_instrument_id"
   add_index "investments", ["investor_id"], :name => "index_investments_on_investor_id"
+
+  create_table "investor_type", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
 
   create_table "investors", :force => true do |t|
     t.integer  "actor_id"

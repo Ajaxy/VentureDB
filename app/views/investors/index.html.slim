@@ -5,7 +5,7 @@ section.investors
   = search_field "Введите название фонда или фамилию инвестора", entities: "investor", navigate: true
 
   = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
-  = render 'search/extended_search'
+  = render 'extended_search'
 
   - if @investors.any?
     table.table

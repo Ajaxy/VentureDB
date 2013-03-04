@@ -1,41 +1,11 @@
 section.stream.deals
-  h1 Хроника
+  h1 Сделки
   p Новости о последних инвестиционных сделках и выданных грантах.
   = search_field "Поиск по названию проекта или инвестора", entities: %w[project investor],
     navigate: false
 
   = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
-  = simple_form_for :extended_search, method: :get, html: {class: 'extended-search'}, defaults: {required: false} do |f|
-    .block.sectors
-      .control-group
-        = f.label :sector, label: 'Секторы инвестиций', required: false
-        .checkbox-wrap
-          - nested_set_options(Scope) do |sector|
-            = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
-              = check_box_tag("extended_search_sector_#{sector.id}", sector.id, (@filter.params.sector.try(:include?,sector.id.to_s)), name: "extended_search[sector][]")
-              = sector.name
-    .block.selects
-      .rounds
-        = f.input :round, label: 'Раунд', collection: @filter.rounds.map{|k,v|[v,k]}, selected: @filter.round
-      .stages
-        = f.input :stage, label: 'Стадия', collection: @filter.stages.map{|k,v|[v,k]}, selected: @filter.stage
-      .years
-        = f.input :year, label: 'Год', collection: ['Все года'] + (@filter.start_year..Time.current.year).to_a, selected: @filter.year || 'Все года'
-      = f.button :submit, 'Применить фильтр'
-    .block.other
-      .amount-range
-        = f.hidden_field :amount_start, value: @filter.params.amount_start || 0
-        = f.hidden_field :amount_end, value: @filter.params.amount_end || 10000000
-        p: label Сумма сделки
-        .amounts
-          p 0
-          p 10млн
-        #slider-range
-      .deal-types
-        = f.input :deal_type, as: :check_boxes, label: 'Тип сделки', collection: [['Инвестиции', 1],['Гранты',2]], checked: @filter.params.deal_type.try(:map, &proc{|id| id.to_i}), item_wrapper_class: 'inline'
-      .sort_by
-        - sort_type = [['Дате сделки', 1], ['Сумме', 2]]
-        = f.input :sort_type, label: 'Сортировать по', collection: sort_type, selected: @filter.params.sort_type || sort_type.first
+  = render 'extended_search'
 
   - if @deals.any?
     table.table
