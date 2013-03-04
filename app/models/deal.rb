@@ -8,6 +8,11 @@ class Deal < ActiveRecord::Base
   has_many :investors, through: :investments
   has_many :scopes, through: :project
 
+  DEAL_TYPES = {
+    1 => "Инвестиции",
+    2 => "Гранты"
+  }
+
   STATUSES = {
     1 => "Анонсированная",
     2 => "В процессе",

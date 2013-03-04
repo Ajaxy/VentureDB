@@ -30,6 +30,17 @@ class Filter
     @scope ||= Scope.where(id: params.scope.to_i).first if params.scope.present?
   end
 
+  def deal_type
+    @deal ||= begin
+      val = params.deal_type.to_i
+      val if Deal::DEAL_TYPES[val]
+    end
+  end
+
+  def deal_types
+    @deals ||= { nil => "Все типы" }.merge(Deal::DEAL_TYPES)
+  end
+
   def scope_name
     @scope_name ||= scope ? scope.name : "Все секторы"
   end

@@ -108,63 +108,65 @@ $text-color: #60656e
         form.extended-search
           +clearfix
           display: none
-          height: 280px
-          margin: 10px
+          background-color: #f1f1f1
+          width: 830px
+          padding: 5px 20px
+          font-size: 13px
+          h2
+            color: black
+            font-size: 13px
+            text-transform: uppercase
+            margin: 15px 0
+            line-height: 20px
+          .clear-both
+            clear: both
+          .block + .block
+            margin-left: 30px
           .block
-            float: left
-            margin-right: 15px
-            height: 100%
-            &.sectors
-              width: 25%
-              .checkbox-wrap
+            margin-bottom: 15px
+            &.horizontal
+              float: left
+              .investor-types, .sectors, .rounds
+                overflow-y: auto
+                max-height: 100%
+                border: 1px solid #d8d8d8
+                background-color: white
+                height: 230px
+                padding: 10px
+              .investor-types
+                width: 215px
+              .rounds
+                width: 180px
+              .sectors
+                width: 300px
                 .checkbox.nested
                   padding-left: 40px
-                  width: 75%
-                .checkbox:first-child
-                  padding-top: 5px
-            &.sectors, &.investor-types
-              height: 100%
-              .control-group
-                overflow-y: auto
-                height: 100%
-            &.selects
-              width: 40%
-            &.rounds
-              width: 15%
-            &.investor-types
-              width: 25%
-            &.other
-              width: 25%
-              .invest-date
-                > p + label
-                  margin-left: 0
-                > label
-                  margin: 0 10px 0 5px
-                  display: inline-block
-                > input
-                  text-align: center
-                  margin-top: 10px
-                  width: 30%
-                  display: inline-block
-                  padding: 2px 5px
-            .amount-range
-              margin-bottom: 20px
-              .amounts
-                padding: 5px 0 30px
-                &:after
-                  clear: both
-                & > p + p
-                  margin: 0
-                & > p:first-child
-                  float: left
-                & > p:last-child
-                  float: right
-            .rounds, .stages, .years
-              select
-                width: 95%
-            .deal-types
-              .checkbox.inline + .checkbox.inline
+            &.form-inline
+              .date-label
                 margin-left: 20px
+              .datepicker
+                text-align: center
+              &.sort
+                select
+                  margin: 5px 0
+              select, input[type="text"]
+                display: inline-block
+                margin: 5px 0 5px 10px
+                width: 140px
+              select
+                margin-left: 20px
+                width: 185px
+
+          input[type="submit"].btn
+            display: block
+            margin: 30px auto
+            text-transform: uppercase
+            font-weight: bold
+            width: 150px
+            height: 30px
+            font-size: 13px
+            line-height: 22px
+            @include buttonBackground(#61aa8b, #52997a)
 
         margin-left: 180px
         min-height: 300px
