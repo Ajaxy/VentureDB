@@ -2,7 +2,7 @@
 
 class ProjectsController < CabinetController
   def index
-    search = params[:search] ? params[:search] : params[:extended_search]
+    search = params[:search] ? params : params[:extended_search]
     @filter = decorate ProjectFilter.new(search), view: view_context
 
     scope = Project.published.includes{[company, scopes, authors, deals]}
