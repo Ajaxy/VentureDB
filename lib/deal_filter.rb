@@ -4,7 +4,7 @@ class DealFilter < Filter
   LAST_YEARS = 3
 
   def filter(deals)
-    deals = deals.search(params.search.strip) if params.search.present?
+    deals = deals.search(search) if search
 
     case params.deal_type
     when ['1']
