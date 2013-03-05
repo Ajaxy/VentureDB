@@ -2,7 +2,7 @@
 
 class DealsController < CabinetController
   def index
-    search = params[:search] ? params[:search] : params[:extended_search]
+    search = params[:search] ? params : params[:extended_search]
     @filter = decorate DealFilter.new(search), view: view_context
 
     scope   = Deal.published.includes{[project.authors, project.scopes.parent,

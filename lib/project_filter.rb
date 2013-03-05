@@ -2,7 +2,7 @@
 
 class ProjectFilter < Filter
   def filter(projects)
-    # projects = projects.search(search)  if search
+    projects = projects.search(search)  if search
     case params.deal_type
     when ['1']
       params.type = 'investments'
