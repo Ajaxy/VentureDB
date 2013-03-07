@@ -1,11 +1,12 @@
 # encoding: utf-8
 
 class Admin::CompaniesController < Admin::BaseController
+  before_filter :get_klass
   before_filter :find_company, only: [:show, :edit, :update]
 
   def index
     @sorter    = CompanySorter.new(params, view_context)
-    scope      = paginate Company.scoped
+    scope      = paginate @klass.scoped
     @companies = PaginatingDecorator.decorate @sorter.sort(scope)
   end
 
@@ -14,11 +15,11 @@ class Admin::CompaniesController < Admin::BaseController
   end
 
   def new
-    @company = Company.new
+    @company = @klass.new
   end
 
   def create
-    @company = Company.new(permitted_params.company)
+    @company = @klass.new(permitted_params.company)
 
     if @company.save
       redirect_to [:admin, @company], notice: "Компания успешно добавлена."
@@ -40,7 +41,17 @@ class Admin::CompaniesController < Admin::BaseController
 
   private
 
-  def find_company
-    @company = Company.find(params[:id])
+  def get_klass
+    type = request.path.split("/")[2]
+    if %[sciences infrastructures events projects].include? type
+      @klass = type.classify.constantize
+    else
+      @klass = Company
+    end
   end
+
+  def find_company
+    @company = @klass.find(params[:id])
+  end
+
 end

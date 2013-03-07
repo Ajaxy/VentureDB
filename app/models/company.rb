@@ -13,9 +13,14 @@ class Company < ActiveRecord::Base
   }
 
   has_many :users
-  has_one :project
+  has_many :locations
+  has_one  :project
+  has_many :sectors, through: :project, source: :scopes
 
-  # validates :name, :full_name, :form, :place, presence: true
+  store :contacts, accessors:[ :address, :telephone, :website,
+                      :facebook, :slideshare, :vkontakte, :vacancies,
+                      :jobs, :media, :other]
+
   validates :name, presence: true
   validates :type_id, inclusion: { in: TYPES.keys }, allow_nil: true
 

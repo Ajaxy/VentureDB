@@ -1,5 +1,13 @@
-class Event < ActiveRecord::Base
+# encoding: utf-8
+class Event < Company
   INVOLVED_CLASSES = [Project, Investor, Company].freeze
+  TYPES = {
+    1 => "Форумы, конференции, круглые столы",
+    2 => "Ярмарки, выставки",
+    3 => "Обучающие семинары, курсы",
+    4 => "Конкурсы инновационных проектов",
+    5 => "Программы поддержки инновационного предпринимательства"
+  }
 
   has_many :event_organizers
   has_many :event_participants
@@ -11,11 +19,7 @@ class Event < ActiveRecord::Base
       source: :participant, source_type: klass.to_s
   end
 
-  validates :name, presence: true
-
-  def self.order_by_name(direction)
-    order("#{table_name}.name #{direction}")
-  end
+  validates :type_id, inclusion: { in: TYPES.keys }, allow_nil: true
 
   def organizers
     event_organizers.map &:organizer

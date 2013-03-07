@@ -2,10 +2,11 @@
 #= require jquery_ujs
 #= require jquery.ui.all
 #= require bootstrap
+#= require bootstrap-datepicker/core
+#= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 #= require chosen-jquery
 #= require jquery.autosize
 #= require lib/markdown
-
 class Form
   error: (formHTML, $el = @popup) ->
     $el.html(formHTML)
@@ -214,3 +215,5 @@ jQuery ->
 
       return ""
 
+  $('.datepicker').datepicker
+    autoclose: true

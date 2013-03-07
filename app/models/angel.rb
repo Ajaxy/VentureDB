@@ -1,0 +1,2 @@
+class Angel < Person
+end

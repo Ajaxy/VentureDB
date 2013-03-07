@@ -19,6 +19,18 @@ class Investor < ActiveRecord::Base
   validates :type_id, presence: true
 
   after_create :set_name
+  
+  # TODO: Update types
+  # TYPES = {
+  #   1 => "Венчурные фонды с государственным участием",
+  #   2 => "Корпорации и корпоративные венчурные фонды",
+  #   3 => "Частные венчурные фонды",
+  #   4 => "Управляющие компании",
+  #   5 => "Фонды с государственным участием",
+  #   6 => "Частные организации",
+  #   7 => "Банки",
+  #   8 => "Кредитная организация"
+  # }
 
   TYPES = {
     1  => "Государственный фонд",
@@ -38,6 +50,7 @@ class Investor < ActiveRecord::Base
     14 => "Прочие организации (юрлица)",
   }
 
+  COMPANY_TYPES = [1..10].to_a + [12,14]
   PERSON_TYPES = [11, 13]
 
   define_index "investors_index" do

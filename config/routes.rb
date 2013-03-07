@@ -18,6 +18,7 @@ Venture::Application.routes.draw do
 
     resources :projects
     resources :investors
+    resources :angels,  controller: :investors, only: %w[new]
     resources :users
 
     resources :subscriptions do
@@ -27,9 +28,14 @@ Venture::Application.routes.draw do
     end
 
     resources :people
+    resources :experts, controller: :people, only: %w[new]
     resources :investments
-    resources :events
     resources :companies
+    resources :sciences,         controller: :companies
+    resources :infrastructures,  controller: :companies
+    resources :events,           controller: :companies
+    resources :innovations,         controller: :companies
+    resources :events, except: %w[new]
   end
 
   resources :deals, only: %w[index]

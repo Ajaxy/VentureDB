@@ -9,6 +9,19 @@ class Admin::InvestorsController < Admin::BaseController
     @investors = PaginatingDecorator.decorate paginate(scope)
   end
 
+  def new
+    type = request.path.split('/')[2]
+    if type.in? %[angels]
+      actor_klass = Person
+    else
+      actor_klass = Company
+    end
+
+    @investor = Investor.new
+    @investor.actor = actor_klass.new
+    render :edit
+  end
+
   def create
     @investor = InvestorForm.new(params[:investor])
 

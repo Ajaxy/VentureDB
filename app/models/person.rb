@@ -4,13 +4,18 @@ class Person < ActiveRecord::Base
   include Draftable
   include InvestorActor
 
-  has_one :user
-
+  has_one  :user
   has_many :project_authors, foreign_key: "author_id"
-  # has_many :projects
+  has_many :projects, through: :project_authors
+  has_many :sectors, through: :projects, source: :scopes
+  has_many :location_bindings, as: :entity
+  has_many :country, through: :location_bindings, source: :location
+  
+  store :contacts, accessors:[ :address, :telephone, :website,
+                      :facebook, :slideshare, :vkontakte, :vacancies,
+                      :jobs, :media, :other]
 
   def self.by_name
-    # order(:first_name, :last_name)
     all.sort_by(&:full_name)
   end
 

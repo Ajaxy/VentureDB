@@ -1,7 +1,65 @@
-= f.label :type_id, "Тип компании"
-= f.select :type_id, Company::TYPES.invert, { include_blank: true }, class: "chzn span8"
-= f.text_field :name, class: "span8", placeholder: "Краткое название компании"
-= f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
-= f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
-= f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
-= f.text_field :place, class: "span8", placeholder: "Местонахождение"
+.tabbable
+  ul.nav.nav-tabs
+    li.active: a href='#company'     data-toggle='tab' Компания
+    li:        a href='#contacts'    data-toggle='tab' Контакты
+    li:        a href='#connections' data-toggle='tab' Связи
+    li:        a href='#other'       data-toggle='tab' Дополнительно
+  .tab-content
+    .tab-pane.active#company
+      - if defined? f.object.class::TYPES
+        = f.label  :type_id, "Тип компании"
+        = f.select :type_id, f.object.class::TYPES.invert, { include_blank: true }, class: "span8 chzn", "data-placeholder" => "Выберите тип компании"
+
+      = f.label      :name, 'Краткое наименование'
+      = f.text_field :name, class: 'span8'
+
+      = f.label      :full_name, 'Полное наименование'
+      = f.text_field :full_name, class: 'span8'
+
+      = f.label      :form, "Организационно-правовая форма"
+      = f.text_field :form, class: 'span8'
+
+      = f.label      :old_name, 'Прежнее название (если имеется)'
+      = f.text_field :old_name, class: 'span8'
+
+      = f.label      :creation_date, 'Год и месяц основания'
+      = f.text_field :creation_date, class: 'datepicker'
+
+      = f.label :description, "Краткое описание/бизнес модель/условия инвестирования"
+      = f.markdown_textarea :description, class: "span8", rows: 6
+              
+      = f.label  :locations, 'Страна юрисдикции'
+      = f.select :locations, Location.all.map {|i| [i.name, i.id]}.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите страну юрисдикции"
+
+      = f.label :sectors, 'Сфера/сектор деятельности + тэги как ключевые слова для поиска'
+      = f.select :sectors, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: 'span8 chzn', multiple: true, "data-placeholder" => "Выберите сектор деятельности"
+    .tab-pane#contacts
+      = f.label :address, 'Адрес', required: false
+      = f.text_area :address, rows: 3, class: 'span6'
+
+      = f.label :telephone, 'Телефон', required: false
+      = f.text_field :telephone, class: 'span3'
+
+      = f.label :website, 'Сайт', required: false
+      = f.text_field :website, class: 'span6'
+
+      = f.label :facebook, required: false
+      = f.text_field :facebook, class: 'span6'
+
+      = f.label :slideshare, required: false
+      = f.text_field :slideshare, class: 'span6'
+
+      = f.label :vkontakte, required: false
+      = f.text_field :vkontakte, class: 'span6'
+
+      = f.label :vacancies, 'Вакансии', required: false
+      = f.text_field :vacancies, class: 'span6'
+
+      = f.label :media, 'Упоминания в СМИ', required: false
+      = f.text_area :media, rows: 3, class: 'span6'
+
+      = f.label :other, 'Прочая география (офисы, филиалы, представительства)', required: false
+      = f.text_area :other, rows: 3, class: 'span6'
+
+    .tab-pane#connections
+    .tab-pane#other

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130070733) do
+ActiveRecord::Schema.define(:version => 20130306154713) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.text     "direction"
     t.text     "description"
     t.integer  "type_id"
+    t.string   "type"
+    t.string   "old_name"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
@@ -103,13 +105,6 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
 
   add_index "event_participants", ["event_id"], :name => "index_event_participants_on_event_id"
   add_index "event_participants", ["participant_type", "participant_id"], :name => "index_event_participants_on_participant_type_and_participant_id"
-
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
 
   create_table "investments", :force => true do |t|
     t.integer  "investor_id"
@@ -193,6 +188,9 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.datetime "updated_at",                     :null => false
     t.text     "description"
     t.boolean  "expert",      :default => false, :null => false
+    t.text     "contacts"
+    t.integer  "age"
+    t.string   "sex"
   end
 
   create_table "project_authors", :force => true do |t|
