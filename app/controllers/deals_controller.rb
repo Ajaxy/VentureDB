@@ -5,8 +5,7 @@ class DealsController < CabinetController
     search = params[:search] ? params : params[:extended_search]
     @filter = decorate DealFilter.new(search), view: view_context
 
-    scope   = Deal.published.includes{[project.authors, project.scopes.parent,
-                                       investors.actor, investors.locations]}
+    scope   = Deal.published.includes{[project.authors, project.scopes.parent, investors.locations]}
     scope   = @filter.filter(scope)
 
     @deals  = PaginatingDecorator.decorate(paginate scope)

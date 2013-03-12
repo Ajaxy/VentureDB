@@ -1,13 +1,28 @@
-= form_for [:admin, person.becomes(Person)], remote: true do |f|
-  = hidden_field_tag :type, person_type
+.tabbable
+  ul.nav.nav-tabs
+    li.active: a href='#person'      data-toggle='tab' Персона
+    li:        a href='#contacts'    data-toggle='tab' Контакты
+    li:        a href='#connections' data-toggle='tab' Связи
+    li:        a href='#other'       data-toggle='tab' Дополнительно
+  .tab-content
+    .tab-pane.active#person
+      = form_for [:admin, @person] do |f|
+        = render 'person_fields', f: f
+    .tab-pane#contacts
+      = form_for [:admin, @person] do |f|
+        = render 'contacts_fields', f: f
+    .tab-pane#connections
+      / - connections = [['Аффилированные общества', 1], ['Со-инвесторы', 2], ['Похожие', 3], ['Акционер в', 4], ['Инвестор в', 5], ['Клиент в', 6], ['Консультант в', 7], ['Преподаватель в', 8], ['Резидент в', 9], ['Управляет', 10], ['Участник в', 11], ['Участвовал при создании', 12], ['Учредитель в', 13], ['Член в', 14], ['Финалист в', 15], ['Эксперт в', 16]]
+      / = select_tag :search_by, options_from_collection_for_select(connections,"last","first")
 
-  .modal-header
-    button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
-    h3 Добавить человека
+      / - entities        = %w[person company].join(',')
+      / - autosuggest     = !entities.empty?
+      / - navigate        = true
+      / - placeholder     = "Поиск связей"
 
-  .modal-body
-    fieldset = render "person_fields", f: f
-
-  .modal-footer
-    a.btn data-dismiss="modal" Отмена
-    button.btn.btn-primary Добавить человека
+      / = form_tag "", method: :get, class: "search" do
+      /   = hidden_field_tag :sort, @sorter.current_column if @sorter.present?
+      /   = text_field_tag :search, @filter.present? ? @filter.search : '', placeholder: placeholder, \
+      /     data: { autosuggest: autosuggest, autosuggest_entities: entities, \
+      /     autosuggest_navigate: navigate }, autocomplete: 'off'
+    .tab-pane#other

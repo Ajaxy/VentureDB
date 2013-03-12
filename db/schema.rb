@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130070733) do
+ActiveRecord::Schema.define(:version => 20130312151910) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -28,9 +28,25 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.text     "direction"
     t.text     "description"
     t.integer  "type_id"
+    t.string   "type"
+    t.string   "old_name"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
+
+  create_table "companies_scopes", :id => false, :force => true do |t|
+    t.integer "company_id"
+    t.integer "scope_id"
+  end
+
+  create_table "connection_bindings", :id => false, :force => true do |t|
+    t.integer  "connect_from_id"
+    t.string   "connect_from_type"
+    t.integer  "connect_to_id"
+    t.string   "connect_to_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "deal_exits", :id => false, :force => true do |t|
     t.integer "id"
@@ -104,26 +120,20 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
   add_index "event_participants", ["event_id"], :name => "index_event_participants_on_event_id"
   add_index "event_participants", ["participant_type", "participant_id"], :name => "index_event_participants_on_participant_type_and_participant_id"
 
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "investments", :force => true do |t|
-    t.integer  "investor_id"
     t.integer  "deal_id"
     t.integer  "instrument_id"
     t.text     "share"
-    t.boolean  "draft",         :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "draft",                :default => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.string   "investor_entity_type"
+    t.integer  "investor_entity_id"
+    t.string   "uniq_investor_id"
   end
 
   add_index "investments", ["deal_id"], :name => "index_investments_on_deal_id"
   add_index "investments", ["instrument_id"], :name => "index_investments_on_instrument_id"
-  add_index "investments", ["investor_id"], :name => "index_investments_on_investor_id"
 
   create_table "investor_type", :id => false, :force => true do |t|
     t.integer "id"
@@ -139,10 +149,6 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.datetime "updated_at",                    :null => false
     t.string   "name"
   end
-
-  add_index "investors", ["actor_id", "actor_type"], :name => "index_investors_on_actor_id_and_actor_type"
-  add_index "investors", ["name"], :name => "index_investors_on_name"
-  add_index "investors", ["type_id"], :name => "index_investors_on_type_id"
 
   create_table "location_bindings", :force => true do |t|
     t.integer  "entity_id"
@@ -193,6 +199,16 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.datetime "updated_at",                     :null => false
     t.text     "description"
     t.boolean  "expert",      :default => false, :null => false
+    t.text     "contacts"
+    t.integer  "age"
+    t.string   "sex"
+    t.string   "full_name"
+    t.integer  "type_id"
+  end
+
+  create_table "people_scopes", :id => false, :force => true do |t|
+    t.integer "person_id"
+    t.integer "scope_id"
   end
 
   create_table "project_authors", :force => true do |t|

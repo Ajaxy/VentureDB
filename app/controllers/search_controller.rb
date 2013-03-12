@@ -20,4 +20,11 @@ class SearchController < CabinetController
 
     respond_with(entities.as_json(title_with_type: suggester.multi_entities?))
   end
+
+  def suggest_connection
+    suggester = Suggester.new(params[:query], params[:entities])
+    entities  = suggester.suggest
+
+    respond_with(entities.as_json(title_with_type: suggester.multi_entities?, connection: true))
+  end
 end

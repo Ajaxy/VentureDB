@@ -3,7 +3,7 @@
 class InvestorSorter < Sorter
   def sortable_columns
     {
-      :name         => :asc,
+      :full_name         => :asc,
       :type         => :asc,
       :investments  => :desc
     }
@@ -11,8 +11,8 @@ class InvestorSorter < Sorter
 
   def sort(scope)
     case current_column
-    when :name
-      scope.order_by_name(current_direction)
+    when :full_name
+      scope.order_by_full_name(current_direction)
     when :type
       scope.order_by_type(current_direction)
     when :investments

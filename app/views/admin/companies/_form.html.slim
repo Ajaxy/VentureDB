@@ -1,12 +1,16 @@
-= form_for [:admin, @company], html: { class: "company" } do |f|
-  h1 Компания
-  hr
-
-  = render partial: "company_fields", locals: { f: f }
-
-  .form-actions
-    .offset4
-      button.btn.btn-large.btn-primary
-        = @company.persisted? ? "Сохранить" : "Создать"
-      '
-      = link_to "Отмена", [:admin, :companies], class: "btn btn-large"
+.tabbable
+  ul.nav.nav-tabs
+    li.active: a href='#company'     data-toggle='tab' Компания
+    li:        a href='#contacts'    data-toggle='tab' Контакты
+    li:        a href='#connections' data-toggle='tab' Связи
+    li:        a href='#other'       data-toggle='tab' Дополнительно
+  .tab-content
+    .tab-pane.active#company
+      = form_for [:admin, @company] do |f|
+        = render 'company_fields', f: f
+    .tab-pane#contacts
+      = form_for [:admin, @company] do |f|
+        = render 'contacts_fields', f: f
+    .tab-pane#connections
+      / = search_field "Поиск связей", entities: %w[person company], navigate: true
+    .tab-pane#other
