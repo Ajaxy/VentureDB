@@ -52,8 +52,8 @@ class DealDecorator < ApplicationDecorator
   end
 
   def investor_names
-    return mdash unless deal.investors.any?
-    list deal.investors.map(&:name)
+    return mdash unless (deal.investors + deal.angels).any?
+    list (deal.investors + deal.angels).map(&:name)
   end
 
   def authors_list
@@ -99,8 +99,8 @@ class DealDecorator < ApplicationDecorator
   end
 
   def investor_links
-    return "Неизвестные инвесторы" if deal.investors.empty?
-    deal.investors.map { |i| i.decorate.link }.to_sentence
+    return "Неизвестные инвесторы" if deal.all_investors.empty?
+    deal.all_investors.map { |i| InvestorDecorator.new(i).link }.to_sentence
   end
 
   def meta

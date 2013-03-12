@@ -1,37 +1,49 @@
 # encoding: utf-8
 
 class Admin::PeopleController < Admin::BaseController
+  before_filter :get_klass
+
   def show
-    @person = Author.find(params[:id])
-    @type   = "author"
-    render :success
+    @person = @klass.find(params[:id])
+    render :edit
+  end
+
+  def new
+    @person = @klass.new
   end
 
   def create
-    @type   = params[:type]
+    method = @klass.to_s.underscore.to_sym
+    @person = @klass.new permitted_params.send(method)
 
-    klass   = @type == "author" ? Author : Informer
-    @person = klass.find_or_create_draft(permitted_params.person)
-
-    if @person.valid?
-      render :success
+    if @person.save
+      redirect_to [:admin, @person], notice: "Персона успешно добавлена."
     else
-      render :error
+      render :new, error: 'Возникли проблемы.'
     end
   end
 
   def edit
-    @person = Person.find(params[:id])
+    @person = @klass.find(params[:id])
   end
 
   def update
-    @person = Person.find(params[:id])
+    method = @klass.to_s.underscore.to_sym
+    @person = @klass.find(params[:id])
 
-    if @person.update_attributes(permitted_params.person)
-      flash.now[:notice] = "Информация о человеке обновлена."
-      render :edit
+    if @person.update_attributes(permitted_params.send(method))
+      render :edit, notice: "Информация о человеке обновлена."
     else
       render :edit
     end
   end
+
+  private
+
+  def get_klass
+    type = request.path.split("/")[2]
+    klass = type.classify.constantize
+    @klass = %[experts angels investors].include?(type) ? klass : Person
+  end
+
 end

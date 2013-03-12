@@ -6,16 +6,19 @@ class InvestorsController < CabinetController
     @sorter = InvestorSorter.new(params)
     @filter = decorate InvestorFilter.new(search), view: view_context,
                                                    sorter: @sorter
-
-    scope = Investor.published.with_actor.includes{deals}
+    scope = ViewInvestor.includes{deals}
     scope = scope.joins{deals.outer}
-                 .select("investors.*, count(deals.id) AS deals_count ")
+                 .select("view_investors.*, count(deals.id) AS deals_count ")
                  .where{deals.published == true}
                  .group{id}
-
+                 .group{full_name}
+                 .group{contacts}
+                 .group{type_id}
+                 .group{uniq_id}
+                 .group{type}
     scope = @filter.filter(scope)
     scope = @sorter.sort(scope)
-
+    
     @investors = PaginatingDecorator.decorate paginate(scope)
   end
 

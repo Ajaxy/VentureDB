@@ -1,8 +1,21 @@
 # encoding: utf-8
 
 class PermittedParams < Struct.new(:params, :user)
+  
+  def infrastructure
+    params.require(:infrastructure).permit(*(company_attributes + contact_attributes))
+  end
+
+  def science
+    params.require(:science).permit(*(company_attributes + contact_attributes))
+  end
+
+  def event
+    params.require(:event).permit(*(company_attributes + contact_attributes))
+  end
+
   def company
-    params.require(:company).permit(*company_attributes)
+    params.require(:company).permit(*(company_attributes + contact_attributes))
   end
 
   def deal
@@ -14,8 +27,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def investor
-    params.require(:investor).permit(*investor_attributes,
-      company: company_attributes, person: person_attributes)
+    params.require(:investor).permit(*(company_attributes + contact_attributes))
   end
 
   def participation
@@ -23,7 +35,15 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def person
-    params.require(:person).permit(*person_attributes)
+    params.require(:person).permit(*(person_attributes + contact_attributes))
+  end
+
+  def angel
+    params.require(:angel).permit(*(person_attributes + contact_attributes))
+  end
+
+  def expert
+    params.require(:expert).permit(*(person_attributes + contact_attributes))
   end
 
   def project
@@ -40,10 +60,6 @@ class PermittedParams < Struct.new(:params, :user)
       person_attributes: person_attributes)
   end
 
-  def event
-    params.require(:event).permit(*event_attributes)
-  end
-
   private
 
   def actor_attributes
@@ -51,7 +67,8 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def company_attributes
-    %w[name full_name form place description type_id]
+    %w[name full_name form description type_id location_ids
+      creation_date old_name sector_ids]
   end
 
   def deal_attributes
@@ -70,7 +87,8 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def person_attributes
-    %w[first_name last_name middle_name email phone description]
+    %w[first_name last_name middle_name email phone description full_name
+      type_id sex age country_ids sector_ids]
   end
 
   def project_attributes
@@ -89,5 +107,10 @@ class PermittedParams < Struct.new(:params, :user)
     %w[name description investor_organizer_ids project_organizer_ids
       investor_organizer_ids project_participant_ids
       company_organizer_ids company_participant_ids]
+  end
+
+  def contact_attributes
+    %w[address telephone website facebook slideshare
+      vkontakte vacancies media other]    
   end
 end

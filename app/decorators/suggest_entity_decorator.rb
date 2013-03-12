@@ -4,7 +4,8 @@ class SuggestEntityDecorator < ApplicationDecorator
   MAPPING = {
     "company"  => "компания",
     "project"  => "проект",
-    "investor" => "инвестор"
+    "investor" => "инвестор",
+    "angel"    => "бизнес-ангел"
   }
 
   def title
@@ -20,7 +21,7 @@ class SuggestEntityDecorator < ApplicationDecorator
       id:    id,
       type:  type,
       title: options[:title_with_type] ? title_with_type : title,
-      url:   helpers.url_for(source)
+      url:   options[:connection] ? "/admin/add_#{source.class.to_s.downcase}_#{source.id}" : helpers.url_for(source)
     }
   end
 
