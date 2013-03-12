@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class InvestorDecorator < HasInvestmentsDecorator
+class AngelDecorator < HasInvestmentsDecorator
   decorates :investor
 
   def creation_date

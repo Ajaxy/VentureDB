@@ -19,8 +19,8 @@ class Admin::CompaniesController < Admin::BaseController
   end
 
   def create
-    @company = @klass.new(permitted_params.company)
-
+    method = @klass.to_s.underscore.to_sym
+    @company = @klass.new permitted_params.send(method)
     if @company.save
       redirect_to [:admin, @company], notice: "Компания успешно добавлена."
     else
@@ -32,7 +32,8 @@ class Admin::CompaniesController < Admin::BaseController
   end
 
   def update
-    if @company.update_attributes(permitted_params.company)
+    method = @klass.to_s.underscore.to_sym
+    if @company.update_attributes(permitted_params.send(method))
       redirect_to [:admin, @company], notice: "Компания успешно обновлена."
     else
       render :edit
@@ -43,7 +44,7 @@ class Admin::CompaniesController < Admin::BaseController
 
   def get_klass
     type = request.path.split("/")[2]
-    if %[sciences infrastructures events projects].include? type
+    if %[sciences infrastructures events projects investors].include? type
       @klass = type.classify.constantize
     else
       @klass = Company

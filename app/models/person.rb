@@ -1,15 +1,26 @@
 # encoding: utf-8
 
 class Person < ActiveRecord::Base
-  include Draftable
-  include InvestorActor
+  include Searchable
+  
+  TYPES = {
+    11 => "Бизнес-ангел",
+    13 => "Прочие физлица (включая FFF)"
+  }
+
+  # include Draftable
+  has_many :connection_binding
+  has_many :connections, through: :connection_binding, as: :connection
 
   has_one  :user
   has_many :project_authors, foreign_key: "author_id"
-  has_many :projects, through: :project_authors
-  has_many :sectors, through: :projects, source: :scopes
+  
+  has_and_belongs_to_many :sectors, class_name: 'Scope'
+
   has_many :location_bindings, as: :entity
-  has_many :country, through: :location_bindings, source: :location
+  has_many :locations, through: :location_bindings
+
+  has_many :investments, as: :investor_entity
   
   store :contacts, accessors:[ :address, :telephone, :website,
                       :facebook, :slideshare, :vkontakte, :vacancies,
@@ -38,14 +49,17 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def full_name
-    if middle_name?
-      "#{last_name} #{first_name} #{middle_name}"
-    else
-      "#{first_name} #{last_name}"
-    end
+  # def full_name
+    # if middle_name?
+    #   "#{last_name} #{first_name} #{middle_name}"
+    # else
+    #   "#{first_name} #{last_name}"
+    # end
+  # end
+
+  def name
+    full_name
   end
-  alias_method :name, :full_name
 
   def full_name_with_email
     "#{full_name} #{email}"

@@ -5,7 +5,8 @@ class Deal < ActiveRecord::Base
   belongs_to :informer, class_name: "Person"
 
   has_many :investments
-  has_many :investors, through: :investments
+  has_many :investors, through: :investments, source: :investor_entity, source_type: 'Company'
+  has_many :angels, through: :investments, source: :investor_entity, source_type: 'Person'
   has_many :scopes, through: :project
 
   DEAL_TYPES = {
@@ -255,5 +256,9 @@ class Deal < ActiveRecord::Base
 
   def unpublish
     update_attribute :published, false
+  end
+
+  def all_investors
+    investors + angels
   end
 end

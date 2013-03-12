@@ -1,61 +1,31 @@
-.tabbable
-  ul.nav.nav-tabs
-    li.active: a href='#person'      data-toggle='tab' Персона
-    li:        a href='#contacts'    data-toggle='tab' Контакты
-    li:        a href='#connections' data-toggle='tab' Связи
-    li:        a href='#other'       data-toggle='tab' Дополнительно
-  .tab-content
-    .tab-pane.active#person
-      = f.label :full_name, "Фамилия Имя Отчество"
-      = f.text_field :full_name, class: "span8", placeholder: "Отчество"
+- unless defined? f.object.is_a?(Person)
+  = f.label  :type_id, "Тип компании"
+  = f.select :type_id, f.object.class::TYPES.invert, { include_blank: true }, class: "span8 chzn", "data-placeholder" => "Выберите тип компании"
   
-      .control-group
-        = f.label :sex_label, 'Пол'
-        .controls
-          = f.label :sex_male, class: 'radio inline' do
-            = f.radio_button :sex, 'male', name: 'sex'
-            = 'Мужской'
-          = f.label :sex_female, class: 'radio inline' do
-            = f.radio_button :sex, 'female', name: 'sex'
-            = 'Женский'
+= f.label :full_name, "Фамилия Имя Отчество"
+= f.text_field :full_name, class: "span8", placeholder: "Отчество"
 
-      = f.label :age, "Возраст"
-      = f.email_field :age, class: "span3"
+.control-group
+  = f.label :sex_label, 'Пол'
+  .controls
+    = f.label :sex_male, class: 'radio inline' do
+      = f.radio_button :sex, 'male'
+      = 'Мужской'
+    = f.label :sex_female, class: 'radio inline' do
+      = f.radio_button :sex, 'female'
+      = 'Женский'
 
-      = f.label :description, 'Краткое описание'
-      = f.markdown_textarea :description, class: "span8", rows: 6
+= f.label :age, "Возраст"
+= f.text_field :age, class: "span3"
 
-      = f.label  :country, 'Страна'
-      = f.select :country, Location.all.map {|i| [i.name, i.id]}.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите страну"
+= f.label :description, 'Краткое описание'
+= f.markdown_textarea :description, class: "span8", rows: 6
 
-      = f.label :sectors, 'Сфера/сектор деятельности'
-      = f.select :sectors, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: 'span8 chzn', multiple: true, "data-placeholder" => "Выберите сектор деятельности"
-    .tab-pane#contacts
-      = f.label :address, 'Адрес', required: false
-      = f.text_area :address, rows: 3, class: 'span6'
+= f.label  :location_ids, 'Страна'
+= f.select :location_ids, Location.all.map {|i| [i.name, i.id]}.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите страну"
 
-      = f.label :telephone, 'Телефон', required: false
-      = f.text_field :telephone, class: 'span3'
+= f.label :sector_ids, 'Сфера/сектор деятельности'
+= f.select :sector_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: 'span8 chzn', multiple: true, "data-placeholder" => "Выберите сектор деятельности"
 
-      = f.label :website, 'Сайт', required: false
-      = f.text_field :website, class: 'span6'
-
-      = f.label :facebook, required: false
-      = f.text_field :facebook, class: 'span6'
-
-      = f.label :slideshare, required: false
-      = f.text_field :slideshare, class: 'span6'
-
-      = f.label :vkontakte, required: false
-      = f.text_field :vkontakte, class: 'span6'
-
-      = f.label :vacancies, 'Вакансии', required: false
-      = f.text_field :vacancies, class: 'span6'
-
-      = f.label :media, 'Упоминания в СМИ', required: false
-      = f.text_area :media, rows: 3, class: 'span6'
-
-      = f.label :other, 'Прочая география (офисы, филиалы, представительства)', required: false
-      = f.text_area :other, rows: 3, class: 'span6'
-    .tab-pane#connections
-    .tab-pane#other
+.form-actions
+  button.btn.btn-primary.pull-right Сохранить

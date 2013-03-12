@@ -17,8 +17,8 @@ Venture::Application.routes.draw do
     end
 
     resources :projects
-    resources :investors
-    resources :angels,  controller: :investors, only: %w[new]
+    resources :investors,  controller: :companies
+    resources :angels,     controller: :people
     resources :users
 
     resources :subscriptions do
@@ -28,15 +28,20 @@ Venture::Application.routes.draw do
     end
 
     resources :people
-    resources :experts, controller: :people, only: %w[new]
+    resources :experts, controller: :people
     resources :investments
     resources :companies
     resources :sciences,         controller: :companies
     resources :infrastructures,  controller: :companies
     resources :events,           controller: :companies
-    resources :innovations,         controller: :companies
+    resources :innovations,      controller: :companies
     resources :events, except: %w[new]
   end
+
+  resources :investors,  controller: :investors
+  resources :angels,     controller: :investors
+  resources :authors,    controller: :people
+  resources :informers,    controller: :people
 
   resources :deals, only: %w[index]
   resources :projects, only: %w[index show]
@@ -47,6 +52,8 @@ Venture::Application.routes.draw do
 
   get "/search" => "search#index"
   get "/search/suggest" => "search#suggest"
+  get "/search/suggest_connection" => "search#suggest_connection"
+  get "/admin/:connection" => "deals#index", :constraints => {connection: /add.*\d/}
 
   root to: "home#promo", via: "get"
   post "/" => "home#subscribe"

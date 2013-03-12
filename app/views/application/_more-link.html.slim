@@ -1,2 +1,2 @@
-- unless collection.last_page?
-  .more = link_to "Далее", params.merge(page: collection.current_page + 1), class: "js-more-link button", remote: true
+/ - unless collection.last_page?
+.more = link_to "Далее", params.merge(page: collection.current_page + 1), class: "js-more-link button", remote: true

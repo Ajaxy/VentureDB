@@ -3,11 +3,17 @@
 class Investment < ActiveRecord::Base
   include Draftable
 
-  belongs_to :investor
+  belongs_to :investor_entity, polymorphic: true
+
+  belongs_to :investor, class_name: 'ViewInvestor', foreign_key: 'uniq_investor_id', primary_key: 'uniq_id'
   belongs_to :deal
 
+  # def investor_entity_type=(sType)
+  #    super(sType.to_s.classify.constantize.base_class.to_s)
+  # end
+
   # validates :investor_id, :instrument_id, :share, presence: true
-  delegate :name, :type, to: :investor, prefix: true, allow_nil: true
+  # delegate :name, :type, to: :investor, prefix: true, allow_nil: true
 
   GRANT_INSTRUMENTS = [8, 9]
 
@@ -38,7 +44,7 @@ class Investment < ActiveRecord::Base
   end
 
   def locations
-    investor ? investor.locations : []
+    investor_entity ? investor_entity.locations : []
   end
 end
 
