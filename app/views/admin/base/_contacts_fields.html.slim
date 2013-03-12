@@ -1,0 +1,29 @@
+= f.label :address, 'Адрес', required: false
+= f.text_area :address, rows: 3, class: 'span6'
+
+= f.label :telephone, 'Телефон', required: false
+= f.text_field :telephone, class: 'span3'
+
+= f.label :website, 'Сайт', required: false
+= f.text_field :website, class: 'span6'
+
+= f.label :facebook, required: false
+= f.text_field :facebook, class: 'span6'
+
+= f.label :slideshare, required: false
+= f.text_field :slideshare, class: 'span6'
+
+= f.label :vkontakte, required: false
+= f.text_field :vkontakte, class: 'span6'
+
+= f.label :vacancies, 'Вакансии', required: false
+= f.text_field :vacancies, class: 'span6'
+
+= f.label :media, 'Упоминания в СМИ', required: false
+= f.text_area :media, rows: 3, class: 'span6'
+
+= f.label :other, 'Прочая география (офисы, филиалы, представительства)', required: false
+= f.text_area :other, rows: 3, class: 'span6'
+
+.form-actions
+  button.btn.btn-primary.pull-right Сохранить
