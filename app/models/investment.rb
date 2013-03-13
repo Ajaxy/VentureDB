@@ -6,6 +6,7 @@ class Investment < ActiveRecord::Base
   belongs_to :investor_entity, polymorphic: true
 
   belongs_to :investor, class_name: 'ViewInvestor', foreign_key: 'uniq_investor_id', primary_key: 'uniq_id'
+  #belongs_to :investor
   belongs_to :deal
 
   # def investor_entity_type=(sType)

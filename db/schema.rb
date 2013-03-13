@@ -120,6 +120,13 @@ ActiveRecord::Schema.define(:version => 20130312151910) do
   add_index "event_participants", ["event_id"], :name => "index_event_participants_on_event_id"
   add_index "event_participants", ["participant_type", "participant_id"], :name => "index_event_participants_on_participant_type_and_participant_id"
 
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "investments", :force => true do |t|
     t.integer  "deal_id"
     t.integer  "instrument_id"

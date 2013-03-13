@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Investor < Company
+class Investor < ActiveRecord::Base
   include HasInvestments
   include InvestorActor
   include Searchable
