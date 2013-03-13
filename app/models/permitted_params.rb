@@ -70,7 +70,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def person_attributes
-    %w[first_name last_name middle_name email phone description]
+    %w[first_name last_name middle_name email phone description from_connections_attributes]
   end
 
   def project_attributes

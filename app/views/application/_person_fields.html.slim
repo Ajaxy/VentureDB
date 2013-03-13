@@ -1,15 +1,32 @@
 - placeholder = "Описание инвестора" if local_assigns[:placeholder].nil?
 
-.form-horizontal.control-group
-  =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
-  =' f.text_field :first_name, class: "span3", placeholder: "Имя"
-  =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
-= f.markdown_textarea :description, class: "span8", placeholder: placeholder, rows: 6
-.form-horizontal.control-group
-  =' f.email_field :email, class: "span3", placeholder: "Email"
-  =' f.text_field :phone, class: "span3", placeholder: "Телефон"
-.form-horizontal.control-group
-  =' f.label :expert, class: "checkbox" do
-    =' f.check_box :expert
-    = "Эксперт"
-
+ul.nav.nav-tabs
+  li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
+  li= link_to "Связи", "#connections", data: { toggle: "tab" }
+.tab-content
+  .tab-pane.active#basic_info
+    .form-horizontal.control-group
+      =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
+      =' f.text_field :first_name, class: "span3", placeholder: "Имя"
+      =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
+    = f.markdown_textarea :description, class: "span8", placeholder: placeholder, rows: 6
+    .form-horizontal.control-group
+      =' f.email_field :email, class: "span3", placeholder: "Email"
+      =' f.text_field :phone, class: "span3", placeholder: "Телефон"
+    .form-horizontal.control-group
+      =' f.label :expert, class: "checkbox" do
+        =' f.check_box :expert
+        = "Эксперт"
+  .tab-pane#connections
+    = select_tag 'connection_type', options_from_collection_for_select(f.object.connection_types, :id, :direct_name)
+    = text_field_tag 'receiver', '', data: { autosuggest: true, 'autosuggest-entities' => 'company'}, class: 'connection_to'
+    .entries-list
+      - f.object.from_connections.each do |connection|
+        .entry
+          .controls
+            span
+              i.icon-remove
+          = hidden_field_tag "#{f.object_name}[from_connections_attributes][][id]", connection.id
+          = hidden_field_tag "#{f.object_name}[from_connections_attributes][][_destroy]", '', class: 'delete'
+          =' connection.connection_type.direct_name
+          strong = connection.to.name
