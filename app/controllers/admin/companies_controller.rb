@@ -5,7 +5,7 @@ class Admin::CompaniesController < Admin::BaseController
 
   def index
     @sorter    = CompanySorter.new(params, view_context)
-    scope      = paginate Company.scoped
+    scope      = paginate Company.infrastructure.scoped
     @companies = PaginatingDecorator.decorate @sorter.sort(scope)
   end
 

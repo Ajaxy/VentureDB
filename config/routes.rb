@@ -33,6 +33,7 @@ Venture::Application.routes.draw do
   end
 
   resources :deals, only: %w[index]
+  resources :people, only: %w[show]
   resources :projects, only: %w[index show]
   resources :investors, only: %w[index show]
   resources :statistics, only: %w[index]

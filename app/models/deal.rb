@@ -2,7 +2,6 @@
 
 class Deal < ActiveRecord::Base
   belongs_to :project
-  belongs_to :informer, class_name: "Person"
 
   has_many :investments
   has_many :investors, through: :investments
@@ -231,7 +230,6 @@ class Deal < ActiveRecord::Base
   def undraft
     project.try(:publish)
     investments.each(&:publish)
-    informer.try(:publish)
     true
   end
 

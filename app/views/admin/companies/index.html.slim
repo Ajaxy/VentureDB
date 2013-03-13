@@ -4,11 +4,13 @@ table.table
   thead
     tr
       th = @sorter.header "Название", :name
+      th Тип компании
       th Местонахождение
   tbody
     - @companies.each do |company|
       tr
         td = company.link(scope: :admin)
+        td = Company::TYPES[company.type_id]
         td = company.place
 
 = paginate @companies

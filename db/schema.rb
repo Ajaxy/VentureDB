@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130070733) do
+ActiveRecord::Schema.define(:version => 20130313054619) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
     t.string   "full_name"
     t.string   "place"
     t.string   "form"
-    t.boolean  "draft",         :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "draft",          :default => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.date     "creation_date"
     t.text     "contacts"
     t.text     "employees"
@@ -28,6 +28,23 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.text     "direction"
     t.text     "description"
     t.integer  "type_id"
+    t.string   "prev_name"
+    t.string   "mentions"
+    t.string   "address1"
+    t.string   "phone1"
+    t.string   "www1"
+    t.string   "facebook1"
+    t.string   "vkontakte1"
+    t.string   "vacancies1"
+    t.string   "address2"
+    t.string   "phone2"
+    t.string   "www2"
+    t.string   "facebook2"
+    t.string   "vkontakte2"
+    t.string   "vacancies2"
+    t.text     "details"
+    t.text     "secret_details"
+    t.string   "sectors"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
@@ -86,31 +103,6 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
   add_index "deals", ["stage_id"], :name => "index_deals_on_stage_id"
   add_index "deals", ["status_id"], :name => "index_deals_on_status_id"
 
-  create_table "event_organizers", :force => true do |t|
-    t.integer "event_id"
-    t.string  "organizer_type"
-    t.integer "organizer_id"
-  end
-
-  add_index "event_organizers", ["event_id"], :name => "index_event_organizers_on_event_id"
-  add_index "event_organizers", ["organizer_type", "organizer_id"], :name => "index_event_organizers_on_organizer_type_and_organizer_id"
-
-  create_table "event_participants", :force => true do |t|
-    t.string  "participant_type"
-    t.integer "participant_id"
-    t.integer "event_id"
-  end
-
-  add_index "event_participants", ["event_id"], :name => "index_event_participants_on_event_id"
-  add_index "event_participants", ["participant_type", "participant_id"], :name => "index_event_participants_on_participant_type_and_participant_id"
-
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "investments", :force => true do |t|
     t.integer  "investor_id"
     t.integer  "deal_id"
@@ -119,6 +111,8 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.boolean  "draft",         :default => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.string   "actor_type"
+    t.integer  "actor_id"
   end
 
   add_index "investments", ["deal_id"], :name => "index_investments_on_deal_id"
@@ -182,7 +176,7 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
   end
 
   create_table "people", :force => true do |t|
-    t.string   "type"
+    t.string   "type_"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "middle_name"
@@ -193,6 +187,11 @@ ActiveRecord::Schema.define(:version => 20130130070733) do
     t.datetime "updated_at",                     :null => false
     t.text     "description"
     t.boolean  "expert",      :default => false, :null => false
+    t.string   "sex"
+    t.string   "education"
+    t.string   "age"
+    t.string   "country"
+    t.string   "sectors"
   end
 
   create_table "project_authors", :force => true do |t|
