@@ -148,7 +148,8 @@ class Project < ActiveRecord::Base
     if company.nil?
       []
     else
-      company.from_connections.joins(:connection_type).where(connection_types: {name: 'author'}).map(&:to)
+      company.from_connections.joins(:connection_type).
+        where(connection_types: { name: 'author' }).map(&:to)
     end
   end
 end

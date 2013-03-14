@@ -15,8 +15,8 @@ module Connectable
   module ClassMethods
     def connection_types
       [
-        ConnectionType.where(source_class: [self.to_s, 'all']) +
-        ConnectionType.where(receiver_class: [self.to_s, 'all'])
+        ConnectionType.where(source_class: [self.to_s, ConnectionType::TYPE_ALL]) +
+        ConnectionType.where(receiver_class: [self.to_s, ConnectionType::TYPE_ALL])
       ].flatten.uniq
     end
   end
