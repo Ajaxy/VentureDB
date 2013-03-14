@@ -13,9 +13,9 @@ namespace :post_deploy do
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Преподаватель в', reverse_name: 'Преподаёт'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
-      direct_name: 'Резидент в', reverse_name: ''
+      direct_name: 'Резидент в', reverse_name: 'Резидент'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
-      direct_name: 'Управляет', reverse_name: ''
+      direct_name: 'Управляет', reverse_name: 'Управляет'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Участник в', reverse_name: 'Участвует'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
@@ -23,7 +23,7 @@ namespace :post_deploy do
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Учредитель в', reverse_name: 'Учредитель'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
-      direct_name: 'Финалист в', reverse_name: ''
+      direct_name: 'Финалист в', reverse_name: 'Финалист'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Эксперт в', reverse_name: 'Эксперт'
     ConnectionType.create! source_class: 'all', receiver_class: 'all',
@@ -33,5 +33,15 @@ namespace :post_deploy do
   end
 
   task move_authors_to_connections: :environment do
+    type = ConnectionType.find_by_direct_name('Участвовал при создании')
+
+    Project.joins(:authors).includes(:authors).where('company_id IS NOT NULL').each do |project|
+      project.authors.each do |author|
+        connection = project.company.from_connections.build
+        connection.to = author
+        connection.connection_type = type
+        connection.save!
+      end
+    end
   end
 end
