@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 namespace :post_deploy do
-  task :create_connection_types => :environment do
+  task create_connection_types: :environment do
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Акционер в', reverse_name: ''
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
@@ -11,7 +11,7 @@ namespace :post_deploy do
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Консультант в', reverse_name: ''
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
-      direct_name: 'Преподаватель в', reverse_name: ''
+      direct_name: 'Преподаватель в', reverse_name: 'Преподаёт'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Резидент в', reverse_name: ''
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',

@@ -7,6 +7,7 @@ class Person < ActiveRecord::Base
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
   has_many :from_connections, class_name: 'Connection', as: :from
+  has_many :to_connections, class_name: 'Connection', as: :to
 
   def self.connection_types
     ConnectionType.where(source_class: self.to_s)

@@ -225,13 +225,14 @@ jQuery ->
     minLength: 2
 
     source: (query, process) ->
-      typeahead = @
+      typeahead   = @
+      $typeSelect = @$element.parent().find 'select'
       $.ajax
         dataType: "json"
         url:  "/search/suggest"
         data:
           query     : query
-          entities  : @$element.data "autosuggest-entities"
+          entities  : $typeSelect.find('option[value=' + $typeSelect.val() + ']').data('receiver-class')
         success: (response) ->
           typeahead.items = response
           process $.map(response, (item) -> item.title)
