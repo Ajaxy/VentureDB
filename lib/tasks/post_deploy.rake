@@ -31,4 +31,7 @@ namespace :post_deploy do
     ConnectionType.create! source_class: 'all', receiver_class: 'all',
       direct_name: 'Похожие', reverse_name: 'Похожие'
   end
+
+  task move_authors_to_connections: :environment do
+  end
 end

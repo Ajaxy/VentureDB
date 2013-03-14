@@ -243,19 +243,21 @@ jQuery ->
       $typeSelect     = @$element.parent().find 'select'
       inputName       = $entriesList.data('input-prefix') + "[from_connections_attributes][]"
       entityId        = selectedItem.id
+      entityType      = selectedItem.type.charAt(0).toUpperCase() + selectedItem.type.slice(1)
       $selectedOption = $typeSelect.find('option[value=' + $typeSelect.val() + ']')
 
       $entry = $("<div/>")
         .addClass("entry")
         .data(id: entityId)
 
+      $input = $("<input/>").attr(type: "hidden", name: inputName + '[id]')
+      $entry.append $input
       $input = $("<input/>").
         attr(type: "hidden", name: inputName + '[connection_type_id]').
         val($typeSelect.val())
       $entry.append $input
       $input = $("<input/>").
-        attr(type: "hidden", name: inputName + '[to_type]').
-        val $selectedOption.data('receiver-class')
+        attr(type: "hidden", name: inputName + '[to_type]').val entityType
       $entry.append $input
       $input = $("<input/>").
         attr(type: "hidden", name: inputName + '[to_id]').

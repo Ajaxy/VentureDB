@@ -6,6 +6,8 @@
       .controls
         span
           i.icon-remove
-      = hidden_field_tag "#{f.object_name}[from_connections_attributes][][id]", connection.id
+      = hidden_field_tag "#{f.object_name}[from_connections_attributes][][connection_type_id]", connection.connection_type_id
+      = hidden_field_tag "#{f.object_name}[from_connections_attributes][][to_type]", connection.from_type
+      = hidden_field_tag "#{f.object_name}[from_connections_attributes][][to_id]", connection.from_id
       = hidden_field_tag "#{f.object_name}[from_connections_attributes][][_destroy]", '', class: 'delete'
       = display_connection(connection)
