@@ -11,4 +11,4 @@ ul.nav.nav-tabs
     = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
     = f.text_field :place, class: "span8", placeholder: "Местонахождение"
   .tab-pane#connections
-    = render partial: 'connections_fields', locals: { f: f }
+    = render partial: 'connections_fields', locals: { f: f } if f.object.present?
