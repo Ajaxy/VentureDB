@@ -18,15 +18,4 @@ ul.nav.nav-tabs
         =' f.check_box :expert
         = "Эксперт"
   .tab-pane#connections
-    = select_tag 'connection_type', connection_options(f.object)
-    = text_field_tag 'receiver', '', data: { autosuggest: true }, class: 'connection_to'
-    .entries-list
-      - f.object.from_connections.each do |connection|
-        .entry
-          .controls
-            span
-              i.icon-remove
-          = hidden_field_tag "#{f.object_name}[from_connections_attributes][][id]", connection.id
-          = hidden_field_tag "#{f.object_name}[from_connections_attributes][][_destroy]", '', class: 'delete'
-          =' connection.connection_type.direct_name
-          strong = connection.to.name
+    = render partial: 'connections_fields', locals: { f: f }

@@ -1,0 +1,11 @@
+= select_tag 'connection_type', connection_options(f.object)
+= text_field_tag 'receiver', '', data: { autosuggest: true }, class: 'connection_to'
+.entries-list data-input-prefix=f.object_name
+  - f.object.from_connections.each do |connection|
+    .entry
+      .controls
+        span
+          i.icon-remove
+      = hidden_field_tag "#{f.object_name}[from_connections_attributes][][id]", connection.id
+      = hidden_field_tag "#{f.object_name}[from_connections_attributes][][_destroy]", '', class: 'delete'
+      = display_connection(connection)

@@ -1,7 +1,14 @@
-= f.label :type_id, "Тип компании"
-= f.select :type_id, Company::TYPES.invert, { include_blank: true }, class: "chzn span8"
-= f.text_field :name, class: "span8", placeholder: "Краткое название компании"
-= f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
-= f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
-= f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
-= f.text_field :place, class: "span8", placeholder: "Местонахождение"
+ul.nav.nav-tabs
+  li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
+  li= link_to "Связи", "#connections", data: { toggle: "tab" }
+.tab-content
+  .tab-pane.active#basic_info
+    = f.label :type_id, "Тип компании"
+    = f.select :type_id, Company::TYPES.invert, { include_blank: true }, class: "chzn span8"
+    = f.text_field :name, class: "span8", placeholder: "Краткое название компании"
+    = f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
+    = f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
+    = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
+    = f.text_field :place, class: "span8", placeholder: "Местонахождение"
+  .tab-pane#connections
+    = render partial: 'connections_fields', locals: { f: f }

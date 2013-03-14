@@ -3,21 +3,10 @@
 class Person < ActiveRecord::Base
   include Draftable
   include InvestorActor
+  include Connectable
 
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
-  has_many :from_connections, class_name: 'Connection', as: :from
-  has_many :to_connections, class_name: 'Connection', as: :to
-
-  def self.connection_types
-    ConnectionType.where(source_class: self.to_s)
-  end
-
-  def connection_types
-    self.class.connection_types
-  end
-
-  accepts_nested_attributes_for :from_connections, allow_destroy: true
 
   def self.by_name
     all.sort_by(&:full_name)

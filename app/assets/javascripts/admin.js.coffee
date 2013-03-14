@@ -238,11 +238,12 @@ jQuery ->
           process $.map(response, (item) -> item.title)
 
     updater: (selectedText) ->
-      selectedItem = $.grep(@items, (item) -> item.title == selectedText)[0]
-      $entriesList = @.$element.siblings ".entries-list"
-      $typeSelect  = @$element.parent().find 'select'
-      inputName    = "investor[person][from_connections_attributes][]"
-      entityId     = selectedItem.id
+      selectedItem    = $.grep(@items, (item) -> item.title == selectedText)[0]
+      $entriesList    = @.$element.siblings ".entries-list"
+      $typeSelect     = @$element.parent().find 'select'
+      inputName       = $entriesList.data('input-prefix') + "[from_connections_attributes][]"
+      entityId        = selectedItem.id
+      $selectedOption = $typeSelect.find('option[value=' + $typeSelect.val() + ']')
 
       $entry = $("<div/>")
         .addClass("entry")
@@ -254,7 +255,7 @@ jQuery ->
       $entry.append $input
       $input = $("<input/>").
         attr(type: "hidden", name: inputName + '[to_type]').
-        val('Company')
+        val $selectedOption.data('receiver-class')
       $entry.append $input
       $input = $("<input/>").
         attr(type: "hidden", name: inputName + '[to_id]').
@@ -265,7 +266,7 @@ jQuery ->
       $controls.append $("<span/>").append($("<i/>").addClass("icon-remove"))
       $entry.append $controls
 
-      $entry.append $typeSelect.find('option[value=' + $typeSelect.val() + ']').text() + ' '
+      $entry.append $selectedOption.text() + ' '
       $entry.append "<strong>" + selectedText.replace(/\(.*\)$/, '') + "</strong>"
 
       $entriesList.append($entry)
