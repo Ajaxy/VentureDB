@@ -19,7 +19,8 @@ namespace :post_deploy do
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Участник в', reverse_name: 'Участвует'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
-      direct_name: 'Участвовал при создании', reverse_name: 'Создавалась при участии'
+      direct_name: 'Участвовал при создании', reverse_name: 'Создавалась при участии',
+      name: 'author'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
       direct_name: 'Учредитель в', reverse_name: 'Учредитель'
     ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
@@ -33,7 +34,7 @@ namespace :post_deploy do
   end
 
   task move_authors_to_connections: :environment do
-    type = ConnectionType.find_by_direct_name('Участвовал при создании')
+    type = ConnectionType.find_by_name('author')
 
     Project.joins(:authors).includes(:authors).where('company_id IS NOT NULL').each do |project|
       project.authors.each do |author|

@@ -5,6 +5,7 @@ class CreateConnectionTypes < ActiveRecord::Migration
       t.string :receiver_class
       t.string :direct_name
       t.string :reverse_name
+      t.string :name
     end
   end
 end

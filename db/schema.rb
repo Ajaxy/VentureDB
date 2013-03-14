@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20130313184912) do
     t.string "receiver_class"
     t.string "direct_name"
     t.string "reverse_name"
+    t.string "name"
   end
 
   create_table "connections", :force => true do |t|
