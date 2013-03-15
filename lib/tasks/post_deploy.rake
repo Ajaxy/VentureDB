@@ -51,4 +51,12 @@ namespace :post_deploy do
       person.update_column(:name, [person.first_name, person.middle_name, person.last_name].compact.join(' '))
     end
   end
+
+  task set_types_for_people: :environment do
+    Investor.where(actor_type: 'Person').each do |investor|
+      investor.actor.update_column(:type_id, 2) #buisiness_angel
+    end
+
+    Person.where(type_id: nil).update_all(type_id: 1)
+  end
 end

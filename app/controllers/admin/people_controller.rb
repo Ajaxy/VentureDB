@@ -12,6 +12,10 @@ class Admin::PeopleController < Admin::BaseController
     render :edit
   end
 
+  def new
+    @person = Person.new
+  end
+
   def create
     @type   = params[:type]
 

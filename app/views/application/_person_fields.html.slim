@@ -1,9 +1,12 @@
 ul.nav.nav-tabs
-  li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
+  li.active= link_to "Персона", "#basic_info", data: { toggle: "tab" }
+  li= link_to "Контакты", "#contacts", data: { toggle: "tab" }
   li= link_to "Связи", "#connections", data: { toggle: "tab" }
+  li= link_to "Дополнительно", "#additional", data: { toggle: "tab" }
 .tab-content
   .tab-pane.active#basic_info
     = f.text_field :name, placeholder: 'Фамилия Имя Отчество', class: 'span8'
+    = f.select :type_id, Person::TYPES.invert, { include_blank: true }, class: 'span8'
     .sex-select
       = label_tag '', class: 'radio inline' do
         = 'Мужской'
@@ -16,5 +19,16 @@ ul.nav.nav-tabs
     = f.markdown_textarea :description, class: "span8", placeholder: 'Краткое описание', rows: 6
     = f.text_field :country, placeholder: 'Страна', class: 'span8'
     = f.text_field :sectors, placeholder: 'Сфера/сектор деятельности', class: 'span8'
+  .tab-pane#contacts
+    = f.text_area :address, placeholder: 'Адрес', class: 'span8', rows: 2
+    = f.text_field :phone, placeholder: 'Телефон', class: 'span8'
+    = f.text_field :website, placeholder: 'Сайт', class: 'span8'
+    = f.text_field :facebook, placeholder: 'Facebook', class: 'span8'
+    = f.text_field :slideshare, placeholder: 'Slideshare', class: 'span8'
+    = f.text_field :vkontakte, placeholder: 'Vkontakte', class: 'span8'
+    = f.text_field :vacancies, placeholder: 'Вакансии', class: 'span8'
+    = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
+    = f.text_area :other_geo, placeholder: 'Прочая география (офисы, филиалы, представительства)', class: 'span8', rows: 2
   .tab-pane#connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?
+  .tab-pane#additional

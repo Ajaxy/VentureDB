@@ -9,6 +9,6 @@ table.table
     - @people.each do |person|
       tr
         td = person.link(scope: :admin)
-        td
+        td = person.type
 
 = paginate @people

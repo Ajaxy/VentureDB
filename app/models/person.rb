@@ -5,6 +5,11 @@ class Person < ActiveRecord::Base
   include InvestorActor
   include Connectable
 
+  TYPES = {
+    1 => "Эксперт",
+    2 => "Бизнес-ангел"
+  }
+
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
 
