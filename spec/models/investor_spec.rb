@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe Investor do
-  let(:person)  { fabricate Person, name: "John Doe" }
+  let(:person)  { fabricate Person, name: "John Doe", type_id: 1 }
   let(:company) { fabricate Company, name: "Foo" }
 
   before { investor }
@@ -16,7 +16,7 @@ describe Investor do
 
     it "should update name when person changes name" do
       person.name = "John Brown"
-      person.save
+      person.save!
       investor.reload[:name].should == "John Brown"
     end
   end
@@ -30,7 +30,7 @@ describe Investor do
 
     it "should update name when company changes name" do
       company.name = "Bar"
-      company.save
+      company.save!
       investor.reload[:name].should == "Bar"
     end
   end

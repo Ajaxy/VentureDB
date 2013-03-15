@@ -14,9 +14,10 @@ class Person < ActiveRecord::Base
   has_many :project_authors, foreign_key: 'author_id'
 
   validates :sex, inclusion: { in: %w[m f] }, allow_blank: true
+  validates :type_id, presence: true, inclusion: { in: TYPES.keys }
 
   def self.by_name
-    all.sort_by(&:full_name)
+    order('name ASC')
   end
 
   def self.find_or_create_draft(params)
