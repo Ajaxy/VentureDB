@@ -1,21 +1,20 @@
-- placeholder = "Описание инвестора" if local_assigns[:placeholder].nil?
-
 ul.nav.nav-tabs
   li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
   li= link_to "Связи", "#connections", data: { toggle: "tab" }
 .tab-content
   .tab-pane.active#basic_info
-    .form-horizontal.control-group
-      =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
-      =' f.text_field :first_name, class: "span3", placeholder: "Имя"
-      =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
-    = f.markdown_textarea :description, class: "span8", placeholder: placeholder, rows: 6
-    .form-horizontal.control-group
-      =' f.email_field :email, class: "span3", placeholder: "Email"
-      =' f.text_field :phone, class: "span3", placeholder: "Телефон"
-    .form-horizontal.control-group
-      =' f.label :expert, class: "checkbox" do
-        =' f.check_box :expert
-        = "Эксперт"
+    = f.text_field :name, placeholder: 'Фамилия Имя Отчество', class: 'span8'
+    .sex-select
+      = label_tag '', class: 'radio inline' do
+        = 'Мужской'
+        = f.radio_button :sex, 'm'
+      = label_tag '', class: 'radio inline' do
+        = 'Женский'
+        = f.radio_button :sex, 'f'
+    = f.text_field :education, placeholder: 'Образование', class: 'span8'
+    = f.text_field :age, placeholder: 'Возраст (диапазон)', class: 'span8'
+    = f.markdown_textarea :description, class: "span8", placeholder: 'Краткое описание', rows: 6
+    = f.text_field :country, placeholder: 'Страна', class: 'span8'
+    = f.text_field :sectors, placeholder: 'Сфера/сектор деятельности', class: 'span8'
   .tab-pane#connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?

@@ -45,4 +45,10 @@ namespace :post_deploy do
       end
     end
   end
+
+  task fill_name_in_people: :environment do
+    Person.all.each do |person|
+      person.update_column(:name, [person.first_name, person.middle_name, person.last_name].compact.join(' '))
+    end
+  end
 end

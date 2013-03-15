@@ -1,0 +1,2 @@
+class PersonDecorator < ApplicationDecorator
+end

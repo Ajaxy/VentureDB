@@ -1,0 +1,14 @@
+.pull-right = link_to "Новый эксперт", [:new, :admin, :person], class: "btn btn-primary"
+
+table.table
+  thead
+    tr
+      th Имя
+      th Тип
+  tbody
+    - @people.each do |person|
+      tr
+        td = person.link(scope: :admin)
+        td
+
+= paginate @people

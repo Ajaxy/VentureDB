@@ -8,6 +8,8 @@ class Person < ActiveRecord::Base
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
 
+  validates :sex, inclusion: { in: %w[m f] }, allow_blank: true
+
   def self.by_name
     all.sort_by(&:full_name)
   end
@@ -31,14 +33,7 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def full_name
-    if middle_name?
-      "#{last_name} #{first_name} #{middle_name}"
-    else
-      "#{first_name} #{last_name}"
-    end
-  end
-  alias_method :name, :full_name
+  def full_name; name; end
 
   def full_name_with_email
     "#{full_name} #{email}"
