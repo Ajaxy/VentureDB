@@ -6,7 +6,7 @@ ul.nav.nav-tabs
 .tab-content
   .tab-pane.active#basic_info
     = f.text_field :name, placeholder: 'Фамилия Имя Отчество', class: 'span8'
-    = f.select :type_id, Person::TYPES.invert, class: 'span8'
+    = f.select :type_id, Person::TYPES.invert, {}, class: 'span8'
     .sex-select
       = label_tag '', class: 'radio inline' do
         = 'Мужской'
