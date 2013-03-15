@@ -27,27 +27,6 @@
         = f.fields_for :company do |f|
           = render "admin/companies/company_fields", f: f
 
-  hr
-  .row
-    .span4
-      p Укажите одного или нескольких авторов этого проекта.
-      p Выберите существующего автора или добавьте нового.
-    .span8
-      fieldset
-        legend Авторы проекта
-        - if project.errors[:author_ids].any?
-          .error-block Необходимо указать хотя бы одного автора.
-        = hidden_field_tag "project[author_ids][]"
-        .authors.entries-list
-          - project.authors.each do |person|
-            = render "admin/people/author", person: person
-        .search-or-add
-          .search = collection_select :find, :authors, Author.by_name,:id,
-            :full_name_with_email, { prompt: "Найти автора" }, class: "chzn span5"
-          .or = " или "
-          .add: button.btn.btn-small[type="button" href="#new_author"
-                                     data-toggle="modal"] Создать нового
-
   .form-actions
     .offset4
       button.btn.btn-large.btn-primary

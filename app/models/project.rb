@@ -142,4 +142,14 @@ class Project < ActiveRecord::Base
   def deals_count
     deals.count
   end
+
+  # TODO: replace with #authors. Need to keep authors association for now
+  def authors_through_connections
+    if company.nil?
+      []
+    else
+      company.from_connections.joins(:connection_type).
+        where(connection_types: { name: 'author' }).map(&:to)
+    end
+  end
 end

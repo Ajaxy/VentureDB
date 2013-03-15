@@ -28,7 +28,7 @@ class Suggester
     if @entities_string == 'all'
       ALLOWED_ENTITY_TYPES
     else
-      @entities_string.split(',') & ALLOWED_ENTITY_TYPES
+      @entities_string.split(',').map(&:downcase) & ALLOWED_ENTITY_TYPES
     end
   end
 

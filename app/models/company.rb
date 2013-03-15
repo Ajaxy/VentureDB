@@ -4,6 +4,7 @@ class Company < ActiveRecord::Base
   include Trackable
   include Draftable
   include InvestorActor
+  include Connectable
 
   TYPES = {
     1 => "Инвестор",

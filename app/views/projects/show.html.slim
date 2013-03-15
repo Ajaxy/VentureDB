@@ -4,7 +4,7 @@
       h3 Контакты
       .text = simple_format @project.company_contacts
 
-  - if @project.authors.any?
+  - if @project.authors_through_connections.any?
     section
       h3 Основатели
       - @project.authors.each do |person|

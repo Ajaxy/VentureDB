@@ -163,7 +163,14 @@ jQuery ->
     $(".dialog-backdrop").remove()
 
   $(document).on "click", ".entries-list .controls .icon-remove", ->
-    $(this).closest(".entry").remove()
+    $entry       = $(this).closest(".entry")
+    $deleteInput = $entry.find('input.delete')
+
+    if $deleteInput
+      $deleteInput.val '1'
+      $entry.hide()
+    else
+      $entry.remove()
     false
 
   $(document).on "click", "button.new_investor", ->
@@ -214,3 +221,56 @@ jQuery ->
 
       return ""
 
+  $("input.connection_to[data-autosuggest='true']").typeahead
+    minLength: 2
+
+    source: (query, process) ->
+      typeahead   = @
+      $typeSelect = @$element.parent().find 'select'
+      $.ajax
+        dataType: "json"
+        url:  "/search/suggest"
+        data:
+          query     : query
+          entities  : $typeSelect.find('option[value=' + $typeSelect.val() + ']').data('receiver-class')
+        success: (response) ->
+          typeahead.items = response
+          process $.map(response, (item) -> item.title)
+
+    updater: (selectedText) ->
+      selectedItem    = $.grep(@items, (item) -> item.title == selectedText)[0]
+      $entriesList    = @.$element.siblings ".entries-list"
+      $typeSelect     = @$element.parent().find 'select'
+      inputName       = $entriesList.data('input-prefix') + "[from_connections_attributes][]"
+      entityId        = selectedItem.id
+      entityType      = selectedItem.type.charAt(0).toUpperCase() + selectedItem.type.slice(1)
+      $selectedOption = $typeSelect.find('option[value=' + $typeSelect.val() + ']')
+
+      $entry = $("<div/>")
+        .addClass("entry")
+        .data(id: entityId)
+
+      $input = $("<input/>").attr(type: "hidden", name: inputName + '[id]')
+      $entry.append $input
+      $input = $("<input/>").
+        attr(type: "hidden", name: inputName + '[connection_type_id]').
+        val($typeSelect.val())
+      $entry.append $input
+      $input = $("<input/>").
+        attr(type: "hidden", name: inputName + '[to_type]').val entityType
+      $entry.append $input
+      $input = $("<input/>").
+        attr(type: "hidden", name: inputName + '[to_id]').
+        val(entityId)
+      $entry.append $input
+
+      $controls = $("<div/>").addClass "controls"
+      $controls.append $("<span/>").append($("<i/>").addClass("icon-remove"))
+      $entry.append $controls
+
+      $entry.append $selectedOption.text() + ' '
+      $entry.append "<strong>" + selectedText.replace(/\(.*\)$/, '') + "</strong>"
+
+      $entriesList.append($entry)
+
+      return ""

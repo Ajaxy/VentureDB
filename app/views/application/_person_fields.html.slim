@@ -1,15 +1,21 @@
 - placeholder = "Описание инвестора" if local_assigns[:placeholder].nil?
 
-.form-horizontal.control-group
-  =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
-  =' f.text_field :first_name, class: "span3", placeholder: "Имя"
-  =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
-= f.markdown_textarea :description, class: "span8", placeholder: placeholder, rows: 6
-.form-horizontal.control-group
-  =' f.email_field :email, class: "span3", placeholder: "Email"
-  =' f.text_field :phone, class: "span3", placeholder: "Телефон"
-.form-horizontal.control-group
-  =' f.label :expert, class: "checkbox" do
-    =' f.check_box :expert
-    = "Эксперт"
-
+ul.nav.nav-tabs
+  li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
+  li= link_to "Связи", "#connections", data: { toggle: "tab" }
+.tab-content
+  .tab-pane.active#basic_info
+    .form-horizontal.control-group
+      =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
+      =' f.text_field :first_name, class: "span3", placeholder: "Имя"
+      =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
+    = f.markdown_textarea :description, class: "span8", placeholder: placeholder, rows: 6
+    .form-horizontal.control-group
+      =' f.email_field :email, class: "span3", placeholder: "Email"
+      =' f.text_field :phone, class: "span3", placeholder: "Телефон"
+    .form-horizontal.control-group
+      =' f.label :expert, class: "checkbox" do
+        =' f.check_box :expert
+        = "Эксперт"
+  .tab-pane#connections
+    = render partial: 'connections_fields', locals: { f: f } if f.object.present?
