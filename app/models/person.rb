@@ -13,6 +13,7 @@ class Person < ActiveRecord::Base
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
 
+  validates :name, presence: true
   validates :sex, inclusion: { in: %w[m f] }, allow_blank: true
   validates :type_id, presence: true, inclusion: { in: TYPES.keys }
 

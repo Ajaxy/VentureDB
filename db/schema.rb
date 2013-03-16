@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315202226) do
+ActiveRecord::Schema.define(:version => 20130316082521) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -200,11 +200,11 @@ ActiveRecord::Schema.define(:version => 20130315202226) do
     t.string   "middle_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "draft",       :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "draft",           :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.text     "description"
-    t.boolean  "expert",      :default => false, :null => false
+    t.boolean  "expert",          :default => false, :null => false
     t.string   "sex"
     t.string   "education"
     t.string   "age"
@@ -220,6 +220,8 @@ ActiveRecord::Schema.define(:version => 20130315202226) do
     t.string   "vacancies"
     t.text     "mentions"
     t.text     "other_geo"
+    t.text     "additional_info"
+    t.text     "hidden_info"
   end
 
   create_table "project_authors", :force => true do |t|
