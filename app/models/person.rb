@@ -9,6 +9,8 @@ class Person < ActiveRecord::Base
     1 => "Эксперт",
     2 => "Бизнес-ангел"
   }
+  CONTACTS_FIELDS = [:address, :phone, :website, :facebook, :slideshare, :vkontakte, :vacancies,
+    :metions, :other_geo]
 
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
@@ -44,5 +46,12 @@ class Person < ActiveRecord::Base
 
   def full_name_with_email
     "#{full_name} #{email}"
+  end
+
+  def contacts
+    CONTACTS_FIELDS.inject({}) do |result, field|
+      result[field] = self[field] if self[field].present?
+      result
+    end
   end
 end

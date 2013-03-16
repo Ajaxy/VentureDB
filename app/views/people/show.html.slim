@@ -1,2 +1,14 @@
 .person.profile
   h1 = @person.name
+
+  - if @person.description.present?
+    h2 Описание
+    = markdown @person.description
+
+  - if @person.contacts.any?
+    h2 Основные контакты
+    table.properties
+      - @person.contacts.each do |name, value|
+        tr
+          td.name = Person.human_attribute_name(name)
+          td = value
