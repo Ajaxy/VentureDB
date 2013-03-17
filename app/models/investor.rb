@@ -55,6 +55,9 @@ class Investor < ActiveRecord::Base
 
   include Searchable
 
+  def self.investors
+  end
+
   def self.in_location(location)
     joins{locations}.where{(locations.lft >= location.lft) &
                            (locations.lft < location.rgt)}

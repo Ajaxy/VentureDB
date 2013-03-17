@@ -6,8 +6,10 @@ class Company < ActiveRecord::Base
   include InvestorActor
   include Connectable
 
+  TYPE_INVESTOR_ID = 1
+
   TYPES = {
-    1 => "Инвестор",
+    TYPE_INVESTOR_ID => "Инвестор",
     2 => "Инновационная компания",
 
     10 => "Ассоциация или бизнес-сообщество",
@@ -50,6 +52,8 @@ class Company < ActiveRecord::Base
   # validates :name, :full_name, :form, :place, presence: true
   validates :name, presence: true
   validates :type_id, inclusion: { in: TYPES.keys }, allow_nil: true
+
+  scope :investors, -> { where(type_id: 1) }
 
   def self.find_or_create(params, user)
     if company = where(params.slice(:name)).first

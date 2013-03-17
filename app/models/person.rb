@@ -19,6 +19,8 @@ class Person < ActiveRecord::Base
   validates :sex, inclusion: { in: %w[m f] }, allow_blank: true
   validates :type_id, presence: true, inclusion: { in: TYPES.keys }
 
+  scope :buisiness_angels, -> { where(type_id: 2) }
+
   def self.by_name
     order('name ASC')
   end
