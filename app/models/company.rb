@@ -6,9 +6,12 @@ class Company < ActiveRecord::Base
   include InvestorActor
   include Connectable
 
+  TYPE_INVESTOR_ID = 1
+  TYPE_INNOVATION_ID = 2
+
   TYPES = {
-    1 => "Инвестор",
-    2 => "Инновационная компания",
+    TYPE_INVESTOR_ID => "Инвестор",
+    TYPE_INNOVATION_ID => "Инновационная компания",
 
     10 => "Ассоциация или бизнес-сообщество",
     11 => "Севисный провайдер",
@@ -41,9 +44,24 @@ class Company < ActiveRecord::Base
   has_many :users
   has_one :project
 
+  has_many :company_scopes
+  has_many :scopes, through: :company_scopes
+
+  has_many :location_bindings, as: :entity
+  has_many :markets, through: :location_bindings, source: :location
+
   # validates :name, :full_name, :form, :place, presence: true
   validates :name, presence: true
   validates :type_id, inclusion: { in: TYPES.keys }, allow_nil: true
+
+  scope :investors, -> { where(type_id: TYPE_INVESTOR_ID) }
+  scope :innovation, -> { where(type_id: TYPE_INNOVATION_ID) }
+
+  def self.types
+    types = TYPES.dup
+    types.delete_if { |id, name| id < 10 }
+    types.invert
+  end
 
   def self.find_or_create(params, user)
     if company = where(params.slice(:name)).first

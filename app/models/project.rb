@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+# deprecated
 class Project < ActiveRecord::Base
   include Draftable
   include HasInvestments

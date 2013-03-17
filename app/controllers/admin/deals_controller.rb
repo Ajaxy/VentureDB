@@ -55,6 +55,11 @@ class Admin::DealsController < Admin::BaseController
     redirect_to [:admin, @deal]
   end
 
+  def destroy
+    @deal.destroy
+    redirect_to [:admin, :deals], notice: 'Сделка удалена.'
+  end
+
   private
 
   def find_deal

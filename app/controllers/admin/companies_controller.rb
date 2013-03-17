@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Admin::CompaniesController < Admin::BaseController
-  before_filter :find_company, only: [:show, :edit, :update]
+  before_filter :find_company, only: [:show, :edit, :update, :destroy]
 
   def index
     @sorter    = CompanySorter.new(params, view_context)
@@ -21,9 +21,15 @@ class Admin::CompaniesController < Admin::BaseController
     @company = Company.new(permitted_params.company)
 
     if @company.save
-      redirect_to [:admin, @company], notice: "Компания успешно добавлена."
+      respond_to do |format|
+        format.html { redirect_to [:admin, @company], notice: "Компания успешно добавлена." }
+        format.js { render :success }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.js { render :error }
+      end
     end
   end
 
@@ -36,6 +42,11 @@ class Admin::CompaniesController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @company.destroy
+    redirect_to [:admin, :companies], notice: 'Компания удалена.'
   end
 
   private
