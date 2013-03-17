@@ -1,7 +1,7 @@
 / TODO: move it out from view
 - rand = (rand() * 10).round
 
-= tabs ['Компания', "#company_#{rand}_basic_info"], ['Контакты', "#company_#{rand}_contacts"], ['Связи', "#company_#{rand}_connections"], ['Дополнительно', "#company_#{rand}_additional"]
+= tabs ['Компания', "#company_#{rand}_basic_info"], ['Контакты', "#company_#{rand}_contacts"], ['Филиал', "#company_#{rand}_filial_contacts"], ['Связи', "#company_#{rand}_connections"], ['Дополнительно', "#company_#{rand}_additional"]
 .tab-content
   .tab-pane.active id="company_#{rand}_basic_info"
     - if local_assigns.has_key? :type_id
@@ -28,8 +28,6 @@
   .tab-pane id="company_#{rand}_contacts"
     = f.label :address1, 'Адрес'
     = f.text_area :address1, placeholder: 'Адрес', class: 'span8', rows: 2
-    = f.label :address2, 'Адрес представительства'
-    = f.text_area :address1, placeholder: 'Адрес представительства', class: 'span8', rows: 2
     = f.label :phone1, 'Телефон'
     = f.text_field :phone1, placeholder: 'Телефон', class: 'span8'
     = f.label :www1, 'Сайт'
@@ -42,6 +40,19 @@
     = f.text_field :vacancies1, placeholder: 'Вакансии', class: 'span8'
     = f.label :mentions, 'Упоминания в СМИ'
     = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
+  .tab-pane id="company_#{rand}_filial_contacts"
+    = f.label :address2, 'Адрес'
+    = f.text_area :address2, placeholder: 'Адрес', class: 'span8', rows: 2
+    = f.label :phone2, 'Телефон'
+    = f.text_field :phone1, placeholder: 'Телефон', class: 'span8'
+    = f.label :www2, 'Сайт'
+    = f.text_field :www2, placeholder: 'Сайт', class: 'span8'
+    = f.label :facebook2, 'Facebook'
+    = f.text_field :facebook2, placeholder: 'Facebook', class: 'span8'
+    = f.label :vkontakte2, 'Vkontakte'
+    = f.text_field :vkontakte2, placeholder: 'Vkontakte', class: 'span8'
+    = f.label :vacancies2, 'Вакансии'
+    = f.text_field :vacancies2, placeholder: 'Вакансии', class: 'span8'
   .tab-pane id="company_#{rand}_connections"
     = render partial: 'connections_fields', locals: { f: f, connectable_object: (f.object || Company.new) }
   .tab-pane id="company_#{rand}_additional"
