@@ -41,6 +41,12 @@ class Company < ActiveRecord::Base
   has_many :users
   has_one :project
 
+  has_many :company_scopes
+  has_many :scopes, through: :company_scopes
+
+  has_many :location_bindings, as: :entity
+  has_many :markets, through: :location_bindings, source: :location
+
   # validates :name, :full_name, :form, :place, presence: true
   validates :name, presence: true
   validates :type_id, inclusion: { in: TYPES.keys }, allow_nil: true

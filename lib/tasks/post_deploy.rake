@@ -59,4 +59,18 @@ namespace :post_deploy do
 
     Person.where(type_id: nil).update_all(type_id: 1)
   end
+
+  task move_scopes_and_locations_from_project_to_company: :environment do
+    Project.where('company_id IS NOT NULL').each do |project|
+      company = project.company
+
+      project.project_scopes.each do |project_scope|
+        company.company_scopes.create! scope_id: project_scope.scope_id
+      end
+
+      project.location_bindings.each do |project_location_binding|
+        company.location_bindings.create! location_id: project_location_binding.location_id
+      end
+    end
+  end
 end

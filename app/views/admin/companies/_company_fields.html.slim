@@ -7,6 +7,10 @@ ul.nav.nav-tabs
   .tab-pane.active#basic_info
     = f.label :type_id, "Тип компании"
     = f.select :type_id, Company::TYPES.invert, { include_blank: true }, class: "chzn span8"
+    = f.label :scope_ids, "Сектор и сфера деятельности"
+    = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
+    = f.label :market_ids, "Географические рынки осуществления операций"
+    = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
     = f.text_field :name, class: "span8", placeholder: "Краткое название компании"
     = f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
     = f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
@@ -14,6 +18,7 @@ ul.nav.nav-tabs
     = f.text_field :place, class: "span8", placeholder: "Местонахождение"
   .tab-pane#contacts
     = f.text_area :address1, placeholder: 'Адрес', class: 'span8', rows: 2
+    = f.text_area :address1, placeholder: 'Адрес представительства', class: 'span8', rows: 2
     = f.text_field :phone1, placeholder: 'Телефон', class: 'span8'
     = f.text_field :www1, placeholder: 'Сайт', class: 'span8'
     = f.text_field :facebook1, placeholder: 'Facebook', class: 'span8'
