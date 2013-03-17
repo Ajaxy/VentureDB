@@ -13,6 +13,7 @@ ul.nav.nav-tabs
     = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
     = f.text_field :name, class: "span8", placeholder: "Краткое название компании"
     = f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
+    = f.text_field :name, class: "span8", placeholder: "Предыдущее название"
     = f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
     = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
     = f.text_field :place, class: "span8", placeholder: "Местонахождение"
