@@ -26,6 +26,7 @@ table.table
       th.center = @sorter.header "Сумма", :amount
       th.center = @sorter.header "Дата завершения", :date
       th        Инвесторы
+      th
   tbody
     - @deals.each do |deal|
       tr
@@ -35,5 +36,6 @@ table.table
         td.center = deal.amount
         td.center = deal.contract_date
         td        = deal.investor_names
+        td        = delete_button(deal)
 
 = paginate @deals

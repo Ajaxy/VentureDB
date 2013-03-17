@@ -41,6 +41,11 @@ class Admin::PeopleController < Admin::BaseController
     end
   end
 
+  def destroy
+    @person.destroy
+    redirect_to [:admin, :people], notice: 'Человек удалён.'
+  end
+
   private
 
   def find_person

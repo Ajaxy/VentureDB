@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Admin::CompaniesController < Admin::BaseController
-  before_filter :find_company, only: [:show, :edit, :update]
+  before_filter :find_company, only: [:show, :edit, :update, :destroy]
 
   def index
     @sorter    = CompanySorter.new(params, view_context)
@@ -42,6 +42,11 @@ class Admin::CompaniesController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @company.destroy
+    redirect_to [:admin, :companies], notice: 'Компания удалена.'
   end
 
   private
