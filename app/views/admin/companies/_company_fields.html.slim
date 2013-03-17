@@ -11,23 +11,39 @@ ul.nav.nav-tabs
     = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
     = f.label :market_ids, "Географические рынки осуществления операций"
     = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
+    = f.label :name, 'Краткое название компании'
     = f.text_field :name, class: "span8", placeholder: "Краткое название компании"
+    = f.label :full_name, 'Полное название компании'
     = f.text_field :full_name, class: "span8", placeholder: "Полное название компании"
-    = f.text_field :name, class: "span8", placeholder: "Предыдущее название"
+    = f.label :prev_name, 'Предыдущее название'
+    = f.text_field :prev_name, class: "span8", placeholder: "Предыдущее название"
+    = f.label :description, 'Описение компании'
     = f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
+    = f.label :form, "Организационно-правовая форма"
     = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
+    = f.label :place, "Местонахождение"
     = f.text_field :place, class: "span8", placeholder: "Местонахождение"
   .tab-pane#contacts
+    = f.label :address1, 'Адрес'
     = f.text_area :address1, placeholder: 'Адрес', class: 'span8', rows: 2
+    = f.label :address2, 'Адрес представительства'
     = f.text_area :address1, placeholder: 'Адрес представительства', class: 'span8', rows: 2
+    = f.label :phone1, 'Телефон'
     = f.text_field :phone1, placeholder: 'Телефон', class: 'span8'
+    = f.label :www1, 'Сайт'
     = f.text_field :www1, placeholder: 'Сайт', class: 'span8'
+    = f.label :facebook1, 'Facebook'
     = f.text_field :facebook1, placeholder: 'Facebook', class: 'span8'
+    = f.label :vkontakte1, 'Vkontakte'
     = f.text_field :vkontakte1, placeholder: 'Vkontakte', class: 'span8'
+    = f.label :vacancies1, 'Вакансии'
     = f.text_field :vacancies1, placeholder: 'Вакансии', class: 'span8'
+    = f.label :mentions, 'Упоминания в СМИ'
     = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
   .tab-pane#connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?
   .tab-pane#additional
+    = f.label :details, 'Дополнительная информация'
     = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
+    = f.label :secret_details, 'Скрытая информация'
     = f.markdown_textarea :secret_details, class: "span8", placeholder: 'Скрытая информация', rows: 6
