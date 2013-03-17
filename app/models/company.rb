@@ -57,6 +57,12 @@ class Company < ActiveRecord::Base
   scope :investors, -> { where(type_id: TYPE_INVESTOR_ID) }
   scope :innovation, -> { where(type_id: TYPE_INNOVATION_ID) }
 
+  def self.types
+    types = TYPES.dup
+    types.delete_if { |id, name| id < 10 }
+    types.invert
+  end
+
   def self.find_or_create(params, user)
     if company = where(params.slice(:name)).first
       company
