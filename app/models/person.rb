@@ -5,9 +5,10 @@ class Person < ActiveRecord::Base
   include InvestorActor
   include Connectable
 
+  TYPE_BUISINESS_ANGEL_ID = 2
   TYPES = {
     1 => "Эксперт",
-    2 => "Бизнес-ангел"
+    TYPE_BUISINESS_ANGEL_ID => "Бизнес-ангел"
   }
   CONTACTS_FIELDS = [:address, :phone, :website, :facebook, :slideshare, :vkontakte, :vacancies,
     :metions, :other_geo]
@@ -19,7 +20,7 @@ class Person < ActiveRecord::Base
   validates :sex, inclusion: { in: %w[m f] }, allow_blank: true
   validates :type_id, presence: true, inclusion: { in: TYPES.keys }
 
-  scope :buisiness_angels, -> { where(type_id: 2) }
+  scope :buisiness_angels, -> { where(type_id: TYPE_BUISINESS_ANGEL_ID) }
 
   def self.by_name
     order('name ASC')

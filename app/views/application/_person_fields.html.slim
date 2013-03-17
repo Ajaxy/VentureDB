@@ -1,8 +1,11 @@
-= tabs ['Персона', '#basic_info'], ['Контакты', '#contacts'], ['Связи', '#connections'], ['Дополнительно', '#additional']
+= tabs ['Персона', '#person_basic_info'], ['Контакты', '#person_contacts'], ['Связи', '#person_connections'], ['Дополнительно', '#person_additional']
 .tab-content
-  .tab-pane.active#basic_info
+  .tab-pane.active#person_basic_info
     = f.text_field :name, placeholder: 'Фамилия Имя Отчество', class: 'span8'
-    = f.select :type_id, Person::TYPES.invert, {}, class: 'span8'
+    - if local_assigns.has_key? :type_id
+      = f.hidden_field :type_id, value: type_id
+    - else
+      = f.select :type_id, Person::TYPES.invert, {}, class: 'span8'
     .sex-select
       = label_tag '', class: 'radio inline' do
         = 'Мужской'
@@ -15,7 +18,7 @@
     = f.markdown_textarea :description, class: "span8", placeholder: 'Краткое описание', rows: 6
     = f.text_field :country, placeholder: 'Страна', class: 'span8'
     = f.text_field :sectors, placeholder: 'Сфера/сектор деятельности', class: 'span8'
-  .tab-pane#contacts
+  .tab-pane#person_contacts
     = f.text_area :address, placeholder: 'Адрес', class: 'span8', rows: 2
     = f.text_field :phone, placeholder: 'Телефон', class: 'span8'
     = f.text_field :www, placeholder: 'Сайт', class: 'span8'
@@ -25,8 +28,8 @@
     = f.text_field :vacancies, placeholder: 'Вакансии', class: 'span8'
     = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
     = f.text_area :other_geo, placeholder: 'Прочая география (офисы, филиалы, представительства)', class: 'span8', rows: 2
-  .tab-pane#connections
+  .tab-pane#person_connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?
-  .tab-pane#additional
+  .tab-pane#person_additional
     = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
     = f.markdown_textarea :secret_details, class: "span8", placeholder: 'Скрытая информация', rows: 6

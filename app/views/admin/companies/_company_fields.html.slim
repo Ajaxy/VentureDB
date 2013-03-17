@@ -1,6 +1,9 @@
-= tabs ['Компания', '#basic_info'], ['Контакты', '#contacts'], ['Связи', '#connections'], ['Дополнительно', '#additional']
+/ TODO: move it out from view
+- rand = (rand() * 10).round
+
+= tabs ['Компания', "#company_#{rand}_basic_info"], ['Контакты', "#company_#{rand}_contacts"], ['Связи', "#company_#{rand}_connections"], ['Дополнительно', "#company_#{rand}_additional"]
 .tab-content
-  .tab-pane.active#basic_info
+  .tab-pane.active id="company_#{rand}_basic_info"
     - if local_assigns.has_key? :type_id
       = f.hidden_field :type_id, value: type_id
     - else
@@ -22,7 +25,7 @@
     = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
     = f.label :place, "Местонахождение"
     = f.text_field :place, class: "span8", placeholder: "Местонахождение"
-  .tab-pane#contacts
+  .tab-pane id="company_#{rand}_contacts"
     = f.label :address1, 'Адрес'
     = f.text_area :address1, placeholder: 'Адрес', class: 'span8', rows: 2
     = f.label :address2, 'Адрес представительства'
@@ -39,9 +42,9 @@
     = f.text_field :vacancies1, placeholder: 'Вакансии', class: 'span8'
     = f.label :mentions, 'Упоминания в СМИ'
     = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
-  .tab-pane#connections
-    = render partial: 'connections_fields', locals: { f: f } if f.object.present?
-  .tab-pane#additional
+  .tab-pane id="company_#{rand}_connections"
+    = render partial: 'connections_fields', locals: { f: f, connectable_object: (f.object || Company.new) }
+  .tab-pane id="company_#{rand}_additional"
     = f.label :details, 'Дополнительная информация'
     = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
     = f.label :secret_details, 'Скрытая информация'

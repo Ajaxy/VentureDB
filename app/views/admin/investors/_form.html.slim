@@ -15,7 +15,7 @@
     p
 
     .person-fields = f.fields_for :person, f.object.person do |f|
-      = render partial: "person_fields", locals: { f: f }
+      = render partial: "person_fields", locals: { f: f, type_id: Person::TYPE_BUISINESS_ANGEL_ID }
 
     .company-fields = f.fields_for :company, f.object.company do |f|
       = render partial: "admin/companies/company_fields", locals: { f: f, type_id: Company::TYPE_INVESTOR_ID }
