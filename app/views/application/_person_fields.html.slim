@@ -1,8 +1,4 @@
-ul.nav.nav-tabs
-  li.active= link_to "Персона", "#basic_info", data: { toggle: "tab" }
-  li= link_to "Контакты", "#contacts", data: { toggle: "tab" }
-  li= link_to "Связи", "#connections", data: { toggle: "tab" }
-  li= link_to "Дополнительно", "#additional", data: { toggle: "tab" }
+= tabs ['Персона', '#basic_info'], ['Контакты', '#contacts'], ['Связи', '#connections'], ['Дополнительно', '#additional']
 .tab-content
   .tab-pane.active#basic_info
     = f.text_field :name, placeholder: 'Фамилия Имя Отчество', class: 'span8'
