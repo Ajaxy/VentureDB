@@ -1,11 +1,12 @@
 # encoding: utf-8
 
 class Deal < ActiveRecord::Base
-  belongs_to :project
+  belongs_to :project # deprecated
+  belongs_to :company
 
   has_many :investments
   has_many :investors, through: :investments
-  has_many :scopes, through: :project
+  has_many :scopes, through: :company
 
   DEAL_TYPES = {
     1 => "Инвестиции",
@@ -51,7 +52,7 @@ class Deal < ActiveRecord::Base
   }
 
   define_index "deals_index" do
-    indexes project.name
+    indexes company.name
     indexes project.company.name
     indexes project.authors.first_name
     indexes project.authors.last_name
@@ -61,7 +62,7 @@ class Deal < ActiveRecord::Base
   end
 
   define_index "deals_prefix_index" do
-    indexes project.name
+    indexes company.name
     indexes project.company.name
     indexes project.authors.first_name
     indexes project.authors.last_name
@@ -82,12 +83,12 @@ class Deal < ActiveRecord::Base
   end
 
   def self.in_scope(scope)
-    joins{project.scopes}
+    joins{company.scopes}
       .where{(scopes.lft >= scope.lft) & (scopes.lft < scope.rgt)}
   end
 
   def self.in_scopes(scope_arr)
-    joins{project.scopes}
+    joins{company.scopes}
       .where{published == true}
       .where{scopes.id.in scope_arr}
   end
@@ -228,13 +229,13 @@ class Deal < ActiveRecord::Base
   end
 
   def undraft
-    project.try(:publish)
+    company.try(:publish)
     investments.each(&:publish)
     true
   end
 
   def publish
-    errors.add :publish, "Не указан проект" unless project
+    errors.add :publish, "Не указан проект" unless company
     errors.add :publish, "Не указан раунд инвестиций" unless round
     errors.add :publish, "Не указана стадия развития компании" unless stage
     errors.add :publish, "Не указана дата сделки" unless date

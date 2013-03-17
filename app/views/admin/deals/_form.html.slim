@@ -17,7 +17,7 @@
       fieldset
         legend Проект-получатель инвестиций
         .search-or-add
-          .search = f.collection_select :project_id, Project.order(:name),
+          .search = f.collection_select :company_id, Company.innovation.order(:name),
                     :id, :name, { prompt: "Найти проект" }, class: "chzn span5"
           .or = " или "
           .add: button.btn.btn-small[type="button" href="#new_project"
@@ -140,7 +140,14 @@
 
 - content_for :popups do
   #new_project.container-popup.hide
-    = render "admin/projects/form", project: Project.new, remote: true
+    = form_for [:admin, Company.new], html: { class: "project" }, remote: true do |f|
+      = render "admin/companies/company_fields", f: f, type_id: Company::TYPE_INNOVATION_ID
+      .form-actions
+        .offset4
+          button.btn.btn-large.btn-primary
+            = "Создать проект"
+          '
+          a.btn.btn-large[ href="#" data-dismiss="dialog"] Отмена
 
   #new_investment.container-popup.hide
     = render "admin/investments/form", investment: Investment.new

@@ -15,10 +15,10 @@
     p
 
     .person-fields = f.fields_for :person, f.object.person do |f|
-      = render "person_fields", f: f
+      = render partial: "person_fields", locals: { f: f }
 
     .company-fields = f.fields_for :company, f.object.company do |f|
-      = render "admin/companies/company_fields", f: f
+      = render partial: "admin/companies/company_fields", locals: { f: f, type_id: Company::TYPE_INVESTOR_ID }
 
   .modal-footer
     a.btn data-dismiss="modal" Отмена

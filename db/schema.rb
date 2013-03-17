@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317090152) do
+ActiveRecord::Schema.define(:version => 20130317192921) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20130317090152) do
     t.boolean  "published",                      :default => false
     t.integer  "amount_usd"
     t.integer  "amount_eur"
+    t.integer  "company_id"
   end
 
   add_index "deals", ["exit_type_id"], :name => "index_deals_on_exit_type_id"

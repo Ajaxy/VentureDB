@@ -96,7 +96,7 @@ class InvestorForm extends AddToSelectForm
 
 class ProjectForm extends AddToSelectForm
   constructor: ->
-    super $("#new_project"), $("form.deal"), "deal[project_id]"
+    super $("#new_project"), $("form.deal"), "deal[company_id]"
 
 class InformerForm extends AddToSelectForm
   constructor: ->

@@ -21,9 +21,15 @@ class Admin::CompaniesController < Admin::BaseController
     @company = Company.new(permitted_params.company)
 
     if @company.save
-      redirect_to [:admin, @company], notice: "Компания успешно добавлена."
+      respond_to do |format|
+        format.html { redirect_to [:admin, @company], notice: "Компания успешно добавлена." }
+        format.js { render :success }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.js { render :error }
+      end
     end
   end
 

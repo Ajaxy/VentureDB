@@ -66,7 +66,7 @@ namespace :post_deploy do
       company             = project.company || Company.new
       company.name        = project.name
       company.description = project.description
-      company.type_id     = 2
+      company.type_id     = Company::TYPE_INNOVATION_ID
       company.save!
       project.update_column(:company_id, company.id)
     end
@@ -75,7 +75,6 @@ namespace :post_deploy do
   task move_scopes_and_locations_from_project_to_company: :environment do
     Project.all.each do |project|
       company = project.company
-      p project.id if company.nil?
 
       project.project_scopes.each do |project_scope|
         company.company_scopes.create! scope_id: project_scope.scope_id
@@ -89,5 +88,11 @@ namespace :post_deploy do
 
   task set_investor_type_id_for_non_project_companies: :environment do
     Company.where(type_id: nil).update_all(type_id: Company::TYPE_INVESTOR_ID)
+  end
+
+  task update_company_ids_in_deals: :environment do
+    Deal.all.each do |deal|
+      deal.update_column(:company_id, deal.project.company.id)
+    end
   end
 end
