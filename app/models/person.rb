@@ -27,7 +27,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.find_or_create_draft(params)
-    if person = where(params.slice(:first_name, :last_name, :email)).first
+    if person = where(params.slice(:name, :email)).first
       person
     else
       create_draft(params)
