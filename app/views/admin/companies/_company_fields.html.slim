@@ -1,6 +1,8 @@
 ul.nav.nav-tabs
   li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
+  li= link_to "Контакты", "#contacts", data: { toggle: "tab" }
   li= link_to "Связи", "#connections", data: { toggle: "tab" }
+  li= link_to "Дополнительно", "#additional", data: { toggle: "tab" }
 .tab-content
   .tab-pane.active#basic_info
     = f.label :type_id, "Тип компании"
@@ -10,5 +12,16 @@ ul.nav.nav-tabs
     = f.markdown_textarea :description, class: "span8", placeholder: "Описание компании", rows: 6
     = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
     = f.text_field :place, class: "span8", placeholder: "Местонахождение"
+  .tab-pane#contacts
+    = f.text_area :address1, placeholder: 'Адрес', class: 'span8', rows: 2
+    = f.text_field :phone1, placeholder: 'Телефон', class: 'span8'
+    = f.text_field :www1, placeholder: 'Сайт', class: 'span8'
+    = f.text_field :facebook1, placeholder: 'Facebook', class: 'span8'
+    = f.text_field :vkontakte1, placeholder: 'Vkontakte', class: 'span8'
+    = f.text_field :vacancies1, placeholder: 'Вакансии', class: 'span8'
+    = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
   .tab-pane#connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?
+  .tab-pane#additional
+    = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
+    = f.markdown_textarea :secret_details, class: "span8", placeholder: 'Скрытая информация', rows: 6

@@ -22,7 +22,7 @@ ul.nav.nav-tabs
   .tab-pane#contacts
     = f.text_area :address, placeholder: 'Адрес', class: 'span8', rows: 2
     = f.text_field :phone, placeholder: 'Телефон', class: 'span8'
-    = f.text_field :website, placeholder: 'Сайт', class: 'span8'
+    = f.text_field :www, placeholder: 'Сайт', class: 'span8'
     = f.text_field :facebook, placeholder: 'Facebook', class: 'span8'
     = f.text_field :slideshare, placeholder: 'Slideshare', class: 'span8'
     = f.text_field :vkontakte, placeholder: 'Vkontakte', class: 'span8'
@@ -32,5 +32,5 @@ ul.nav.nav-tabs
   .tab-pane#connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?
   .tab-pane#additional
-    = f.markdown_textarea :additional_info, class: "span8", placeholder: 'Дополнительная информация', rows: 6
-    = f.markdown_textarea :hidden_info, class: "span8", placeholder: 'Скрытая информация', rows: 6
+    = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
+    = f.markdown_textarea :secret_details, class: "span8", placeholder: 'Скрытая информация', rows: 6

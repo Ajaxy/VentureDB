@@ -1,6 +1,6 @@
 class AddAdditionalInfoAndHiddenInfoToPeople < ActiveRecord::Migration
   def change
-    add_column :people, :additional_info, :text
-    add_column :people, :hidden_info, :text
+    add_column :people, :details, :text
+    add_column :people, :descret_details, :text
   end
 end

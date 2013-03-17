@@ -213,15 +213,15 @@ ActiveRecord::Schema.define(:version => 20130316082521) do
     t.string   "name"
     t.integer  "type_id"
     t.string   "address"
-    t.string   "website"
+    t.string   "www"
     t.string   "facebook"
     t.string   "slideshare"
     t.string   "vkontakte"
     t.string   "vacancies"
     t.text     "mentions"
     t.text     "other_geo"
-    t.text     "additional_info"
-    t.text     "hidden_info"
+    t.text     "details"
+    t.text     "descret_details"
   end
 
   create_table "project_authors", :force => true do |t|
