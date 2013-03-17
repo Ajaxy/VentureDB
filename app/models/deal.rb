@@ -53,6 +53,7 @@ class Deal < ActiveRecord::Base
 
   define_index "deals_index" do
     indexes company.name
+    indexes project.name
     indexes project.company.name
     indexes project.authors.first_name
     indexes project.authors.last_name
@@ -63,6 +64,7 @@ class Deal < ActiveRecord::Base
 
   define_index "deals_prefix_index" do
     indexes company.name
+    indexes project.name
     indexes project.company.name
     indexes project.authors.first_name
     indexes project.authors.last_name
