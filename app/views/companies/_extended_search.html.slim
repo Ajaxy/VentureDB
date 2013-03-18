@@ -1,0 +1,15 @@
+= simple_form_for :extended_search, method: :get, default: { label: false }, html: { class: "extended-search #{@filter.params.opened || ''}" }, defaults: { required: false } do |f|
+  = f.hidden_field :opened, value: 'opened'
+  .block.horizontal
+    h2 Выберите тип компании
+    .investor-types
+      = f.input_field :company_type, as: :check_boxes, collection: Company.types, checked: @filter.params.company_type.try(:map, &proc { |id| id.to_i })
+  .block.horizontal
+    h2 Выберите сектор
+    .sectors
+      - nested_set_options(Scope) do |sector|
+        = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
+          = check_box_tag("extended_search_sector_#{sector.id}", sector.id, (@filter.params.sector.try(:include?,sector.id.to_s)), name: "extended_search[sector][]")
+          = sector.name
+  .clear-both
+  = f.button :submit, 'Искать'

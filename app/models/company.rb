@@ -57,6 +57,25 @@ class Company < ActiveRecord::Base
   scope :investors, -> { where(type_id: TYPE_INVESTOR_ID) }
   scope :innovation, -> { where(type_id: TYPE_INNOVATION_ID) }
 
+  define_index "companies_index" do
+    indexes "ltrim(companies.name)", as: :name
+    indexes full_name
+    indexes description
+
+    where "companies.draft = 'f'"
+  end
+
+  define_index "companies_prefix_index" do
+    indexes "ltrim(companies.name)", as: :name
+    indexes full_name
+    indexes description
+
+    where "companies.draft = 'f'"
+    set_property min_prefix_len: 3
+  end
+
+  include Searchable
+
   def self.types
     types = TYPES.dup
     types.delete_if { |id, name| id < 10 }
@@ -85,4 +104,13 @@ class Company < ActiveRecord::Base
   def self.order_by_name(direction)
     order("#{table_name}.name #{direction}")
   end
+
+  def self.in_types(type_ids)
+    where{type_id.in type_ids}
+  end
+
+  def self.in_scopes(scope_ids)
+    joins{scopes}.where{scopes.id.in scope_ids}
+  end
+
 end

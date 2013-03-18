@@ -38,7 +38,7 @@ Venture::Application.routes.draw do
   resources :investors, only: %w[index show]
   resources :statistics, only: %w[index]
   resources :researches, only: %w[index]
-  resources :companies, only: %w[show]
+  resources :companies, only: %w[index show]
   resources :people, only: %w[show]
   resources :informers, only: %w[show]
   resources :authors, only: %w[show]
