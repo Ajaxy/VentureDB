@@ -22,8 +22,8 @@
           .or = " или "
           .add: button.btn.btn-small[type="button" href="#new_project"
                                      data-toggle="dialog"] Создать новый
-        - if @deal.project
-          = link_to "«#{@deal.project.name}» — редактировать", [:admin, @deal.project],
+        - if @deal.company
+          = link_to "«#{@deal.company.name}» — редактировать", [:admin, @deal.company],
             target: "_blank"
 
   hr
