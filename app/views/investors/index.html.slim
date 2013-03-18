@@ -4,8 +4,12 @@ section.investors
 
   = search_field "Введите название фонда или фамилию инвестора", entities: "investor", navigate: true
 
-  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
-  = render 'extended_search'
+  div
+    = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
+    = render 'extended_search'
+
+  - if current_user.admin?
+    div.create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
 
   - if @investors.any?
     table.table

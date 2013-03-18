@@ -1,12 +1,16 @@
 # encoding: utf-8
 
 class Admin::InvestorsController < Admin::BaseController
-  before_filter :find_investor, only: [:show, :edit, :update]
+  before_filter :find_investor, only: [:show, :edit, :update, :destroy]
 
   def index
     @sorter    = InvestorSorter.new(params, view_context)
     scope      = @sorter.sort(Investor.published.with_actor)
     @investors = PaginatingDecorator.decorate paginate(scope)
+  end
+
+  def new
+    @investor = Investor.new
   end
 
   def create
@@ -32,6 +36,11 @@ class Admin::InvestorsController < Admin::BaseController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @investor.destroy
+    redirect_to [:investors], notice: 'Ивестор удалён.'
   end
 
   private

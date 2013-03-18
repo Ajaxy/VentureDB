@@ -7,6 +7,9 @@ section.stream.deals
   = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
   = render 'extended_search'
 
+  - if current_user.admin?
+    div.create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
+
   - if @deals.any?
     table.table
       thead

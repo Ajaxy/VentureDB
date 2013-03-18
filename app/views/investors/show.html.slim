@@ -48,3 +48,4 @@
 
   - if current_user.admin?
     = link_to "Редактировать", admin_investor_path(@investor), class: "button"
+    = link_to "Удалить", admin_investor_path(@investor), method: :delete, class: "button"
