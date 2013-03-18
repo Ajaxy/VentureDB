@@ -1,0 +1,6 @@
+.person.profile
+  h1 = @company.name
+
+  - if @company.description.present?
+    h2 Описание
+    = markdown @company.description
