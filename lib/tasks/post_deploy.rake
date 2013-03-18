@@ -45,4 +45,54 @@ namespace :post_deploy do
       end
     end
   end
+
+  task fill_name_in_people: :environment do
+    Person.all.each do |person|
+      person.update_column(:name, [person.first_name, person.middle_name, person.last_name].compact.join(' '))
+    end
+  end
+
+  task set_types_for_people: :environment do
+    Investor.where(actor_type: 'Person').each do |investor|
+      investor.actor.update_column(:type_id, 2) #buisiness_angel
+    end
+
+    Person.where(type_id: nil).update_all(type_id: 1)
+  end
+
+
+  task move_projects_to_companies: :environment do
+    Project.all.each do |project|
+      company             = project.company || Company.new
+      company.name        = project.name
+      company.description = project.description
+      company.type_id     = Company::TYPE_INNOVATION_ID
+      company.save!
+      project.update_column(:company_id, company.id)
+    end
+  end
+
+  task move_scopes_and_locations_from_project_to_company: :environment do
+    Project.all.each do |project|
+      company = project.company
+
+      project.project_scopes.each do |project_scope|
+        company.company_scopes.create! scope_id: project_scope.scope_id
+      end
+
+      project.location_bindings.each do |project_location_binding|
+        company.location_bindings.create! location_id: project_location_binding.location_id
+      end
+    end
+  end
+
+  task set_investor_type_id_for_non_project_companies: :environment do
+    Company.where(type_id: nil).update_all(type_id: Company::TYPE_INVESTOR_ID)
+  end
+
+  task update_company_ids_in_deals: :environment do
+    Deal.all.each do |deal|
+      deal.update_column(:company_id, deal.project.company.id)
+    end
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313184912) do
+ActiveRecord::Schema.define(:version => 20130317192921) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(:version => 20130313184912) do
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
+
+  create_table "company_scopes", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "scope_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "company_scopes", ["company_id", "scope_id"], :name => "index_company_scopes_on_company_id_and_scope_id"
 
   create_table "connection_types", :force => true do |t|
     t.string "source_class"
@@ -112,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20130313184912) do
     t.boolean  "published",                      :default => false
     t.integer  "amount_usd"
     t.integer  "amount_eur"
+    t.integer  "company_id"
   end
 
   add_index "deals", ["exit_type_id"], :name => "index_deals_on_exit_type_id"
@@ -200,16 +210,28 @@ ActiveRecord::Schema.define(:version => 20130313184912) do
     t.string   "middle_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "draft",       :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "draft",          :default => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.text     "description"
-    t.boolean  "expert",      :default => false, :null => false
+    t.boolean  "expert",         :default => false, :null => false
     t.string   "sex"
     t.string   "education"
     t.string   "age"
     t.string   "country"
     t.string   "sectors"
+    t.string   "name"
+    t.integer  "type_id"
+    t.string   "address"
+    t.string   "www"
+    t.string   "facebook"
+    t.string   "slideshare"
+    t.string   "vkontakte"
+    t.string   "vacancies"
+    t.text     "mentions"
+    t.text     "other_geo"
+    t.text     "details"
+    t.text     "secret_details"
   end
 
   create_table "project_authors", :force => true do |t|

@@ -6,11 +6,13 @@ table.table
       th = @sorter.header "Название", :name
       th Тип компании
       th Местонахождение
+      th
   tbody
     - @companies.each do |company|
       tr
         td = company.link(scope: :admin)
         td = Company::TYPES[company.type_id]
         td = company.place
+        td = delete_button(company)
 
 = paginate @companies

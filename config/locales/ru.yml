@@ -1,4 +1,15 @@
 ru:
+  activerecord:
+    attributes:
+      person:
+        address: 'Адрес'
+        phone: 'Телефон'
+        facebook: 'Facebook'
+        slideshare: 'Slideshare'
+        vkontakte: 'Vkontakte'
+        vacancies: 'Вакансии'
+        mentions: 'Упоминания в СМИ'
+        other_geo: 'Прочая география'
   deals:
     one: "сделка"
     few: "сделки"

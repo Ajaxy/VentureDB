@@ -1,21 +1,35 @@
-- placeholder = "Описание инвестора" if local_assigns[:placeholder].nil?
-
-ul.nav.nav-tabs
-  li.active= link_to "Общая информация", "#basic_info", data: { toggle: "tab" }
-  li= link_to "Связи", "#connections", data: { toggle: "tab" }
+= tabs ['Персона', '#person_basic_info'], ['Контакты', '#person_contacts'], ['Связи', '#person_connections'], ['Дополнительно', '#person_additional']
 .tab-content
-  .tab-pane.active#basic_info
-    .form-horizontal.control-group
-      =' f.text_field :last_name, class: "span3", placeholder: "Фамилия"
-      =' f.text_field :first_name, class: "span3", placeholder: "Имя"
-      =' f.text_field :middle_name, class: "span3", placeholder: "Отчество"
-    = f.markdown_textarea :description, class: "span8", placeholder: placeholder, rows: 6
-    .form-horizontal.control-group
-      =' f.email_field :email, class: "span3", placeholder: "Email"
-      =' f.text_field :phone, class: "span3", placeholder: "Телефон"
-    .form-horizontal.control-group
-      =' f.label :expert, class: "checkbox" do
-        =' f.check_box :expert
-        = "Эксперт"
-  .tab-pane#connections
+  .tab-pane.active#person_basic_info
+    = f.text_field :name, placeholder: 'Фамилия Имя Отчество', class: 'span8'
+    - if local_assigns.has_key? :type_id
+      = f.hidden_field :type_id, value: type_id
+    - else
+      = f.select :type_id, Person::TYPES.invert, {}, class: 'span8'
+    .sex-select
+      = label_tag '', class: 'radio inline' do
+        = 'Мужской'
+        = f.radio_button :sex, 'm'
+      = label_tag '', class: 'radio inline' do
+        = 'Женский'
+        = f.radio_button :sex, 'f'
+    = f.text_field :education, placeholder: 'Образование', class: 'span8'
+    = f.text_field :age, placeholder: 'Возраст (диапазон)', class: 'span8'
+    = f.markdown_textarea :description, class: "span8", placeholder: 'Краткое описание', rows: 6
+    = f.text_field :country, placeholder: 'Страна', class: 'span8'
+    = f.text_field :sectors, placeholder: 'Сфера/сектор деятельности', class: 'span8'
+  .tab-pane#person_contacts
+    = f.text_area :address, placeholder: 'Адрес', class: 'span8', rows: 2
+    = f.text_field :phone, placeholder: 'Телефон', class: 'span8'
+    = f.text_field :www, placeholder: 'Сайт', class: 'span8'
+    = f.text_field :facebook, placeholder: 'Facebook', class: 'span8'
+    = f.text_field :slideshare, placeholder: 'Slideshare', class: 'span8'
+    = f.text_field :vkontakte, placeholder: 'Vkontakte', class: 'span8'
+    = f.text_field :vacancies, placeholder: 'Вакансии', class: 'span8'
+    = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
+    = f.text_area :other_geo, placeholder: 'Прочая география (офисы, филиалы, представительства)', class: 'span8', rows: 2
+  .tab-pane#person_connections
     = render partial: 'connections_fields', locals: { f: f } if f.object.present?
+  .tab-pane#person_additional
+    = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
+    = f.markdown_textarea :secret_details, class: "span8", placeholder: 'Скрытая информация', rows: 6

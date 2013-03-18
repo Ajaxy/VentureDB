@@ -1,10 +1,19 @@
 # encoding: utf-8
 
 class Admin::PeopleController < Admin::BaseController
+  before_filter :find_person, only: [:show, :edit, :update, :destroy]
+
+  def index
+    scope     = paginate Person.scoped
+    @people   = PaginatingDecorator.decorate scope
+  end
+
   def show
-    @person = Author.find(params[:id])
-    @type   = "author"
-    render :success
+    render :edit
+  end
+
+  def new
+    @person = Person.new
   end
 
   def create
@@ -21,17 +30,25 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def edit
-    @person = Person.find(params[:id])
   end
 
   def update
-    @person = Person.find(params[:id])
-
     if @person.update_attributes(permitted_params.person)
       flash.now[:notice] = "Информация о человеке обновлена."
       render :edit
     else
       render :edit
     end
+  end
+
+  def destroy
+    @person.destroy
+    redirect_to [:admin, :people], notice: 'Человек удалён.'
+  end
+
+  private
+
+  def find_person
+    @person = Person.find(params[:id])
   end
 end
