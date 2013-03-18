@@ -100,7 +100,7 @@ class Investor < ActiveRecord::Base
 
   def self.in_types(types)
     ids = Investment::GRANT_INSTRUMENTS
-    case types
+    deal_types = case types
     when '1'
       deal_types = joins{investments}.where{coalesce(investments.instrument_id, 0).not_in ids}
     when '2'
@@ -108,7 +108,7 @@ class Investor < ActiveRecord::Base
     else
       scoped
     end
-    deal_types.joins{deals.outer}.where{(deals.published == true)}
+    deal_types.joins{deals.outer}.where{(deals.published == true)}.where{type_id.in types}
   end
 
   def self.from_date(from)
