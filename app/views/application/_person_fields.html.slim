@@ -29,7 +29,7 @@
     = f.text_area :mentions, placeholder: 'Упоминания в СМИ', class: 'span8', rows: 2
     = f.text_area :other_geo, placeholder: 'Прочая география (офисы, филиалы, представительства)', class: 'span8', rows: 2
   .tab-pane#person_connections
-    = render partial: 'connections_fields', locals: { f: f } if f.object.present?
+    = render partial: 'connections_fields', locals: { f: f, connectable_object: (f.object || Company.new) }
   .tab-pane#person_additional
     = f.markdown_textarea :details, class: "span8", placeholder: 'Дополнительная информация', rows: 6
     = f.markdown_textarea :secret_details, class: "span8", placeholder: 'Скрытая информация', rows: 6
