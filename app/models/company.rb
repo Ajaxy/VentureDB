@@ -43,6 +43,7 @@ class Company < ActiveRecord::Base
 
   has_many :users
   has_one :project
+  has_many :deals
 
   has_many :company_scopes
   has_many :scopes, through: :company_scopes

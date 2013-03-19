@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317192921) do
+ActiveRecord::Schema.define(:version => 20130319172054) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20130317192921) do
     t.integer  "company_id"
   end
 
+  add_index "deals", ["company_id"], :name => "index_deals_on_company_id"
   add_index "deals", ["exit_type_id"], :name => "index_deals_on_exit_type_id"
   add_index "deals", ["informer_id"], :name => "index_deals_on_informer_id"
   add_index "deals", ["project_id"], :name => "index_deals_on_project_id"

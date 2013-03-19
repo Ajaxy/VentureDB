@@ -8,7 +8,7 @@ class DealsOverview
     @filter = DealFilter.new(params)
 
     deals   = Deal.published.includes{investments.investor.locations}
-                            .includes{project.scopes}
+                            .includes{company.scopes}
 
     @deals  = @filter.by_year(deals).to_a
 

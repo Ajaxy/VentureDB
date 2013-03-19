@@ -15,7 +15,7 @@ class DealDecorator < ApplicationDecorator
   end
 
   def project_name
-    project.try(:name) || mdash
+    company.try(:name) || mdash
   end
 
   def round
@@ -104,19 +104,19 @@ class DealDecorator < ApplicationDecorator
   end
 
   def meta
-    if deal.project && scope = deal.project.scopes.first
+    if deal.company && scope = deal.company.scopes.first
       scope.full_name
     end
   end
 
   def project_link
     return mdash unless deal.project
-    h.link_to project_name, deal.project
+    h.link_to project_name, deal.company
   end
 
   def details_link
-    return mdash unless deal.project
-    h.link_to 'Детали сделки', deal.project
+    return mdash unless deal.company
+    h.link_to 'Детали сделки', deal.company
   end
 
   private

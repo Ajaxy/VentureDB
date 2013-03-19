@@ -32,7 +32,7 @@ class DealsOverview
     end
 
     def add_deal(deal)
-      scopes = deal.project.try(:scopes) or return
+      scopes = deal.company.try(:scopes) or return
       scopes = scopes.map { |scope| find_scope_for(scope) }.compact
       scopes.uniq! if @scope.blank?
 

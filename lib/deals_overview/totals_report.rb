@@ -14,7 +14,7 @@ class DealsOverview
     end
 
     def projects
-      deals.map(&:project_id).compact.uniq.size
+      deals.map(&:company_id).compact.uniq.size
     end
   end
 end
