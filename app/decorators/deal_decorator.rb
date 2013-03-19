@@ -63,7 +63,7 @@ class DealDecorator < ApplicationDecorator
 
   def amount
     if deal.amount?
-      " " + tag(:b, dollars(deal.amount))
+      (" " + tag(:b, dollars(deal.amount))).html_safe
     else
       ". Сумма сделки не разглашается."
     end
