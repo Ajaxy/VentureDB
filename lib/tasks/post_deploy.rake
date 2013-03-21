@@ -95,4 +95,23 @@ namespace :post_deploy do
       deal.update_column(:company_id, deal.project.company.id)
     end
   end
+
+  task create_more_connection_types: :environment do
+    ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
+      direct_name: 'Член органов управления', reverse_name: 'Член органов управления'
+    ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
+      direct_name: 'Эксперт среди сотрудников и участников', reverse_name: 'Эксперт среди сотрудников и участников'
+    ConnectionType.create! source_class: 'all', receiver_class: 'all',
+      direct_name: 'Партнер', reverse_name: 'Партнер'
+    ConnectionType.create! source_class: 'all', receiver_class: 'all',
+      direct_name: 'Член ассоциации', reverse_name: 'Член ассоциации'
+    ConnectionType.create! source_class: 'all', receiver_class: 'all',
+      direct_name: 'Исследования и публикации', reverse_name: 'Исследования и публикации'
+    ConnectionType.create! source_class: 'all', receiver_class: 'all',
+      direct_name: 'Дочернее сообщество', reverse_name: 'Дочернее сообщество'
+    ConnectionType.create! source_class: 'all', receiver_class: 'all',
+      direct_name: 'Учредитель', reverse_name: 'Учредитель'
+    ConnectionType.create! source_class: 'all', receiver_class: 'all',
+      direct_name: 'Дургая связь', reverse_name: 'Дургая связь'
+  end
 end

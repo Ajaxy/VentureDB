@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Suggester
-  ALLOWED_ENTITY_TYPES = %w[investor project company person]
+  ALLOWED_ENTITY_TYPES = %w[company person investor]
 
   def initialize(query, entities_string)
     @query           = query
@@ -26,7 +26,7 @@ class Suggester
 
   def entities
     if @entities_string == 'all'
-      ALLOWED_ENTITY_TYPES
+      ALLOWED_ENTITY_TYPES - ['investor']
     else
       @entities_string.split(',').map(&:downcase) & ALLOWED_ENTITY_TYPES
     end

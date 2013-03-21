@@ -20,7 +20,9 @@ class InvestorsController < CabinetController
   end
 
   def show
-    @investor = decorate Investor.find(params[:id])
-    @directions = DealsOverview::DirectionsReport.new(@investor.published_deals)
+    @investor = Investor.find(params[:id])
+    redirect_to url_for(@investor.actor)
+    # @investor = decorate Investor.find(params[:id])
+    # @directions = DealsOverview::DirectionsReport.new(@investor.published_deals)
   end
 end
