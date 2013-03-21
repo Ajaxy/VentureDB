@@ -28,6 +28,12 @@ class InvestorDecorator < HasInvestmentsDecorator
     result
   end
 
+  def link(options = {})
+    text  = options[:text] || model.name
+    scope = options.delete(:scope)
+    h.link_to text, h.url_for(source.actor)
+  end
+
   private
 
   def investor; source; end
