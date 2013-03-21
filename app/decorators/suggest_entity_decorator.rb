@@ -3,6 +3,7 @@
 class SuggestEntityDecorator < ApplicationDecorator
   MAPPING = {
     "company"  => "компания",
+    "person"   => "человек",
     "project"  => "проект",
     "investor" => "инвестор"
   }
