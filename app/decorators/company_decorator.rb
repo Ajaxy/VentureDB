@@ -1,4 +1,4 @@
-class CompanyDecorator < ApplicationDecorator
+class CompanyDecorator < HasInvestmentsDecorator
   decorates :company
 
   def full_name
@@ -24,5 +24,9 @@ class CompanyDecorator < ApplicationDecorator
   def scope_names
     return mdash unless scopes.any?
     list scopes.map(&:name)
+  end
+
+  def first_location
+    location_bindings.try(:first).try(:location).try(:full_name) || mdash
   end
 end

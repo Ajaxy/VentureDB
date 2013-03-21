@@ -114,4 +114,41 @@ class Company < ActiveRecord::Base
     joins{scopes}.where{scopes.id.in scope_ids}
   end
 
+  def self.sort_type(type)
+    case type
+    when '2'
+      order_by_investments
+    else
+      order_by_name('ASC')
+    end
+  end
+
+  def self.order_by_name(direction)
+    order("companies.name #{direction}")
+  end
+
+  def self.order_by_investments
+    joins{deals.outer}.
+      where{deals.published == true}.
+      group{id}.
+      order("sum(deals.amount_usd) desc nulls last")
+  end
+
+  def self.in_rounds(rounds)
+    joins{deals.outer}.where{(deals.round_id.in rounds) & (deals.published == true)}
+  end
+
+  def self.in_stages(stages)
+    joins{deals.outer}.where{(deals.stage_id.in stages) & (deals.published == true)}
+  end
+
+  def self.in_amount_range(from, to)
+    joins{deals.outer}.group{id}.
+      where{deals.published == true}.
+      where{(deals.amount_usd >= from) & (deals.amount_usd <= to)}
+  end
+
+  def deals_count
+    deals.count
+  end
 end
