@@ -34,6 +34,6 @@
     = f.input_field :deal_type, collection: @filter.deal_types.map{|k,v|[v,k]}, selected: @filter.deal_type
   h2 Сортировать по
   .block.form-inline.sort
-    - sort_types = [['Инвестициям', 1], ['Названию', 2]]
+    - sort_types = [['Дате', 1], ['Сумме', 2]]
     = f.input_field :sort_type, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_type || sort_types.first
   = f.button :submit, 'Искать'
