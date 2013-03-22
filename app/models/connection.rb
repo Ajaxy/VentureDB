@@ -4,4 +4,9 @@ class Connection < ActiveRecord::Base
   belongs_to :connection_type
   belongs_to :from, polymorphic: true
   belongs_to :to, polymorphic: true
+
+  validates :from_id, presence: true
+  validates :from_type, presence: true
+  validates :to_id, presence: true
+  validates :to_type, presence: true
 end
