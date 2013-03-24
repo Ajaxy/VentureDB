@@ -108,15 +108,6 @@ class Investor < ActiveRecord::Base
     for_period(Date.new(year) .. Date.new(year).end_of_year)
   end
 
-  def self.sort_type(type)
-    case type
-    when '1'
-      order_by_investments
-    when '2'
-      order_by_name('ASC')
-    end
-  end
-
   def self.order_by_type(direction)
     order("type_id #{direction}")
   end

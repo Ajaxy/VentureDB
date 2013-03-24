@@ -16,7 +16,7 @@ section.investors
       thead
         tr
           th = @sorter.header "Название", :name
-          th Тип инвестора
+          th = @sorter.header "Тип инвестора", :type
           th Кол-во сделок
           th Средний размер инвестиции, USD
           th Дата последней сделки
