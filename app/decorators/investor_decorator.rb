@@ -34,6 +34,11 @@ class InvestorDecorator < HasInvestmentsDecorator
     h.link_to text, h.url_for(source.actor)
   end
 
+  def last_deal_date
+    date = source.last_deal_date
+    date.present? ? h.l(source.last_deal_date) : mdash
+  end
+
   private
 
   def investor; source; end

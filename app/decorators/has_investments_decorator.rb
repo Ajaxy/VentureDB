@@ -29,4 +29,8 @@ class HasInvestmentsDecorator < ApplicationDecorator
   def count
     deals_count == 0 ? mdash : deals_count
   end
+
+  def average_deal_amount
+    dollars source.average_deal_amount.to_i
+  end
 end

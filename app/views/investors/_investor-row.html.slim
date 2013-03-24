@@ -1,6 +1,7 @@
 tr
   td = investor.link
-  td = investor.locations.try(:first).try(:full_name)
   td = investor.type
-  td = investor.link(text: 'контакты')
-  td = investor.link(text: investor.deal_string)
+  td = investor.deals_count
+  td = investor.average_deal_amount
+  td = investor.last_deal_date
+

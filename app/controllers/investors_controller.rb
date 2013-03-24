@@ -9,7 +9,7 @@ class InvestorsController < CabinetController
 
     scope = Investor.published.with_actor.includes{deals}
     scope = scope.joins{deals.outer}
-                 .select("investors.*, count(deals.id) AS deals_count ")
+                 .select("investors.*, count(deals.id) AS deals_count, avg(deals.amount_usd) AS average_deal_amount")
                  .where{deals.published == true}
                  .group{id}
 

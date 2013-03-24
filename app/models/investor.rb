@@ -183,6 +183,14 @@ class Investor < ActiveRecord::Base
     actor.try(:publish)
   end
 
+  def last_deal_date
+    published_deals.first.try(:date)
+  end
+
+  # def average_deal_amount
+  #   deals.published.average(:amount_usd)
+  # end
+
   private
 
   def set_name
