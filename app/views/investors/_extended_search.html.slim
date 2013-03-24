@@ -23,7 +23,6 @@
     = f.input_field :from, value: @filter.params.from, class: 'datepicker'
     = f.label :till, label: 'по', required: false, class: 'date-label'
     = f.input_field :till, value: @filter.params.till, class: 'datepicker'
-    = f.input_field :deal_type, collection: @filter.deal_types.map{|k,v|[v,k]}, selected: @filter.deal_type
   h2 Сортировать по
   .block.form-inline.sort
     - sort_types = [['Инвестициям', 1], ['Названию', 2]]
