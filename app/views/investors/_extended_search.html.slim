@@ -18,11 +18,9 @@
   .clear-both
   h2 Параметры сделок, в которых инвестор принимал участие
   .block.form-inline
-    = f.label :date, label: 'Дата последней инвестиции', required: false
-    = f.label :from, label: 'с', required: false, class: 'date-label'
-    = f.input_field :from, value: @filter.params.from, class: 'datepicker'
-    = f.label :till, label: 'по', required: false, class: 'date-label'
-    = f.input_field :till, value: @filter.params.till, class: 'datepicker'
+    = label_tag '', class: 'checkbox' do
+      = f.check_box :for_current_year, checked: @filter.params.for_current_year == '1'
+      = "Инвестировали в #{@filter.current_year} году"
   h2 Сортировать по
   .block.form-inline.sort
     - sort_types = [['Инвестициям', 1], ['Названию', 2]]

@@ -98,14 +98,14 @@ class Investor < ActiveRecord::Base
     joins{deals.outer}.where{(deals.stage_id.in stages) & (deals.published == true)}
   end
 
-  def self.from_date(from)
-    joins{deals.outer}.where{deals.published == true}
-      .where('? < investments.created_at', from)
+  def self.for_period(period)
+    joins{deals.outer}.where{deals.published == true}.
+    where{coalesce(deals.contract_date, deals.announcement_date) >= period.begin}.
+    where{coalesce(deals.contract_date, deals.announcement_date) <= period.end}
   end
 
-  def self.till_date(till)
-    joins{deals.outer}.where{deals.published == true}
-      .where('investments.created_at < ?', till)
+  def self.for_year(year)
+    for_period(Date.new(year) .. Date.new(year).end_of_year)
   end
 
   def self.sort_type(type)

@@ -7,9 +7,12 @@ class InvestorFilter < Filter
     investors = investors.in_rounds(params.round) if params.round
     investors = investors.in_types(params.investor_type) if params.investor_type
     investors = investors.in_types(params.deal_type) if params.deal_type
-    investors = investors.from_date(Time.zone.parse(params.from)) unless params.from.blank?
-    investors = investors.till_date(Time.zone.parse(params.till)) unless params.till.blank?
+    investors = investors.for_year(current_year) if params.for_current_year == '1'
     investors = investors.sort_type(params.sort_type) if params.sort_type
     investors
+  end
+
+  def current_year
+    Time.zone.now.year
   end
 end
