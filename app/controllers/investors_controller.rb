@@ -3,7 +3,7 @@
 class InvestorsController < CabinetController
   def index
     search = params[:search] ? params : params[:extended_search]
-    @sorter = InvestorSorter.new(params)
+    @sorter = InvestorSorter.new(params, view_context)
     @filter = decorate InvestorFilter.new(search), view: view_context,
                                                    sorter: @sorter
 

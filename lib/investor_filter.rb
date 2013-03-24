@@ -8,7 +8,6 @@ class InvestorFilter < Filter
     investors = investors.in_types(params.investor_type) if params.investor_type
     investors = investors.in_types(params.deal_type) if params.deal_type
     investors = investors.for_year(current_year) if params.for_current_year == '1'
-    investors = investors.sort_type(params.sort_type) if params.sort_type
     investors
   end
 

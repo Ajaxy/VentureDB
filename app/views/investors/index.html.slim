@@ -15,7 +15,7 @@ section.investors
     table.table
       thead
         tr
-          th Название
+          th = @sorter.header "Название", :name
           th Тип инвестора
           th Кол-во сделок
           th Средний размер инвестиции, USD
