@@ -27,6 +27,10 @@
     = f.text_field :form, class: "span8", placeholder: "Организационно-правовая форма"
     = f.label :place, "Страна юрисдикции"
     = f.text_field :place, class: "span8", placeholder: "Страна юрисдикции"
+    = f.label :opened, class: "checkbox" do
+      = f.check_box :opened
+      | Открытая
+
   .tab-pane id="company_#{rand}_contacts"
     = f.label :address1, 'Адрес'
     = f.text_area :address1, placeholder: 'Адрес', class: 'span8', rows: 2
