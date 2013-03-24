@@ -5,7 +5,7 @@
     .investor-types
       = f.input_field :investor_type, as: :check_boxes, collection: Investor::TYPES.map{|id,name| [name,id]}, checked: @filter.params.investor_type.try(:map, &proc{|id| id.to_i})
   .block.horizontal
-    h2 Выберите сектор
+    h2 Отраслевая специализация
     .sectors
       - nested_set_options(Scope) do |sector|
         = label_tag :sector, class: "checkbox #{'nested' if sector.parent_id}" do
