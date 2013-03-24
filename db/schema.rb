@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319172054) do
+ActiveRecord::Schema.define(:version => 20130324162618) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
     t.string   "full_name"
     t.string   "place"
     t.string   "form"
-    t.boolean  "draft",          :default => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.boolean  "draft",           :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.date     "creation_date"
     t.text     "contacts"
     t.text     "employees"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20130319172054) do
     t.text     "details"
     t.text     "secret_details"
     t.string   "sectors"
+    t.string   "foundation_date"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
@@ -233,6 +234,7 @@ ActiveRecord::Schema.define(:version => 20130319172054) do
     t.text     "other_geo"
     t.text     "details"
     t.text     "secret_details"
+    t.string   "birth_date"
   end
 
   create_table "project_authors", :force => true do |t|
