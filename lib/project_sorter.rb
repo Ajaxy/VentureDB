@@ -3,9 +3,8 @@
 class ProjectSorter < Sorter
   def sortable_columns
     {
-      :name         => :asc,
-      :company      => :asc,
       :investments  => :desc,
+      :name         => :asc,
     }
   end
 
@@ -13,9 +12,6 @@ class ProjectSorter < Sorter
     case current_column
     when :name
       scope.order_by_name(current_direction)
-    when :company
-      scope.joins{company.outer}
-           .order("companies.name #{current_direction} nulls last")
     when :investments
       scope.order_by_investments
     else

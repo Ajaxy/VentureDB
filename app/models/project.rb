@@ -124,7 +124,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.order_by_name(direction)
-    order("projects.name #{direction}")
+    order("company.name #{direction}")
   end
 
   def self.order_by_investments

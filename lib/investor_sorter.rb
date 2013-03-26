@@ -3,9 +3,9 @@
 class InvestorSorter < Sorter
   def sortable_columns
     {
+      :investments  => :desc,
       :name         => :asc,
-      :type         => :asc,
-      :investments  => :desc
+      :type         => :asc
     }
   end
 

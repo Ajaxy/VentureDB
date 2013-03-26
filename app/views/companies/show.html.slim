@@ -1,5 +1,8 @@
 .person.profile
   h2 Общая информация
+  .toolbar
+    - if current_user.admin?
+      a.btn(href=edit_admin_company_path(@company)) Редактировать
   table.properties
     tr
       td.name Полное наименование

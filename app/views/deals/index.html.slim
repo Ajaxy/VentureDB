@@ -9,7 +9,7 @@ section.stream.deals
 
   - if current_user.admin?
     div.create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
-
+ 
   - if @deals.any?
     table.table
       thead

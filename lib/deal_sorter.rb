@@ -3,11 +3,8 @@
 class DealSorter < Sorter
   def sortable_columns
     {
-      :id       => :desc,
-      :project  => :asc,
-      :status   => :asc,
-      :amount   => :desc,
       :date     => :desc,
+      :amount   => :desc,
     }
   end
 
@@ -24,7 +21,7 @@ class DealSorter < Sorter
     when :date
       scope.order_by_started_at(current_direction)
     else
-      raise ArgumentError.new("bad current_column #{current_column.inspect}")
+      scope.order_by_date(current_direction)
     end
   end
 end
