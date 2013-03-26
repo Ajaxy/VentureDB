@@ -38,6 +38,13 @@ class Investor < ActiveRecord::Base
     14 => "Прочие организации (юрлица)",
   }
 
+  AMOUNT_RANGES = {
+    1 => 0..500_000,
+    2 => 500_000..3_000_000,
+    3 => 3_000_000..10_000_000,
+    4 => 10_000_000..1_000_000_000
+  }
+
   PERSON_TYPES = [11, 13]
 
   define_index "investors_index" do
@@ -106,6 +113,17 @@ class Investor < ActiveRecord::Base
 
   def self.for_year(year)
     for_period(Date.new(year) .. Date.new(year).end_of_year)
+  end
+
+  def self.in_ranges(range_ids)
+    range_ids = range_ids.map(&:to_i)
+
+    query = range_ids.map do |range_id|
+      range = AMOUNT_RANGES[range_id]
+      "(AVG(deals.amount_usd) BETWEEN #{range.begin} AND #{range.end})"
+    end.join(' OR ')
+
+    joins{deals.outer}.having(query)
   end
 
   def self.order_by_type(direction)
