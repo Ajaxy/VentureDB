@@ -1,13 +1,13 @@
 section.deals
-  / = search_field "Поиск по названию проекта или инвестора", entities: %w[project investor],
-  /   navigate: false
-
   = render 'extended_search'
 
-  / - if current_user.admin?
-  /   div.create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
+  .head
+    h2 Сделки
+    - if current_user.admin?
+      .actions
+        div.create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
+  .clear
 
-  h2 Сделки
   - if @deals.any?
     table.list
       thead
@@ -17,8 +17,7 @@ section.deals
           th style="width: 150px" Индустрия
           th style="width: 150px" Инвестор
           th style="width: 100px" Сумма сделки
-      tbody
-        = render partial: "deal_row", collection: @deals
+      tbody = render partial: "deal_row", collection: @deals
 
     = render "more-link", collection: @deals
 

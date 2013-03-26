@@ -1,14 +1,37 @@
-.person.profile
-  h1 = @person.name
+section
+  .head
+    h1 = @person.name
+    - if current_user.admin?
+      .actions
+        = link_to 'Редактировать', edit_admin_person_path(@person), class: "btn btn-primary"
 
   - if @person.description.present?
     h2 Описание
     = markdown @person.description
 
-  - if @person.contacts.any?
-    h2 Основные контакты
+  .contacts
+    h2 Контакты
     table.list
-      - @person.contacts.each do |name, value|
-        tr
-          td.name = Person.human_attribute_name(name)
-          td = value
+      col width="50%"
+      col width="50%"
+      tr
+        td Адрес
+        td = @person.address
+      tr
+        td Телефон
+        td = @person.phone
+      tr
+        td Сайт
+        td = @person.www
+      tr
+        td Facebook
+        td = @person.facebook
+      tr
+        td Slideshare
+        td = @person.slideshare
+      tr
+        td Vkontakte
+        td = @person.vkontakte
+      tr
+        td Вакансии
+        td = @person.vacancies

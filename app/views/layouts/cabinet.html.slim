@@ -32,3 +32,9 @@ html
               = yield
         aside#menu
           = render partial: 'menu'
+          nav
+            ul
+              - if current_user.admin?
+                li = link_to "Панель управления", "/admin"
+              li = link_to current_user.email, "#"
+              li = link_to "Выйти", :destroy_user_session, method: "delete"

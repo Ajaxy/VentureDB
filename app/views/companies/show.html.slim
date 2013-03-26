@@ -1,5 +1,9 @@
 section
-  h1 = @company.name
+  .head
+    h1 = @company.name
+    - if current_user.admin?
+      .actions
+        = link_to 'Редактировать', edit_admin_company_path(@company), class: "btn btn-primary"
 
   .profile
     h2 Общая информация

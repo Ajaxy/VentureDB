@@ -1,12 +1,11 @@
 section.companies
-  / = search_field "Введите название компании", entities: "company", navigate: true
-
   = render 'extended_search'
 
-  / - if current_user.admin?
-  /   div.create-btn = link_to 'Создать', [:new, :admin, :company], class: "btn btn-primary"
+  .head
+    h2 Инфраструктура
+    - if current_user.admin?
+      div.create-btn = link_to 'Создать', [:new, :admin, :company], class: "btn btn-primary"
 
-  h2 Инфраструктура
   - if @companies.any?
     table.list
       thead
