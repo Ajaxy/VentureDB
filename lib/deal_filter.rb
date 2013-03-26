@@ -29,7 +29,6 @@ class DealFilter < Filter
     end
 
     deals = deals.for_type(type)                if type
-    deals = deals.sort_type(params.sort_type)   if params.sort_type
 
     deals
   end

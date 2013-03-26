@@ -12,11 +12,11 @@ section.deals
     table.list
       thead
         tr
-          th style="width: 120px" Дата сделки
+          th style="width: 120px" = @sorter.header "Дата сделки", :date
           th style="width: 100px" Компания
           th style="width: 150px" Индустрия
           th style="width: 150px" Инвестор
-          th style="width: 100px" Сумма сделки
+          th style="width: 100px" = @sorter.header "Сумма сделки", :amount
       tbody = render partial: "deal_row", collection: @deals
 
     = render "more-link", collection: @deals

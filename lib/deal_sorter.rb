@@ -4,7 +4,6 @@ class DealSorter < Sorter
   def sortable_columns
     {
       :id       => :desc,
-      :project  => :asc,
       :status   => :asc,
       :amount   => :desc,
       :date     => :desc,
@@ -15,8 +14,6 @@ class DealSorter < Sorter
     case current_column
     when :id
       scope.order("id #{current_direction}")
-    when :project
-      scope.joins{project.outer}.order("projects.name #{current_direction} nulls last")
     when :status
       scope.order("status_id #{current_direction}")
     when :amount
