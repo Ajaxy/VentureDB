@@ -165,9 +165,9 @@ class Investor < ActiveRecord::Base
     published_deals.first.try(:date)
   end
 
-  # def average_deal_amount
-  #   deals.published.average(:amount_usd)
-  # end
+  def self.in_types(types)
+    where{type_id.in types}
+  end
 
   private
 
