@@ -4,7 +4,6 @@ section
     - if current_user.admin?
       .actions
         = link_to 'Редактировать', edit_admin_company_path(@company), class: "btn btn-primary"
-
   .profile
     = render 'common_info'
 
