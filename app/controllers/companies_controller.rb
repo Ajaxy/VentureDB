@@ -16,5 +16,6 @@ class CompaniesController < CabinetController
 
   def show
     @company = decorate Company.find(params[:id])
+    @deals   = decorate @company.deals.order_by_started_at(:desc)
   end
 end

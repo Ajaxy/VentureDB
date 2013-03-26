@@ -6,5 +6,6 @@ class PeopleController < CabinetController
 
   def show
     @person = decorate Person.find(params[:id])
+    @deals  = decorate @person.deals.order_by_started_at(:desc)
   end
 end

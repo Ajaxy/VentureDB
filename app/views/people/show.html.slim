@@ -35,3 +35,6 @@ section
       tr
         td Вакансии
         td = @person.vacancies
+
+  - if @deals.any?
+    = render partial: 'deals', locals: { deals: @deals }

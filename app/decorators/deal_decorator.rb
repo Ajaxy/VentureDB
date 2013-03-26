@@ -119,6 +119,15 @@ class DealDecorator < ApplicationDecorator
     h.link_to 'Детали сделки', deal.company
   end
 
+  def share
+    value = source.share
+    if value.nil? or value.zero?
+      mdash
+    else
+      "#{value} %"
+    end
+  end
+
   private
 
   def deal; source; end

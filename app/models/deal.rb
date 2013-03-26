@@ -257,4 +257,8 @@ class Deal < ActiveRecord::Base
   def unpublish
     update_attribute :published, false
   end
+
+  def share
+    investments.pluck(:share).map(&:to_i).sum
+  end
 end

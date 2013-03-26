@@ -1,0 +1,23 @@
+h2 Общая информация
+table.list
+  tr
+    td.name Полное наименование
+    td = @company.full_name
+  tr
+    td.name Краткое наименование
+    td = @company.name
+  tr
+    td.name Организационно-правовая форма
+    td = @company.form
+  tr
+    td.name Прежнее название (если имеется)
+    td = @company.prev_name
+  tr
+    td.name Тип компании
+    td = @company.type
+  tr
+    td.name Сфера и сектор деятельности
+    td = @company.scope_names
+  tr
+    td.name Страна юрисдикции
+    td = @company.place

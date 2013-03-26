@@ -1,0 +1,18 @@
+h2 Сделки
+table.list.no-width
+  col style="width: 140px"
+  col style="width: 50px"
+  col style="width: 100px"
+  col style="width: 100px"
+  thead
+    tr
+      th Дата
+      th Сумма сделки
+      th Статус сделки
+      th Приобретаемая доля
+  - deals.each do |deal|
+    tr
+      td = deal.date
+      td = deal.amount
+      td = deal.status
+      td = deal.share

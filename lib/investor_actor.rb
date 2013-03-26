@@ -6,6 +6,7 @@ module InvestorActor
   included do
     has_many :investors, as: :actor
     has_many :investments, through: :investors
+    has_many :deals, through: :investments
 
     after_save :set_investor_name
   end
