@@ -1,16 +1,34 @@
-- @body_class = "cabinet"
+doctype html
+html
+  head
+    title VentureDB
 
-- content_for :content do
-  = render partial: 'header'
+    = render "google-fonts"
+    = render "google-analytics"
 
-  .main-area
-    .content-wrap
-      = render partial: 'menu'
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = favicon_link_tag       "favicon.png"
+    = csrf_meta_tags
 
-      - if content_for? :aside
-        aside = yield :aside
+    = yield :head
 
-      .content
-        = yield
+    /[ if lt IE 9 ]
+      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
-= render template: "layouts/application"
+  body
+    #wrapper
+      #middle
+        #container
+          #content
+            header
+              #logo
+                p Venture Database
+              #search_box
+                = form_tag "/search", method: :get, class: "search" do
+                  = text_field_tag :search, params[:search], placeholder: 'Например, TechCrunch Moscow 2012'
+                  button type="submit" = "ПОИСК"
+            #main_content
+              = yield
+        aside#menu
+          = render partial: 'menu'

@@ -1,14 +1,9 @@
 section.projects
-  h1 Проекты
-  p Поиск среди 400 молодых компаний и инновационных проектов.
-  = search_field "Введите название компании или фамилию автора проекта",
-    entities: "project", navigate: true
-
-  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
   = render 'extended_search'
 
+  h2 Компании
   - if @projects.any?
-    table.table
+    table.list
       thead
         tr
           th Название

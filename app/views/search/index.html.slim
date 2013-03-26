@@ -1,10 +1,6 @@
 section.search
   h1 Поиск
 
-  = form_tag "", method: :get, class: "search" do
-    = text_field_tag :search, params[:search], placeholder: "Поиск по проектам, инвесторам и сделкам"
-    button type="submit" = image_tag "search.png"
-
   - unless @records.nil?
     - if @records.any?
       .search-results= render partial: "result_item", collection: @records

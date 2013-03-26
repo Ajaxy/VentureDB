@@ -4,6 +4,8 @@ class CabinetController < ApplicationController
   before_filter :authenticate_user!
   before_filter :init_menu
 
+  layout 'cabinet'
+
   private
 
   def init_menu

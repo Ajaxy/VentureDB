@@ -7,7 +7,7 @@
 
   - if @person.contacts.any?
     h2 Основные контакты
-    table.properties
+    table.list
       - @person.contacts.each do |name, value|
         tr
           td.name = Person.human_attribute_name(name)

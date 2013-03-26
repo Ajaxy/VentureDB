@@ -1,18 +1,12 @@
 section.investors
-  h1 Инвесторы
-  p Поиск среди 200 венчурных фондов, управляющих компаний и бизнес-ангелов.
+  = render 'extended_search'
 
-  = search_field "Введите название фонда или фамилию инвестора", entities: "investor", navigate: true
+  / - if current_user.admin?
+  /   div.create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
 
-  div
-    = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
-    = render 'extended_search'
-
-  - if current_user.admin?
-    div.create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
-
+  h2 Инвесторы
   - if @investors.any?
-    table.table
+    table.list
       thead
         tr
           th = @sorter.header "Название", :name

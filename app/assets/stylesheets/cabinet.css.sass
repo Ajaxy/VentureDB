@@ -1,66 +1,93 @@
-$text-color: #60656e
+#wrapper
+  width: 100%
 
-.cabinet
-  a
-    color: #0b90a4
-  .container > header
-    +background-image(linear-gradient(top, #fff, #e4e6e9))
-    height: 50px
-    border-bottom: solid 1px #c5c5c5
-    position: relative
-    +box-shadow(0 1px 1px -1px #e7e9ec)
-    .content-wrap
-      position: relative
+#middle
+  border-left: 215px solid #8caec5
+  height: 1%
+  position: relative
+
+#middle:after
+  content: ''
+  clear: both
+  display: table
+
+#container
+  width: 100%
+  float: left
+  overflow: hidden
+  margin-right: -100%
+
+#content
+  header
+    height: 130px
+    background: image-url("header-bg.png") repeat-x bottom
+
     #logo
-      position: absolute
-      top: 14px
-      left: 0
-      width: 231px
-      height: 22px
-      background: image-url("logo-dark.png") no-repeat
-      font-size: 0
-    nav
-      position: absolute
-      top: 5px
-      right: 0
-      display: table
-      text-align: right
-      height: 40px
-      .link
-        display: table-cell
-        padding: 0 1em
-        text-align: center
+      float: left
+      width: 400px
+      height: 100%
+      margin-left: 50px
+      text-transform: uppercase
+      font-size: 26px
+      font-weight: bold
+      p
+        line-height: 120px
+        letter-spacing: 2px
+    #search_box
+      float: left
+      padding-top: 40px
+      width: 475px
+
+      input
+        width: 389px
+        height: 23px
+        float: left
+        border-right: none
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+        background: image-url("search-bg.png") no-repeat right
+      button[type="submit"]
+        width: 73px
+        height: 33px
+        background-color: #ad8863
+        color: #fff
+        font-size: 12px
+        float: right
+        letter-spacing: 2px
+        border: 1px solid #cccccc
+        border-left: none
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+        border-top-right-radius: 4px
+        border-bottom-right-radius: 4px
+
+#menu
+  float: left
+  width: 215px
+  position: relative
+  background-color: #8caec5
+  left: -215px
+
+  nav
+    width: 170px
+    margin: auto
+    margin-top: 50px
+
+    ul
+      li
+        height: 35px
         vertical-align: middle
         a
-          color: #919a9b
-
-  .main-area
-    background: #fff
-    font-size: 0.9em
-    padding: 40px 0
-    color: $text-color
-    line-height: 1.5
-    .content-wrap
-      > nav
-        float: left
-        width: 150px
-        li:first-child
-          a
-            border-top: solid #e5e5e5 1px
-        a
+          text-transform: uppercase
+          color: #fff
+          line-height: 35px
           display: block
           position: relative
-          padding: 12px 0 12px 30px
-          color: #60656e
+          padding-left: 25px
           text-transform: uppercase
-          line-height: 1
-          border-bottom: solid #e5e5e5 1px
           font-size: 0.9em
           font-weight: bold
           letter-spacing: 1px
-          &.active
-            opacity: 0.4
-            background: #f4f4f4
+
           &:before
             content: ""
             position: absolute
@@ -68,179 +95,131 @@ $text-color: #60656e
             top: 10px
             height: 13px
             width: 13px
-            background: image-url("menu-icons.png") no-repeat
+            background: image-url("menu-sprite.png") no-repeat
+          &.investors:before
+            background-position: 0 0
           &.projects:before
-            background-position: -13px 0
+            background-position: 0 -13px
+          &.companies:before
+            background-position: 0 -26px
           &.statistics:before
-            background-position: -26px 0
-          &.researches:before
-            background-position: -39px 0
+            background-position: 0 -38px
           &.deals:before
-            background-position: -52px 0
-          &.search:before
-            background-position: -65px 0
-      > aside
-        float: right
-        width: 200px
-        line-height: 1.3
-        word-wrap: break-word
-        +box-shadow(0 0 10px -2px #ccc)
-        h3
-          font-size: 1.1em
-          margin-bottom: 1em
-        > section
-          padding: 15px
-          > div + div
-            margin-top: 15px
-        > section + section
-          border-top: solid 1px #efeff0
-        p
+            background-position: 0 -51px
+
+        &.separator
+          height: 5px
+          border-bottom: 1px solid #a3bed1
           margin-bottom: 5px
-        .year a
-          width: 56px
-        .sort a
-          width: 84px
-        .dropdown
-          width: 100%
-      aside + .content
-        margin-right: 230px
-      .content
-        form.extended-search
-          +clearfix
-          overflow: visible
-          display: none
-          &.opened
-            display: block
-          background-color: #f1f1f1
-          width: 830px
-          padding: 5px 20px
-          font-size: 13px
-          h2
-            color: black
-            font-size: 13px
-            text-transform: uppercase
-            margin: 15px 0
-            line-height: 20px
-          .clear-both
-            clear: both
-          .block + .block
-            margin-left: 30px
-          .block
-            margin-bottom: 15px
-            &.horizontal
-              float: left
-              .investor-types, .sectors, .rounds, .stages
-                overflow-y: auto
-                max-height: 100%
-                border: 1px solid #d8d8d8
-                background-color: white
-                height: 230px
-                padding: 10px
-              .investor-types, .stages
-                width: 215px
-              .rounds
-                width: 180px
-              .sectors
-                width: 300px
-                .checkbox.nested
-                  padding-left: 40px
-            &.form-inline
-              .date-label
-                margin-left: 20px
-              .datepicker
-                text-align: center
-              &.sort
-                select, .chzn-container
-                  margin: 5px 0
-              select, .chzn-container, input[type="text"]
-                display: inline-block
-                margin: 5px 0 5px 10px
-                width: 140px
-              select
-                margin-left: 20px
-                width: 185px
 
-          input[type="submit"].btn
-            display: block
-            margin: 30px auto
-            text-transform: uppercase
-            font-weight: bold
-            width: 150px
-            height: 30px
-            font-size: 13px
-            line-height: 22px
-            @include buttonBackground(#61aa8b, #52997a)
+#main_content
+  margin-top: 20px
+  margin-left: 50px
+  padding-bottom: 20px
 
-        margin-left: 180px
-        min-height: 300px
-        h1
-          font-size: 2.7em
-          line-height: 1
-          margin-bottom: 0.5em
-        h2
-          font-size: 1.7em
-          line-height: 1.8
-        p
-          font-size: 1.1em
-        .table
-          margin: 30px 0
-          tr:nth-child(even)
-            td, th
-              background: #f2f2f2
-          th
-            white-space: nowrap
-            font-weight: normal
-            padding-bottom: 25px
-          tbody
-            tr:first-child
-              td
-                +box-shadow(inset 0 4px 2px -3px #ddd)
-                padding-top: 20px
-          td
-            border: 0
-          td, th
-            &.center
-              text-align: center
-        form.search
-          margin: 15px 0
-          input
-            width: 85%
-          button
-            border: 0
-            background: none
-            margin: -5px 0 0 5px
-        // .pagination
-        //   margin-top: 60px
-        //   font-size: 1.1em
-        //   a
-        //     color: #6e6e6e
-        //     padding: 8px 14px
-        .more
-          font-size: 1.1em
-          text-align: center
+  a
+    color: #0b90a4
 
-.filters
-  select
-    width: 400px
-  input.date
-    width: 100px
-  input.amount
-    width: 100px
-  form
-    > div + div
-      margin-top: 10px
-
-.pagination
-  text-align: center
-
-section.deal
+  h1
+    font-size: 2em
   h2
-    margin-top: 1em
-  .label
-    font-size: 1.1em
-    margin-top: 0.5em
-  .investment + .investment
-    margin-top: 0.5em
+    margin: 25px 0 25px 0
+    font-size: 1.5em
+
+  section
+    width: 870px
+
+  .button
+    display: inline-block
+    vertical-align: middle
+    font-size: 12px
+    border: solid 1px #d1d1d1
+    border-radius: 5px
+    +box-shadow(0 1px 0 0 #f0f0f0)
+    padding: 5px 10px
+    background-color: #fafafa
+    +background-image(linear-gradient(top, #fff, #fafafa))
+    color: inherit !important
+
+  form.extended-search
+    +clearfix
+    overflow: visible
+    &.opened
+      display: block
+    background-color: #f1f1f1
+    width: 830px
+    padding: 5px 20px
+    font-size: 13px
+    h2
+      color: black
+      font-size: 13px
+      text-transform: uppercase
+      margin: 15px 0
+      line-height: 20px
+    .clear-both
+      clear: both
+    .block + .block
+      margin-left: 30px
+    .block
+      margin-bottom: 15px
+      &.horizontal
+        float: left
+        .investor-types, .sectors, .rounds, .stages
+          overflow-y: auto
+          max-height: 100%
+          border: 1px solid #d8d8d8
+          background-color: white
+          height: 230px
+          padding: 10px
+        .investor-types, .stages
+          width: 215px
+        .rounds
+          width: 180px
+        .sectors
+          width: 300px
+          .checkbox.nested
+            padding-left: 40px
+      &.form-inline
+        .date-label
+          margin-left: 20px
+        .datepicker
+          text-align: center
+        &.sort
+          select, .chzn-container
+            margin: 5px 0
+        select, .chzn-container, input[type="text"]
+          display: inline-block
+          margin: 5px 0 5px 10px
+          width: 140px
+        select
+          margin-left: 20px
+          width: 185px
+
+    input[type="submit"].btn
+      display: block
+      margin: 30px auto
+      text-transform: uppercase
+      font-weight: bold
+      width: 150px
+      height: 30px
+      font-size: 13px
+      line-height: 22px
+      @include buttonBackground(#61aa8b, #52997a)
+
+  table.list
+    border: 1px solid #e3e3e3
+    width: 870px
+    margin-bottom: 20px
+
+    td, th
+      padding: 10px
+    thead
+      th
+        font-weight: bold
+        border: 1px solid #e3e3e3
+    tbody
+      td
+        border: 1px solid #e3e3e3
 
 .horizontal-select
   display: inline-block
@@ -260,47 +239,3 @@ section.deal
     background: white
     &.active
       background: #f8f8f8
-
-.button
-  display: inline-block
-  vertical-align: middle
-  font-size: 12px
-  border: solid 1px #d1d1d1
-  border-radius: 5px
-  +box-shadow(0 1px 0 0 #f0f0f0)
-  padding: 5px 10px
-  background-color: #fafafa
-  +background-image(linear-gradient(top, #fff, #fafafa))
-  color: inherit !important
-
-.profile
-  > .meta
-    color: #888
-    margin-bottom: 1em
-    font-size: 1.1em
-    +clearfix
-  > section
-    margin: 15px 0
-    padding: 15px 0
-    border-top: solid 2px #f7f7f7
-  table
-    margin-top: 20px
-  h2
-    margin-top: 10px
-
-.mdash
-  color: #aaa
-
-table.properties
-  tr
-    border-bottom: 1px solid #e5e5e5
-
-  td
-    padding: 4px
-  td.name
-    width: 300px
-
-.create-btn
-  margin-top: 10px
-  a
-    color: #fff

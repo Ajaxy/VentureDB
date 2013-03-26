@@ -1,28 +1,80 @@
-.person.profile
-  h2 Общая информация
-  table.properties
-    tr
-      td.name Полное наименование
-      td = @company.full_name
-    tr
-      td.name Краткое наименование
-      td = @company.name
-    tr
-      td.name Организационно-правовая форма
-      td = @company.form
-    tr
-      td.name Прежнее название (если имеется)
-      td = @company.prev_name
-    tr
-      td.name Тип компании
-      td = @company.type
-    tr
-      td.name Сфера и сектор деятельности
-      td = @company.scope_names
-    tr
-      td.name Страна юрисдикции
-      td = @company.place
+section
+  h1 = @company.name
 
-  - if @company.description.present?
-    h2 Описание компании
-    = markdown @company.description
+  .profile
+    h2 Общая информация
+    table.list
+      tr
+        td.name Полное наименование
+        td = @company.full_name
+      tr
+        td.name Краткое наименование
+        td = @company.name
+      tr
+        td.name Организационно-правовая форма
+        td = @company.form
+      tr
+        td.name Прежнее название (если имеется)
+        td = @company.prev_name
+      tr
+        td.name Тип компании
+        td = @company.type
+      tr
+        td.name Сфера и сектор деятельности
+        td = @company.scope_names
+      tr
+        td.name Страна юрисдикции
+        td = @company.place
+
+    - if @company.description.present?
+      h2 Описание компании
+      = markdown @company.description
+
+    .contacts
+      .main
+        h2 Основные контакты
+        table.list
+          col width="50%"
+          col width="50%"
+          tr
+            td Адрес
+            td = @company.address1
+          tr
+            td Телефон
+            td = @company.phone1
+          tr
+            td Сайт
+            td = @company.www1
+          tr
+            td Facebook
+            td = @company.facebook1
+          tr
+            td Vkontakte
+            td = @company.vkontakte1
+          tr
+            td Вакансии
+            td = @company.vacancies1
+
+      .additional
+        h2 Филиалы и представительства
+        table.list
+          col width="50%"
+          col width="50%"
+          tr
+            td Адрес
+            td = @company.address2
+          tr
+            td Телефон
+            td = @company.phone2
+          tr
+            td Сайт
+            td = @company.www2
+          tr
+            td Facebook
+            td = @company.facebook2
+          tr
+            td Vkontakte
+            td = @company.vkontakte2
+          tr
+            td Вакансии
+            td = @company.vacancies2

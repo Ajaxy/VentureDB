@@ -1,28 +1,24 @@
-section.stream.deals
-  h1 Сделки
-  p Новости о последних инвестиционных сделках и выданных грантах.
-  = search_field "Поиск по названию проекта или инвестора", entities: %w[project investor],
-    navigate: false
+section.deals
+  / = search_field "Поиск по названию проекта или инвестора", entities: %w[project investor],
+  /   navigate: false
 
-  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
   = render 'extended_search'
 
-  - if current_user.admin?
-    div.create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
+  / - if current_user.admin?
+  /   div.create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
 
+  h2 Сделки
   - if @deals.any?
-    table.table
+    table.list
       thead
         tr
-          th Дата сделки
-          th Компания
-          th Индустрия
-          th Инвестор
-          th Сумма сделки
-          th Детали
+          th style="width: 120px" Дата сделки
+          th style="width: 100px" Компания
+          th style="width: 150px" Индустрия
+          th style="width: 150px" Инвестор
+          th style="width: 100px" Сумма сделки
       tbody
-        - @deals.each do |deal|
-          = render "deal-row", deal: deal
+        = render partial: "deal_row", collection: @deals
 
     = render "more-link", collection: @deals
 

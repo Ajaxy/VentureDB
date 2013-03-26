@@ -1,16 +1,14 @@
 section.companies
-  h1 Компании
+  / = search_field "Введите название компании", entities: "company", navigate: true
 
-  = search_field "Введите название компании", entities: "company", navigate: true
-
-  = link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
   = render 'extended_search'
 
-  - if current_user.admin?
-    div.create-btn = link_to 'Создать', [:new, :admin, :company], class: "btn btn-primary"
+  / - if current_user.admin?
+  /   div.create-btn = link_to 'Создать', [:new, :admin, :company], class: "btn btn-primary"
 
+  h2 Инфраструктура
   - if @companies.any?
-    table.table
+    table.list
       thead
         tr
           th Название

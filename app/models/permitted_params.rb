@@ -51,7 +51,9 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def company_attributes
-    %w[name full_name form place description type_id from_connections_attributes]
+    %w[name full_name form place description type_id from_connections_attributes www1 www2 vkontakte1 vkontakte2
+      facebook1 facebook2 phone1 phone2 address1 address2 vacancies1 vacancies2 details secret_details opened
+      mentions]
   end
 
   def deal_attributes
