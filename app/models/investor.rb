@@ -62,9 +62,6 @@ class Investor < ActiveRecord::Base
 
   include Searchable
 
-  def self.investors
-  end
-
   def self.in_location(location)
     joins{locations}.where{(locations.lft >= location.lft) &
                            (locations.lft < location.rgt)}
@@ -77,14 +74,6 @@ class Investor < ActiveRecord::Base
     where{ name.like(search) }
   end
 
-  def self.in_round(round)
-    joins{deals.outer}.where{(deals.round_id == round) & (deals.published == true)}
-  end
-
-  def self.in_stage(stage)
-    joins{deals.outer}.where{(deals.stage_id == stage) & (deals.published == true)}
-  end
-
   def self.in_scope(scope)
     joins{deals.project.scopes}
       .where{deals.published == true}
@@ -95,14 +84,6 @@ class Investor < ActiveRecord::Base
     joins{deals.project.scopes}
       .where{deals.published == true}
       .where{scopes.id.in scope_arr}
-  end
-
-  def self.in_rounds(rounds)
-    joins{deals.outer}.where{(deals.round_id.in rounds) & (deals.published == true)}
-  end
-
-  def self.in_stages(stages)
-    joins{deals.outer}.where{(deals.stage_id.in stages) & (deals.published == true)}
   end
 
   def self.for_period(period)
@@ -124,6 +105,10 @@ class Investor < ActiveRecord::Base
     end.join(' OR ')
 
     joins{deals.outer}.having(query)
+  end
+
+  def self.in_types(types)
+    where{type_id.in types}
   end
 
   def self.order_by_type(direction)
@@ -181,10 +166,6 @@ class Investor < ActiveRecord::Base
 
   def last_deal_date
     published_deals.first.try(:date)
-  end
-
-  def self.in_types(types)
-    where{type_id.in types}
   end
 
   private
