@@ -12,29 +12,25 @@
           = check_box_tag("extended_search_sector_#{sector.id}", sector.id, (@filter.params.sector.try(:include?, sector.id.to_s)), name: "extended_search[sector][]")
           = sector.name
   .block.horizontal
-    h2 Выберите раунд
-    .rounds
-      = f.input_field :round, as: :check_boxes, collection: Deal::ROUNDS.invert, checked: @filter.params.round.try(:map, &proc{|id| id.to_i})
+    h2 Средний размер инвестиции
+    .ranges
+      = label_tag '', class: 'checkbox' do
+        = check_box_tag 'extended_search[avg_deal_amount][]', 1, @filter.params.avg_deal_amount.try(:include?, '1')
+        = "До 500 000"
+      = label_tag '', class: 'checkbox' do
+        = check_box_tag 'extended_search[avg_deal_amount][]', 2, @filter.params.avg_deal_amount.try(:include?, '2')
+        = "От 500000 до 3 000 000"
+      = label_tag '', class: 'checkbox' do
+        = check_box_tag 'extended_search[avg_deal_amount][]', 3, @filter.params.avg_deal_amount.try(:include?, '3')
+        = "От 3 000 000 до 10 000 000"
+      = label_tag '', class: 'checkbox' do
+        = check_box_tag 'extended_search[avg_deal_amount][]', 4, @filter.params.avg_deal_amount.try(:include?, '4')
+        = "От 10 000 000 и выше"
   .clear-both
   h2 Параметры сделок, в которых инвестор принимал участие
   .block.form-inline
     = label_tag '', class: 'checkbox' do
       = f.check_box :for_current_year, checked: @filter.params.for_current_year == '1'
       = "Инвестировали в #{@filter.current_year} году"
-  .clear-both
-  .block
-    h3 Средний размер инвестиции
-    = label_tag '', class: 'checkbox' do
-      = check_box_tag 'extended_search[avg_deal_amount][]', 1, @filter.params.avg_deal_amount.try(:include?, '1')
-      = "До 500 000"
-    = label_tag '', class: 'checkbox' do
-      = check_box_tag 'extended_search[avg_deal_amount][]', 2, @filter.params.avg_deal_amount.try(:include?, '2')
-      = "От 500000 до 3 000 000"
-    = label_tag '', class: 'checkbox' do
-      = check_box_tag 'extended_search[avg_deal_amount][]', 3, @filter.params.avg_deal_amount.try(:include?, '3')
-      = "От 3 000 000 до 10 000 000"
-    = label_tag '', class: 'checkbox' do
-      = check_box_tag 'extended_search[avg_deal_amount][]', 4, @filter.params.avg_deal_amount.try(:include?, '4')
-      = "От 10 000 000 и выше"
   .clear-both
   = f.button :submit, 'Искать'
