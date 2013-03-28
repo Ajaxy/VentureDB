@@ -116,10 +116,10 @@ class Company < ActiveRecord::Base
 
   def self.sort_type(type)
     case type
-    when '2'
-      order_by_name('ASC')
-    else
+    when '1'
       order_by_investments
+    else
+      order_by_name('ASC')
     end
   end
 
