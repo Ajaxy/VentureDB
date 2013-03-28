@@ -22,9 +22,15 @@ class Admin::PeopleController < Admin::BaseController
     @person = Person.find_or_create_draft(permitted_params.person)
 
     if @person.valid?
-      render :success
+      respond_to do |format|
+        format.js   { render :success }
+        format.html { redirect_to [:admin, :people] }
+      end
     else
-      render :error
+      respond_to do |format|
+        format.js   { render :error }
+        format.html { render :new }
+      end
     end
   end
 
