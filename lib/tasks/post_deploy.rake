@@ -114,4 +114,9 @@ namespace :post_deploy do
     ConnectionType.create! source_class: 'all', receiver_class: 'all',
       direct_name: 'Дургая связь', reverse_name: 'Дургая связь'
   end
+
+  task add_employee_connection_type: :environment do
+    ConnectionType.create! source_class: 'Person', receiver_class: 'Company',
+      direct_name: 'Сотрудник в', reverse_name: 'Сотрудник'
+  end
 end
