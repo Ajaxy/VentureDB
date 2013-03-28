@@ -2,8 +2,8 @@ module Connectable
   extend ActiveSupport::Concern
 
   included do
-    has_many :from_connections, class_name: 'Connection', as: :from
-    has_many :to_connections, class_name: 'Connection', as: :to
+    has_many :from_connections, class_name: 'Connection', as: :from, dependent: :destroy
+    has_many :to_connections, class_name: 'Connection', as: :to, dependent: :destroy
 
     accepts_nested_attributes_for :from_connections, allow_destroy: true
   end
