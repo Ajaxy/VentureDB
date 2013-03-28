@@ -117,14 +117,14 @@ class Company < ActiveRecord::Base
   def self.sort_type(type)
     case type
     when '2'
-      order_by_investments
-    else
       order_by_name('ASC')
+    else
+      order_by_investments
     end
   end
 
   def self.order_by_name(direction)
-    order("companies.name #{direction}")
+    order("trim(companies.name) #{direction}")
   end
 
   def self.order_by_investments
@@ -146,9 +146,5 @@ class Company < ActiveRecord::Base
     joins{deals.outer}.group{id}.
       where{deals.published == true}.
       where{(deals.amount_usd >= from) & (deals.amount_usd <= to)}
-  end
-
-  def deals_count
-    deals.count
   end
 end

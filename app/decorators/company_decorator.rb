@@ -29,4 +29,8 @@ class CompanyDecorator < HasInvestmentsDecorator
   def first_location
     location_bindings.try(:first).try(:location).try(:full_name) || mdash
   end
+
+  def deals_sum
+    tag :span, dollars(source.deals_sum.to_i), class: "amount"
+  end
 end

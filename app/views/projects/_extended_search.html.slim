@@ -34,5 +34,5 @@
   h2 Сортировать по
   .block.form-inline.sort
     - sort_types = [['Инвестициям', 1], ['Названию', 2]]
-    = f.input_field :sort_type, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_type || sort_types.first
+    = f.input_field :sort_type, label: 'Сортировать по', required: false, collection: sort_types, selected: @filter.params.sort_type || sort_types.second
   = f.button :submit, 'Искать'
