@@ -53,7 +53,7 @@ class PermittedParams < Struct.new(:params, :user)
   def company_attributes
     %w[name full_name form place description type_id from_connections_attributes www1 www2 vkontakte1 vkontakte2
       facebook1 facebook2 phone1 phone2 address1 address2 vacancies1 vacancies2 details secret_details opened
-      mentions market_ids scope_ids]
+      mentions market_ids scope_ids foundation_date]
   end
 
   def deal_attributes
@@ -73,7 +73,8 @@ class PermittedParams < Struct.new(:params, :user)
 
   def person_attributes
     %w[name type_id sex education age description country sectors address phone website
-      facebook slideshare vkontakte vacancies mentions other_geo from_connections_attributes]
+      facebook slideshare vkontakte vacancies mentions other_geo from_connections_attributes
+      birth_date]
   end
 
   def project_attributes
