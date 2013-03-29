@@ -26,6 +26,7 @@ class Admin::CompaniesController < Admin::BaseController
         format.js { render :success }
       end
     else
+      p @company.errors
       respond_to do |format|
         format.html { render :new }
         format.js { render :error }
