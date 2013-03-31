@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328175047) do
+ActiveRecord::Schema.define(:version => 20130331083713) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20130328175047) do
     t.string   "sectors"
     t.string   "foundation_date"
     t.boolean  "opened",          :default => false, :null => false
+    t.string   "email1"
+    t.string   "email2"
   end
 
   add_index "companies", ["name"], :name => "index_companies_on_name"
