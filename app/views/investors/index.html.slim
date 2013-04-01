@@ -1,10 +1,11 @@
 section.investors
   = render 'extended_search'
 
-  / - if current_user.admin?
-  /   div.create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
+  .head
+    h2 Инвесторы
+    - if current_user.admin?
+      div.create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
 
-  h2 Инвесторы
   - if @investors.any?
     table.list
       thead

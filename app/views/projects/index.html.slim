@@ -1,7 +1,11 @@
 section.projects
   = render 'extended_search'
 
-  h2 Компании
+  .head
+    h2 Компании
+    - if current_user.admin?
+      .create-btn = link_to 'Создать', new_admin_company_path(type_id: Company::TYPE_INNOVATION_ID), class: "btn btn-primary"
+
   - if @projects.any?
     table.list
       thead

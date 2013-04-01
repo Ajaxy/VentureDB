@@ -4,11 +4,7 @@
 = tabs ['Компания', "#company_#{rand}_basic_info"], ['Контакты', "#company_#{rand}_contacts"], ['Филиал', "#company_#{rand}_filial_contacts"], ['Связи', "#company_#{rand}_connections"], ['Дополнительно', "#company_#{rand}_additional"]
 .tab-content
   .tab-pane.active id="company_#{rand}_basic_info"
-    - if local_assigns.has_key? :type_id
-      = f.hidden_field :type_id, value: type_id
-    - else
-      = f.label :type_id, "Тип компании"
-      = f.select :type_id, Company.types, { include_blank: true }, class: "chzn span8"
+    = type_field(f, local_assigns)
     = f.label :scope_ids, "Сектор и сфера деятельности"
     = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
     = f.label :market_ids, "Географические рынки осуществления операций"
