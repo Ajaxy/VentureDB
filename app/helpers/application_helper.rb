@@ -29,4 +29,8 @@ module ApplicationHelper
     render partial: 'search', locals: { placeholder: placeholder, entities: entities_string,
       autosuggest: autosuggest, navigate: navigate }
   end
+
+  def toggle_extended_search
+    link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
+  end
 end

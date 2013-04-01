@@ -156,6 +156,15 @@ a
       h2
         margin: 0
 
+        a
+          display: inline-block
+          font-size: 0.8em
+          margin-left: 15px
+          color: #000
+          border-bottom: dashed 1px
+          &:hover
+            text-decoration: none
+
   .button
     display: inline-block
     vertical-align: middle
@@ -171,12 +180,14 @@ a
   form.extended-search
     +clearfix
     overflow: visible
+    display: none
     &.opened
       display: block
     background-color: #f1f1f1
     width: 830px
     padding: 5px 20px
     font-size: 13px
+    margin-bottom: 20px
     h2
       color: black
       font-size: 13px
