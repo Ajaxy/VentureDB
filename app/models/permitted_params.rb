@@ -74,7 +74,7 @@ class PermittedParams < Struct.new(:params, :user)
   def person_attributes
     %w[name type_id sex education age description country sectors address phone website
       facebook slideshare vkontakte vacancies mentions other_geo from_connections_attributes
-      birth_date email]
+      birth_date email www]
   end
 
   def project_attributes
