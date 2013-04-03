@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331083713) do
+ActiveRecord::Schema.define(:version => 20130403175425) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(:version => 20130331083713) do
     t.integer  "type_id"
     t.string   "prev_name"
     t.text     "mentions"
-    t.string   "address1"
+    t.text     "address1"
     t.string   "phone1"
     t.string   "www1"
     t.string   "facebook1"
     t.string   "vkontakte1"
     t.string   "vacancies1"
-    t.string   "address2"
+    t.text     "address2"
     t.string   "phone2"
     t.string   "www2"
     t.string   "facebook2"
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20130331083713) do
     t.string   "sectors"
     t.string   "name"
     t.integer  "type_id"
-    t.string   "address"
+    t.text     "address"
     t.string   "www"
     t.string   "facebook"
     t.string   "slideshare"
