@@ -16,7 +16,7 @@
     .stages
       = f.input_field :stage, as: :check_boxes, collection: Deal::STAGES.map{|id,name| [name,id]}, checked: @filter.params.stage.try(:map, &proc{|id| id.to_i})
   .clear-both
-  h2 Параметры сделок, в которых инвестор принимал участие
+  h2 Параметры сделок
   .block.form-inline
     - amount_ranges = {            \
         "Все сделки"          => 0,\
@@ -31,5 +31,9 @@
     = f.label :amount, label: 'Размер, $', required: false
     = f.input_field :amount_range, collection: amount_ranges, selected: @filter.params.amount_range
     = f.input_field :year, label: false, collection: ['Все года'] + (@filter.start_year..Time.current.year).to_a, selected: @filter.year || 'Все года'
-    = f.input_field :deal_type, collection: @filter.deal_types.map{|k,v|[v,k]}, selected: @filter.deal_type
+    = f.input_field :deal_type, collection: @filter.deal_types.invert, selected: @filter.deal_type
+  .clear-both
+  .block.form-inline
+    = f.label :sort_type, 'Сортировать по'
+    = f.input_field :sort_type, label: 'Сортировать по', required: false, collection: @filter.sort_types, selected: @filter.params.sort_type
   = f.button :submit, 'Искать'

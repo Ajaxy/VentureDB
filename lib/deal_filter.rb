@@ -13,10 +13,6 @@ class DealFilter < Filter
       params.type = 'grants'
     end
 
-    # deals = deals.with_investor_type(params.investor.to_i) if params.investor.present?
-    # deals = deals.from_date(date_start)         if date_start
-    # deals = deals.to_date(date_end)             if date_end
-
     deals = deals.in_scopes(params.sector)      if params.sector
     deals = deals.in_rounds(params.round)       if params.round
     deals = deals.in_stages(params.stage)       if params.stage
@@ -29,6 +25,7 @@ class DealFilter < Filter
     end
 
     deals = deals.for_type(type)                if type
+    deals = deals.sort_type(params.sort_type)
 
     deals
   end
@@ -105,6 +102,10 @@ class DealFilter < Filter
 
   def start_year
     Time.current.year - LAST_YEARS + 1
+  end
+
+  def sort_types
+    [['Дате', 1], ['Сумме', 2]]
   end
 
   private
