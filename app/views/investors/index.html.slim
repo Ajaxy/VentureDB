@@ -2,9 +2,10 @@ section.investors
   .head
     h2
       | Инвесторы
+    .actions
+      - if current_user.admin?
+        .create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
       = toggle_extended_search
-    - if current_user.admin?
-      .create-btn = link_to 'Создать', [:new, :admin, :investor], class: "btn btn-primary"
 
   = render 'extended_search'
 

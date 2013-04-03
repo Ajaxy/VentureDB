@@ -2,10 +2,11 @@ section.deals
   .head
     h2
       | Сделки
-      = toggle_extended_search
-    - if current_user.admin?
-      .actions
+    .actions
+      - if current_user.admin?
         .create-btn = link_to 'Создать', [:new, :admin, :deal], class: "btn btn-primary"
+      = toggle_extended_search
+
   .clear
 
   = render 'extended_search'

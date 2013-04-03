@@ -2,9 +2,10 @@ section.companies
   .head
     h2
       | Инфраструктура
+    .actions
+      - if current_user.admin?
+        .create-btn = link_to 'Создать', [:new, :admin, :company], class: "btn btn-primary"
       = toggle_extended_search
-    - if current_user.admin?
-      div.create-btn = link_to 'Создать', [:new, :admin, :company], class: "btn btn-primary"
 
   = render 'extended_search'
 
