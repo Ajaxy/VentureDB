@@ -5,13 +5,14 @@ section
       .actions
         = link_to 'Редактировать', edit_admin_company_path(@company), class: "btn btn-primary"
   .profile
-    = render 'common_info'
+    .left  = render 'common_info'
+    .right = render 'contacts'
+
+    .clear
 
     - if @company.description.present?
       h2 Описание компании
       = markdown @company.description
-
-    = render 'contacts'
 
     - if @deals.any?
       = render partial: 'deals', locals: { deals: @deals }
