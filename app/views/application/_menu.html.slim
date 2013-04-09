@@ -1,9 +1,9 @@
 nav
   ul.main-menu
+    = @menu.item "Сделки", :deals
     = @menu.item "Инвесторы", :investors
     = @menu.item "Компании", :projects
-    = @menu.item "Инфраструктура", :companies
     li.separator
+    = @menu.item "Инфраструктура", :companies
     = @menu.item "Статистика", :statistics
-    = @menu.item "Сделки", :deals
     li.separator
