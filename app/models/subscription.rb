@@ -28,13 +28,8 @@ class Subscription < ActiveRecord::Base
       user.password = User.generate_password
 
       user.build_person do |person|
-        name_parts = name.to_s.split
-
-        if name_parts.size == 3
-          person.last_name, person.first_name, person.middle_name = name_parts
-        else
-          person.first_name, person.last_name = name_parts
-        end
+        person.name    = name
+        person.type_id = Person::TYPE_EXPERT_ID
       end
     end
   end

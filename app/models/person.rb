@@ -5,9 +5,11 @@ class Person < ActiveRecord::Base
   include InvestorActor
   include Connectable
 
+  TYPE_EXPERT_ID          = 1
   TYPE_BUISINESS_ANGEL_ID = 2
+
   TYPES = {
-    1 => "Эксперт",
+    TYPE_EXPERT_ID => "Эксперт",
     TYPE_BUISINESS_ANGEL_ID => "Бизнес-ангел"
   }
   CONTACTS_FIELDS = [:address, :phone, :website, :facebook, :slideshare, :vkontakte, :vacancies,
