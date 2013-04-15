@@ -33,4 +33,5 @@ class CompanyDecorator < HasInvestmentsDecorator
   def deals_sum
     tag :span, dollars(source.deals_sum.to_i), class: "amount"
   end
+
 end

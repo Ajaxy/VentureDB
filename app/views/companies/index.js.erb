@@ -1,0 +1,6 @@
+$("section.companies table").append("<%=j @companies.map { |comp| render "company_row", company: comp}.join.html_safe %>");
+$("section.companies .more").remove()
+
+<% unless @companies.last_page? %>
+  $("section.companies").append("<%=j render "more-link", collection: @companies %>");
+<% end %>

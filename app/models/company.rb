@@ -79,7 +79,7 @@ class Company < ActiveRecord::Base
 
   def self.types
     types = TYPES.dup
-    types.delete_if { |id, name| id < 10 }
+    #types.delete_if { |id, name| id < 10 }
     types.invert
   end
 

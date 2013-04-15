@@ -15,4 +15,9 @@ section
       = markdown @company.description
 
     - if @deals.any?
-      = render partial: 'deals', locals: { deals: @deals }
+      .left
+        = render partial: 'deals', locals: { deals: @deals }
+
+    - if @to_connections.any? or @from_connections.any?
+      .right
+        = render partial: 'connections', locals: { to_connections: @to_connections, from_connections: @from_connections }

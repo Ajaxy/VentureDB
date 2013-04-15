@@ -17,5 +17,7 @@ class CompaniesController < CabinetController
   def show
     @company = decorate Company.find(params[:id])
     @deals   = decorate @company.deals.order_by_started_at(:desc)
+    @to_connections = decorate @company.to_connections
+    @from_connections = decorate @company.from_connections
   end
 end
