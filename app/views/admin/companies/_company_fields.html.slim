@@ -7,8 +7,9 @@
     = type_field(f, local_assigns)
     = f.label :scope_ids, "Сектор и сфера деятельности"
     = f.select :scope_ids, Scope.all.map { |i| [ i.self_and_ancestors.map(&:short_name).join(" → "), i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите сектор и отрасль проекта"
-    = f.label :market_ids, "Географические рынки осуществления операций"
-    = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
+    - unless local_assigns[:no_markets]
+        = f.label :market_ids, "Географические рынки осуществления операций"
+        = f.select :market_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Географические рынки осуществления операций"
     = f.label :name, 'Краткое название компании'
     = f.text_field :name, class: "span8", placeholder: "Краткое название компании"
     = f.label :full_name, 'Полное название компании'

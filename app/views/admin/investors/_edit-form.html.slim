@@ -11,11 +11,11 @@
 
     - if investor.actor.is_a?(Person)
       .person-fields = f.fields_for :person, investor.person do |f|
-        = render partial: "person_fields", locals: { f: f, type_id: Person::TYPE_BUISINESS_ANGEL_ID }
+        = render partial: "person_fields", locals: { f: f, type_id: Person::TYPE_BUSINESS_ANGEL_ID }
 
     - if investor.actor.is_a?(Company)
       .company-fields = f.fields_for :company, investor.company do |f|
-        = render partial: "admin/companies/company_fields", locals: { f: f, type_id: Company::TYPE_INVESTOR_ID }
+        = render partial: "admin/companies/company_fields", locals: { f: f, type_id: Company::TYPE_INVESTOR_ID, no_markets: true }
 
   .form-actions
     .offset4

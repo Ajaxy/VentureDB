@@ -36,9 +36,9 @@ class CompanyDecorator < HasInvestmentsDecorator
 
   def edit_path
     if source.type_id == Company::TYPE_INVESTOR_ID
-      Rails.application.routes.url_helpers.edit_admin_investor_path(source.investors.first)
+      h.edit_admin_investor_path(source.investors.first)
     else
-      Rails.application.routes.url_helpers.edit_admin_company_path(source)
+      h.edit_admin_company_path(source)
     end
   end
 
