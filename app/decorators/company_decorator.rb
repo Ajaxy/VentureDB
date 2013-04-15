@@ -34,4 +34,12 @@ class CompanyDecorator < HasInvestmentsDecorator
     tag :span, dollars(source.deals_sum.to_i), class: "amount"
   end
 
+  def edit_path
+    if source.type_id == Company::TYPE_INVESTOR_ID
+      Rails.application.routes.url_helpers.edit_admin_investor_path(source.investors.first)
+    else
+      Rails.application.routes.url_helpers.edit_admin_company_path(source)
+    end
+  end
+
 end

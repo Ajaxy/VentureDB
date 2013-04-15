@@ -3,7 +3,7 @@ section
     h1 = @company.name
     - if current_user.admin?
       .actions
-        = link_to 'Редактировать', edit_admin_company_path(@company), class: "btn btn-primary"
+        = link_to 'Редактировать', @company.edit_path, class: "btn btn-primary"
   .profile
     .left  = render 'common_info'
     .right = render 'contacts'
