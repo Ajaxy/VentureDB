@@ -43,7 +43,8 @@ Venture::Application.routes.draw do
   resources :informers, only: %w[show]
   resources :authors, only: %w[show]
 
-  get '/projects2' => 'companies#projects'
+  get "/about" => "about#index"
+
   get "/search" => "search#index"
   get "/search/suggest" => "search#suggest"
 

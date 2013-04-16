@@ -37,4 +37,6 @@ Venture::Application.configure do
 
   config.action_mailer.default_url_options = { host: "venture.dev" }
   config.action_mailer.delivery_method     = :letter_opener
+
+  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 end

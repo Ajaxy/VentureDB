@@ -19,9 +19,11 @@
 
 #content
   min-width: 921px
+  background: #f7f8fa
   header
     height: 130px
-    background: image-url("header-bg.png") repeat-x bottom
+    // background: image-url("header-bg.png") repeat-x bottom
+    +box-shadow(inset 0 -5px 10px -2px rgba(0, 0, 0, 0.1))
 
     #logo
       float: left
@@ -129,7 +131,7 @@
 a
   color: #0b90a4
 
-#main_content
+.main-content
   margin-top: 20px
   margin-left: 50px
   padding-bottom: 20px
@@ -141,7 +143,8 @@ a
     font-size: 1.2em
     font-weight: bold
 
-  section
+  > section,
+  > article
     width: 870px
     min-height: 500px
 

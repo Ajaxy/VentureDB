@@ -1,0 +1,177 @@
+article.about
+  color: #757575
+  h1
+    font-size: 35px
+    color: #303030
+    margin: 60px 0 40px 0
+  h3
+    font-size: 26px
+    margin: 40px 0 30px 0
+    color: #303030
+  p.intro
+    margin-bottom: 35px
+    font-size: 18px
+  p
+    line-height: 1.5
+  .links
+    text-transform: uppercase
+    font-weight: bold
+    font-size: 12px
+    display: table
+    width: 100%
+    padding-top: 20px
+    .link
+      display: table-cell
+      a
+        color: #8caec5
+
+  section.feature
+    padding-left: 120px
+    padding-top: 8px
+    position: relative
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 50%
+      background: image-url("about-line.png") no-repeat center center
+      height: 11px
+      width: 888px
+      margin-left: -444px
+    .icon
+      position: absolute
+      top: 51px
+      left: 0
+    p
+      font-size: 16px
+      width: 550px
+    ul
+      margin: 30px 0
+      padding: 0
+      list-style: none
+      font-size: 13px
+      width: 500px
+      line-height: 1.3
+      li
+        margin: 15px 0
+    .buttons
+      .btn + .btn
+        margin-left: 8px
+  section + section
+    margin-top: 50px
+  section.methodics
+    .first-steps
+      width: 520px
+      display: inline-block
+      vertical-align: middle
+      .step
+        padding-left: 120px
+        position: relative
+        h4
+          text-transform: uppercase
+          font-weight: bold
+          font-size: 16px
+          margin-bottom: 15px
+          color: #252525
+          b
+            margin-right: 10px
+        .icon
+          position: absolute
+          top: -4px
+          left: 50px
+        p
+          font-size: 13px
+          line-height: 1.3
+        p.others
+          color: #b7b7b7
+          text-transform: uppercase
+          font-size: 13px
+          letter-spacing: 1.5px
+        table.sources
+          margin: 5px 0
+          td
+            padding: .15em .5em
+          td:first-child
+            padding-left: 0
+          a
+            display: inline-block
+            text-transform: uppercase
+            text-decoration: underline
+            font-weight: bold
+            font-size: 13px
+            color: #0072bc
+          a + a
+            margin-left: 1em
+
+        p.methods
+          text-transform: uppercase
+          font-weight: bold
+          font-size: 11px
+          color: #363636
+      .step + .step
+        margin-top: 40px
+      .step-1 b
+        color: #0072bc
+      .step-2 b
+        color: #a864a8
+    .last-step
+      width: 250px
+      display: inline-block
+      vertical-align: middle
+      padding-left: 50px
+      text-align: center
+      position: relative
+      &:before
+        content: ""
+        width: 46px
+        height: 355px
+        background: image-url("about-step-arrow.png") no-repeat
+        position: absolute
+        top: 50%
+        left: 0
+        margin-top: -177.5px
+      .icon
+        margin-bottom: 10px
+      h4
+        text-transform: uppercase
+        font-weight: bold
+        font-size: 19px
+        width: 145px
+        display: inline-block
+        line-height: 1.3
+        color: #303030
+        b
+          display: block
+          color: #67c5cd
+
+  section.team
+    h3
+      margin: 90px 0 60px 0
+    .person
+      display: inline-block
+      vertical-align: top
+      width: 260px
+      margin: 0 30px 30px 0
+      .photo
+        float: left
+        width: 100px
+      .details
+        margin-left: 120px
+      .name
+        text-transform: uppercase
+        font-weight: bold
+        font-size: 16px
+        color: #303030
+        line-height: 1.2
+      .position
+        margin-top: .5em
+
+  section.partners
+    h3
+      margin: 50px 0
+    .logo
+      display: inline-block
+      width: 217px
+    .logo:last-child img
+      margin-bottom: 5px
+

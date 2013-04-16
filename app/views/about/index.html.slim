@@ -1,0 +1,160 @@
+article.about
+  .links
+    .link = link_to "Инвесторам", "#investors"
+    .link = link_to "Компаниям", "#companies"
+    .link = link_to "Корпорациям", "#corporations"
+    .link = link_to "Инфраструктуре", "#infrastructure"
+    .link = link_to "Для государства", "#state"
+    .link = link_to "Методика работы", "#methodics"
+    .link = link_to "Команда", "#team"
+
+  h1 О проекте
+  p.intro Venture Database — аналитический инструмент, который позволяет осуществлять количественный и качественный мониторинг состояния развития национальной инновационно-венчурной инфраструктуры.
+
+  section.feature#investors
+    .icon = image_tag "about-investors.png"
+    h3 Новые рынки для инвесторов
+    p Прозрачная информация о том, в развитие каких отраслей наиболее часто инвестируют сегодня.
+    ul
+      li Тенденции и наиболее перспективные сегменты.
+      li Технопарки, инкубаторы, конкурсы с информацией о резидентах и участниках.
+      li Статистика сделок в частных компаниям по отраслям.
+      li Поиск со-инвесторов по отраслям и специализации по стадии развития компании.
+      li База растущих компаний по отраслям и стадиям развития
+    .buttons
+      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
+      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+
+  section.feature#companies
+    .icon = image_tag "about-companies.png"
+    h3 Доступная инфраструктура для растущих компаний
+    ul
+      li База данных активных венчурных фондов, корпораций, бизнес ангелов и других инвесторов.
+      li Справки по существующим технопаркам, инкубаторам, конкурсам с информацией о резидентах и участниках.
+      li Возможности для поиска потенциальных партнеров, исполнителей и клиентов.
+      li Самостоятельная аналитика отрасли и факторов успеха в развитии похожих компаний.
+    .buttons
+      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
+      = link_to "Консультации по развитию", "/feedback", class: "btn btn-small"
+      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+
+  section.feature#corporations
+    .icon = image_tag "about-corporations.png"
+    h3 Подбор объектов для корпораций
+    ul
+      li Справки по учредителям и инвесторам компаний.
+      li Информация о растущих инновационных компаниях в 15 отраслях инновационной экономики.
+      li История достижений компаний: конкурсы, гранты и пр.
+      li Участие компании в программах развития и аксселерации.
+    .buttons
+      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
+      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+
+  section.feature#infrastructure
+    .icon = image_tag "about-infrastructure.png"
+    h3 Поиск клиентов для инфраструктурных организаций
+    ul
+      li Справки по истории финансирования и инвесторам компаний.
+      li Широкие возможности для поиска партнеров.
+      li Информация о 500 растущих инновационных компаниях в 15 отраслях.
+      li Мониторинг рыночной инфраструктуры и статистика сделок.
+    .buttons
+      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
+      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+
+  section.feature#state
+    .icon = image_tag "about-state.png"
+    h3 Прозрачный мониторинг развития инновационной отрасли для государства и институтов развития
+    ul
+      li База данных активных венчурных фондов, корпораций, бизнес ангелов и других инвесторов.
+      li Справки по существующим технопаркам, инкубаторам, конкурсам с информацией о резидентах и участниках.
+      li Мониторинг инвестиционных сделок и грантов в 15 секторах инновационной экономики.
+      li Анализ конкурентоспособности и эффективности государственных программ и проектов в секторах инновационной экономики.
+    .buttons
+      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
+      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+
+  section.feature#methodics
+    h3 Методика работы с данными
+
+  section.methodics
+    .first-steps
+      .step.step-1
+        .icon = image_tag "about-step-1.png"
+        h4 <b>1</b> Сбор информации
+        p Ежедневный обзор информации в более чем 30 тематических новостных ресурсах:
+        table.sources
+          tr
+            td = link_to "unova.ru", "http://unova.ru", target: "_blank"
+            td = link_to "Venture Business", "", target: "_blank"
+            td = link_to "Коммерсант", "http://kommersant.ru/", target: "_blank"
+          tr
+            td = link_to "cnews.ru", "http://cnews.ru", target: "_blank"
+            td = link_to "Стартап Афиша", "http://startupafisha.ru/", target: "_blank"
+            td = link_to "Ведомости", "http://www.vedomosti.ru/", target: "_blank"
+        p.others и на многих других
+      .step.step-2
+        .icon = image_tag "about-step-2.png"
+        h4 <b>2</b> Проверка
+        P Проверка в официальных источниках и последующая публикация экспертами проекта:
+        p.methods СПАРК Интерфакс, PREQVECA и др. базы, официальные сайты участников рынка, экспертная оценка, телефонные опросы
+        p.others и на многих других
+    .last-step
+      .icon = image_tag "about-step-3.png"
+      h4 <b>3</b> Публикация данных в базе
+
+  section.team#team
+    h3 В работе над проектом принимают участие
+
+    .person
+      .photo = image_tag "about-photo-1.jpg"
+      .details
+        .name Котов<br>Александр
+        .position Директор
+    .person
+      .photo = image_tag "about-photo-2.jpg"
+      .details
+        .name Павел<br>Черкашин
+        .position Советник
+    .person
+      .photo = image_tag "about-photo-3.jpg"
+      .details
+        .name Мерескин<br>Андрей
+        .position Программист
+    .person
+      .photo = image_tag "about-photo-4.jpg"
+      .details
+        .name Васильев<br>Сергей
+        .position Сбор и верификация данных
+    .person
+      .photo = image_tag "about-photo-5.jpg"
+      .details
+        .name Алексей<br>Журов
+        .position Сбор и верификация данных
+    .person
+      .photo = image_tag "about-photo-6.jpg"
+      .details
+        .name Большаков<br>Денис
+        .position Дизайнер
+    .person
+      .photo = image_tag "about-photo-7.jpg"
+      .details
+        .name Макаров<br>Сергей
+        .position Советник
+    .person
+      .photo = image_tag "about-photo-8.jpg"
+      .details
+        .name Маруся<br>Подлеснова
+        .position Советник
+    .person
+      .photo = image_tag "about-photo-9.jpg"
+      .details
+        .name Желдак<br>Алексей
+        .position Советник
+
+  section.partners#partners
+    h3 Среди наших партнеров
+    .logo = image_tag "about-partner-1.png"
+    .logo = image_tag "about-partner-2.png"
+    .logo = image_tag "about-partner-3.png"
+    .logo = image_tag "about-partner-4.png"

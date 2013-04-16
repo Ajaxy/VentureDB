@@ -28,12 +28,12 @@ html
                 = form_tag "/search", method: :get, class: "search" do
                   = text_field_tag :search, params[:search], placeholder: 'Например, TechCrunch Moscow 2012'
                   button type="submit" = "ПОИСК"
-            #main_content
-              = yield
+            .main-content = yield
         aside#menu
           = render partial: 'menu'
           nav
             ul
+              li = link_to "О проекте", :about
               - if current_user.admin?
                 li = link_to "Панель управления", "/admin"
               li = link_to current_user.email, "#"
