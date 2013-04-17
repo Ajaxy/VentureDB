@@ -15,7 +15,6 @@ section.companies
         tr
           th Название
           th Тип компании
-          th Индустрия
       tbody
         - @companies.each do |company|
           = render "company_row", company: company
