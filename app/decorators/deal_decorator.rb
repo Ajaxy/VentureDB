@@ -19,7 +19,11 @@ class DealDecorator < ApplicationDecorator
   end
 
   def round
-    deal.round || mdash
+    if is_grant?
+      "Грант"
+    else
+      deal.round || mdash
+    end
   end
 
   def status
@@ -61,7 +65,7 @@ class DealDecorator < ApplicationDecorator
     list project.authors.map(&:name)
   end
 
-  def amount
+  def description_amount
     if deal.amount?
       (" " + tag(:b, dollars(deal.amount))).html_safe
     else
@@ -69,7 +73,7 @@ class DealDecorator < ApplicationDecorator
     end
   end
 
-  def grant_amount
+  def description_grant_amount
     if deal.amount?
       " в размере " + tag(:b, dollars(deal.amount))
     else
@@ -77,11 +81,11 @@ class DealDecorator < ApplicationDecorator
     end
   end
 
-  def verb
+  def description_verb
     if deal.is_grant?
-      verb = deal.investors.size == 1 ? "выдал грант" : "выдали грант"
+      deal.investors.size == 1 ? "выдал грант" : "выдали грант"
     else
-      verb = deal.investors.size == 1 ? "инвестировал" : "инвестировали"
+      deal.investors.size == 1 ? "инвестировал" : "инвестировали"
     end
   end
 
@@ -92,15 +96,15 @@ class DealDecorator < ApplicationDecorator
 
   def description
     if deal.is_grant?
-      h.raw "#{investor_links} #{verb} проекту #{project_link}#{grant_amount}"
+      h.raw "#{investor_links} #{description_verb} проекту #{project_link}#{description_grant_amount}"
     else
-      h.raw "#{investor_links} #{verb} в #{project_link}#{amount}"
+      h.raw "#{investor_links} #{description_verb} в #{project_link}#{description_amount}"
     end
   end
 
   def investor_links
     return "Неизвестные инвесторы" if deal.investors.empty?
-    deal.investors.map { |i| i.decorate.link }.to_sentence
+    deal.investors.map { |i| i.decorate.link }.to_sentence.html_safe
   end
 
   def meta

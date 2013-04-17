@@ -147,4 +147,12 @@ class Company < ActiveRecord::Base
       where{deals.published == true}.
       where{(deals.amount_usd >= from) & (deals.amount_usd <= to)}
   end
+
+  def deals
+    investor? ? investors.sum(&:deals) : super
+  end
+
+  def investor?
+    type_id == TYPE_INVESTOR_ID && investors.any?
+  end
 end

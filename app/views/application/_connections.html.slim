@@ -4,11 +4,12 @@ table.list
     tr
       th Участник
       th Тип связи
-  - to_connections.each do |conn|
-    tr
-      td = conn.direct_name
-      td = conn.from_name
-  - from_connections.each do |conn|
-    tr
-      td = conn.reverse_name
-      td = conn.to_name
+  tbody
+    - to_connections.each do |conn|
+      tr
+        td = conn.from_name
+        td = conn.direct_name
+    - from_connections.each do |conn|
+      tr
+        td = conn.to_name
+        td = conn.reverse_name

@@ -87,7 +87,11 @@ namespace :post_deploy do
   end
 
   task set_investor_type_id_for_non_project_companies: :environment do
-    Company.where(type_id: nil).update_all(type_id: Company::TYPE_INVESTOR_ID)
+    Company.where(type_id: nil).each do |company|
+      type_id = company.project.present? ?
+        Company::TYPE_INNOVATION_ID : Company::TYPE_INVESTOR_ID
+      company.update_column :type_id, type_id
+    end
   end
 
   task update_company_ids_in_deals: :environment do

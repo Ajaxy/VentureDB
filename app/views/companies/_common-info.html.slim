@@ -1,5 +1,5 @@
 h2 Общая информация
-table.list
+table.info
   tr
     td.name Полное наименование
     td = @company.full_name
@@ -9,9 +9,10 @@ table.list
   tr
     td.name Организационно-правовая форма
     td = @company.form
-  tr
-    td.name Прежнее название (если имеется)
-    td = @company.prev_name
+  - if @company.prev_name?
+    tr
+      td.name Прежнее название
+      td = @company.prev_name
   tr
     td.name Тип компании
     td = @company.type

@@ -2,8 +2,7 @@ section
   .head
     h1 = @person.name
     - if current_user.admin?
-      .actions
-        = link_to 'Редактировать', edit_admin_person_path(@person), class: "btn btn-primary"
+      .actions = @person.edit_link
 
   - if @person.description.present?
     h2 Описание

@@ -1,23 +1,19 @@
-section
+article.company
   .head
     h1 = @company.name
     - if current_user.admin?
-      .actions
-        = link_to 'Редактировать', @company.edit_path, class: "btn btn-primary"
+      .actions = @company.edit_link
   .profile
-    .left  = render 'common_info'
-    .right = render 'contacts'
+    section = render "common-info"
 
-    .clear
-
-    - if @company.description.present?
-      h2 Описание компании
-      = markdown @company.description
+    section.clearfix
+      .left = render "contacts"
+      .right
+        - if @to_connections.any? or @from_connections.any?
+          = render partial: 'connections', locals: { to_connections: @to_connections, from_connections: @from_connections }
 
     - if @deals.any?
-      .left
-        = render partial: 'deals', locals: { deals: @deals }
+      section = render partial: "deals", locals: { deals: @deals }
 
-    - if @to_connections.any? or @from_connections.any?
-      .right
-        = render partial: 'connections', locals: { to_connections: @to_connections, from_connections: @from_connections }
+    section = link_to "Возникла проблема или пожелание? Напишите нам!", "/feedback", class: "feedback"
+

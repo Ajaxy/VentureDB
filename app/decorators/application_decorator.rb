@@ -10,6 +10,17 @@ class ApplicationDecorator < Draper::Decorator
     h.link_to text, [scope, model].compact
   end
 
+  def edit_link(options = {})
+    text  = options.delete(:text) || "Редактировать"
+    options.reverse_merge!(class: "btn btn-primary")
+
+    h.link_to text, edit_path, options
+  end
+
+  def edit_path
+    [:edit, :admin, model]
+  end
+
   private
 
   def list(strings)

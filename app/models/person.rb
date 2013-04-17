@@ -12,8 +12,9 @@ class Person < ActiveRecord::Base
     TYPE_EXPERT_ID          => "Эксперт",
     TYPE_BUSINESS_ANGEL_ID  => "Бизнес-ангел"
   }
-  CONTACTS_FIELDS = [:address, :phone, :website, :facebook, :slideshare, :vkontakte, :vacancies,
-    :metions, :other_geo]
+
+  CONTACTS_FIELDS = [:address, :phone, :website, :facebook, :slideshare,
+                     :vkontakte, :vacancies, :metions, :other_geo]
 
   has_one :user
   has_many :project_authors, foreign_key: 'author_id'
@@ -54,5 +55,9 @@ class Person < ActiveRecord::Base
       result[field] = self[field] if self[field].present?
       result
     end
+  end
+
+  def investor?
+    type_id == TYPE_BUSINESS_ANGEL_ID && investors.any?
   end
 end

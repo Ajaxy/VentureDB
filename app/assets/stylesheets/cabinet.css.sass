@@ -19,7 +19,7 @@
 
 #content
   min-width: 921px
-  background: #f7f8fa
+  // background: #f7f8fa
   header
     height: 130px
     // background: image-url("header-bg.png") repeat-x bottom
@@ -265,12 +265,12 @@ table.list
   border: 1px solid #e3e3e3
   width: 870px
   margin-bottom: 20px
+  font-size: 12px
 
   &.no-width
     width: 0
   td, th
     padding: 7px
-    font-size: 0.9em
   thead
     th
       font-weight: bold
@@ -284,6 +284,8 @@ table.list
       border: 1px solid #e3e3e3
 
 .profile
+  > section + section
+    padding-top: 30px
   .contacts
     table.list
       table-layout: fixed
@@ -300,6 +302,29 @@ table.list
   .right
     width: 48%
     float: left
+  table.info
+    font-size: 13px
+    width: 100%
+    td
+      padding-top: 12px
+      padding-bottom: 8px
+      border-bottom: solid 1px #e5e5e5
+    td:first-child
+      width: 45%
+    td:last-child
+      width: 55%
+      font-weight: bold
+  .feedback
+    display: block
+    background: #ebebeb
+    +border-radius(5px)
+    padding: 35px 180px
+    text-align: center
+    text-transform: uppercase
+    font-weight: bold
+    color: #000
+    font-size: 22px
+    line-height: 1.4
 
 
 .horizontal-select

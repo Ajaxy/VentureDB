@@ -35,11 +35,10 @@ class CompanyDecorator < HasInvestmentsDecorator
   end
 
   def edit_path
-    if source.type_id == Company::TYPE_INVESTOR_ID
-      h.edit_admin_investor_path(source.investors.first)
+    if source.investor?
+      [:edit, :admin, source.investors.first]
     else
-      h.edit_admin_company_path(source)
+      super
     end
   end
-
 end

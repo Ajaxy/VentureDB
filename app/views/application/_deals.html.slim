@@ -1,5 +1,5 @@
 h2 Сделки
-table.list.no-width
+table.list
   col style="width: 140px"
   col style="width: 50px"
   col style="width: 100px"
@@ -8,11 +8,19 @@ table.list.no-width
     tr
       th Дата
       th Сумма сделки
-      th Статус сделки
       th Приобретаемая доля
+      th Раунд / грант
+      th Стадия развития компании
+      th Инвесторы
+      - if current_user.admin?
+        th Детали
   - deals.each do |deal|
     tr
       td = deal.date
       td = deal.amount
-      td = deal.status
       td = deal.share
+      td = deal.round
+      td = deal.stage
+      td = deal.investor_links
+      - if current_user.admin?
+        td.center = link_to image_tag("icon-details.png"), deal.edit_path
