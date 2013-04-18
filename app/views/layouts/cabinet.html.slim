@@ -31,17 +31,24 @@ html
             .main-content = yield
             - unless @hide_footer
               footer.clearfix
-                h2 О проекте
-                .col
-                  .link = link_to "Инвесторам", "/about/#investors"
-                  .link = link_to "Компаниям", "/about/#companies"
-                  .link = link_to "Корпорациям", "/about/#corporations"
-                  .link = link_to "Инфраструктуре", "/about/#infrastructure"
-                .col
-                  .link = link_to "Для государства", "/about/#state"
-                  .link = link_to "Методика работы", "/about/#methodics"
-                  .link = link_to "Команда", "/about/#team"
-                  .link = link_to "Обратная связь", :feedback
+                .col-1
+                  h2 О проекте
+                  .subcol
+                    = link_to "Мониторинг рынка", "/about/#state"
+                    = link_to "Сбор и анализ данных", "/about/#methodics"
+                  .subcol
+                    = link_to "Команда и партнеры", "/about/#team"
+                    = link_to "Обратная связь", :feedback
+                .col-2
+                  h2 Целевые аудитории
+                  .subcol
+                    = link_to "Инвесторам", "/about/#investors"
+                    = link_to "Компаниям", "/about/#companies"
+                  .subcol
+                    = link_to "Корпорациям", "/about/#corporations"
+                    = link_to "Инфраструктуре", "/about/#infrastructure"
+                  .subcol
+                    = link_to "Для государства", "/about/#state"
         aside#menu
           = render partial: 'menu'
           nav
