@@ -4,6 +4,7 @@ class Person < ActiveRecord::Base
   include Draftable
   include InvestorActor
   include Connectable
+  include Searchable
 
   TYPE_EXPERT_ID          = 1
   TYPE_BUSINESS_ANGEL_ID  = 2
@@ -24,6 +25,13 @@ class Person < ActiveRecord::Base
   validates :type_id, presence: true, inclusion: { in: TYPES.keys }
 
   scope :business_angels, -> { where(type_id: TYPE_BUSINESS_ANGEL_ID) }
+
+  define_index "people_index" do
+    indexes [first_name, middle_name, last_name], as: :full_name
+    indexes description
+
+    where "people.draft = 'f'"
+  end
 
   def self.by_name
     order('name ASC')
