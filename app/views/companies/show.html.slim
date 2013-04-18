@@ -15,5 +15,5 @@ article.company
     - if @deals.any?
       section = render partial: "deals", locals: { deals: @deals }
 
-    section = link_to "Возникла проблема или пожелание? Напишите нам!", "/feedback", class: "feedback"
+    section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"
 

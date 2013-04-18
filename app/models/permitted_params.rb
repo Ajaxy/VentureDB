@@ -18,8 +18,8 @@ class PermittedParams < Struct.new(:params, :user)
       company: company_attributes, person: person_attributes)
   end
 
-  def participation
-    params.require(:participation).permit(:type_id, :name, :phone, :text)
+  def feedback
+    params.require(:feedback).permit(:type_id, :name, :phone, :text)
   end
 
   def person

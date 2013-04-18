@@ -125,3 +125,12 @@ jQuery ->
   $(".amounts > p").last().
     text "$" + $('#extended_search_amount_end').val()
   $('form.extended-search select').chosen({ disable_search_threshold: 1000 })
+
+  $feedbackForm = $(".feedback form")
+
+  $feedbackForm.on "click", ".option", (e) ->
+    $option = $(e.target)
+    return if $option.hasClass("selected")
+    $feedbackForm.find(".option.selected").removeClass("selected")
+    $option.addClass("selected")
+    $feedbackForm.find("#feedback_type_id").val $option.data("value")

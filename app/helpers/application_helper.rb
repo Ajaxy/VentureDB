@@ -33,4 +33,8 @@ module ApplicationHelper
   def toggle_extended_search
     link_to 'Расширенный поиск', nil, id: 'toggle_extended_search'
   end
+
+  def feedback_path
+    "/about#feedback"
+  end
 end

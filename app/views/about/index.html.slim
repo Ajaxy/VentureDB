@@ -22,8 +22,8 @@ article.about
       li Поиск со-инвесторов по отраслям и специализации по стадии развития компании.
       li База растущих компаний по отраслям и стадиям развития
     .buttons
-      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
-      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+      = link_to "Заказать аналитику", :feedback, class: "btn btn-small"
+      = link_to "Листинг компаний в xls", :feedback, class: "btn btn-small"
 
   section.feature#companies
     .icon = image_tag "about-companies.png"
@@ -34,9 +34,9 @@ article.about
       li Возможности для поиска потенциальных партнеров, исполнителей и клиентов.
       li Самостоятельная аналитика отрасли и факторов успеха в развитии похожих компаний.
     .buttons
-      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
-      = link_to "Консультации по развитию", "/feedback", class: "btn btn-small"
-      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+      = link_to "Заказать аналитику", :feedback, class: "btn btn-small"
+      = link_to "Консультации по развитию", :feedback, class: "btn btn-small"
+      = link_to "Листинг компаний в xls", :feedback, class: "btn btn-small"
 
   section.feature#corporations
     .icon = image_tag "about-corporations.png"
@@ -47,8 +47,8 @@ article.about
       li История достижений компаний: конкурсы, гранты и пр.
       li Участие компании в программах развития и аксселерации.
     .buttons
-      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
-      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+      = link_to "Заказать аналитику", :feedback, class: "btn btn-small"
+      = link_to "Листинг компаний в xls", :feedback, class: "btn btn-small"
 
   section.feature#infrastructure
     .icon = image_tag "about-infrastructure.png"
@@ -59,8 +59,8 @@ article.about
       li Информация о 500 растущих инновационных компаниях в 15 отраслях.
       li Мониторинг рыночной инфраструктуры и статистика сделок.
     .buttons
-      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
-      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+      = link_to "Заказать аналитику", :feedback, class: "btn btn-small"
+      = link_to "Листинг компаний в xls", :feedback, class: "btn btn-small"
 
   section.feature#state
     .icon = image_tag "about-state.png"
@@ -71,8 +71,8 @@ article.about
       li Мониторинг инвестиционных сделок и грантов в 15 секторах инновационной экономики.
       li Анализ конкурентоспособности и эффективности государственных программ и проектов в секторах инновационной экономики.
     .buttons
-      = link_to "Заказать аналитику", "/feedback", class: "btn btn-small"
-      = link_to "Листинг компаний в xls", "/feedback", class: "btn btn-small"
+      = link_to "Заказать аналитику", :feedback, class: "btn btn-small"
+      = link_to "Листинг компаний в xls", :feedback, class: "btn btn-small"
 
   section.feature#methodics
     h3 Методика работы с данными
@@ -158,3 +158,30 @@ article.about
     .logo = image_tag "about-partner-2.png"
     .logo = image_tag "about-partner-3.png"
     .logo = image_tag "about-partner-4.png"
+
+  section.feedback#feedback
+    h2 Хотите сотрудничать?
+    p Мы собираем и анализируем информацию о портфеле инвесторов, программах развития и молодых проектах, которые получили финансирование и делимся с профессиональным участникам рынка готовой статистикой и справочной информацией.
+    p Если вам нужны данные для анализа или вы заинтересованы в проведении совместных исследований российского инновационно-венчурного рынка просто напишите нам:
+
+    = form_for Feedback.new, url: "" do |f|
+      h3 Чем мы можем быть полезны?
+      .row.options
+        .option.selected data-value=1 Проведение исследования
+        .option data-value=2 Структурированные данные
+        .option data-value=3 Консультация по венчурному рынку
+        = f.hidden_field :type_id, value: 1
+      .row.contacts
+        = f.text_field :name, placeholder: "Имя и фамилия"
+        = f.text_field :phone, placeholder: "Контактный телефон"
+      .row.text
+        = f.text_area :text, placeholder: "Ваше предложение"
+      .row.submit
+        = f.submit "Отправить", class: "btn"
+      / .form-inputs
+        = f.input :type_id, as: :select, collection: Feedback::TYPES.invert,
+                         hint: "Кто вы:"
+        = f.input :name, placeholder: "Имя, фамилия"
+        = f.input :phone, placeholder: "Контактный телефон"
+        = f.input :text, as: :text, placeholder: "Ваше предложение"
+      / = f.submit "Отправить", class: "btn"

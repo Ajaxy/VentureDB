@@ -11,18 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403175425) do
-
-  create_table "authentications", :force => true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid"
+ActiveRecord::Schema.define(:version => 20130418112005) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -41,13 +30,13 @@ ActiveRecord::Schema.define(:version => 20130403175425) do
     t.integer  "type_id"
     t.string   "prev_name"
     t.text     "mentions"
-    t.text     "address1"
+    t.string   "address1"
     t.string   "phone1"
     t.string   "www1"
     t.string   "facebook1"
     t.string   "vkontakte1"
     t.string   "vacancies1"
-    t.text     "address2"
+    t.string   "address2"
     t.string   "phone2"
     t.string   "www2"
     t.string   "facebook2"
@@ -91,6 +80,27 @@ ActiveRecord::Schema.define(:version => 20130403175425) do
     t.datetime "updated_at",         :null => false
   end
 
+  create_table "deal_exits", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
+
+  create_table "deal_rounds", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name",      :limit => 100
+    t.string  "full_name", :limit => 100
+  end
+
+  create_table "deal_stages", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
+
+  create_table "deal_statuses", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
+
   create_table "deals", :force => true do |t|
     t.integer  "project_id"
     t.boolean  "approx_date",                    :default => false
@@ -126,6 +136,15 @@ ActiveRecord::Schema.define(:version => 20130403175425) do
   add_index "deals", ["stage_id"], :name => "index_deals_on_stage_id"
   add_index "deals", ["status_id"], :name => "index_deals_on_status_id"
 
+  create_table "feedbacks", :force => true do |t|
+    t.integer  "type_id"
+    t.string   "name"
+    t.string   "phone"
+    t.text     "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "investments", :force => true do |t|
     t.integer  "investor_id"
     t.integer  "deal_id"
@@ -141,6 +160,11 @@ ActiveRecord::Schema.define(:version => 20130403175425) do
   add_index "investments", ["deal_id"], :name => "index_investments_on_deal_id"
   add_index "investments", ["instrument_id"], :name => "index_investments_on_instrument_id"
   add_index "investments", ["investor_id"], :name => "index_investments_on_investor_id"
+
+  create_table "investor_type", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => 100
+  end
 
   create_table "investors", :force => true do |t|
     t.integer  "actor_id"
@@ -184,15 +208,6 @@ ActiveRecord::Schema.define(:version => 20130403175425) do
   add_index "locations", ["parent_id"], :name => "index_locations_on_parent_id"
   add_index "locations", ["rgt"], :name => "index_locations_on_rgt"
 
-  create_table "participations", :force => true do |t|
-    t.integer  "type_id"
-    t.string   "name"
-    t.string   "phone"
-    t.text     "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "people", :force => true do |t|
     t.string   "type_"
     t.string   "first_name"
@@ -212,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20130403175425) do
     t.string   "sectors"
     t.string   "name"
     t.integer  "type_id"
-    t.text     "address"
+    t.string   "address"
     t.string   "www"
     t.string   "facebook"
     t.string   "slideshare"

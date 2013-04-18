@@ -28,19 +28,5 @@ class HomeController < ApplicationController
       end
     end
   end
-
-  def subscribed
-    @participation = Participation.new
-  end
-
-  def participate
-    @participation = Participation.new(permitted_params.participation)
-
-    if @participation.save
-      redirect_to :root
-    else
-      render :subscribed
-    end
-  end
 end
 
