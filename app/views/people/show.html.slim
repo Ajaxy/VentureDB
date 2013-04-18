@@ -1,42 +1,47 @@
-section
+article.person.profile
   .head
     h1 = @person.name
     - if current_user.admin?
       .actions = @person.edit_link
 
-  - if @person.description.present?
-    h2 Описание
-    = markdown @person.description
-
-  .contacts
-    h2 Контакты
-    table.list
-      col width="50%"
-      col width="50%"
-      tr
-        td Адрес
-        td = @person.address
-      tr
-        td Телефон
-        td = @person.phone
-      tr
-        td Email
-        td = @person.email
-      tr
-        td Сайт
-        td = @person.www
-      tr
-        td Facebook
-        td = @person.facebook
-      tr
-        td Slideshare
-        td = @person.slideshare
-      tr
-        td Vkontakte
-        td = @person.vkontakte
-      tr
-        td Вакансии
-        td = @person.vacancies
+  - if @person.contacts.any?
+    .contacts
+      h2 Контакты
+      table.info
+        col width="50%"
+        col width="50%"
+        - if @person.address?
+          tr
+            td Адрес
+            td = @person.address
+        - if @person.phone?
+          tr
+            td Телефон
+            td = @person.phone
+        - if @person.email?
+          tr
+            td Email
+            td = @person.email
+        - if @person.www?
+          tr
+            td Сайт
+            td = @person.www
+        - if @person.facebook?
+          tr
+            td Facebook
+            td = @person.facebook
+        - if @person.slideshare?
+          tr
+            td Slideshare
+            td = @person.slideshare
+        - if @person.vkontakte?
+          tr
+            td Vkontakte
+            td = @person.vkontakte
+        - if @person.vacancies?
+          tr
+            td Вакансии
+            td = @person.vacancies
 
   - if @deals.any?
     = render partial: 'deals', locals: { deals: @deals }
