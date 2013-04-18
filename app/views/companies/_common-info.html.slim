@@ -1,24 +1,30 @@
 h2 Общая информация
 table.info
-  tr
-    td.name Полное наименование
-    td = @company.full_name
-  tr
-    td.name Краткое наименование
-    td = @company.name
-  tr
-    td.name Организационно-правовая форма
-    td = @company.form
+  - if @company.full_name?
+    tr
+      td.name Полное наименование
+      td = @company.full_name
+  - if @company.name?
+    tr
+      td.name Краткое наименование
+      td = @company.name
+  - if @company.form?
+    tr
+      td.name Организационно-правовая форма
+      td = @company.form
   - if @company.prev_name?
     tr
       td.name Прежнее название
       td = @company.prev_name
-  tr
-    td.name Тип компании
-    td = @company.type
-  tr
-    td.name Сфера и сектор деятельности
-    td = @company.scope_names
-  tr
-    td.name Страна юрисдикции
-    td = @company.place
+  - if @company.type
+    tr
+      td.name Тип компании
+      td = @company.type
+  - if @company.scopes.any?
+    tr
+      td.name Сфера и сектор деятельности
+      td = @company.scope_names
+  - if @company.place?
+    tr
+      td.name Страна юрисдикции
+      td = @company.place

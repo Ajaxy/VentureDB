@@ -9,7 +9,7 @@ article.company
     section.clearfix
       .left = render "contacts"
       .right
-        - if @to_connections.any? or @from_connections.any?
+        - if @to_connections.any? || @from_connections.any?
           = render partial: 'connections', locals: { to_connections: @to_connections, from_connections: @from_connections }
 
     - if @deals.any?
