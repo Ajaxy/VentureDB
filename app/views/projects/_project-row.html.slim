@@ -1,5 +1,5 @@
 tr
   td = project.link
-  td = project.scopes.map{ |s| link_to s.name, params.merge(search: 1, sector: s.id) }.join(", ").html_safe
+  td = project.scopes.map{ |s| link_to s.name, params.merge(search: "", sector: s.id) }.join(", ").html_safe
   td = project.deals_sum
   td.center = project.link text: project.deal_string

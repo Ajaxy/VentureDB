@@ -3,7 +3,7 @@
 class SearchController < CabinetController
   respond_to :json
 
-  CLASSES_FOR_SEARCH = [Deal, Company, Person].freeze
+  CLASSES_FOR_SEARCH = [Person, Company, Deal].freeze
 
   def index
     if params[:search].present?
