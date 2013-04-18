@@ -5,7 +5,7 @@ class CompaniesController < CabinetController
     search = params[:search] ? params : params[:extended_search]
     @sorter = CompanySorter.new(params)
     @filter = decorate CompanyFilter.new(search), view: view_context,
-                                                   sorter: @sorter
+                                                  sorter: @sorter
 
     scope = Company.infrastructure.published
     scope = @filter.filter(scope)
@@ -16,8 +16,9 @@ class CompaniesController < CabinetController
 
   def show
     @company = decorate Company.find(params[:id])
-    @deals   = decorate @company.deals.sort_by(&:date).reverse
-    @to_connections = decorate @company.to_connections
+    @deals = decorate @company.deals.select(&:published).sort_by(&:date).reverse
+
+    @to_connections   = decorate @company.to_connections
     @from_connections = decorate @company.from_connections
   end
 end
