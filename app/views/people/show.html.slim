@@ -44,4 +44,4 @@ article.person.profile
             td = @person.vacancies
 
   - if @deals.any?
-    = render partial: 'deals', locals: { deals: @deals }
+    = render "deals", deals: @deals, show_project: @person.investor?

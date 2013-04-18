@@ -10,10 +10,10 @@ article.company
       .left = render "contacts"
       .right
         - if @to_connections.any? || @from_connections.any?
-          = render partial: 'connections', locals: { to_connections: @to_connections, from_connections: @from_connections }
+          = render "connections", to_connections: @to_connections, from_connections: @from_connections
 
     - if @deals.any?
-      section = render partial: "deals", locals: { deals: @deals }
+      section = render "deals", deals: @deals, show_project: @company.investor?
 
     section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"
 

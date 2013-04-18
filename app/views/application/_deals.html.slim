@@ -3,6 +3,8 @@ table.list
   thead
     tr
       th Дата
+      - if local_assigns[:show_project]
+        th Инвестируемая компания
       th Сумма сделки
       th Приобретаемая доля
       th Раунд / грант
@@ -13,6 +15,8 @@ table.list
   - deals.each do |deal|
     tr
       td = deal.date
+      - if local_assigns[:show_project]
+        td = deal.project_link
       td = deal.amount
       td = deal.share
       td = deal.round
