@@ -238,7 +238,7 @@ class Deal < ActiveRecord::Base
 
   def publish
     errors.add :publish, "Не указан проект" unless company
-    errors.add :publish, "Не указан раунд инвестиций" unless round
+    errors.add :publish, "Не указан раунд инвестиций" unless is_grant? || round
     errors.add :publish, "Не указана стадия развития компании" unless stage
     errors.add :publish, "Не указана дата сделки" unless date
     errors.add :publish, "Не указана стоимость" unless amount
