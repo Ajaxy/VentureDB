@@ -241,7 +241,6 @@ jQuery ->
       selectedItem    = $.grep(@items, (item) -> item.title == selectedText)[0]
       $entriesList    = @.$element.siblings ".entries-list"
       $typeSelect     = @$element.parent().find 'select'
-      debugger
       inputName       = $entriesList.data('input-prefix') + "[from_connections_attributes][]"
       entityId        = selectedItem.id
       entityType      = selectedItem.type.charAt(0).toUpperCase() + selectedItem.type.slice(1)
