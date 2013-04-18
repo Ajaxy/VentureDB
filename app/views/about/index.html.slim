@@ -159,25 +159,25 @@ article.about
     .logo = image_tag "about-partner-3.png"
     .logo = image_tag "about-partner-4.png"
 
-  section.feedback#feedback
-    h2 Хотите сотрудничать?
-    p Мы собираем и анализируем информацию о портфеле инвесторов, программах развития и молодых проектах, которые получили финансирование и делимся с профессиональным участникам рынка готовой статистикой и справочной информацией.
-    p Если вам нужны данные для анализа или вы заинтересованы в проведении совместных исследований российского инновационно-венчурного рынка просто напишите нам:
+section.feedback#feedback
+  h2 Хотите сотрудничать?
+  p Мы собираем и анализируем информацию о портфеле инвесторов, программах развития и молодых проектах, которые получили финансирование и делимся с профессиональным участникам рынка готовой статистикой и справочной информацией.
+  p Если вам нужны данные для анализа или вы заинтересованы в проведении совместных исследований российского инновационно-венчурного рынка просто напишите нам:
 
-    = form_for Feedback.new, url: "" do |f|
-      h3 Чем мы можем быть полезны?
-      .row.options
-        .option.selected data-value=1 Проведение исследования
-        .option data-value=2 Структурированные данные
-        .option data-value=3 Консультация по венчурному рынку
-        = f.hidden_field :type_id, value: 1
-      .row.contacts
-        = f.text_field :name, placeholder: "Имя и фамилия"
-        = f.text_field :phone, placeholder: "Контактный телефон"
-      .row.text
-        = f.text_area :text, placeholder: "Ваше предложение"
-      .row.submit
-        = f.submit "Отправить", class: "btn"
+  = form_for Feedback.new, url: "" do |f|
+    h3 Чем мы можем быть полезны?
+    .row.options
+      .option.selected data-value=1 Проведение исследования
+      .option data-value=2 Структурированные данные
+      .option data-value=3 Консультация по венчурному рынку
+      = f.hidden_field :type_id, value: 1
+    .row.contacts
+      = f.text_field :name, placeholder: "Имя и фамилия"
+      = f.text_field :phone, placeholder: "Контактный телефон"
+    .row.text
+      = f.text_area :text, placeholder: "Ваше предложение"
+    .row.submit
+      = f.submit "Отправить", class: "btn"
       / .form-inputs
         = f.input :type_id, as: :select, collection: Feedback::TYPES.invert,
                          hint: "Кто вы:"

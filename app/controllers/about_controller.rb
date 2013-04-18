@@ -7,6 +7,6 @@ class AboutController < CabinetController
   def feedback
     @feedback = Feedback.create(permitted_params.feedback)
     FeedbackMailer.notify(@feedback).deliver
-    render :index
+    redirect_to action: :index
   end
 end
