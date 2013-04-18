@@ -4,44 +4,54 @@ article.person.profile
     - if current_user.admin?
       .actions = @person.edit_link
 
-  - if @person.contacts.any?
-    .contacts
-      h2 Контакты
-      table.info
-        col width="50%"
-        col width="50%"
-        - if @person.address?
-          tr
-            td Адрес
-            td = @person.address
-        - if @person.phone?
-          tr
-            td Телефон
-            td = @person.phone
-        - if @person.email?
-          tr
-            td Email
-            td = @person.email
-        - if @person.www?
-          tr
-            td Сайт
-            td = @person.www
-        - if @person.facebook?
-          tr
-            td Facebook
-            td = @person.facebook
-        - if @person.slideshare?
-          tr
-            td Slideshare
-            td = @person.slideshare
-        - if @person.vkontakte?
-          tr
-            td Vkontakte
-            td = @person.vkontakte
-        - if @person.vacancies?
-          tr
-            td Вакансии
-            td = @person.vacancies
+  section
+    - if @person.contacts.any?
+      .common-info
+        h2 Контакты
+        table.info
+          col width="50%"
+          col width="50%"
+          - if @person.address?
+            tr
+              td Адрес
+              td = @person.address
+          - if @person.phone?
+            tr
+              td Телефон
+              td = @person.phone
+          - if @person.email?
+            tr
+              td Email
+              td = @person.email
+          - if @person.www?
+            tr
+              td Сайт
+              td = @person.www
+          - if @person.facebook?
+            tr
+              td Facebook
+              td = @person.facebook
+          - if @person.slideshare?
+            tr
+              td Slideshare
+              td = @person.slideshare
+          - if @person.vkontakte?
+            tr
+              td Vkontakte
+              td = @person.vkontakte
+          - if @person.vacancies?
+            tr
+              td Вакансии
+              td = @person.vacancies
+
+    .extra = render "profile-extras"
+
+  - if @person.description?
+    section
+      h2 Описание
+      = markdown @person.description
 
   - if @deals.any?
-    = render "deals", deals: @deals, show_project: @person.investor?
+    section = render "deals", deals: @deals, show_project: @person.investor?
+
+  section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"

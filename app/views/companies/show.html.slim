@@ -4,7 +4,15 @@ article.company
     - if current_user.admin?
       .actions = @company.edit_link
   .profile
-    section = render "common-info"
+    section
+      .common-info = render "common-info"
+      .extra = render "profile-extras"
+
+    - if @company.description?
+      section
+        h2 Описание компании
+        = markdown @company.description
+
 
     section.clearfix
       .left = render "contacts"
