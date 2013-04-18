@@ -125,11 +125,7 @@ class DealDecorator < ApplicationDecorator
 
   def share
     value = source.share
-    if value.nil? or value.zero?
-      mdash
-    else
-      "#{value} %"
-    end
+    value.present? ? "#{value} %" : mdash
   end
 
   private

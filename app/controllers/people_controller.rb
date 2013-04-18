@@ -6,6 +6,7 @@ class PeopleController < CabinetController
 
   def show
     @person = decorate Person.find(params[:id])
-    @deals  = decorate @person.deals.order_by_started_at(:desc)
+    @deals  = decorate @person.deals.published.includes(:investors)
+                                    .sort_by(&:date).reverse
   end
 end
