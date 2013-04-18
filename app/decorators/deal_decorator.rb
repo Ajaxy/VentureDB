@@ -125,7 +125,7 @@ class DealDecorator < ApplicationDecorator
 
   def share
     value = source.share
-    value.present? ? "#{value} %" : mdash
+    value.zero? || value.blank? ? mdash : "#{value} %"
   end
 
   private

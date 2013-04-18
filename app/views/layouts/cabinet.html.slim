@@ -29,6 +29,19 @@ html
                   = text_field_tag :search, params[:search], placeholder: 'Например, TechCrunch Moscow 2012'
                   button type="submit" = "ПОИСК"
             .main-content = yield
+            - unless @hide_footer
+              footer.clearfix
+                h2 О проекте
+                .col
+                  .link = link_to "Инвесторам", "/about/#investors"
+                  .link = link_to "Компаниям", "/about/#companies"
+                  .link = link_to "Корпорациям", "/about/#corporations"
+                  .link = link_to "Инфраструктуре", "/about/#infrastructure"
+                .col
+                  .link = link_to "Для государства", "/about/#state"
+                  .link = link_to "Методика работы", "/about/#methodics"
+                  .link = link_to "Команда", "/about/#team"
+                  .link = link_to "Обратная связь", :feedback
         aside#menu
           = render partial: 'menu'
           nav
