@@ -75,4 +75,5 @@ end
 
 AUTO_CONFIRM_SUBSCRIPTION = true
 FROM_EMAIL_ADDRESS = "ai@venturedatabase.ru"
+ERROR_RECIPIENT = "tycooon@yandex.ru"
 SEARCH_AUTOSUGGEST_LIMIT = 5
