@@ -46,7 +46,7 @@ class InvestorForm
   private
 
   def persist!
-    @investor = Investor.create_draft(
+    @investor = Investor.create(
       type_id:      type_id,
       location_ids: location_ids,
       actor:        actor,

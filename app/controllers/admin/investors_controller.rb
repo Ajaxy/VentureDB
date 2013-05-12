@@ -17,7 +17,7 @@ class Admin::InvestorsController < Admin::BaseController
     @investor = InvestorForm.new(params[:investor])
 
     if @investor.save
-      render :success
+      redirect_to [:admin, @investor.investor], notice: "Инвестор успешно добавлен."
     else
       render :error
     end

@@ -1,25 +1,24 @@
-= form_for investor, as: :investor, url: :admin_investors, html: { class: "investor" }, remote: true do |f|
-  .modal-header
-    button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
-    h3 Создать инвестора
+= form_for investor, as: :investor, url: :admin_investors, html: { class: "investor" } do |f|
+  button type="button" class="close" data-dismiss="modal" aria-hidden="true" &times;
+  h1 Создать инвестора
+  hr
 
-  .modal-body
-    = f.label :type_id, "Тип инвестора"
-    = f.select :type_id, Investor::TYPES.invert, {}, class: "chzn span4"
+  = f.label :type_id, "Тип инвестора"
+  = f.select :type_id, Investor::TYPES.invert, {}, class: "chzn span4"
 
-    p
+  p
 
-    = f.label :location_ids, "Географические рынки осуществления операций"
-    = f.select :location_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите рынки"
+  = f.label :location_ids, "Географические рынки осуществления операций"
+  = f.select :location_ids, Location.all.map { |i| [ i.name, i.id ] }.sort, {}, class: "span8 chzn", multiple: true, "data-placeholder" => "Выберите рынки"
 
-    p
+  p
 
-    .person-fields = f.fields_for :person, f.object.person do |f|
-      = render partial: "person_fields", locals: { f: f, type_id: Person::TYPE_BUSINESS_ANGEL_ID }
+  .person-fields = f.fields_for :person, f.object.person do |f|
+    = render partial: "person_fields", locals: { f: f, type_id: Person::TYPE_BUSINESS_ANGEL_ID }
 
-    .company-fields = f.fields_for :company, f.object.company do |f|
-      = render partial: "admin/companies/company_fields", locals: { f: f, type_id: Company::TYPE_INVESTOR_ID, no_markets: true }
+  .company-fields = f.fields_for :company, f.object.company do |f|
+    = render partial: "admin/companies/company_fields", locals: { f: f, type_id: Company::TYPE_INVESTOR_ID, no_markets: true }
 
-    .modal-footer
-      a.btn data-dismiss="dialog" Отмена
-      button.btn.btn-primary Создать инвестора
+  .form-actions
+    a.btn data-dismiss="dialog" Отмена
+    button.btn.btn-primary Создать инвестора
