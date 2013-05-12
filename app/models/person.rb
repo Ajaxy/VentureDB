@@ -37,11 +37,11 @@ class Person < ActiveRecord::Base
     order('name ASC')
   end
 
-  def self.find_or_create_draft(params)
+  def self.find_or_create(params)
     if person = where(params.slice(:name, :email)).first
       person
     else
-      create_draft(params)
+      create(params)
     end
   end
 

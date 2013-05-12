@@ -19,7 +19,7 @@ class Admin::PeopleController < Admin::BaseController
   def create
     @type   = params[:type]
 
-    @person = Person.find_or_create_draft(permitted_params.person)
+    @person = Person.find_or_create(permitted_params.person)
 
     if @person.valid?
       respond_to do |format|

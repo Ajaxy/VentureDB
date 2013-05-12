@@ -114,7 +114,6 @@ class DealDecorator < ApplicationDecorator
   end
 
   def project_link
-    return mdash unless deal.project
     h.link_to project_name, deal.company
   end
 

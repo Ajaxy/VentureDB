@@ -24,4 +24,11 @@ class Admin::InvestmentsController < Admin::BaseController
       render :error
     end
   end
+
+  def destroy
+    @investment = Investment.find(params[:id])
+    if @investment.destroy() 
+      render :nothing => true, :status => :ok
+    end
+  end
 end

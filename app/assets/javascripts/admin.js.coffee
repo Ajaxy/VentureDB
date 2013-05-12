@@ -171,7 +171,7 @@ jQuery ->
       $entry.hide()
     else
       $entry.remove()
-    false
+    #false
 
   $(document).on "click", "button.new_investor", ->
     $form = $("#new_investor")

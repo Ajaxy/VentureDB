@@ -2,7 +2,8 @@
   .controls
     span = link_to [:edit, :admin, investment], remote: true do
       i.icon-edit
-    span: i.icon-remove
+    span = link_to [:admin, investment], remote: true, method: :delete do
+      i.icon-remove
   = hidden_field_tag "deal[investment_ids][]", investment.id
   strong = investment.investor_name
   - if investment.instrument.present?
