@@ -49,7 +49,7 @@ Venture::Application.routes.draw do
   get "/search" => "search#index"
   get "/search/suggest" => "search#suggest"
 
-  root to: "home#promo", via: "get"
+  root to: "home#index", via: "get"
   post "/" => "home#subscribe"
 
   # get "/subscribed"  => "home#subscribed"

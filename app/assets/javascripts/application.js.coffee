@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.placeholder
+#= require jquery.slides.min
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
 #= require bootstrap-typeahead
@@ -9,6 +10,7 @@
 #= require jquery.ui.slider
 #= require sugar
 #= require chosen-jquery
+#= require home-index
 
 window.vent =
   sub: (event, fn) ->

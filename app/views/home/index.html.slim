@@ -1,39 +1,117 @@
-- @body_class = "homepage"
+- @body_class = "index"
 
-header
-  .subscribe
-    p Запуск проекта в январе 2013. #{link_to "Подпишитесь", "#"} на обновления.
-  .panel
-    #logo Venture Database
-    nav
-      .link = link_to "#" do
-        | Присоединяйтесь в
-        span.facebook  Facebook
-      .link = link_to "Войти в базу", :cabinet_deals
-
-section.intro
-  h1 Пульс венчурного рынка
-  p Мы предоставляем профессионалам доступ к свежей аналитической
-    информации об инвесторах, компаниях, сделках и полезны корпорациям
-    для поиска новых рынков и перспективных направлений.
-  .enter = link_to "Войти в базу", :cabinet_deals, class: "btn"
-  .image
-
-section.features
-  .features-wrap
-    .features-row
-      .feature
-        = image_tag "feature-1.png"
-        h2 Сделки, компании, инвесторы
-        p Самая полная статистическая информация о сделках
-          инновационно-венчурного рынка.
-      .feature.center
-        = image_tag "feature-2.png"
-        h2 Визуализация данных об отрасли
-        p Удобный интерфейс предоставления информации: обзоры по секторам,
-          аналитические срезы, тренды.
-      .feature
-        = image_tag "feature-3.png"
-        h2 Обращение к партнерам-коллегам
-        p Мы приглашаем к сотрудничеству фонды и компании, работающие на
-          инновационно-венчурном рынке.
+#wrapper
+  #info
+    .inner
+      .right
+        #slides
+          = image_tag "home/examples/pic1.jpg"
+          = image_tag "home/examples/pic2.jpg"
+          = image_tag "home/examples/pic3.jpg"
+      .left
+        h2 Мониторинг и анализ информации о сделках и игроках российского венчурного рынка.
+        p
+          a.green-btn href="#" Оформить доступ
+        p.note * Для пролучения доступа к системе мониторинга и базе данных необходоимо пройти короткий процесс регистрации
+  #partners
+    .inner
+      .note С нами работают:
+      .menu
+        ul
+          li
+            a href="#" title="PBK"
+              = image_tag "home/examples/logo.jpg"
+          li
+            a href="#" title="PBK"
+              = image_tag "home/examples/logo.jpg"
+          li
+            a href="#" title="PBK"
+              = image_tag "home/examples/logo.jpg"
+          li
+            a href="#" title="PBK"
+              = image_tag "home/examples/logo.jpg"
+  .inner
+    #sidebar
+      .block
+        form.form-black
+          p Бесплатный доступ на 24 часа
+          p
+            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Имя и фамилия"
+          p
+            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Контактный телефон"
+          p
+          p
+            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Компания"
+          p
+            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Контактный-emal"
+          p
+            input.green-btn type="submit" value="Получить доступ"
+    #content
+      h2 Какие возможности мы предоставляем?
+      .list
+        ul
+          li
+            .title
+              = image_tag "home/i1.png", class: "icon"
+              | Мониторинг сделок
+            | Всегда свежая и структурированная информация о сделках и выданных грантах на рынке инноваций и венчурных инвестиций.
+          li
+            .title
+              = image_tag "home/i2.png", class: "icon"
+              | Справки по участникам
+            | Деловая информация о компаниях, фондах и людях. Реестр связей и история достижений компаний: участие в конурсах, рейтингах и пр.
+          li
+            .title
+              = image_tag "home/i3.png", class: "icon"
+              | Доступ к API
+            | По запросу мы предоставлям доступ к нашему API для проведения самостоятельных кабинетных исследований и других целей.
+          li
+            .title
+              = image_tag "home/i3.png", class: "icon"
+              | Готовая аналитика
+            | Статистка по отраслям, ключевые точки и тенденции. Широкие возможности визуализации данных. Аналитика по запросу.
+  #reviews
+    .inner
+      h2 Рекомендации и отзывы
+      .reviews-list
+        .review
+          .photo
+            = image_tag "home/examples/photo.jpg", title: "Антон Абашкин"
+          .whois
+            strong Антон Абашкин
+            | , директор российского Центра Технологий и Инноваций PwC
+          .do
+            p &laquo;Одной из задач ЦТИ PwC является поддержка российской инновационной экосиистемы, в том числе и за счет предоставления объективной информации о состоянии венчурного рынка.
+            p Для реализации этой задачи ЦТИ PwC совместно с Российской венчурной компанией выпускают анализ рынка венчурного инвестирования “Money Tree: Россия”, который является важным инструментом для развития этого рнка, открывая его в том числе и для многих зарубежных игроков.
+            p В рамках подготовки последних двух отчетов мы работали с компанией Venture Database, которая предоставляла нам данные для анализа. Полученные результаты удовлетворяли нашим требованиям и мы рассчитываем на дальнейшее сотрудничество с компанией.&raquo;
+          .share
+            ul.menu
+              li Разместить отзыв в:
+              li.vk
+                a href="#" title="Вконтакте"
+              li.fb
+                a href="#" title="Facebook"
+              li.tw
+                a href="#" title="Twitter"
+              li.mm
+                a href="#" title="Mail.ru"
+        .review
+          .photo
+            = image_tag "home/examples/photo.jpg", title: "Антон Абашкин"
+          .whois
+            strong Антон Абашкин
+            | , директор российского Центра Технологий и Инноваций PwC
+          .do
+            p &laquo;Одной из задач ЦТИ PwC является поддержка российской инновационной экосиистемы, в том числе и за счет предоставления объективной информации о состоянии венчурного рынка.
+            p В рамках подготовки последних двух отчетов мы работали с компанией Venture Database, которая предоставляла нам данные для анализа. Полученные результаты удовлетворяли нашим требованиям и мы рассчитываем на дальнейшее сотрудничество с компанией.&raquo;
+          .share
+            ul.menu
+              li Разместить отзыв в:
+              li.vk
+                a href="#" title="Вконтакте"
+              li.fb
+                a href="#" title="Facebook"
+              li.tw
+                a href="#" title="Twitter"
+              li.mm
+                a href="#" title="Mail.ru"

@@ -238,7 +238,7 @@ $html5-block      : "article aside details figcaption figure footer header hgrou
   input {
     *overflow:   visible; // Inner spacing IE7
     line-height: normal;
-    &::-mox-focus-inner {
+    &::-moz-focus-inner {
       border:  0;
       padding: 0;
     }

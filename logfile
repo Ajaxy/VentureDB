@@ -1,0 +1,65 @@
+postgres cannot access the server configuration file "/Users/zinchuk/Dev/ror/venturedb/~/.postgresdata/postgresql.conf": No such file or directory
+postgres cannot access the server configuration file "/Users/zinchuk/Dev/ror/venturedb/~/.postgresdata/postgresql.conf": No such file or directory
+postgres cannot access the server configuration file "/Users/zinchuk/Dev/ror/venturedb/~/.postgresdata/postgresql.conf": No such file or directory
+LOG:  database system was shut down at 2013-06-25 21:40:21 MSK
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "venture_development" does not exist
+FATAL:  database "venture_development" does not exist
+FATAL:  database "venture_development" does not exist
+FATAL:  database "venture_development" does not exist
+FATAL:  database "venture_test" does not exist
+ERROR:  relation "participations" does not exist
+STATEMENT:  ALTER TABLE "participations" RENAME TO "feedbacks"
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-06-25 21:49:16 MSK
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "zinchuk" does not exist
+FATAL:  database "zinchuk" does not exist
+ERROR:  syntax error at or near "create" at character 13
+STATEMENT:  show tables
+	create table a
+	show tables
+	;
+ERROR:  syntax error at or near "create" at character 13
+STATEMENT:  show tables
+	create table a
+	show tables
+	;
+ERROR:  unrecognized configuration parameter "tables"
+STATEMENT:  show tables;
+ERROR:  relation "schema_migrations" already exists
+STATEMENT:  CREATE TABLE schema_migrations (
+	    version character varying(255) NOT NULL
+	);
+ERROR:  relation "unique_schema_migrations" already exists
+STATEMENT:  CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+ERROR:  role "postgres" does not exist
+STATEMENT:  REVOKE ALL ON SCHEMA public FROM postgres;
+ERROR:  role "postgres" does not exist
+STATEMENT:  GRANT ALL ON SCHEMA public TO postgres;
+FATAL:  database "venture_database" does not exist
+ERROR:  syntax error at or near "from" at character 14
+STATEMENT:  show columns from users;
+ERROR:  syntax error at or near "updade" at character 1
+STATEMENT:  updade users set type='admin' where email='alx.zinchuk@gmail.com';
+ERROR:  syntax error at or near "DESC" at character 29
+STATEMENT:  select * from users LIMIT 1 DESC;
+ERROR:  syntax error at or near "desc" at character 21
+STATEMENT:  select * from users desc LIMIT 1;
+ERROR:  syntax error at or near "asc" at character 21
+STATEMENT:  select * from users asc LIMIT 1;
+ERROR:  syntax error at or near "asc" at character 29
+STATEMENT:  select * from users LIMIT 1 asc;
+ERROR:  column "a" does not exist at character 8
+STATEMENT:  SELECT a@a.com FROM "users" 
+LOG:  database system was interrupted; last known up at 2013-06-28 13:54:16 MSK
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  record with zero length at 0/1A4DB88
+LOG:  redo is not required
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

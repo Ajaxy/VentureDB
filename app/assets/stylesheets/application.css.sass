@@ -15,13 +15,16 @@
 @import "compass"
 @import "reset"
 
++reset-and-normalize
+
 $font: "PT Sans Caption", verdana, sans-serif
 $narrow-font: "PT Sans", $font
 
 @import "dropdown"
 
+@import "home"
 @import "homepage"
-@import "promo"
+@import "-promo.css.sass"
 @import "cabinet"
 @import "overview"
 @import "stream"
@@ -29,50 +32,49 @@ $narrow-font: "PT Sans", $font
 @import "search"
 @import "about"
 
-+reset-and-normalize
 
-html, body
-  height: 100%
-
-body
-  font-family: $font
-  font-size: 14px
-
-p + p
-  margin-top: 0.5em
-
-a
-  text-decoration: none
-  &:hover
-    text-decoration: underline
-
-.clear
-  clear: both
-
-.container > footer
-  background: #f7f8fa
-  border-top: solid 1px #dedfe1
-  color: #cacbd0
-  padding: 60px 0
-  .content-wrap
-    position: relative
-  .copy
-    position: absolute
-    top: 0
-    left: 0
-  nav
-    position: absolute
-    top: 0
-    right: 0
-    display: table
-    text-align: right
-    .link
-      display: table-cell
-      padding: 0 1em
-      text-align: center
-      vertical-align: middle
-      a
-        color: inherit
+//html, body
+//  height: 100%
+//
+//body
+//  font-family: $font
+//  font-size: 14px
+//
+//p + p
+//  margin-top: 0.5em
+//
+//a
+//  text-decoration: none
+//  &:hover
+//    text-decoration: underline
+//
+//.clear
+//  clear: both
+//
+//.container > footer
+//  background: #f7f8fa
+//  border-top: solid 1px #dedfe1
+//  color: #cacbd0
+//  padding: 60px 0
+//  .content-wrap
+//    position: relative
+//  .copy
+//    position: absolute
+//    top: 0
+//    left: 0
+//  nav
+//    position: absolute
+//    top: 0
+//    right: 0
+//    display: table
+//    text-align: right
+//    .link
+//      display: table-cell
+//      padding: 0 1em
+//      text-align: center
+//      vertical-align: middle
+//      a
+//        color: inherit
 
 .clearfix
   +clearfix()
