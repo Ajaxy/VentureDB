@@ -8,6 +8,9 @@ class HomeController < ApplicationController
   def index
   end
 
+  def about
+  end
+
   def promo
     redirect_to :about if current_user
   end

@@ -43,14 +43,15 @@ Venture::Application.routes.draw do
   resources :informers, only: %w[show]
   resources :authors, only: %w[show]
 
-  get  "/about" => "about#index"
-  post "/about" => "about#feedback"
+  #get  "/about" => "about#index"
+  #post "/about" => "about#feedback"
 
   get "/search" => "search#index"
   get "/search/suggest" => "search#suggest"
 
   root to: "home#index", via: "get"
   post "/" => "home#subscribe"
+  get "/about" => "home#about"
 
   # get "/subscribed"  => "home#subscribed"
   # post "/subscribed" => "home#participate"
