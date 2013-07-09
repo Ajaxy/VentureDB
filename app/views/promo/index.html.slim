@@ -1,9 +1,9 @@
-- @body_class = "index"
+- @body_class = 'index'
 
 #wrapper
   #info
     .inner
-      .right
+      /.right
         #slides
           = image_tag "home/examples/pic1.jpg"
           = image_tag "home/examples/pic2.jpg"
@@ -11,9 +11,10 @@
       .left
         h2 Мониторинг и анализ информации о сделках и игроках российского венчурного рынка.
         p
-          a.green-btn href="#" Оформить доступ
+          /a.green-btn href="/subscribe" Оформить доступ
+          a href="/subscribe" Оформить доступ
         p.note * Для пролучения доступа к системе мониторинга и базе данных необходоимо пройти короткий процесс регистрации
-  #partners
+  /#partners
     .inner
       .note С нами работают:
       .menu
@@ -30,10 +31,11 @@
           li
             a href="#" title="PBK"
               = image_tag "home/examples/logo.jpg"
-  .inner
+  /.inner
     #sidebar
       .block
         form.form-black
+          @later
           p Бесплатный доступ на 24 часа
           p
             input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Имя и фамилия"
@@ -70,7 +72,7 @@
               = image_tag "home/i3.png", class: "icon"
               | Готовая аналитика
             | Статистка по отраслям, ключевые точки и тенденции. Широкие возможности визуализации данных. Аналитика по запросу.
-  #reviews
+  /#reviews
     .inner
       h2 Рекомендации и отзывы
       .reviews-list

@@ -16,7 +16,7 @@ html
     /[ if lt IE 9 ]
       = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
-  body
+  body.cabinet
     #wrapper
       #middle
         #container
@@ -53,6 +53,7 @@ html
           = render partial: 'menu'
           nav
             ul
+              li = link_to "Главная", :root
               li = link_to "О проекте", :about
               - if current_user.admin?
                 li = link_to "Панель управления", "/admin"

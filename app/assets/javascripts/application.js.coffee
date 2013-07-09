@@ -25,13 +25,13 @@ window.vent =
 jQuery ->
   $("input, textarea").placeholder();
 
-  $(".promo form p ").after('<div class="form-error"></div><div class="form-success"></div>')
+  $("body.login form p, body.subscribe form p").after('<div class="form-error"></div><div class="form-success"></div>')
 
-  $(".promo form").on "ajax:before", (e) ->
+  $("body.login form, body.subscribe form").on "ajax:before", (e) ->
     $div = $ ".form-error", e.currentTarget
     $div.fadeOut("fast")
 
-  $(".promo form").on "ajax:success", (e, data, status, xhr) ->
+  $("body.login form, body.subscribe form").on "ajax:success", (e, data, status, xhr) ->
     if xhr.getResponseHeader "Location"
       top.location.href = xhr.getResponseHeader "Location"
       return false
@@ -39,16 +39,16 @@ jQuery ->
     $(".form-body", e.currentTarget).fadeOut "fast", ->
       $(".form-success", e.currentTarget).fadeIn("fast")
 
-  $(".promo form.new_subscription").on "submit", (e) ->
+  $("form.new_subscription").on "submit", (e) ->
     $(this).find("input[type='submit']").attr('disabled', 'disabled')
 
-  $(".promo form.new_subscription").on "ajax:success", (e, data, status, xhr) ->
+  $("form.new_subscription").on "ajax:success", (e, data, status, xhr) ->
     $("input.btn, span.or", e.currentTarget).hide()
     $submit = $(".submit", e.currentTarget)
     $submit.addClass "submitted"
     $submit.find('a').addClass "btn"
 
-  $(".promo form").on "ajax:error", (e, data, status, xhr) ->
+  $("body.login form, body.subscribe form").on "ajax:error", (e, data, status, xhr) ->
     data = $.parseJSON(data.responseText)
     unless data.error
       errors = []
@@ -59,7 +59,7 @@ jQuery ->
     $div.html( data.error ).fadeIn("fast")
     $(this).find("input[type='submit']").removeAttr('disabled')
 
-  $(".promo .js-switch-form").on "click", (e) ->
+  $(".js-switch-form").on "click", (e) ->
     $el = $(e.currentTarget)
     $(".active").removeClass("active")
     $($el.data("form")).addClass("active")

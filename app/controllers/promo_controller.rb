@@ -1,9 +1,9 @@
 # encoding: utf-8
 
-class HomeController < ApplicationController
+class PromoController < ApplicationController
   respond_to :html, :json
 
-  layout 'home'
+  layout 'promo'
 
   def index
   end
@@ -11,11 +11,15 @@ class HomeController < ApplicationController
   def about
   end
 
-  def promo
-    redirect_to :about if current_user
+  def login
+    redirect_to :root if current_user
   end
 
   def subscribe
+    redirect_to :root if current_user
+  end
+
+  def subscribe_post
     @subscription = Subscription.new(permitted_params.subscription)
 
     if @subscription.user_registered?

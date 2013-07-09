@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418112005) do
+ActiveRecord::Schema.define(:version => 20130709141729) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -296,11 +296,15 @@ ActiveRecord::Schema.define(:version => 20130418112005) do
 
   create_table "subscriptions", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "name"
     t.string   "company"
     t.datetime "archived_at"
+    t.string   "legal_title"
+    t.string   "legal_address"
+    t.string   "legal_ogrn"
+    t.string   "legal_inn"
   end
 
   add_index "subscriptions", ["archived_at"], :name => "index_subscriptions_on_archived_at"
@@ -326,6 +330,10 @@ ActiveRecord::Schema.define(:version => 20130418112005) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "type",                   :default => ""
+    t.string   "legal_title"
+    t.string   "legal_address"
+    t.string   "legal_ogrn"
+    t.string   "legal_inn"
   end
 
   add_index "users", ["company_id"], :name => "index_users_on_company_id"

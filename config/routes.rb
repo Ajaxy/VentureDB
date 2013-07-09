@@ -1,13 +1,13 @@
 Venture::Application.routes.draw do
   devise_for :users, controllers: {
-    registrations:  "users/registrations",
-    passwords:      "users/passwords",
-    sessions:       "users/sessions",
-    confirmations:  "users/confirmations",
+    registrations:  'users/registrations',
+    passwords:      'users/passwords',
+    sessions:       'users/sessions',
+    confirmations:  'users/confirmations',
   }
 
   namespace :admin do
-    root to: "deals#index"
+    root to: 'deals#index'
 
     resources :deals do
       member do
@@ -43,18 +43,20 @@ Venture::Application.routes.draw do
   resources :informers, only: %w[show]
   resources :authors, only: %w[show]
 
-  #get  "/about" => "about#index"
-  #post "/about" => "about#feedback"
+  #get  '/about' => 'about#index'
+  #post '/about' => 'about#feedback'
 
-  get "/search" => "search#index"
-  get "/search/suggest" => "search#suggest"
+  get '/search' => 'search#index'
+  get '/search/suggest' => 'search#suggest'
 
-  root to: "home#index", via: "get"
-  post "/" => "home#subscribe"
-  get "/about" => "home#about"
+  root to: 'promo#index', via: 'get'
+  get '/login' => 'promo#login'
+  get '/subscribe' => 'promo#subscribe'
+  post '/subscribe' => 'promo#subscribe_post'
+  get '/about' => 'promo#about'
 
-  # get "/subscribed"  => "home#subscribed"
-  # post "/subscribed" => "home#participate"
+  # get '/subscribed'  => 'promo#subscribed'
+  # post '/subscribed' => 'promo#participate'
 
-  post "/markdown/preview" => "markdown#preview"
+  post '/markdown/preview' => 'markdown#preview'
 end

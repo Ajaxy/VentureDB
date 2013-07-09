@@ -1,0 +1,19 @@
+- @body_class = 'subscribe'
+
+#wrapper
+  .subscribe
+    = form_for Subscription.new(params[:subscription] && permitted_params.subscription), url: '/subscribe', name: 'subscribe', remote: true, html: { 'data-type' => 'json' }, method: 'post' do |f|
+      p Чтобы получить доступ, заполните информацию о себе
+      .form-success Спасибо за интерес к нашему проекту! Мы отправим вам подтверждение регистрации в течение нескольких часов.
+      .form-body
+        .input = f.text_field :name, placeholder: 'ФИО', required: true
+        .input = f.text_field :email, placeholder: 'E-mail', required: true, html: { type: 'email' }
+        .input = f.text_field :company, placeholder: 'Компания', required: true
+        br
+        p Укажите реквизиты вашей организации (юр. лица)
+        .input = f.text_field :legal_title, placeholder: 'Полное наименование', required: true
+        .input = f.text_field :legal_address, placeholder: 'Полный адрес', required: true
+        .input = f.text_field :legal_ogrn, placeholder: 'ОГРН', required: true
+        .input = f.text_field :legal_inn, placeholder: 'ИНН', required: true
+      .submit
+        = f.submit 'Получить доступ', class: 'btn'

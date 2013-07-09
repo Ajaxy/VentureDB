@@ -63,3 +63,6 @@ LOG:  record with zero length at 0/1A4DB88
 LOG:  redo is not required
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  database system was shut down at 2013-07-09 15:55:56 MSK
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
