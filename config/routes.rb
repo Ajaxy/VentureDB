@@ -58,6 +58,9 @@ Venture::Application.routes.draw do
   get '/subscribe' => 'promo#subscribe'
   post '/subscribe' => 'promo#subscribe_post'
   get '/about' => 'promo#about'
+  get '/monitoring' => 'promo#monitoring'
+  get '/plans' => 'promo#plans'
+  get '/analytics' => 'promo#analytics'
 
   # get '/subscribed'  => 'promo#subscribed'
   # post '/subscribed' => 'promo#participate'

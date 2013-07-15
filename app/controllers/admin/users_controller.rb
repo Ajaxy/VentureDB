@@ -5,7 +5,7 @@ class Admin::UsersController < Admin::BaseController
   respond_to :json, only: :approve
 
   def index
-    @users = PaginatingDecorator.decorate paginate(User.order(:email))
+    @users = PaginatingDecorator.decorate paginate(User.order('created_at DESC'))
   end
 
   def show

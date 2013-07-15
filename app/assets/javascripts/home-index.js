@@ -1,5 +1,5 @@
 $(function() {
-    $('body.home.index #slides').slidesjs({
+    $('body.promo.index #slides').slidesjs({
         width: 500,
         height: 300,
         play: {

@@ -9,6 +9,7 @@ table.table
   thead
     tr
       th E-mail
+      th.center Зарегистрирован
       th Тип
       th Тариф
       th Истекает
@@ -19,6 +20,7 @@ table.table
     - @users.each do |user| user = user.decorate
       tr class=('expired' unless user.person.plan_active) class=('new' unless user.approved)
         td = user.link
+        td.center = user.created_at
         td = user.type
         td = user.person.plan_title
         td.center.ends_at = user.person.plan_ends_at

@@ -11,7 +11,7 @@
         .input = f.text_field :company, placeholder: 'Компания', required: true
       .submit
         = f.submit 'Получить доступ', class: 'btn'
-        span.or  или
+        span.and-or или
         = link_to 'войти', :new_user_session, { class: 'js-switch-form', data: { form: '.sign-in' } }
 
   .sign-in.active

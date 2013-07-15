@@ -3,39 +3,37 @@
 #wrapper
   #info
     .inner
-      /.right
+      .right
         #slides
-          = image_tag "home/examples/pic1.jpg"
-          = image_tag "home/examples/pic2.jpg"
-          = image_tag "home/examples/pic3.jpg"
+          = image_tag 'promo/slide-1.png'
+          = image_tag 'promo/slide-2.png'
+          = image_tag 'promo/slide-3.png'
       .left
         h2 Мониторинг и анализ информации о сделках и игроках российского венчурного рынка.
         p
-          /a.green-btn href="/subscribe" Оформить доступ
-          a href="/subscribe" Оформить доступ
+          a.green-btn href='/subscribe' Оформить доступ
         p.note * Для пролучения доступа к системе мониторинга и базе данных необходоимо пройти короткий процесс регистрации
-  /#partners
+  #partners
     .inner
       .note С нами работают:
       .menu
         ul
           li
-            a href="#" title="PBK"
-              = image_tag "home/examples/logo.jpg"
+            a href='#'
+              = image_tag 'promo/about-partner-1.png'
           li
-            a href="#" title="PBK"
-              = image_tag "home/examples/logo.jpg"
+            a href='#'
+              = image_tag 'promo/about-partner-2.png'
           li
-            a href="#" title="PBK"
-              = image_tag "home/examples/logo.jpg"
+            a href='#'
+              = image_tag 'promo/about-partner-3.png'
           li
-            a href="#" title="PBK"
-              = image_tag "home/examples/logo.jpg"
-  /.inner
+            a href='#'
+              = image_tag 'promo/about-partner-4.png'
+  .inner
     #sidebar
       .block
         form.form-black
-          @later
           p Бесплатный доступ на 24 часа
           p
             input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Имя и фамилия"
@@ -54,38 +52,51 @@
         ul
           li
             .title
-              = image_tag "home/i1.png", class: "icon"
+              = image_tag "promo/i1.png", class: "icon"
               | Мониторинг сделок
             | Всегда свежая и структурированная информация о сделках и выданных грантах на рынке инноваций и венчурных инвестиций.
           li
             .title
-              = image_tag "home/i2.png", class: "icon"
+              = image_tag "promo/i2.png", class: "icon"
               | Справки по участникам
             | Деловая информация о компаниях, фондах и людях. Реестр связей и история достижений компаний: участие в конурсах, рейтингах и пр.
           li
             .title
-              = image_tag "home/i3.png", class: "icon"
+              = image_tag "promo/i3.png", class: "icon"
               | Доступ к API
             | По запросу мы предоставлям доступ к нашему API для проведения самостоятельных кабинетных исследований и других целей.
           li
             .title
-              = image_tag "home/i3.png", class: "icon"
+              = image_tag "promo/i4.png", class: "icon"
               | Готовая аналитика
             | Статистка по отраслям, ключевые точки и тенденции. Широкие возможности визуализации данных. Аналитика по запросу.
-  /#reviews
+  #reviews
     .inner
       h2 Рекомендации и отзывы
       .reviews-list
         .review
           .photo
-            = image_tag "home/examples/photo.jpg", title: "Антон Абашкин"
+            = image_tag "promo/cherkashin.jpg", title: "Павел Черкашин"
           .whois
-            strong Антон Абашкин
-            | , директор российского Центра Технологий и Инноваций PwC
+            strong Павел Черкашин
+            | , генеральный партнер Vestor.In Partners
           .do
-            p &laquo;Одной из задач ЦТИ PwC является поддержка российской инновационной экосиистемы, в том числе и за счет предоставления объективной информации о состоянии венчурного рынка.
-            p Для реализации этой задачи ЦТИ PwC совместно с Российской венчурной компанией выпускают анализ рынка венчурного инвестирования “Money Tree: Россия”, который является важным инструментом для развития этого рнка, открывая его в том числе и для многих зарубежных игроков.
-            p В рамках подготовки последних двух отчетов мы работали с компанией Venture Database, которая предоставляла нам данные для анализа. Полученные результаты удовлетворяли нашим требованиям и мы рассчитываем на дальнейшее сотрудничество с компанией.&raquo;
+            p &laquo;Венчурный рынок в России связан с
+                     большими надеждами, но и сопровождается
+                     чрезвычайно высоким уровнем
+                     информационного шума. Экспертные оценки
+                     противоречивы, терминология плохо
+                     определена, источники данных разрознены.
+
+            p Venture Database делает самую трудоемкую и
+                     кропотливую  часть работы по анализу рынка –
+                     сбор и систематизацию первичных данных об
+                     участниках, сделках, инфраструктуре.
+
+            p На основе этих данных аналитики фондов,
+                     инновационных компаний и государственных
+                     органов имеют возможность анализировать
+                     тренды и принимать взвешенные решения”&raquo;
           .share
             ul.menu
               li Разместить отзыв в:
@@ -99,7 +110,7 @@
                 a href="#" title="Mail.ru"
         .review
           .photo
-            = image_tag "home/examples/photo.jpg", title: "Антон Абашкин"
+            = image_tag "promo/abashkin.jpg", title: "Антон Абашкин"
           .whois
             strong Антон Абашкин
             | , директор российского Центра Технологий и Инноваций PwC

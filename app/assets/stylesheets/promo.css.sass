@@ -34,7 +34,7 @@ body.promo
 
   #header
     height: 120px
-    background: image-url("home/header-bg.png") repeat-x
+    background: image-url("promo/header-bg.png") repeat-x
     .top-line
       height: 38px
       overflow: hidden
@@ -148,7 +148,7 @@ body.promo
         display: block
         width: 22px
         height: 20px
-        background: image-url("home/social-btn.png") no-repeat
+        background: image-url("promo/social-btn.png") no-repeat
         text-indent: -9999px
       &.vk a
         background-position: 0 0
@@ -239,6 +239,16 @@ body.promo
     &:active
       box-shadow: inset 0 2px 3px 1px rgba(0, 0, 0, 0.2)
 
+  #bottom-teaser
+    height: 98px
+    font-size: 16px
+    background: image-url("promo/bottom-teaser-bg.png") repeat-x top
+    margin-top: 30px
+    .right
+      margin: 7px 0 0 30px
+    .inner
+      padding-top: 19px
+
   &.index
     #info
       margin-top: -20px
@@ -284,7 +294,7 @@ body.promo
     #partners
       height: 130px
       margin-bottom: 50px
-      background: image-url("home/partners-bg.png") repeat-x
+      background: image-url("promo/partners-bg.png") repeat-x
       .inner
         padding-top: 23px
       .note
@@ -294,11 +304,11 @@ body.promo
       .menu
         float: left
         li
-          margin-right: 25px
+          margin-right: 50px
 
     #reviews
       padding: 40px 0
-      background: image-url("home/reviews-bg.png") repeat-x top
+      background: image-url("promo/reviews-bg.png") repeat-x top
       .reviews-list
         overflow: hidden
         .review
@@ -321,16 +331,6 @@ body.promo
           overflow: hidden
           p
             margin-bottom: 12px
-
-    #tariffs
-      height: 98px
-      font-size: 16px
-      background: image-url("home/tariffs-bg.png") repeat-x top
-      margin-bottom: 30px
-      .right
-        margin: 7px 0 0 30px
-      .inner
-        padding-top: 19px
 
     #content .list
       margin-right: -20px
@@ -385,44 +385,45 @@ body.promo
       p
         margin-bottom: 10px
 
-  &.tariffs #content
-    table
-      .width-td
-        width: 210px
-        text-align: center
-      tr
-        vertical-align: top
-      th
-        border-bottom: 1px solid #dcdcdc
-        padding: 0 6px 20px
-        font-size: 24px
-        text-transform: uppercase
-        font-weight: normal
-      td
-        border-bottom: 1px solid #dcdcdc
-        padding: 7px 6px
-        font-size: 14px
-        .status
-          height: 14px
-          position: relative
-          top: 3px
-        div
-          margin-bottom: 10px
-          span
-            font-size: 24px
-            font-weight: bold
-            display: block
-            margin-bottom: 2px
-      tr
-        &.even td
-          background: #f4f4f4
-          strong
-            font-weight: normal
-        &:last-child td
-          padding: 20px 6px 0
-          border: 0
+  &.plans
+    #content
+      table
+        .width-td
+          width: 210px
+          text-align: center
+        tr
+          vertical-align: top
+        th
+          border-bottom: 1px solid #dcdcdc
+          padding: 0 6px 20px
+          font-size: 24px
+          text-transform: uppercase
+          font-weight: normal
+        td
+          border-bottom: 1px solid #dcdcdc
+          padding: 7px 6px
+          font-size: 14px
+          .status
+            height: 14px
+            position: relative
+            top: 3px
+          div
+            margin-bottom: 10px
+            span
+              font-size: 24px
+              font-weight: bold
+              display: block
+              margin-bottom: 2px
+        tr
+          &.even td
+            background: #f4f4f4
+            strong
+              font-weight: normal
+          &:last-child td
+            padding: 20px 6px 0
+            border: 0
 
-  &.system #content
+  &.monitoring #content
     .line-one
       margin: 0 0 20px 20px
       overflow: hidden
@@ -515,7 +516,6 @@ body.promo
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3)
         img
           width: 480px
-          height: 320px
       &.even
         .left
           float: right

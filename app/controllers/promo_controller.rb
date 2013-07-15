@@ -5,12 +5,6 @@ class PromoController < ApplicationController
 
   layout 'promo'
 
-  def index
-  end
-
-  def about
-  end
-
   def login
     redirect_to :root if current_user
   end
