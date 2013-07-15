@@ -274,3 +274,13 @@ jQuery ->
       $entriesList.append($entry)
 
       return ""
+
+  $(document).on 'ajax:error', (e, xhr, status, error) ->
+    alert 'Ошибка:' + $.parseJSON(xhr.responseText).errors.join(', ')
+
+  $('body.admin.users .approve')
+    .on 'ajax:success', ->
+      $(@).parents('tr').removeClass 'new'
+
+  $('body.admin.users table .show-info').each (i, v) ->
+    $(v).popover { placement: 'top', content: $(v).siblings('.info').html(), html: true }

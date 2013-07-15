@@ -25,13 +25,13 @@ window.vent =
 jQuery ->
   $("input, textarea").placeholder();
 
-  $("body.login form p, body.subscribe form p").after('<div class="form-error"></div><div class="form-success"></div>')
+  $("body.promo form .submit").before('<div class="form-error"></div><div class="form-success"></div>')
 
-  $("body.login form, body.subscribe form").on "ajax:before", (e) ->
+  $("body.promo form").on "ajax:before", (e) ->
     $div = $ ".form-error", e.currentTarget
     $div.fadeOut("fast")
 
-  $("body.login form, body.subscribe form").on "ajax:success", (e, data, status, xhr) ->
+  $("body.promo form").on "ajax:success", (e, data, status, xhr) ->
     if xhr.getResponseHeader "Location"
       top.location.href = xhr.getResponseHeader "Location"
       return false
@@ -48,7 +48,7 @@ jQuery ->
     $submit.addClass "submitted"
     $submit.find('a').addClass "btn"
 
-  $("body.login form, body.subscribe form").on "ajax:error", (e, data, status, xhr) ->
+  $("body.promo form").on "ajax:error", (e, data, status, xhr) ->
     data = $.parseJSON(data.responseText)
     unless data.error
       errors = []

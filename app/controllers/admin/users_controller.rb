@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 class Admin::UsersController < Admin::BaseController
-  before_filter :find_user, only: [:show, :edit, :update, :destroy]
+  before_filter :find_user, only: [:show, :edit, :update, :destroy, :approve]
+  respond_to :json, only: :approve
 
   def index
     @users = PaginatingDecorator.decorate paginate(User.order(:email))
@@ -38,6 +39,16 @@ class Admin::UsersController < Admin::BaseController
       render :edit
     end
   end
+
+  def approve
+    @user.approved = true
+    if @user.save then
+      render json: { status: :ok }
+    else
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
 
   # def destroy
   # end

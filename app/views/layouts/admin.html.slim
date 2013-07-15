@@ -5,7 +5,7 @@ html
     = stylesheet_link_tag    "admin", :media => "all"
     = javascript_include_tag "admin"
     = csrf_meta_tags
-  body class=[controller.class.name =~ /^(Devise|Users)::/ ? "devise" : controller_name]
+  body.admin class=[controller.class.name =~ /^(Devise|Users)::/ ? "devise" : controller_name]
     .container
       - if current_user
         .navbar
@@ -16,7 +16,7 @@ html
               = menu_link "Эксперты", [:admin, :people]
               = menu_link "Сделки", [:admin, :deals]
               = menu_link "Пользователи", [:admin, :users]
-              = menu_link "Заявки", [:admin, :subscriptions]
+              /= menu_link "Заявки", [:admin, :subscriptions]
             ul.nav.pull-right
               li.dropdown
                 a.dropdown-toggle href="#" data-toggle="dropdown"

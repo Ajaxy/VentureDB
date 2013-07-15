@@ -18,7 +18,11 @@ Venture::Application.routes.draw do
 
     resources :projects
     resources :investors
-    resources :users
+    resources :users do
+      member do
+        post :approve
+      end
+    end
 
     resources :subscriptions do
       member do

@@ -1,5 +1,5 @@
 
-.pull-left = link_to "Добавить пользователя", [:new, :admin, :user], class: "btn btn-primary"
+.pull-left = link_to 'Добавить пользователя', [:new, :admin, :user], class: 'btn btn-primary'
 
 .total Всего пользователей: #{b User.count}
 
@@ -10,10 +10,24 @@ table.table
     tr
       th E-mail
       th Тип
+      th Тариф
+      th Истекает
+      th.center Обновить
+      th.center Инфо
+      th.center Удалить
   tbody
-    - @users.each do |user|
-      tr
+    - @users.each do |user| user = user.decorate
+      tr class=('expired' unless user.person.plan_active) class=('new' unless user.approved)
         td = user.link
         td = user.type
+        td = user.person.plan_title
+        td.center.ends_at = user.person.plan_ends_at
+        td.center = link_to 'Покупка', '#', method: :post, class: 'btn btn-small btn-success'
+        td.center
+          a.show-info.btn.btn-small Информация
+          = (link_to 'Подтвердить', [:approve, :admin, user], remote: true, method: :post, class: 'approve btn btn-small btn-success') unless user.approved
+          .info
+            == user.person.legal_info
+        td.center = delete_button(user)
 
 = paginate @users

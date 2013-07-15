@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+# TODO Удалить. В новой концепции заявки не нужны. Пользователи создаются сразу, модерация идет по пользователям.
+
 class Subscription < ActiveRecord::Base
   validates :email, format: /.@./
   validates :name, presence: true
@@ -30,6 +32,10 @@ class Subscription < ActiveRecord::Base
       user.build_person do |person|
         person.name    = name
         person.type_id = Person::TYPE_EXPERT_ID
+        person.legal_title = legal_title
+        person.legal_address = legal_address
+        person.legal_ogrn = legal_ogrn
+        person.legal_inn = legal_inn
       end
     end
   end

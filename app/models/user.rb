@@ -36,4 +36,8 @@ class User < ActiveRecord::Base
     send(:generate_reset_password_token!)
     UserMailer.remind_already_registered(self).deliver
   end
+
+  def person
+    super || Person.new
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709141729) do
+ActiveRecord::Schema.define(:version => 20130715141719) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -215,11 +215,11 @@ ActiveRecord::Schema.define(:version => 20130709141729) do
     t.string   "middle_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "draft",          :default => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.boolean  "draft",                :default => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.text     "description"
-    t.boolean  "expert",         :default => false, :null => false
+    t.boolean  "expert",               :default => false, :null => false
     t.string   "sex"
     t.string   "education"
     t.string   "age"
@@ -238,6 +238,16 @@ ActiveRecord::Schema.define(:version => 20130709141729) do
     t.text     "details"
     t.text     "secret_details"
     t.string   "birth_date"
+    t.integer  "plan",                 :default => 1
+    t.datetime "plan_started_at"
+    t.integer  "used_connections"
+    t.integer  "used_profiles_access"
+    t.integer  "used_downloads"
+    t.integer  "used_support_mins"
+    t.string   "legal_title"
+    t.string   "legal_address"
+    t.string   "legal_ogrn"
+    t.string   "legal_inn"
   end
 
   create_table "project_authors", :force => true do |t|
@@ -330,10 +340,7 @@ ActiveRecord::Schema.define(:version => 20130709141729) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "type",                   :default => ""
-    t.string   "legal_title"
-    t.string   "legal_address"
-    t.string   "legal_ogrn"
-    t.string   "legal_inn"
+    t.boolean  "approved"
   end
 
   add_index "users", ["company_id"], :name => "index_users_on_company_id"

@@ -42,6 +42,7 @@ html
                     li: a href='/login' Войти
                   - else
                     li: a href='/deals' База статистики
+                    li = link_to 'Выход', :destroy_user_session, method: 'delete'
             h1.logo
               a href='/' Venture database
       = yield

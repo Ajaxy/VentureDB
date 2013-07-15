@@ -3,18 +3,18 @@ html
   head
     title VentureDB
 
-    = render "google-fonts"
-    = render "google-analytics"
+    = render 'google-fonts'
+    = render 'google-analytics'
 
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
-    = favicon_link_tag       "favicon.png"
+    = stylesheet_link_tag    'application', :media => 'all'
+    = javascript_include_tag 'application'
+    = favicon_link_tag       'favicon.png'
     = csrf_meta_tags
 
     = yield :head
 
     /[ if lt IE 9 ]
-      = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+      = javascript_include_tag 'http://html5shim.googlecode.com/svn/trunk/html5.js'
 
   body.cabinet
     #wrapper
@@ -25,37 +25,49 @@ html
               #logo
                 p Venture Database
               #search_box
-                = form_tag "/search", method: :get, class: "search" do
+                = form_tag '/search', method: :get, class: 'search' do
                   = text_field_tag :search, params[:search], placeholder: 'Например, TechCrunch Moscow 2012'
-                  button type="submit" = "ПОИСК"
+                  button type='submit' = 'ПОИСК'
             .main-content = yield
             - unless @hide_footer
               footer.clearfix
                 .col-1
                   h2 О проекте
                   .subcol
-                    = link_to "Мониторинг рынка", "/about/#state"
-                    = link_to "Сбор и анализ данных", "/about/#methodics"
+                    = link_to 'Мониторинг рынка', '/about/#state'
+                    = link_to 'Сбор и анализ данных', '/about/#methodics'
                   .subcol
-                    = link_to "Команда и партнеры", "/about/#team"
-                    = link_to "Обратная связь", :feedback
+                    = link_to 'Команда и партнеры', '/about/#team'
+                    = link_to 'Обратная связь', :feedback
                 .col-2
                   h2 Целевые аудитории
                   .subcol
-                    = link_to "Инвесторам", "/about/#investors"
-                    = link_to "Компаниям", "/about/#companies"
+                    = link_to 'Инвесторам', '/about/#investors'
+                    = link_to 'Компаниям', '/about/#companies'
                   .subcol
-                    = link_to "Корпорациям", "/about/#corporations"
-                    = link_to "Инфраструктуре", "/about/#infrastructure"
+                    = link_to 'Корпорациям', '/about/#corporations'
+                    = link_to 'Инфраструктуре', '/about/#infrastructure'
                   .subcol
-                    = link_to "Для государства", "/about/#state"
+                    = link_to 'Для государства', '/about/#state'
         aside#menu
           = render partial: 'menu'
+
           nav
             ul
-              li = link_to "Главная", :root
-              li = link_to "О проекте", :about
+              li
+                | Тариф:&nbsp;
+                = link_to current_user.decorate.person.plan_title, '/plans'
+              li
+                | Осталось дней:&nbsp;
+                b = current_user.decorate.person.plan_rest
+              li
+                = link_to 'Аккаунт', '/account/'
+
+          nav
+            ul
+              li = link_to 'Главная', :root
+              li = link_to 'О проекте', :about
               - if current_user.admin?
-                li = link_to "Панель управления", "/admin"
-              li = link_to current_user.email, "#"
-              li = link_to "Выйти", :destroy_user_session, method: "delete"
+                li = link_to 'Панель управления', '/admin'
+              li = link_to current_user.email, '#'
+              li = link_to 'Выйти', :destroy_user_session, method: 'delete'

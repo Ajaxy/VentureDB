@@ -2,6 +2,7 @@
 
 class UserDecorator < ApplicationDecorator
   decorates :user
+  decorates_association :person
 
   def type
     User::TYPES[user.type]

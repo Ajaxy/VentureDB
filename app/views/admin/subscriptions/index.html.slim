@@ -8,6 +8,10 @@ table.table
       th ФИО
       th Компания
       th Дата
+      th Юр. лицо
+      th Адрес
+      th ОГРН
+      th ИНН
       th
   tbody
     - @subscriptions.each do |subscription|
@@ -16,6 +20,10 @@ table.table
         td = subscription.name
         td = subscription.company
         td = localize subscription.created_at, format: :short
+        td = subscription.legal_title
+        td = subscription.legal_address
+        td = subscription.legal_ogrn
+        td = subscription.legal_inn
         td
           =' link_to "Одобрить", [:approve, :admin, subscription], method: :post, class: "btn btn-small btn-success"
           = delete_button(subscription)
