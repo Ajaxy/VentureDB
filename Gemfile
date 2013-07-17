@@ -41,28 +41,22 @@ group :assets do
   gem 'uglifier',     '>= 1.0.3'
 end
 
-group :development do
-  gem 'awesome_print'
-  gem 'letter_opener'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'debugger'
-end
-
 group :development, :test do
   gem 'capybara'
   gem 'quiet_assets'
   # gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'awesome_print'
+  gem 'letter_opener'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'debugger'
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'rb-fsevent',       require: false
 end
 
 group :production do
   gem 'exception_notification'
-end
-
-group :development do
-  gem 'guard-livereload', require: false
-  gem 'rack-livereload'
-  gem 'rb-fsevent',       require: false
 end
