@@ -8,28 +8,47 @@ br
 table.table
   thead
     tr
-      th E-mail
+      th.center Имя
+      th.center E-mail
       th.center Зарегистрирован
-      th Тип
-      th Тариф
-      th Истекает
-      th.center Обновить
+      th.center Тип
+      th.center Тариф
+      th.center Истекает
+      th.center Покупка
       th.center Инфо
       th.center Удалить
   tbody
-    - @users.each do |user| user = user.decorate
+    - @users.each do |user|
       tr class=('expired' unless user.person.plan_active) class=('new' unless user.approved)
+        td = user.person.name
         td = user.link
         td.center = user.created_at
-        td = user.type
-        td = user.person.plan_title
+        td.center = user.type
+        td.center = user.person.plan_title
         td.center.ends_at = user.person.plan_ends_at
-        td.center = link_to 'Покупка', '#', method: :post, class: 'btn btn-small btn-success'
+        td.center = link_to content_tag(:i, '', class: 'icon-shopping-cart icon-white'), '#purchase_plan', class: 'btn btn-small btn-success', 'data-toggle' => 'modal'
         td.center
-          a.show-info.btn.btn-small Информация
-          = (link_to 'Подтвердить', [:approve, :admin, user], remote: true, method: :post, class: 'approve btn btn-small btn-success') unless user.approved
+          a.show-info.btn.btn-small Инфо
+          = (link_to content_tag(:i, '', class: 'icon-ok icon-white'), [:approve, :admin, user], remote: true, method: :post, class: 'approve btn btn-small btn-success') unless user.approved
           .info
             == user.person.legal_info
         td.center = delete_button(user)
+
+- content_for :popups do
+  #purchase_plan.modal.hide.fade tabindex="-1" role="dialog"
+    .modal-header
+      button.close type="button" data-dismiss="modal" aria-hidden="true" ×
+      h3 Покупка тарифа
+    .modal-body
+      p
+        ' Тариф:
+        select
+          - (1..4).each do |id|
+            option value=id
+              = @plans[id].title
+
+    .modal-footer
+      button.btn data-dismiss="modal" aria-hidden="true" Отмена
+      button.btn.btn-primary Оплата произведена
 
 = paginate @users

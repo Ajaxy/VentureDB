@@ -15,7 +15,7 @@
         = link_to 'войти', :new_user_session, { class: 'js-switch-form', data: { form: '.sign-in' } }
 
   .sign-in.active
-    = form_for User.new, url: user_session_path, name: 'sign_in', remote: true, html: { 'data-type' => 'json' }  do |f|
+    = form_for User.new, url: user_session_path, name: 'sign_in', html: { 'data-type' => 'json' }  do |f|
       p Войдите в систему, если у вас уже есть логин и пароль
       .input = f.text_field :email, required: true, autofocus: true, placeholder: 'Email'
       .input = f.password_field :password, required: false, placeholder: 'Пароль'

@@ -13,6 +13,14 @@ class PromoController < ApplicationController
     redirect_to :root if current_user
   end
 
+  def plans
+    @plans = []
+
+    (1..4).each do |id|
+      @plans[id] = PlansDecorator.decorate(Plans.get(id))
+    end
+  end
+
   def subscribe_post
     @subscription = Subscription.new(permitted_params.subscription)
 

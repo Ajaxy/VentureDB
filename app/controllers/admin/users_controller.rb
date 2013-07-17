@@ -6,6 +6,11 @@ class Admin::UsersController < Admin::BaseController
 
   def index
     @users = PaginatingDecorator.decorate paginate(User.order('created_at DESC'))
+
+    @plans = []
+    (1..4).each do |id|
+      @plans[id] = PlansDecorator.decorate(Plans.get(id))
+    end
   end
 
   def show

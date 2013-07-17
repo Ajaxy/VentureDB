@@ -275,8 +275,8 @@ jQuery ->
 
       return ""
 
-  $(document).on 'ajax:error', (e, xhr, status, error) ->
-    alert 'Ошибка:' + $.parseJSON(xhr.responseText).errors.join(', ')
+#  $(document).on 'ajax:error', (e, xhr, status, error) ->
+#    alert 'Ошибка:' + $.parseJSON(xhr.responseText).errors.join(', ')
 
   $('body.admin.users .approve')
     .on 'ajax:success', ->

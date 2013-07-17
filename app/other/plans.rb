@@ -1,28 +1,50 @@
 class Plans
   class << self
     PARAMS = {
-      1 => {
-          title: 'demo',
-          duration: 15.days,
-          connections: 1,
-          profiles: 25,
-          downloads: 3,
-          support_mins: 0,
-          monitoring: true,
-          mailing: false,
-          api: false
-      },
-      2 => {
-          title: 'group',
-          duration: 1.month,
-          connections: 5,
-          profiles: 200,
-          downloads: 100,
-          support_mins: 0,
-          monitoring: true,
-          mailing: true,
-          api: false
-      }
+        1 => {
+            title: 'demo',
+            duration: 14.days,
+            connections: 1,
+            profiles: 25,
+            downloads: 3,
+            support_mins: 0,
+            monitoring: true,
+            mailing: false,
+            api: false
+        },
+        2 => {
+            title: 'group',
+            duration: 1.month,
+            connections: 1,
+            profiles: 200,
+            downloads: 100,
+            support_mins: 0,
+            monitoring: true,
+            mailing: true,
+            api: false
+        },
+        3 => {
+            title: 'business',
+            duration: 1.month,
+            connections: 5,
+            profiles: 500,
+            downloads: 250,
+            support_mins: 30 * 60,
+            monitoring: true,
+            mailing: true,
+            api: false
+        },
+        4 => {
+            title: 'corporate',
+            duration: 1.month,
+            connections: -1,
+            profiles: -1,
+            downloads: -1,
+            support_mins: -1,
+            monitoring: true,
+            mailing: true,
+            api: true
+        }
     }
 
     def get(id)
