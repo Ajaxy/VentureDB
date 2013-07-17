@@ -36,6 +36,7 @@ class Subscription < ActiveRecord::Base
         person.legal_address = legal_address
         person.legal_ogrn = legal_ogrn
         person.legal_inn = legal_inn
+        person.plan_started_at = Time.now
       end
     end
   end

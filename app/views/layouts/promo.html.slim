@@ -24,24 +24,24 @@ html
             .right
               .menu
                 ul
-                  li: a href='/plans' Тарифы
-                  li: a href='#' Отзывы
-                  li: a href='#' Блог
+                  li: a.empty href='#' Блог
+                  li: a href='/about' О проекте
             .menu
               ul
-                li: a href='/about' О проекте
                 li: a href='/monitoring' Мониторинг рынка
-                li: a href='#' Справки по участникам
-                li: a href='#' Доступ к API
+                li: a.empty href='#' Справки по участникам
+                li: a.empty href='#' Доступ к API
                 li: a href='/analytics' Готовая аналитика
           .btm-line
             .right
               .menu
                 ul
+                  li: a href='/plans' Тарифы
+                  li: a.empty href='#' Отзывы
                   - unless current_user
                     li: a href='/login' Войти
                   - else
-                    li: a href='/deals' База статистики
+                    li: a href='/deals' Перейти к базе
                     li = link_to 'Выход', :destroy_user_session, method: 'delete'
             h1.logo
               a href='/' Venture database
@@ -51,11 +51,11 @@ html
         .inner
           .menu
             ul
-              li: a href='#' О проекте
-              li: a href='#' Тарифы
-              li: a href='#' Мониторинг рынка
-              li: a href='#' Справки по участникам
-              li: a href='#' Доступ к API
-              li: a href='#' Готовая аналитика
-              li: a href='#' Блог
+              li: a href='/about' О проекте
+              li: a href='/plans' Тарифы
+              li: a href='/monitoring' Мониторинг рынка
+              li: a.empty href='#' Справки по участникам
+              li: a.empty href='#' Доступ к API
+              li: a href='/analytics' Готовая аналитика
+              li: a.empty href='#' Блог
           .copyright ООО &laquo;Венчур датабэйс&raquo; &copy; 2013
