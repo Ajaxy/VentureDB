@@ -2,7 +2,7 @@
 
 #wrapper
   .subscribe
-    = form_for Subscription.new, url: '/subscribe', name: 'subscribe', data: { type: 'json' }, method: 'get' do |f|
+    = form_for Subscription.new, url: '/subscribe', name: 'subscribe', method: 'get' do |f|
       p Чтобы получить доступ, заполните информацию о себе
       .form-success Спасибо за интерес к нашему проекту! Мы отправим вам подтверждение регистрации в течение нескольких часов.
       .form-body
@@ -15,7 +15,7 @@
         = link_to 'войти', :new_user_session, { class: 'js-switch-form', data: { form: '.sign-in' } }
 
   .sign-in.active
-    = form_for User.new, url: user_session_path, name: 'sign_in'  do |f|
+    = form_for User.new, url: user_session_path, name: 'sign_in', remote: true, html: { 'data-type' => 'json'} do |f|
       p Войдите в систему, если у вас уже есть логин и пароль
       .input = f.text_field :email, required: true, autofocus: true, placeholder: 'Email'
       .input = f.password_field :password, required: false, placeholder: 'Пароль'
@@ -30,7 +30,7 @@
         = link_to 'зарегистрироваться', :root, { class: 'js-switch-form', data: { form: '.subscribe' } }
 
   .restore-password
-    = form_for User.new, url: user_password_path, name: 'restore-password' do |f|
+    = form_for User.new, url: user_password_path, name: 'restore-password', remote: true, html: { 'data-type' => 'json'} do |f|
       p Введите свой email, и мы вышлем вам инструкции по восстановлению пароля.
       .form-success Инструкции по восстановлению пароля высланы на указанный адрес
       .form-body

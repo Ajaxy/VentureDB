@@ -38,3 +38,34 @@
             p Технопарки, инкубаторы, конкурсы с информацией о резидентах и участниках.
             p Статистика сделок в частных компаниям по отраслям.
             p Поиск со-инвесторов по отраслям и специализации по стадии развития компании.
+
+    .clearfix
+            
+    section.feature#methodics
+      h3 Методика работы с данными
+
+    section.methodics
+      .first-steps
+        .step.step-1
+          .icon = image_tag 'about-step-1.png'
+          h4 <b>1</b> Сбор информации
+          p Ежедневный обзор информации в более чем 30 тематических новостных ресурсах:
+          table.sources
+            tr
+              td = link_to 'unova.ru', 'http://unova.ru/', target: '_blank'
+              td = link_to 'Venture Business', 'http://www.venture-news.ru/', target: '_blank'
+              td = link_to 'Коммерсант', 'http://kommersant.ru/', target: '_blank'
+            tr
+              td = link_to 'cnews.ru', 'http://cnews.ru/', target: '_blank'
+              td = link_to 'Стартап Афиша', 'http://startupafisha.ru/', target: '_blank'
+              td = link_to 'Ведомости', 'http://www.vedomosti.ru/', target: '_blank'
+          p.others и на многих других
+        .step.step-2
+          .icon = image_tag 'about-step-2.png'
+          h4 <b>2</b> Проверка
+          P Проверка в официальных источниках и последующая публикация экспертами проекта:
+          p.methods СПАРК Интерфакс, PREQVECA и др. базы, официальные сайты участников рынка, экспертная оценка, телефонные опросы
+          p.others и на многих других
+      .last-step
+        .icon = image_tag 'about-step-3.png'
+        h4 <b>3</b> Публикация данных в базе
