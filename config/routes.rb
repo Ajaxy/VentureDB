@@ -53,7 +53,9 @@ Venture::Application.routes.draw do
   get '/search' => 'search#index'
   get '/search/suggest' => 'search#suggest'
 
+  root to: 'deals#index', via: 'get', constraints: lambda { |r| r.env['warden'].authenticate? }
   root to: 'promo#index', via: 'get'
+  get '/promo' => 'promo#index'
   get '/login' => 'promo#login'
   get '/subscribe' => 'promo#subscribe'
   post '/subscribe' => 'promo#subscribe_post'
