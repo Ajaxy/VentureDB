@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   host: localhost
-  user: postgresql
+  username: postgres
   password: 111
   encoding: unicode
   database: venture_test
