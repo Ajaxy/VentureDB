@@ -9,6 +9,8 @@ development:
 test:
   adapter: postgresql
   host: localhost
+  user: postgresql
+  password: 111
   encoding: unicode
   database: venture_test
   pool: 5
