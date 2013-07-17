@@ -69,9 +69,11 @@ class Person < ActiveRecord::Base
     type_id == TYPE_BUSINESS_ANGEL_ID && investors.any?
   end
 
+  def plan_seconds_rest
+   (plan_started_at ? plan_started_at + Plans.get(plan).duration : Date.yesterday.to_time) - Time.now
+  end
+
   def plan_active
-    ends_at = plan_started_at ? plan_started_at + Plans.get(plan).duration : Date.yesterday.to_time
-    seconds = ends_at - Time.now
-    seconds > 0 ? seconds : false
+    plan_seconds_rest > 0
   end
 end
