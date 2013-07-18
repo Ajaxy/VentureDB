@@ -1,4 +1,3 @@
-
 development:
   adapter: postgresql
   host: localhost
@@ -9,8 +8,6 @@ development:
 test:
   adapter: postgresql
   host: localhost
-  username: postgres
-  password: 111
   encoding: unicode
   database: venture_test
   pool: 5
