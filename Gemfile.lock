@@ -306,7 +306,7 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   debugger
-  devise (~> 2.2.3)
+  devise (< 3.0)
   draper
   exception_notification
   github-markdown

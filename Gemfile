@@ -9,7 +9,7 @@ gem 'rvm-capistrano'
 gem 'capistrano_colors'
 
 gem 'awesome_nested_set'
-gem 'devise', '~> 2.2.3'
+gem 'devise', '< 3.0'
 gem 'draper'
 gem 'slim'
 gem 'jquery-rails'

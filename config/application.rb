@@ -70,6 +70,10 @@ module Venture
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     # Precompile additional assets
     config.assets.precompile += %w( .svg .eot .woff .ttf )
+
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
   end
 end
 
