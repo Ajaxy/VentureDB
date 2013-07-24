@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def menu_link(name, url, options = {})
-    html_class = "active" if url.to_s == controller_name.to_s
+    html_class = "active" if url_for == url_for(url)
     link = link_to name, url, options
     content_tag :li, link, class: html_class
   end

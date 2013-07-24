@@ -1,8 +1,11 @@
+#encoding: utf-8
+
 class Plans
   class << self
     PARAMS = {
         1 => {
             title: 'demo',
+            title_ru: 'Демо',
             duration: 14.days,
             connections: 1,
             profiles: 25,
@@ -14,6 +17,7 @@ class Plans
         },
         2 => {
             title: 'group',
+            title_ru: 'Группа',
             duration: 1.month,
             connections: 1,
             profiles: 200,
@@ -25,6 +29,7 @@ class Plans
         },
         3 => {
             title: 'business',
+            title_ru: 'Бизнес',
             duration: 1.month,
             connections: 5,
             profiles: 500,
@@ -36,6 +41,7 @@ class Plans
         },
         4 => {
             title: 'corporate',
+            title_ru: 'Корпорация',
             duration: 1.month,
             connections: -1,
             profiles: -1,
@@ -83,7 +89,27 @@ class Plans
     def can_access_api?(user)
       active?(user) && get(user.plan).api
     end
+
+    def for_select
+      unless @for_select
+        @for_select = {}
+        PARAMS.each do |i, param|
+          next if i == 1
+          @for_select[param[:title_ru]] = i
+        end
+      end
+
+      @for_select
+    end
   end
+
+  MONTHS = {
+      '1' => '1 месяц',
+      '3' => '3 месяца',
+      '6' => '6 месяцев',
+      '12' => '1 год',
+      '24' => '2 года',
+  }
 
   def initialize(params)
     @params = params

@@ -16,7 +16,7 @@ html
     /[ if lt IE 9 ]
       = javascript_include_tag 'http://html5shim.googlecode.com/svn/trunk/html5.js'
 
-  body.cabinet
+  body.cabinet class=@body_class
     #wrapper
       #middle
         #container
@@ -28,7 +28,7 @@ html
                 = form_tag '/search', method: :get, class: 'search' do
                   = text_field_tag :search, params[:search], placeholder: 'Например, TechCrunch Moscow 2012'
                   button type='submit' = 'ПОИСК'
-            .main-content = yield
+            .main-content.container = yield
             - unless @hide_footer
               footer.clearfix
                 .col-1
@@ -54,17 +54,7 @@ html
 
           nav
             ul
-              li
-                | Тариф:&nbsp;
-                = link_to current_user.decorate.person.plan_title, '/plans'
-              li
-                | Осталось дней:&nbsp;
-                b = current_user.decorate.person.plan_rest
-              li
-                = link_to 'Аккаунт', '/account/'
-
-          nav
-            ul
+              li = link_to 'Аккаунт', '/account/'
               li = link_to 'О проекте', :about
               - if current_user.admin?
                 li = link_to 'Панель управления', '/admin'

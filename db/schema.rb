@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715141719) do
+ActiveRecord::Schema.define(:version => 20130724102843) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -248,6 +248,9 @@ ActiveRecord::Schema.define(:version => 20130715141719) do
     t.string   "legal_address"
     t.string   "legal_ogrn"
     t.string   "legal_inn"
+    t.integer  "plan_order_plan"
+    t.integer  "plan_order_months"
+    t.datetime "plan_order_datetime"
   end
 
   create_table "project_authors", :force => true do |t|

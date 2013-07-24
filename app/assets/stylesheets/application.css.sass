@@ -49,30 +49,85 @@ a
 .clear
   clear: both
 
-.container > footer
-  background: #f7f8fa
-  border-top: solid 1px #dedfe1
-  color: #cacbd0
-  padding: 60px 0
-  .content-wrap
-    position: relative
-  .copy
-    position: absolute
-    top: 0
-    left: 0
-  nav
-    position: absolute
-    top: 0
-    right: 0
-    display: table
-    text-align: right
-    .link
-      display: table-cell
-      padding: 0 1em
-      text-align: center
-      vertical-align: middle
-      a
-        color: inherit
+.container
+  min-width: none!important
+  width: auto
+
+  &>footer
+    background: #f7f8fa
+    border-top: solid 1px #dedfe1
+    color: #cacbd0
+    padding: 60px 0
+    .content-wrap
+      position: relative
+    .copy
+      position: absolute
+      top: 0
+      left: 0
+    nav
+      position: absolute
+      top: 0
+      right: 0
+      display: table
+      text-align: right
+      .link
+        display: table-cell
+        padding: 0 1em
+        text-align: center
+        vertical-align: middle
+        a
+          color: inherit
+
+
+.green-btn
+  display: block
+  text-decoration: none !important
+  border-radius: 5px
+  border: 0
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.1)
+  color: #fff!important
+  font-size: 16px
+  padding: 13px 25px
+  cursor: pointer
+  background: #72a446
+  background: -moz-linear-gradient(top, #72a446, #476a27)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #72a446), color-stop(100%, #476a27))
+  background: -webkit-linear-gradient(top, #72a446, #476a27)
+  background: -o-linear-gradient(top, #72a446, #476a27)
+  background: -ms-linear-gradient(top, #72a446, #476a27)
+  background: linear-gradient(top, #72a446, #476a27)
+  &:hover
+    background: #72a446
+    box-shadow: none
+  &:active
+    box-shadow: inset 0 2px 3px 1px rgba(0, 0, 0, 0.2)
+
+.blue-btn
+  display: block
+  text-decoration: none !important
+  border-radius: 5px
+  border: 1px solid #6685da
+  box-shadow: inset 0 1px 0 #92b8f5
+  color: #fff!important
+  font-size: 16px
+  padding: 13px 15px
+  cursor: pointer
+  background: #79a5f3
+  background: -moz-linear-gradient(top, #79a5f3, #6579f4)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #79a5f3), color-stop(100%, #6579f4))
+  background: -webkit-linear-gradient(top, #79a5f3, #6579f4)
+  background: -o-linear-gradient(top, #79a5f3, #6579f4)
+  background: -ms-linear-gradient(top, #79a5f3, #6579f4)
+  background: linear-gradient(top, #79a5f3, #6579f4)
+  &:hover
+    background: #79a5f3
+  &:active
+    box-shadow: inset 0 2px 3px 1px rgba(0, 0, 0, 0.2)
+
+.blue-btn.small, .green-btn.small
+  display: inline-block
+  font-size: 13px
+  padding: 9px 15px
 
 .clearfix
   +clearfix()

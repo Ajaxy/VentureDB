@@ -4,17 +4,19 @@ class UserDecorator < ApplicationDecorator
   decorates :user
   decorates_association :person
 
+  def name
+    object.person.name
+  end
+
   def type
-    User::TYPES[user.type]
+    User::TYPES[object.type]
   end
 
   def link
-    super(text: user.email, scope: :admin)
+    super(text: object.email, scope: :admin)
   end
 
   def created_at
-    h.localize user.created_at.to_date
+    h.localize object.created_at.to_date
   end
-
-  def user; source; end
 end

@@ -53,6 +53,13 @@ Venture::Application.routes.draw do
   get '/search' => 'search#index'
   get '/search/suggest' => 'search#suggest'
 
+  get 'account/' => 'account#index'
+  get 'account/index' => 'account#index'
+  get 'account/edit'
+  get 'account/plan'
+  get 'account/plan_order'
+  put 'account/plan_order' => 'account#plan_order_update'
+
   root to: 'deals#index', via: 'get', constraints: lambda { |r| r.env['warden'].authenticate? }
   root to: 'promo#index', via: 'get'
   get '/promo' => 'promo#index'

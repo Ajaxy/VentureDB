@@ -48,7 +48,7 @@
 
         .control-group
           = f.label :status_id, "Статус сделки"
-          = f.select :status_id, Deal::STATUSES.invert, { include_blank: true }, class: "span5 chzn"
+          = f.select :status_id, Deal::STATUdSES.invert, { include_blank: true }, class: "span5 chzn"
 
         .control-group
           = f.label :round_id, "Раунд финансирования"

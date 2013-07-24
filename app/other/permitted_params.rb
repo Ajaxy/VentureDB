@@ -76,7 +76,7 @@ class PermittedParams < Struct.new(:params, :user)
       facebook slideshare vkontakte vacancies mentions other_geo from_connections_attributes
       birth_date email www plan
       plan_started_at used_connections used_profiles_acc used_downloads used_support_mins
-      legal_title legal_address legal_ogrn legal_inn]
+      legal_title legal_address legal_ogrn legal_inn plan_order_plan plan_order_months plan_order_datetime]
   end
 
   def project_attributes
