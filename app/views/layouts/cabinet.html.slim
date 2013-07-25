@@ -54,6 +54,12 @@ html
 
           nav
             ul
+              li
+                ' Тариф:
+                = link_to current_user.decorate.person.plan_title, [ :account, :plan ]
+              li
+                ' Осталось дней:
+                b = current_user.decorate.person.plan_rest
               li = link_to 'Аккаунт', '/account/'
               li = link_to 'О проекте', :about
               - if current_user.admin?
