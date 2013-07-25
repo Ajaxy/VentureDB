@@ -21,7 +21,7 @@
       p Чтобы получить доступ, заполните информацию о себе
       .form-success Спасибо за интерес к нашему проекту! Мы отправим вам подтверждение регистрации в течение нескольких часов.
       .form-body
-        .input = f.text_field :email, placeholder: 'E-mail', required: true, html: { type: 'email' }
+        .input = f.text_field :email, placeholder: 'E-mail', required: true, type: 'email'
         = f.fields_for :person do |p|
           .input = p.text_field :name, placeholder: 'ФИО', required: true
         .input = f.text_field :company, placeholder: 'Компания', required: true
