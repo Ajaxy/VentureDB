@@ -54,7 +54,7 @@ Venture::Application.routes.draw do
   get '/search/suggest' => 'search#suggest'
 
   get 'account/' => 'account#index'
-  get 'account/index' => 'account#index'
+  get 'account/index' => 'account#index'  #todo wtf
   get 'account/edit'
   get 'account/plan'
   get 'account/plan_order'

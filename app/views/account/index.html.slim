@@ -1,0 +1,16 @@
+- @body_class = 'account index'
+
+= render 'bar'
+
+p
+  ' Тариф:
+  = link_to @user.person.plan_title, { action: :plan }
+  br
+  ' Осталось дней:
+  b = @user.person.plan_rest
+
+- if @user.person.plan_order_plan
+  p
+    | Получена заявка на приобретение тарифа <b>#{Plans.get(@user.person.plan_order_plan).title_ru}</b>.
+  p
+    | На вашу почту был отправлен договор, который вам необходимо заполнить и отправить нам.

@@ -1,0 +1,53 @@
+body.cabinet.account
+  .main-content
+    @import "bootstrap"
+
+  .container
+    width: 90%
+
+  &.plan
+    table
+      .width-td
+        width: 180px
+        text-align: center
+      tr
+        vertical-align: top
+      th
+        border-bottom: 1px solid #dcdcdc
+        padding: 10px 0
+        font-size: 24px
+        text-transform: uppercase
+        font-weight: normal
+        &.active
+          background: forestgreen
+          border-radius: 10px
+          color: white
+      td
+        border-bottom: 1px solid #dcdcdc
+        padding: 7px 6px
+        font-size: 14px
+        .status
+          height: 14px
+          position: relative
+          top: 3px
+        div
+          margin-bottom: 10px
+          span
+            font-size: 24px
+            font-weight: bold
+            display: block
+            margin-bottom: 2px
+            &.green
+              color: forestgreen
+      tr
+        &.even td
+          background: #f4f4f4
+          strong
+            font-weight: normal
+        &:last-child td
+          padding: 20px 0 10px
+          border: 0
+  span.green
+    color: forestgreen
+  span.red
+    color: red

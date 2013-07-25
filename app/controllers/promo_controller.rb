@@ -11,6 +11,7 @@ class PromoController < ApplicationController
 
   def subscribe
     redirect_to :root if current_user
+    render :login
   end
 
   def plans

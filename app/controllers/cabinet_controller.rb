@@ -11,7 +11,7 @@ class CabinetController < ApplicationController
 
   def check_plan_status
     unless current_user.person.plan_active || controller_name == 'account' then
-      redirect_to '/account' + (:account)
+      redirect_to '/account'
     end
   end
 

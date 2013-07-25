@@ -1,20 +1,7 @@
 - @body_class = 'login'
 
 #wrapper
-  .subscribe
-    = form_for Subscription.new, url: '/subscribe', name: 'subscribe', method: 'get' do |f|
-      p Чтобы получить доступ, заполните информацию о себе
-      .form-success Спасибо за интерес к нашему проекту! Мы отправим вам подтверждение регистрации в течение нескольких часов.
-      .form-body
-        .input = f.text_field :name, placeholder: 'ФИО', required: true
-        .input = f.text_field :email, placeholder: 'E-mail', required: true, html: { type: 'email' }
-        .input = f.text_field :company, placeholder: 'Компания', required: true
-      .submit
-        = f.submit 'Получить доступ', class: 'btn'
-        span.and-or или
-        = link_to 'войти', :new_user_session, { class: 'js-switch-form', data: { form: '.sign-in' } }
-
-  .sign-in.active
+  .sign-in class=('active' if action_name == '' || action_name == 'login')
     = form_for User.new, url: user_session_path, name: 'sign_in', remote: true, html: { 'data-type' => 'json'} do |f|
       p Войдите в систему, если у вас уже есть логин и пароль
       .input = f.text_field :email, required: true, autofocus: true, placeholder: 'Email'
@@ -28,6 +15,20 @@
         = f.submit 'Войти', class: 'btn'
         span или
         = link_to 'зарегистрироваться', :root, { class: 'js-switch-form', data: { form: '.subscribe' } }
+
+  .subscribe class=('active' if action_name == 'subscribe')
+    = form_for User.new, url: user_registration_path, name: 'subscribe', remote: true, html: { 'data-type' => 'json' }, method: 'post' do |f|
+      p Чтобы получить доступ, заполните информацию о себе
+      .form-success Спасибо за интерес к нашему проекту! Мы отправим вам подтверждение регистрации в течение нескольких часов.
+      .form-body
+        .input = f.text_field :email, placeholder: 'E-mail', required: true, html: { type: 'email' }
+        = f.fields_for :person do |p|
+          .input = p.text_field :name, placeholder: 'ФИО', required: true
+        .input = f.text_field :company, placeholder: 'Компания', required: true
+      .submit
+        = f.submit 'Получить доступ', class: 'btn'
+        span.and-or или
+        = link_to 'войти', :new_user_session, { class: 'js-switch-form', data: { form: '.sign-in' } }
 
   .restore-password
     = form_for User.new, url: user_password_path, name: 'restore-password', remote: true, html: { 'data-type' => 'json'} do |f|

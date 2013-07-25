@@ -1,0 +1,131 @@
+- @body_class = 'account plan'
+
+= render 'bar'
+
+.width-full
+  table cellpadding="0" cellspacing="0" width="100%"
+    thead
+      tr
+        th
+        th.width-td class=('active' if @user.person.plan == 4) = @plans[4].title_ru
+        th.width-td class=('active' if @user.person.plan == 3) = @plans[3].title_ru
+        th.width-td class=('active' if @user.person.plan == 2) = @plans[2].title_ru
+        th.width-td class=('active' if @user.person.plan == 1) = @plans[1].title_ru
+    tbody
+      tr.even
+        td
+          strong Доступ к базе
+        td.width-td
+        td.width-td
+        td.width-td
+        td.width-td
+      tr
+        td
+          strong Пользователей
+        td.width-td = @plans[4].connections
+        td.width-td = @plans[3].connections
+        td.width-td = @plans[2].connections
+        td.width-td = @plans[1].connections
+      tr
+        td
+          strong Просмотренных профилей
+        td.width-td = @plans[4].profiles
+        td.width-td = @plans[3].profiles
+        td.width-td = @plans[2].profiles
+        td.width-td = @plans[1].profiles
+      tr
+        td
+          strong Загрузок
+        td.width-td = @plans[4].downloads
+        td.width-td = @plans[3].downloads
+        td.width-td = @plans[2].downloads
+        td.width-td = @plans[1].downloads
+      tr
+        td
+          strong Индивидуальные консультации
+        td.width-td = @plans[4].support_mins
+        td.width-td = @plans[3].support_mins
+        td.width-td = @plans[2].support_mins
+        td.width-td = @plans[1].support_mins
+      tr.even
+        td
+          strong Доступ к решениям
+        td.width-td
+        td.width-td
+        td.width-td
+        td.width-td
+      tr
+        td
+          a href="/monitoring"
+            strong Мониторинг рынка
+        td.width-td = @plans[4].monitoring
+        td.width-td = @plans[3].monitoring
+        td.width-td = @plans[2].monitoring
+        td.width-td = @plans[1].monitoring
+      tr
+        td
+          strong Рассылка
+        td.width-td = @plans[4].mailing
+        td.width-td = @plans[3].mailing
+        td.width-td = @plans[2].mailing
+        td.width-td = @plans[1].mailing
+      tr
+        td
+          a href="/api"
+            strong Доступ к API
+        td.width-td = @plans[4].api
+        td.width-td = @plans[3].api
+        td.width-td = @plans[2].api
+        td.width-td = @plans[1].api
+      tr.even
+        td
+        td.width-td
+          div
+            span
+              | 150 000
+            | рублей в месяц
+          | При оплате за год сумма составит 1 500 000 руб.
+        td.width-td
+          div
+            span
+              | 65 000
+            | рублей в месяц
+          | При оплате за год сумма составит 700 000 руб.
+        td.width-td
+          div
+            span
+              | 30 000
+            | рублей в месяц
+          | При оплате за год сумма составит 300 000 руб.
+        td.width-td
+          div
+            span.green
+              | FREE
+            | период 14 дней
+          | &nbsp;
+          br
+          | &nbsp;
+      tr
+        td
+        td.width-td
+          - unless @user.person.plan_order_plan == 4 then
+            a.blue-btn.small href="#{:plan_order}?plan=4" Оформить подписку
+          - else
+            | В обработке
+        td.width-td
+          - unless @user.person.plan_order_plan == 3 then
+            a.blue-btn.small href="#{:plan_order}?plan=3" Оформить подписку
+          - else
+            | В обработке
+        td.width-td
+          - unless @user.person.plan_order_plan == 2 then
+            a.blue-btn.small href="#{:plan_order}?plan=2" Оформить подписку
+          - else
+            | В обработке
+        td.width-td
+          - if @user.person.plan == 1 && @user.person.plan_rest.is_a?(Integer)
+            span.green
+              ' Осталось дней:
+              = @user.person.plan_rest
+          - else
+            span.red Срок истёк

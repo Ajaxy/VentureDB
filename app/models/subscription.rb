@@ -25,20 +25,18 @@ class Subscription < ActiveRecord::Base
   end
 
   def create_user
-    User.new do |user|
-      user.email = email
-      user.password = User.generate_password
+    user = User.new
+    user.email = email
+    user.password = User.generate_password
 
-      user.build_person do |person|
-        person.name    = name
-        person.type_id = Person::TYPE_EXPERT_ID
-        person.legal_title = legal_title
-        person.legal_address = legal_address
-        person.legal_ogrn = legal_ogrn
-        person.legal_inn = legal_inn
-        person.plan_started_at = Time.now
-      end
+    user.build_person do |person|
+      person.name    = name
+      person.type_id = Person::TYPE_EXPERT_ID
+      person.plan = 1
+      person.plan_started_at = Time.now
     end
+
+    sign_in(user)
   end
 
   def approve

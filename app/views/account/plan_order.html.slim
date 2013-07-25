@@ -1,0 +1,22 @@
+- @body_class = 'account index'
+
+= render 'bar'
+
+p
+  = form_for @user.person, url: '' do |f|
+    p Чтобы получить доступ, заполните информацию о себе
+    /.form-success Спасибо за интерес к нашему проекту! Мы отправим вам подтверждение регистрации в течение нескольких часов.
+    .form-body
+      p
+        = f.label :plan_order_plan, 'Тариф'
+        = f.select :plan_order_plan, Plans.for_select, { selected: params[:plan] }
+      p
+        = f.label :plan_order_months, 'Срок'
+        = f.select :plan_order_months, Plans::MONTHS.invert, { selected: 6 }
+      p Укажите реквизиты вашей организации (юр. лица)
+      .input = f.text_field :legal_title, placeholder: 'Полное наименование', required: true
+      .input = f.text_field :legal_address, placeholder: 'Полный адрес', required: true
+      .input = f.text_field :legal_ogrn, placeholder: 'ОГРН', required: true
+      .input = f.text_field :legal_inn, placeholder: 'ИНН', required: true
+    .submit
+      = f.submit 'Оформить заявку', class: 'btn'

@@ -24,6 +24,8 @@ class Person < ActiveRecord::Base
   validates :sex, inclusion: { in: %w[m f] }, allow_blank: true
   validates :type_id, presence: true, inclusion: { in: TYPES.keys }
 
+  before_validation :fill_defaults
+
   scope :business_angels, -> { where(type_id: TYPE_BUSINESS_ANGEL_ID) }
 
   define_index "people_index" do
@@ -52,7 +54,16 @@ class Person < ActiveRecord::Base
     where { name.like(search) }
   end
 
-  def full_name; name; end
+  def fill_defaults
+    if self.new_record?
+      self.type_id = Person::TYPE_EXPERT_ID
+      self.plan_started_at ||= Time.now
+    end
+  end
+
+  def full_name
+    name
+  end
 
   def full_name_with_email
     "#{full_name} #{email}"

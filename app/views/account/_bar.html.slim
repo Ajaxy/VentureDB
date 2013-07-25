@@ -1,0 +1,6 @@
+.navbar
+  .navbar-inner
+    = link_to @user.name, { action: :index }, class: 'brand'
+    ul.nav
+      /= menu_link 'редактировать', '#'
+      = menu_link 'выбрать тариф', { action: :plan }
