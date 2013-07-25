@@ -5,7 +5,7 @@ $(function() {
         play: {
             active: true,
             auto: true,
-            interval: 3000,
+            interval: 7000,
             swap: true
         }
     });

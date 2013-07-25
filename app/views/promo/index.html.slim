@@ -33,19 +33,15 @@
   .inner
     #sidebar
       .block
-        form.form-black
-          p Бесплатный доступ на 24 часа
-          p
-            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Имя и фамилия"
-          p
-            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Контактный телефон"
-          p
-          p
-            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Компания"
-          p
-            input.input-text id="" name="" onblur="if (!value) value=defaultValue" onclick="if (value=(=defaultValue))value=''" type="text" value="Контактный-emal"
-          p
-            input.green-btn type="submit" value="Получить доступ"
+        = form_for User.new, url: user_registration_path, name: 'subscribe', remote: true, html: { 'data-type' => 'json', class: 'form-black' }, method: 'post' do |f|
+          p ДЕМО-доступ
+          .form-body
+            = f.text_field :email, placeholder: 'E-mail', required: true, type: 'email', class: 'input-text'
+            = f.fields_for :person do |p|
+              = p.text_field :name, placeholder: 'ФИО', required: true, class: 'input-text'
+            = f.text_field :company, placeholder: 'Компания', required: true, class: 'input-text'
+          .submit
+            = f.submit 'Получить доступ', class: 'green-btn'
     #content
       h2 Какие возможности мы предоставляем?
       .list

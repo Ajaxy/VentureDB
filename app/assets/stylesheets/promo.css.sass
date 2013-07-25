@@ -193,9 +193,7 @@ body.promo
     height: auto
     padding: 8px 7px 7px
     font: 13px "PT Sans Caption", "Trebuchet MS", Arial, sans-serif
-    margin-bottom: auto
     &:focus
-      outline: none
       color: #222
 
   #bottom-teaser
@@ -221,19 +219,20 @@ body.promo
         .slidesjs-navigation
           position: absolute
           bottom: 14px
-          background: #000
-          border-radius: 50%
           display: block
           text-indent: -9999px
-          width: 26px
-          height: 26px
+          width: 14px
+          height: 14px
           z-index: 10
+          opacity: 0.8
           &:hover
-            background: #666
+            opacity: 1
           &.slidesjs-previous
             left: 10px
+            background: image-url('promo/arrow-left.gif')
           &.slidesjs-next
             right: 10px
+            background: image-url('promo/arrow-right.gif')
           &.slidesjs-stop, &.slidesjs-play
             display: none !important
       .left
