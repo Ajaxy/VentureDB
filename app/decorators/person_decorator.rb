@@ -28,6 +28,6 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def plan_rest
-    plan_active ? (plan_seconds_rest / 60 / 60 / 24).floor : 'Истёк!'
+    plan_active ? (plan_seconds_rest / 60 / 60 / 24).floor : 'Срок истёк!'
   end
 end
