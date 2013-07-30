@@ -13,8 +13,8 @@ set :whenever_command, 'bundle exec whenever'
 require 'whenever/capistrano'
 
 set :default_environment, {
-    'RBENV_ROOT' => '/usr/local/rbenv',
-    'PATH' => "/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH"
+    'RBENV_ROOT' => '/root/.rbenv',
+    'PATH' => "/root/.rbenv/shims:/root/.rbenv/bin:$PATH"
 }
 set :bundle_flags, "--deployment --quiet --binstubs --shebang ruby-local-exec"
 
@@ -31,7 +31,7 @@ end
 desc 'Run tasks in production enviroment.'
 task :production do
   set :application, 'venturedb'
-  set :branch, 'f45cb77571e473048e2c1e47a8a53829b709ecd4'
+  set :branch, 'master'
   set :nginx_server_names, 'venturedatabase.ru vdprod.ajaxy.ru'
 end
 
