@@ -69,7 +69,8 @@ Venture::Application.configure do
   config.action_mailer.default_url_options = { host: "venture.bi" }
   config.action_mailer.delivery_method     = :sendmail
 
-  config.middleware.use ExceptionNotifier,
-                        sender_address:        "error@venture.bi",
-                        exception_recipients:  ERROR_RECIPIENT
+  #config.middleware.use ExceptionNotification::Rack, email: {
+  #    sender_address:        "error@venture.bi",
+  #    exception_recipients:  ERROR_RECIPIENT
+  #}
 end
