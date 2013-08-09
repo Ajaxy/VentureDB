@@ -3,8 +3,8 @@ set_default(:sphinx_pid) { "#{shared_path}/pids/searchd.pid" }
 
 
 before "deploy:update_code", "thinking_sphinx:stop"
-after "deploy:update_code", "thinking_sphinx:start"
-after "deploy:update_code", "sphinx:reindex"
+#after "deploy:update_code", "thinking_sphinx:start"
+#after "deploy:update_code", "sphinx:reindex"
 
 namespace :sphinx do
   desc "Setup Sphinx initializer and app configuration"
@@ -19,7 +19,7 @@ namespace :sphinx do
 
   desc "Symlink Sphinx indexes"
   task :symlink_indexes, roles: [:app] do
-    run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+    #run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
   end
 
   desc "Regenerate indexes"

@@ -70,6 +70,6 @@ Venture::Application.configure do
   config.action_mailer.delivery_method     = :sendmail
 
   config.middleware.use ExceptionNotifier,
-    sender_address:        "error@venture.bi",
+    sender_address:        "alx.zinchuk@gmail.com",
     exception_recipients:  ERROR_RECIPIENT
 end
