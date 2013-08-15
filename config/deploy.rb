@@ -32,7 +32,7 @@ desc 'Run tasks in production enviroment.'
 task :production do
   set :application, 'venturedb'
   set :branch, 'stable'
-  set :nginx_server_names, 'venturedatabase.ru vdprod.ajaxy.ru'
+  set :nginx_server_names, 'venturedatabase.ru www.venturedatabase.ru venture.bi www.venture.bi'
 end
 
 set :user, 'root'
