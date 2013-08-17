@@ -66,7 +66,7 @@ Venture::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.action_mailer.default_url_options = { host: "venture.bi" }
+  config.action_mailer.default_url_options = { host: "venturedatabase.ru" }
   config.action_mailer.delivery_method     = :sendmail
 
   config.middleware.use ExceptionNotifier,
