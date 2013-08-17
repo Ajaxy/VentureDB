@@ -1,9 +1,9 @@
 section.search
   h1 Поиск
 
-  - unless @records.nil?
-    - if @records.any?
-      .search-results= render partial: "result_item", collection: @records
-      = render "more-link", collection: @records
-    - else
-      p По вашему запросу ничего не найдено.
+  /- unless @records.nil?
+  /  - if @records.any?
+  /    .search-results= render partial: "result_item", collection: @records
+  /    = render "more-link", collection: @records
+  /  - else
+  /    p По вашему запросу ничего не найдено.
