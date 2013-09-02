@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title VentureDB
+    = stylesheet_link_tag    "admin", :media => "all"
+    = javascript_include_tag "admin"
+    = csrf_meta_tags
+  body.admin class=[controller.class.name =~ /^(Devise|Users)::/ ? "devise" : controller_name]
+    .container
+      - if current_user
+        .navbar
+          .navbar-inner
+            = link_to "VentureDB", :root, class: "brand"
+            ul.nav
+              = menu_link "Инфраструктура", [:admin, :companies]
+              = menu_link "Эксперты", [:admin, :people]
+              = menu_link "Сделки", [:admin, :deals]
+              = menu_link "Пользователи", [:admin, :users]
+              /= menu_link "Заявки", [:admin, :subscriptions]
+            ul.nav.pull-right
+              li.dropdown
+                a.dropdown-toggle href="#" data-toggle="dropdown"
+                  = current_user.email
+                  b.caret
+                ul.dropdown-menu
+                  li = link_to "Выход", destroy_user_session_path, method: :delete
+
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          div class="alert alert-#{name == :notice ? "success" : "error"}"
+            a class="close" data-dismiss="alert" &#215;
+            = content_tag :div, msg, id: "flash_#{name}"
+
+      = yield
+      = yield :popups

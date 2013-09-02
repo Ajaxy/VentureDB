@@ -3,8 +3,6 @@
 class PromoController < ApplicationController
   respond_to :html, :json
 
-  layout 'promo'
-
   def login
     redirect_to :root if current_user
   end

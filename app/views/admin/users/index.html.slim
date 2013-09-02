@@ -1,9 +1,16 @@
+.center
 
-.pull-left = link_to 'Добавить пользователя', [:new, :admin, :user], class: 'btn btn-primary'
+  .pull-left
+    p = link_to 'Добавить пользователя', [:new, :admin, :user], class: 'btn btn-primary'
 
-.total Всего пользователей: #{b User.count}
+  .pull-right Всего пользователей: #{User.count}
 
-br
+  = form_tag '', method: :get do
+    .input-append
+      = text_field_tag :search, params[:search], class: 'span4', placeholder: 'Введите часть имени или эл. адреса'
+      button.btn type="submit" Поиск
+
+  .clearfix
 
 table.table
   thead

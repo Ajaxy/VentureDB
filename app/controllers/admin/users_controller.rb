@@ -5,7 +5,17 @@ class Admin::UsersController < Admin::BaseController
   respond_to :json, only: :approve
 
   def index
-    @users = PaginatingDecorator.decorate paginate(User.order('created_at DESC'))
+    @users = User.order('created_at DESC')
+
+    unless params[:search].empty? then
+      @users = @users.joins(:person).where(
+          'LOWER(people.name) LIKE LOWER(?) OR users.email LIKE ?',
+          "%#{params[:search]}%",
+          "%#{params[:search]}%"
+      )
+    end
+
+    @users = PaginatingDecorator.decorate(paginate(@users))
 
     @plans = []
     (1..4).each do |id|

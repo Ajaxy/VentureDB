@@ -1,0 +1,27 @@
+#header
+  .inner
+    .top-line
+      .right
+        .menu
+          ul
+            li: a href='/account' Настройки аккаунта
+            - if current_user.admin?
+              li.dropdown
+                a href="/admin" data-toggle="dropdown"
+                  | Панель управления
+                ul.dropdown-menu
+                  = menu_link "Добавить сделку", [:new, :admin, :deal]
+                  = menu_link "Сделки", [:admin, :deals]
+                  = menu_link "Пользователи", [:admin, :users]
+                  /= menu_link "Инфраструктура", [:admin, :companies]
+                  /= menu_link "Эксперты", [:admin, :people]
+            li = link_to 'Выход', :destroy_user_session, method: 'delete'
+    .btm-line
+      .right
+        .menu
+          ul
+            li: a href='/deals' Мониторинг сделок
+            li: a.empty href='#' Справки по участникам
+            li: a.empty href='#' Блог
+      h1.logo
+        a href='/' Venture database

@@ -1,54 +1,12 @@
 doctype html
 html
-  head
-    title VentureDB
-
-    = render 'google-fonts'
-    = render 'google-analytics'
-
-    = stylesheet_link_tag    'application', :media => 'all'
-    = javascript_include_tag 'application'
-    = favicon_link_tag       'favicon.png'
-    = csrf_meta_tags
-
-    = yield :head
-
-    /[ if lt IE 9 ]
-      = javascript_include_tag 'http://html5shim.googlecode.com/svn/trunk/html5.js'
+  = render 'head'
 
   body.cabinet class=[@body_class]
     #container
-      #header
-        .inner
-          .top-line
-            .right
-              .menu
-                ul
-                  li: a href='/account' Настройки аккаунта
-                  - if current_user.admin?
-                    li: a href='/admin' target="_blank" Панель управления
-                  li = link_to 'Выход', :destroy_user_session, method: 'delete'
-          .btm-line
-            .right
-              .menu
-                ul
-                  li: a href='/deals' Мониторинг сделок
-                  li: a.empty href='#' Справки по участникам
-                  li: a.empty href='#' Блог
-            h1.logo
-              a href='/' Venture database
+      = render 'inside_header'
+
       #wrapper
         .inner = yield
-      .hFooter
-      #footer
-        .inner
-          .menu
-            ul
-              li: a href='/about' О проекте
-              li: a href='/plans' Тарифы
-              li: a href='/monitoring' Мониторинг рынка
-              li: a.empty href='#' Справки по участникам
-              li: a.empty href='#' Доступ к API
-              li: a href='/analytics' Готовая аналитика
-              li: a.empty href='#' Блог
-          .copyright ООО &laquo;Венчур датабэйс&raquo; &copy; 2013
+
+      = render 'footer'
