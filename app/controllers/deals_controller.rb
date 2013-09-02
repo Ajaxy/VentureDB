@@ -9,7 +9,7 @@ class DealsController < CabinetController
                                        investors.actor, investors.locations]}
     scope   = @filter.filter(scope)
 
-    @deals  = PaginatingDecorator.decorate(paginate scope)
+    @deals  = PaginatingDecorator.decorate(paginate scope, 20)
   end
 
   def show

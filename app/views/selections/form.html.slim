@@ -1,0 +1,28 @@
+.left-block.right-block
+  aside.left
+    = render 'deals_sidebar_left'
+
+  aside.right
+    = render 'deals_sidebar_right'
+
+  .middle
+    .head
+      h3 Управление выборками
+
+    = form_for(@selection) do |f|
+      h4 Укажите интересную вам область
+      h4 Уточните параметры сделки
+
+      p 1. Формат сделки
+      p 2. Сумма
+      p 3. Период
+      p
+        | 4. Название выборки
+        br
+        = f.text_field :title, class: 'span7'
+      p
+        label.checkbox for="checkbox-mailing"
+          = f.check_box :mailing, id: 'checkbox-mailing'
+          | Включать в рассылку
+      br
+      = f.submit 'Сохранить', class: 'btn'

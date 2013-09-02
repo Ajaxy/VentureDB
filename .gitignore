@@ -28,5 +28,6 @@
 fromHtml
 toSlim
 logfile
+/_stuff
 
 /config/database.yml

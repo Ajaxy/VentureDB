@@ -1,5 +1,5 @@
-$("table.list").append("<%=j render partial: 'deal_row', collection: @deals %>");
-$(".more").remove()
+$("section.deals .middle").append("<%=j render partial: 'deal_row', collection: @deals %>");
+$(".more").remove();
 
 <% unless @deals.last_page? %>
   $("section.deals").append("<%=j render "more-link", collection: @deals %>");

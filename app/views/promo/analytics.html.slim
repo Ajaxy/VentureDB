@@ -1,109 +1,108 @@
 - @body_class = 'analytics'
 
-#wrapper
-  .inner
-    #sidebar
-      .block.person
-        .photo = image_tag 'promo/vasiliev.jpg', alt: 'Васильев Сергей', title: 'Васильев Сергей'
-        p.name
-          | Васильев Сергей
+.inner
+  #sidebar
+    .block.person
+      .photo = image_tag 'promo/vasiliev.jpg', alt: 'Васильев Сергей', title: 'Васильев Сергей'
+      p.name
+        | Васильев Сергей
+      p
+        | Инвестиционный аналитик
+    .block
+      form.form-black
         p
-          | Инвестиционный аналитик
-      .block
-        form.form-black
-          p
-            | Закажите свою подборку
-          p
-            input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Имя и фамилия" name=""]
-          p
-            input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Контактный телефон" name=""]
-          p
-          p
-            input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Компания" name=""]
-          p
-            input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Контактный-emal" name=""]
-          p
-            textarea.input-text[style="height:200px"]
-              | Уточните, какие данные Вас интересуют: название, адрес, объем финансирования и пр.
-          p
-            input.green-btn[type="submit" value="Заказать подборку"]
-      .block.share
-        ul.menu
-          li
-            | Поделиться в:
-          li.vk
-            a[href="#" title="Вконтакте"]
-              | Вконтакте
-          li.fb
-            a[href="#" title="Facebook"]
-              | Facebook
-          li.tw
-            a[href="#" title="Twitter"]
-              | Twitter
-          li.mm
-            a[href="#" title="Mail.ru"]
-              | Mail.ru
-    #content
-      h3
-        | В рамках анализа рынка мы проводим работы по сбору и систематизации первичных данных об участниках, сделках, инфраструктуре.
-      .table-selection
-        strong
-          | Готовые подборки:
-        table[width="100%" cellpadding="0" cellspacing="0"]
-          tr
-            td
-              | 1. 
-            td
-              a[href="#"]
-                | Технопарки Москвы
-            td.price
-              | 15 000 рублей
-          tr
-            td
-              | 2. 
-            td
-              a[href="#"]
-                | Лучшие венчурные фонды по версии H&F 2013
-            td.price
-              | 100 000 рублей
-          tr
-            td
-              | 3. 
-            td
-              a[href="#"]
-                | Инновационные проекты в медицине
-            td.price
-              | 15 000 рублей
-          tr
-            td
-              | 4. 
-            td
-              a[href="#"]
-                | Инновационные проекты в медицине
-            td.price
-              | 15 000 рублей
-          tr
-            td
-              | 5. 
-            td
-              a[href="#"]
-                | Инновационные проекты в медицине
-            td.price
-              | 15 000 рублей
-          tr
-            td
-              | 6. 
-            td
-              a[href="#"]
-                | Инновационные проекты в медицине
-            td.price
-              | 15 000 рублей
-          tr
-            td
-              | 7. 
-            td
-              a[href="#"]
-                | Инновационные проекты в медицине
-            td.price
-              | 15 000 рублей
-  = render 'bottom_teaser'
+          | Закажите свою подборку
+        p
+          input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Имя и фамилия" name=""]
+        p
+          input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Контактный телефон" name=""]
+        p
+        p
+          input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Компания" name=""]
+        p
+          input.input-text[type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=''" value="Контактный-emal" name=""]
+        p
+          textarea.input-text[style="height:200px"]
+            | Уточните, какие данные Вас интересуют: название, адрес, объем финансирования и пр.
+        p
+          input.green-btn[type="submit" value="Заказать подборку"]
+    .block.share
+      ul.menu
+        li
+          | Поделиться в:
+        li.vk
+          a[href="#" title="Вконтакте"]
+            | Вконтакте
+        li.fb
+          a[href="#" title="Facebook"]
+            | Facebook
+        li.tw
+          a[href="#" title="Twitter"]
+            | Twitter
+        li.mm
+          a[href="#" title="Mail.ru"]
+            | Mail.ru
+  #content
+    h3
+      | В рамках анализа рынка мы проводим работы по сбору и систематизации первичных данных об участниках, сделках, инфраструктуре.
+    .table-selection
+      strong
+        | Готовые подборки:
+      table[width="100%" cellpadding="0" cellspacing="0"]
+        tr
+          td
+            | 1. 
+          td
+            a[href="#"]
+              | Технопарки Москвы
+          td.price
+            | 15 000 рублей
+        tr
+          td
+            | 2. 
+          td
+            a[href="#"]
+              | Лучшие венчурные фонды по версии H&F 2013
+          td.price
+            | 100 000 рублей
+        tr
+          td
+            | 3. 
+          td
+            a[href="#"]
+              | Инновационные проекты в медицине
+          td.price
+            | 15 000 рублей
+        tr
+          td
+            | 4. 
+          td
+            a[href="#"]
+              | Инновационные проекты в медицине
+          td.price
+            | 15 000 рублей
+        tr
+          td
+            | 5. 
+          td
+            a[href="#"]
+              | Инновационные проекты в медицине
+          td.price
+            | 15 000 рублей
+        tr
+          td
+            | 6. 
+          td
+            a[href="#"]
+              | Инновационные проекты в медицине
+          td.price
+            | 15 000 рублей
+        tr
+          td
+            | 7. 
+          td
+            a[href="#"]
+              | Инновационные проекты в медицине
+          td.price
+            | 15 000 рублей
+= render 'bottom_teaser'

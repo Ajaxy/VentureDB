@@ -25,8 +25,10 @@ table.table
         td.center = user.created_at
         td.center = user.type
         td.center = user.person.plan_title
-        td.center.ends_at = user.person.plan_ends_at
-        td.center = link_to content_tag(:i, '', class: 'icon-shopping-cart icon-white'), '#purchase_plan', class: 'btn btn-small btn-success', 'data-toggle' => 'modal'
+        td.center.ends_at = localize(user.person.plan_ends_at.to_date)
+        td.center
+          - if user.person.plan_order_plan
+            = link_to content_tag(:i, '', class: 'icon-shopping-cart icon-white'), '#purchase_plan', class: 'btn btn-small btn-success btn-order', 'data-toggle' => 'modal', 'data-plan' => Plans.get(user.person.plan_order_plan).title_ru, 'data-months' => user.person.plan_order_months, 'data-user_id' => user.id
         td.center
           a.show-info.btn.btn-small Инфо
           = (link_to content_tag(:i, '', class: 'icon-ok icon-white'), [:approve, :admin, user], remote: true, method: :post, class: 'approve btn btn-small btn-success') unless user.approved
@@ -36,19 +38,38 @@ table.table
 
 - content_for :popups do
   #purchase_plan.modal.hide.fade tabindex="-1" role="dialog"
-    .modal-header
-      button.close type="button" data-dismiss="modal" aria-hidden="true" ×
-      h3 Покупка тарифа
-    .modal-body
-      p
-        ' Тариф:
-        select
-          - (1..4).each do |id|
-            option value=id
-              = @plans[id].title
+    form action="" data-remote="true"
+    = form_tag purchase_admin_users_url, remote: true
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" ×
+        h3 Покупка тарифа
 
-    .modal-footer
-      button.btn data-dismiss="modal" aria-hidden="true" Отмена
-      button.btn.btn-primary Оплата произведена
+      .modal-body
+        p
+          ' Тариф
+          b.order-plan
+          ' , срок:
+          b.order-months
+          |  месяцев.
+        .form-horizontal
+          .control-group
+            label.control-label Тариф:
+            .controls
+              select name="order_plan"
+                - (1..4).each do |id|
+                  option value=id
+                    = @plans[id].title_ru
+          .control-group
+            label.control-label Месяцев:
+            .controls
+              select name="order_months"
+                - [1,2,3,6,12,24].each do |months|
+                  option value=months
+                    = months
+
+      .modal-footer
+        input type="hidden" name="user_id"
+        button.btn data-dismiss="modal" aria-hidden="true" Отмена
+        button.btn.btn-primary type="submit" Оплата произведена
 
 = paginate @users

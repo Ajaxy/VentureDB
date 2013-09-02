@@ -1,0 +1,20 @@
+h4 Готовые выборки
+.menu
+  ul
+    li: a.empty href="#" Все за последний квартал
+    li: a.empty href="#" Самые крупные гранты
+    li: a.empty href="#" Самые крупные сделки
+    li: a.empty href="#" Сделки и гранты с гос. участием
+    li: a.empty href="#" Сделки из отчета PwC Money Tree Russia 2013
+    li: a.empty href="#" Синдицированные сделки
+- if current_user.selections.any?
+  br
+  h4 Ваши выборки
+  .menu
+    ul
+      - current_user.selections.each do |selection|
+        li
+          .tools
+            = link_to '', [:edit, selection], class: 'icon icon-edit'
+            = link_to '', selection, method: :delete, remote: true, class: 'icon icon-remove'
+          = link_to selection, "/deals?selection=#{selection.id}"

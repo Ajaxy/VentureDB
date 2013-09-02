@@ -1,274 +1,54 @@
 @import "account"
+@import "deals"
 
 body.cabinet
   font: $font!important
 
-  #wrapper
-    width: 100%
-
-  #middle
-    border-left: 215px solid #8caec5
-    height: 1%
-    position: relative
-
-  #middle:after
-    content: ''
-    clear: both
-    display: table
-
-  #container
-    width: 100%
-    float: left
-    overflow: hidden
-    margin-right: -100%
-
-  #content
-    min-width: 921px
-    // background: #f7f8fa
-    header
-      height: 130px
-      // background: image-url("header-bg.png") repeat-x bottom
-      +box-shadow(inset 0 -5px 10px -2px rgba(0, 0, 0, 0.1))
-
-      #logo
-        float: left
-        width: 380px
-        height: 100%
-        margin-left: 50px
-        text-transform: uppercase
-        font-size: 26px
-        font-weight: bold
-        p
-          line-height: 120px
-          letter-spacing: 2px
-      #search_box
-        float: left
-        padding-top: 40px
-        width: 491px
-
-        input
-          width: 405px
-          height: 23px
-          float: left
-          border-right: none
-          border-top-right-radius: 0
-          border-bottom-right-radius: 0
-          background: image-url("search-bg.png") no-repeat right
-        button[type="submit"]
-          width: 73px
-          height: 33px
-          background-color: #ad8863
-          color: #fff
-          font-size: 12px
-          float: right
-          letter-spacing: 2px
-          border: 1px solid #cccccc
-          border-left: none
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
-          border-top-right-radius: 4px
-          border-bottom-right-radius: 4px
-
-  #menu
-    float: left
-    width: 215px
-    position: relative
-    background-color: #8caec5
-    left: -215px
-
-    nav
-      width: 170px
-      margin: auto
-      margin-top: 50px
-
-      ul
-        li
-          height: 35px
-          vertical-align: middle
-          font-size: 0.8em
-          color: #444
-          a
-            text-transform: uppercase
-            color: #fff
-            line-height: 35px
-            position: relative
-            text-transform: uppercase
-            letter-spacing: 2px
-
-      ul.main-menu
-        li
-          height: 35px
-          vertical-align: middle
-          a
-            text-transform: uppercase
-            color: #fff
-            line-height: 35px
-            display: block
-            position: relative
-            padding-left: 25px
-            text-transform: uppercase
-            font-size: 1.2em
-            letter-spacing: 2px
-
-            &:before
-              content: ""
-              position: absolute
-              left: 8px
-              top: 10px
-              height: 13px
-              width: 13px
-              background: image-url("menu-sprite.png") no-repeat
-            &.investors:before
-              background-position: 0 0
-            &.projects:before
-              background-position: 0 -13px
-            &.companies:before
-              background-position: 0 -26px
-            &.statistics:before
-              background-position: 0 -38px
-            &.deals:before
-              background-position: 0 -51px
-
-          &.separator
-            height: 5px
-            border-bottom: 1px solid #a3bed1
-            margin-bottom: 5px
-  a
-    color: #0b90a4
-
-  .main-content
-    margin-top: 20px
-    margin-left: 50px
-    padding-bottom: 20px
-    min-height: 500px
-
-    h1
-      font-size: 2em
-    h2
-      margin: 25px 0 25px 0
-      font-size: 1.2em
+  .middle, aside
+    h3, h4
+      text-transform: uppercase
       font-weight: bold
 
-    > section,
-    > article
-      width: 870px
-      min-height: 500px
+  .left-block
+    .middle
+      margin-left: 175px
+      border-left: 1px solid #ccc
+      padding-left: 25px
 
-      .head
-        padding-top: 20px
-        padding-bottom: 20px
-        height: 40px
+  .right-block
+    .middle
+      margin-right: 175px
+      border-right: 1px solid #ccc
+      padding-right: 25px
 
-        h1, h2
-          width: 740px
-          float: left
-        h2
-          width: 500px
-          margin: 0
-          padding-top: 9px
-
-        .actions
-          width: 250px
-          float: right
-          text-align: right
-          .create-btn
-            float: right
-            margin-left: 15px
-          #toggle_extended_search
-            display: inline-block
-            float: right
-            margin-top: 8px
-            font-size: 0.9em
-            color: #000
-            border-bottom: dashed 1px
-            &:hover
-              text-decoration: none
-
-    .button
-      display: inline-block
-      vertical-align: middle
-      font-size: 12px
-      border: solid 1px #d1d1d1
-      border-radius: 5px
-      +box-shadow(0 1px 0 0 #f0f0f0)
-      padding: 5px 10px
-      background-color: #fafafa
-      +background-image(linear-gradient(top, #fff, #fafafa))
-      color: inherit !important
-
-    form.extended-search
+  .middle
+    .head
       +clearfix
-      overflow: visible
-      display: none
-      &.opened
-        display: block
-      background-color: #f1f1f1
-      width: 830px
-      padding: 5px 20px
-      font-size: 13px
-      margin-bottom: 20px
-      h2
-        color: black
-        font-size: 13px
-        text-transform: uppercase
-        margin: 15px 0
-        line-height: 20px
-      h3
-        margin-top: 5px
-        margin-bottom: 10px
-        font-weight: bold
-      .clear-both
-        clear: both
-      .block + .block
-        margin-left: 30px
-      .block
-        margin-bottom: 15px
-        &.horizontal
-          float: left
-          .investor-types, .sectors, .ranges, .rounds, .stages
-            overflow-y: auto
-            max-height: 100%
-            border: 1px solid #d8d8d8
-            background-color: white
-            height: 230px
-            padding: 10px
-          .investor-types, .stages
-            width: 215px
-          .rounds, .ranges
-            width: 200px
-          .sectors
-            width: 285px
-            .checkbox.nested
-              padding-left: 40px
-        &.form-inline
-          .date-label
-            margin-left: 20px
-          .datepicker
-            text-align: center
-          &.sort
-            select, .chzn-container
-              margin: 5px 0
-          select, .chzn-container, input[type="text"]
-            display: inline-block
-            margin: 5px 10px 5px 10px
-            width: 140px
-          select
-            margin-left: 20px
-            width: 185px
 
-      input[type="submit"].btn
-        display: block
-        margin: 30px auto
-        text-transform: uppercase
+    h3
+      float: left
+
+  aside
+    width: 155px
+
+    &.left
+      float: left
+      padding-right: 20px
+
+    &.right
+      float: right
+      padding-left: 20px
+
+    .menu li
+      display: block
+      margin-top: 8px
+      a
+        font-size: 90%
         font-weight: bold
-        width: 150px
-        height: 30px
-        font-size: 13px
-        line-height: 22px
-        @include buttonBackground(#61aa8b, #52997a)
 
   table.list
     border: 1px solid #e3e3e3
-    width: 870px
+    width: 100%
     margin-bottom: 20px
     font-size: 12px
 
@@ -287,6 +67,17 @@ body.cabinet
           border-top: 0
       td
         border: 1px solid #e3e3e3
+
+  .head
+    .actions
+      float: right
+      a
+        color: #ffffff
+        &:hover
+          text-decoration: none
+
+  .tools
+    float: right
 
   .profile
     > section + section
@@ -344,47 +135,270 @@ body.cabinet
       font-size: 22px
       line-height: 1.4
 
-  .horizontal-select
-    display: inline-block
-    vertical-align: middle
-    font-size: 12px
-    border: solid 1px #d1d1d1
-    border-radius: 5px
-    +box-shadow(0 1px 0 0 #f0f0f0)
-    overflow: hidden
-    font-family: $narrow-font
-    > a
-      display: inline-block
-      padding: 5px 0
-      color: inherit !important
-      width: 55px
-      text-align: center
-      background: white
-      &.active
-        background: #f8f8f8
+  //.horizontal-select
+  //  display: inline-block
+  //  vertical-align: middle
+  //  font-size: 12px
+  //  border: solid 1px #d1d1d1
+  //  border-radius: 5px
+  //  +box-shadow(0 1px 0 0 #f0f0f0)
+  //  overflow: hidden
+  //  font-family: $narrow-font
+  //  > a
+  //    display: inline-block
+  //    padding: 5px 0
+  //    color: inherit !important
+  //    width: 55px
+  //    text-align: center
+  //    background: white
+  //    &.active
+  //      background: #f8f8f8
+                                //
+//#wrapper
+//  width: 100%
+//
+//#middle
+//  border-left: 215px solid #8caec5
+//  height: 1%
+//  position: relative
+//
+//#middle:after
+//  content: ''
+//  clear: both
+//  display: table
+//
+//#container
+//  width: 100%
+//  float: left
+//  overflow: hidden
+//  margin-right: -100%
+//
+//#content
+//  min-width: 921px
+//  // background: #f7f8fa
+//  header
+//    height: 130px
+//    // background: image-url("header-bg.png") repeat-x bottom
+//    +box-shadow(inset 0 -5px 10px -2px rgba(0, 0, 0, 0.1))
+//
+//    #logo
+//      float: left
+//      width: 380px
+//      height: 100%
+//      margin-left: 50px
+//      text-transform: uppercase
+//      font-size: 26px
+//      font-weight: bold
+//      p
+//        line-height: 120px
+//        letter-spacing: 2px
+//    #search_box
+//      float: left
+//      padding-top: 40px
+//      width: 491px
+//
+//      input
+//        width: 405px
+//        height: 23px
+//        float: left
+//        border-right: none
+//        border-top-right-radius: 0
+//        border-bottom-right-radius: 0
+//        background: image-url("search-bg.png") no-repeat right
+//      button[type="submit"]
+//        width: 73px
+//        height: 33px
+//        background-color: #ad8863
+//        color: #fff
+//        font-size: 12px
+//        float: right
+//        letter-spacing: 2px
+//        border: 1px solid #cccccc
+//        border-left: none
+//        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+//        border-top-right-radius: 4px
+//        border-bottom-right-radius: 4px
+//
+//#menu
+//  float: left
+//  width: 215px
+//  position: relative
+//  background-color: #8caec5
+//  left: -215px
+//
+//  nav
+//    width: 170px
+//    margin: auto
+//    margin-top: 50px
+//
+//    ul
+//      li
+//        height: 35px
+//        vertical-align: middle
+//        font-size: 0.8em
+//        color: #444
+//        a
+//          text-transform: uppercase
+//          color: #fff
+//          line-height: 35px
+//          position: relative
+//          text-transform: uppercase
+//          letter-spacing: 2px
+//
+//    ul.main-menu
+//      li
+//        height: 35px
+//        vertical-align: middle
+//        a
+//          text-transform: uppercase
+//          color: #fff
+//          line-height: 35px
+//          display: block
+//          position: relative
+//          padding-left: 25px
+//          text-transform: uppercase
+//          font-size: 1.2em
+//          letter-spacing: 2px
+//
+//          &:before
+//            content: ""
+//            position: absolute
+//            left: 8px
+//            top: 10px
+//            height: 13px
+//            width: 13px
+//            background: image-url("menu-sprite.png") no-repeat
+//          &.investors:before
+//            background-position: 0 0
+//          &.projects:before
+//            background-position: 0 -13px
+//          &.companies:before
+//            background-position: 0 -26px
+//          &.statistics:before
+//            background-position: 0 -38px
+//          &.deals:before
+//            background-position: 0 -51px
+//
+//        &.separator
+//          height: 5px
+//          border-bottom: 1px solid #a3bed1
+//          margin-bottom: 5px
+//a
+//  color: #0b90a4
+//
+//.main-content
+//  margin-top: 20px
+//  margin-left: 50px
+//  padding-bottom: 20px
+//  min-height: 500px
+//
+//  h1
+//    font-size: 2em
+//  h2
+//    margin: 25px 0 25px 0
+//    font-size: 1.2em
+//    font-weight: bold
+//
+//  > section,
+//  > article
+//    width: 870px
+//    min-height: 500px
+//
+//    .head
+//      padding-top: 20px
+//      padding-bottom: 20px
+//      height: 40px
+//
+//      h1, h2
+//        width: 740px
+//        float: left
+//      h2
+//        width: 500px
+//        margin: 0
+//        padding-top: 9px
+//
 
-  #content > footer
-    background: #1c1c1c
-    padding: 50px
-    line-height: 1.3
-    font-size: 12px
-    text-transform: uppercase
-    h2
-      color: #fff
-      font-size: 13px
-      font-weight: normal
-      margin-bottom: 20px
-    a
-      color: #9d9d9d
-      display: block
-    a + a
-      margin-top: 15px
-    .col-1, .col-2, .subcol
-      float: left
-    .col-1
-      width: 440px
-      .subcol
-        width: 190px
-    .col-2
-      .subcol
-        width: 140px
+//
+//  .button
+//    display: inline-block
+//    vertical-align: middle
+//    font-size: 12px
+//    border: solid 1px #d1d1d1
+//    border-radius: 5px
+//    +box-shadow(0 1px 0 0 #f0f0f0)
+//    padding: 5px 10px
+//    background-color: #fafafa
+//    +background-image(linear-gradient(top, #fff, #fafafa))
+//    color: inherit !important
+//
+//  form.extended-search
+//    +clearfix
+//    overflow: visible
+//    display: none
+//    &.opened
+//      display: block
+//    background-color: #f1f1f1
+//    width: 830px
+//    padding: 5px 20px
+//    font-size: 13px
+//    margin-bottom: 20px
+//    h2
+//      color: black
+//      font-size: 13px
+//      text-transform: uppercase
+//      margin: 15px 0
+//      line-height: 20px
+//    h3
+//      margin-top: 5px
+//      margin-bottom: 10px
+//      font-weight: bold
+//    .clear-both
+//      clear: both
+//    .block + .block
+//      margin-left: 30px
+//    .block
+//      margin-bottom: 15px
+//      &.horizontal
+//        float: left
+//        .investor-types, .sectors, .ranges, .rounds, .stages
+//          overflow-y: auto
+//          max-height: 100%
+//          border: 1px solid #d8d8d8
+//          background-color: white
+//          height: 230px
+//          padding: 10px
+//        .investor-types, .stages
+//          width: 215px
+//        .rounds, .ranges
+//          width: 200px
+//        .sectors
+//          width: 285px
+//          .checkbox.nested
+//            padding-left: 40px
+//      &.form-inline
+//        .date-label
+//          margin-left: 20px
+//        .datepicker
+//          text-align: center
+//        &.sort
+//          select, .chzn-container
+//            margin: 5px 0
+//        select, .chzn-container, input[type="text"]
+//          display: inline-block
+//          margin: 5px 10px 5px 10px
+//          width: 140px
+//        select
+//          margin-left: 20px
+//          width: 185px
+//
+//    input[type="submit"].btn
+//      display: block
+//      margin: 30px auto
+//      text-transform: uppercase
+//      font-weight: bold
+//      width: 150px
+//      height: 30px
+//      font-size: 13px
+//      line-height: 22px
+//      @include buttonBackground(#61aa8b, #52997a)
+//

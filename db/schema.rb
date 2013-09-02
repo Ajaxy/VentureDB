@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724102843) do
+ActiveRecord::Schema.define(:version => 20130902142634) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(:version => 20130724102843) do
     t.text     "secret_details"
     t.string   "birth_date"
     t.integer  "plan",                 :default => 1
-    t.datetime "plan_started_at"
+    t.datetime "plan_ends_at"
     t.integer  "used_connections"
     t.integer  "used_profiles_access"
     t.integer  "used_downloads"
@@ -306,6 +306,17 @@ ActiveRecord::Schema.define(:version => 20130724102843) do
   add_index "scopes", ["lft"], :name => "index_scopes_on_lft"
   add_index "scopes", ["parent_id"], :name => "index_scopes_on_parent_id"
   add_index "scopes", ["rgt"], :name => "index_scopes_on_rgt"
+
+  create_table "selections", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "filter"
+    t.boolean  "mailing"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "selections", ["user_id"], :name => "index_selections_on_user_id"
 
   create_table "subscriptions", :force => true do |t|
     t.string   "email"

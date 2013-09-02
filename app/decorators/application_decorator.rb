@@ -62,8 +62,18 @@ class ApplicationDecorator < Draper::Decorator
     "$" + h.number_to_human(amount, options).gsub(" ", " ")
   end
 
-  def roubles(amount)
-    "#{h.number_with_delimiter amount, delimiter: " "} руб."
+  def rubles(amount)
+    txt = ''
+
+    if amount % 1000000 == 0
+      amount /= 1000000
+      txt = ' млн'
+    elsif amount % 1000 == 0
+      amount /= 1000
+      txt = ' тыс'
+    end
+
+    "#{h.number_with_delimiter amount, delimiter: " "}#{txt} руб."
   end
 
   def tag(*args, &block)

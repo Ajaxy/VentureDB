@@ -18,7 +18,6 @@ class Plans
         2 => {
             title: 'group',
             title_ru: 'Группа',
-            duration: 1.month,
             connections: 1,
             profiles: 200,
             downloads: 100,
@@ -30,7 +29,6 @@ class Plans
         3 => {
             title: 'business',
             title_ru: 'Бизнес',
-            duration: 1.month,
             connections: 5,
             profiles: 500,
             downloads: 250,
@@ -42,7 +40,6 @@ class Plans
         4 => {
             title: 'corporate',
             title_ru: 'Корпорация',
-            duration: 1.month,
             connections: -1,
             profiles: -1,
             downloads: -1,
@@ -59,7 +56,7 @@ class Plans
     end
 
     def active?(user)
-      user.plan && user.plan_started_at && user.plan_started_at + get(user.plan).duration < Time.now
+      user.plan && user.plan_ends_at && user.plan_ends_at > Time.now
     end
 
     def can_connect?(user)

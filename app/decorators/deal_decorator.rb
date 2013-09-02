@@ -32,17 +32,17 @@ class DealDecorator < ApplicationDecorator
 
   def amount
     return mdash unless deal.amount?
-    tag :span, dollars(deal.amount), class: "amount"
+    tag :span, rubles(deal.amount), class: "amount"
   end
 
   def value_before
     return mdash unless deal.value_before?
-    tag :span, dollars(deal.value_before), class: "amount"
+    tag :span, rubles(deal.value_before), class: "amount"
   end
 
   def value_after
     return mdash unless deal.value_after?
-    tag :span, dollars(deal.value_after), class: "amount"
+    tag :span, rubles(deal.value_after), class: "amount"
   end
 
   def contract_date
@@ -66,27 +66,11 @@ class DealDecorator < ApplicationDecorator
   end
 
   def description_amount
-    if deal.amount?
-      (" " + tag(:b, dollars(deal.amount))).html_safe
-    else
-      ". Сумма сделки не разглашается."
-    end
-  end
-
-  def description_grant_amount
-    if deal.amount?
-      " в размере " + tag(:b, dollars(deal.amount))
-    else
-      ". Сумма гранта не разглашается."
-    end
+    tag(:b, rubles(deal.amount)).html_safe if deal.amount?
   end
 
   def description_verb
-    if deal.is_grant?
-      deal.investors.size == 1 ? "выдал грант" : "выдали грант"
-    else
-      deal.investors.size == 1 ? "инвестировал" : "инвестировали"
-    end
+    deal.is_grant? ? 'получили грант' : 'привлек'
   end
 
   def date
@@ -95,11 +79,7 @@ class DealDecorator < ApplicationDecorator
   end
 
   def description
-    if deal.is_grant?
-      h.raw "#{investor_links} #{description_verb} проекту #{project_link}#{description_grant_amount}"
-    else
-      h.raw "#{investor_links} #{description_verb} в #{project_link}#{description_amount}"
-    end
+    h.raw "#{project_link} привлек #{description_amount} (#{round}) от #{investor_links}.#{' Сумма сделки не разглашается.' if !deal.amount}"
   end
 
   def investor_links

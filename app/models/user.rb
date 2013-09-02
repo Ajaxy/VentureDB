@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   belongs_to :company
   belongs_to :person
+  has_many :selections
 
   before_validation :fill_defaults
   after_create :send_email

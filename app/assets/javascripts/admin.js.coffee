@@ -284,3 +284,12 @@ jQuery ->
 
   $('body.admin.users table .show-info').each (i, v) ->
     $(v).popover { placement: 'top', content: $(v).siblings('.info').html(), html: true }
+
+  $('body.admin.users table .btn-order').on 'click', () ->
+    $('#purchase_plan')
+      .find('.order-plan').text($(@).data('plan')).end()
+      .find('select[name=order_plan] option:contains(' + $(@).data('plan') + ')').attr('selected', 'selected').end()
+      .find('.order-months').text($(@).data('months')).end()
+      .find('select[name=order_months] option:contains(' + $(@).data('months') + ')').attr('selected', 'selected').end()
+      .find('input[name=user_id]').val($(@).data('user_id')).end()
+      .on 'ajax:success', -> location.reload()

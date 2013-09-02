@@ -20,14 +20,10 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def plan_title
-    upcase Plans.get(plan).title
-  end
-
-  def plan_ends_at
-    h.localize(plan_started_at ? (plan_started_at + Plans.get(plan).duration).to_date : Date.yesterday)
+    upcase Plans.get(plan).title_ru
   end
 
   def plan_rest
-    plan_active ? (plan_seconds_rest / 60 / 60 / 24).floor : 'Срок истёк!'
+    plan_active ? ((object.plan_ends_at - Time.now) / 60 / 60 / 24).floor : 'Срок истёк!'
   end
 end

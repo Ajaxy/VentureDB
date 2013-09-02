@@ -1,6 +1,7 @@
-tr
-  td = deal_row.date
-  td = deal_row.project_link
-  td = deal_row.meta
-  td = deal_row.investor_links.html_safe
-  td = deal_row.amount.html_safe
+div.deal
+  p.date = deal_row.date
+  p.desc = deal_row.description
+  /- if deal_row.info_source
+  /  p.source
+  /    | Источник
+  /    = deal_row.info_source

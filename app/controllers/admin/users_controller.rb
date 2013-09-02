@@ -54,6 +54,19 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def purchase
+    @user = User.find params[:user_id]
+    @user.person.plan = params[:order_plan]
+    @user.person.plan_ends_at = Date.today + params[:order_months].to_i.months
+    @user.person.plan_order_plan = nil
+    @user.person.plan_order_months = nil
+    if @user.person.save then
+      render json: { status: :ok }
+    else
+      render json: { errors: @user.person.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
 
   # def destroy
   # end

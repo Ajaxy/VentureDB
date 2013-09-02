@@ -57,7 +57,7 @@ class Person < ActiveRecord::Base
   def fill_defaults
     if self.new_record?
       self.type_id = Person::TYPE_EXPERT_ID
-      self.plan_started_at ||= Time.now
+      self.plan_ends_at ||= Time.now + Plans.get(1).duration
     end
   end
 
@@ -80,11 +80,7 @@ class Person < ActiveRecord::Base
     type_id == TYPE_BUSINESS_ANGEL_ID && investors.any?
   end
 
-  def plan_seconds_rest
-   (plan_started_at ? plan_started_at + Plans.get(plan).duration : Date.yesterday.to_time) - Time.now
-  end
-
   def plan_active
-    plan_seconds_rest > 0
+    plan_ends_at > Time.now
   end
 end

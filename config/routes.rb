@@ -1,4 +1,5 @@
 Venture::Application.routes.draw do
+
   devise_for :users, controllers: {
     registrations:  'users/registrations',
     passwords:      'users/passwords',
@@ -19,6 +20,9 @@ Venture::Application.routes.draw do
     resources :projects
     resources :investors
     resources :users do
+      collection do
+        post :purchase
+      end
       member do
         post :approve
       end
@@ -46,6 +50,7 @@ Venture::Application.routes.draw do
   resources :people, only: %w[show]
   resources :informers, only: %w[show]
   resources :authors, only: %w[show]
+  resources :selections
 
   #get  '/about' => 'about#index'
   #post '/about' => 'about#feedback'

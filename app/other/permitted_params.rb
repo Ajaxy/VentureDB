@@ -44,6 +44,10 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:event).permit(*event_attributes)
   end
 
+  def selection
+    params.require(:selection).permit(*selection_attributes)
+  end
+
   private
 
   def actor_attributes
@@ -75,7 +79,7 @@ class PermittedParams < Struct.new(:params, :user)
     %w[name type_id sex education age description country sectors address phone website
       facebook slideshare vkontakte vacancies mentions other_geo from_connections_attributes
       birth_date email www plan
-      plan_started_at used_connections used_profiles_acc used_downloads used_support_mins
+      plan_ends_at used_connections used_profiles_acc used_downloads used_support_mins
       legal_title legal_address legal_ogrn legal_inn plan_order_plan plan_order_months plan_order_datetime]
   end
 
@@ -95,5 +99,9 @@ class PermittedParams < Struct.new(:params, :user)
     %w[name description investor_organizer_ids project_organizer_ids
       investor_organizer_ids project_participant_ids
       company_organizer_ids company_participant_ids]
+  end
+
+  def selection_attributes
+    %w[title filter mailing]
   end
 end

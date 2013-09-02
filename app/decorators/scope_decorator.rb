@@ -4,7 +4,7 @@ class ScopeDecorator < ApplicationDecorator
   decorates :scope
 
   def amount
-    roubles scope.amount.round(-6)
+    rubles scope.amount.round(-6)
   end
 
   def link_or_name

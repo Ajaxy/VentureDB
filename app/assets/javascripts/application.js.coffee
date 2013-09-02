@@ -11,6 +11,7 @@
 #= require sugar
 #= require chosen-jquery
 #= require home-index
+#= require selections
 
 window.vent =
   sub: (event, fn) ->

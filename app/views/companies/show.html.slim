@@ -1,8 +1,8 @@
 article.company
   .head
-    h1 = @company.name
     - if current_user.admin?
       .actions = @company.edit_link
+    h1 = @company.name
   .profile
     section
       .common-info = render "common-info"
@@ -22,5 +22,5 @@ article.company
     - if @deals.any?
       section = render "deals", deals: @deals, show_project: @company.investor?
 
-    section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"
+    /section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"
 
