@@ -7,7 +7,7 @@ class Admin::UsersController < Admin::BaseController
   def index
     @users = User.order('created_at DESC')
 
-    unless params[:search].empty? then
+    unless params[:search].blank? then
       @users = @users.joins(:person).where(
           'LOWER(people.name) LIKE LOWER(?) OR users.email LIKE ?',
           "%#{params[:search]}%",
