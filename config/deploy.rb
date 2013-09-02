@@ -28,13 +28,6 @@ task :staging do
   set :nginx_server_names, 'vd.ajaxy.ru'
 end
 
-desc 'Run tasks in production enviroment.'
-task :production do
-  set :application, 'venturedb'
-  set :branch, 'master'
-  set :nginx_server_names, 'venturedatabase.ru vdprod.ajaxy.ru'
-end
-
 set :user, 'root'
 set :deploy_to, -> { "/home/ajaxy/www/#{application}" }
 #set :deploy_via, :remote_cache
