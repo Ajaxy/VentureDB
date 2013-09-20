@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130902142634) do
+ActiveRecord::Schema.define(:version => 20130903211048) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20130902142634) do
     t.integer  "amount_usd"
     t.integer  "amount_eur"
     t.integer  "company_id"
+    t.integer  "format"
   end
 
   add_index "deals", ["company_id"], :name => "index_deals_on_company_id"
@@ -207,6 +208,16 @@ ActiveRecord::Schema.define(:version => 20130902142634) do
   add_index "locations", ["name"], :name => "index_locations_on_name"
   add_index "locations", ["parent_id"], :name => "index_locations_on_parent_id"
   add_index "locations", ["rgt"], :name => "index_locations_on_rgt"
+
+  create_table "participations", :id => false, :force => true do |t|
+    t.integer  "id",         :null => false
+    t.integer  "type_id"
+    t.string   "name"
+    t.string   "phone"
+    t.text     "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "people", :force => true do |t|
     t.string   "type_"

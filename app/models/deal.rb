@@ -13,6 +13,11 @@ class Deal < ActiveRecord::Base
     2 => "Гранты"
   }
 
+  FORMATS = {
+    1 => "Инвестиции",
+    2 => "Грантовое финансирование"
+  }
+
   STATUSES = {
     1 => "Анонсированная",
     2 => "В процессе",
@@ -33,6 +38,7 @@ class Deal < ActiveRecord::Base
     3 => "Раунд B",
     4 => "Раунд C+",
     5 => "Выход",
+    6 => "Покупка компании"
   }
 
   ROUNDS_SHORT = {
@@ -41,6 +47,7 @@ class Deal < ActiveRecord::Base
     3 => "B",
     4 => "C+",
     5 => "Выход",
+    6 => "Покупка"
   }
 
   EXIT_TYPES = {

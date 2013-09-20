@@ -4,12 +4,12 @@ head
   = render 'google-fonts'
   = render 'google-analytics'
 
-  = stylesheet_link_tag    'application', :media => 'all'
-  = javascript_include_tag 'application'
+  = stylesheet_link_tag    'application', ('admin' if defined? admin), :media => 'all'
+  = javascript_include_tag 'application', ('admin' if defined? admin)
   = favicon_link_tag       'favicon.png'
   = csrf_meta_tags
 
   = yield :head
 
-  /[ if lt IE 9 ]
+  /[ if lt IE 9s ]
     = javascript_include_tag 'http://html5shim.googlecode.com/svn/trunk/html5.js'
