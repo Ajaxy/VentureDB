@@ -1,4 +1,6 @@
 #= require jquery.ui.all
+#= require bootstrap
+#= require bootstrap-popover
 #= require jquery.autosize
 #= require lib/markdown
 
