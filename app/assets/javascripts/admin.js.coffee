@@ -1,8 +1,4 @@
-#= require jquery
-#= require jquery_ujs
 #= require jquery.ui.all
-#= require bootstrap
-#= require chosen-jquery
 #= require jquery.autosize
 #= require lib/markdown
 
