@@ -4,8 +4,9 @@ head
   = render 'google-fonts'
   = render 'google-analytics'
 
-  = stylesheet_link_tag    %w[application admin], :media => 'all'
-  = javascript_include_tag %w[application admin]
+  /todo 'admin' if defined? admin
+  = stylesheet_link_tag    'application', 'admin', :media => 'all'
+  = javascript_include_tag 'application', 'admin'
   = favicon_link_tag       'favicon.png'
   = csrf_meta_tags
 
