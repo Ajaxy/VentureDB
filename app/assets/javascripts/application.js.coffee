@@ -2,11 +2,15 @@
 #= require jquery_ujs
 #= require jquery.placeholder
 #= require jquery.slides.min
+
+#= require bootstrap
+#= require bootstrap-popover
 #= require bootstrap-tooltip
 #= require bootstrap-dropdown
 #= require bootstrap-typeahead
 #= require bootstrap-datepicker/core
 #= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
+
 #= require jquery.ui.slider
 #= require sugar
 #= require chosen-jquery

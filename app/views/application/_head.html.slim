@@ -5,8 +5,11 @@ head
   = render 'google-analytics'
 
   /todo 'admin' if defined? admin
-  = stylesheet_link_tag    'application', 'admin', :media => 'all'
-  = javascript_include_tag 'application', 'admin'
+  = stylesheet_link_tag    'application', :media => 'all'
+  = javascript_include_tag 'application'
+  - if defined? admin
+    = stylesheet_link_tag    'admin', :media => 'all'
+    = javascript_include_tag 'admin'
   = favicon_link_tag       'favicon.png'
   = csrf_meta_tags
 
