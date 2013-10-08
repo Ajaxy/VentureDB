@@ -31,3 +31,5 @@ cap deploy
 ssh root@venture.bi "pg_dump venture_staging > venture_backup.sql" && rsync -v root@venture.bi:venture_backup.sql .
 ```
 По окончании операции файл `venture_backup.sql` окажется в текущей директории.  Здесь `venture_staging` — имя базы данных.
+
+### ! Проверить, чтобы у всех User был Person !
