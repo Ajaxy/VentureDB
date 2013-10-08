@@ -1,7 +1,9 @@
 div.deal
   p.date = deal_row.date
   p.desc = deal_row.description
-  /- if deal_row.info_source
-  /  p.source
-  /    | Источник
-  /    = deal_row.info_source
+  - if deal_row.info_source
+    p
+      ' Источник:
+      span.info_source = deal_row.info_source
+  - if deal_row.approx_amount
+    .approx_amount Сумма сделки оценена экспертами
