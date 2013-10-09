@@ -13,6 +13,11 @@ class Deal < ActiveRecord::Base
     2 => "Гранты"
   }
 
+  FORMATS = {
+    1 => "Инвестиции",
+    2 => "Грантовое финансирование"
+  }
+
   STATUSES = {
     1 => "Анонсированная",
     2 => "В процессе",
@@ -33,6 +38,7 @@ class Deal < ActiveRecord::Base
     3 => "Раунд B",
     4 => "Раунд C+",
     5 => "Выход",
+    6 => "Покупка компании"
   }
 
   ROUNDS_SHORT = {
@@ -41,6 +47,7 @@ class Deal < ActiveRecord::Base
     3 => "B",
     4 => "C+",
     5 => "Выход",
+    6 => "Покупка"
   }
 
   EXIT_TYPES = {
@@ -202,7 +209,8 @@ class Deal < ActiveRecord::Base
   end
 
   def is_grant?
-    investments.any? { |inv| inv.is_grant? }
+    format_id == 2
+    #investments.any? { |inv| inv.is_grant? }
   end
 
   def status
@@ -238,13 +246,13 @@ class Deal < ActiveRecord::Base
 
   def publish
     errors.add :publish, "Не указан проект" unless company
-    errors.add :publish, "Не указан раунд инвестиций" unless is_grant? || round
-    errors.add :publish, "Не указана стадия развития компании" unless stage
+    errors.add :publish, "Не указан формат сделки" unless is_grant? || round
+    errors.add :publish, "Не указан раунд инвестиций" unless round
     errors.add :publish, "Не указана дата сделки" unless date
     errors.add :publish, "Не указана стоимость" unless amount
     errors.add :publish, "Лог ошибок не пуст" if errors_log?
 
-    errors.add :publish, "Не указано инвестиций" unless investments.any?
+    errors.add :publish, "Не указаны инвестиции" unless investments.any?
 
     investments.each do |inv|
       errors.add :publish, "Не указан инвестор" unless inv.investor

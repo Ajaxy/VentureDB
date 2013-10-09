@@ -14,7 +14,7 @@
 #= require jquery.ui.slider
 #= require sugar
 #= require chosen-jquery
-#= require home-index
+#= require promo
 #= require selections
 
 window.vent =

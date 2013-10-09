@@ -100,18 +100,42 @@ class InformerForm extends AddToSelectForm
 
 class DealForm
   constructor: ->
-    @form = $("form.deal")
+#    form = $("form.deal")
+#
+#    format_radio = form.find("[name='deal[format_id]']")
+#    approx_amount_checkbox = form.find('#deal_approx_amount')
+#    value_before_approx_checkbox = form.find('#deal_value_before_approx')
+#    value_after_approx_checkbox = form.find('#deal_value_after_approx')
+#
+#    format_radio.on "change", ->
+#      if $(@).val() == "1"
+#        form.find(".form-row.deal-rount").show()
+#      else
+#        form.find(".form-row.deal-rount").hide()
+#
+#    approx_amount_checkbox.on "change", ->
+#      if form.find("[name='deal[approx_amount]']").attr('checked')
+#        form.find('#deal_approx_amount_note').show()
+#      else
+#        form.find('#deal_approx_amount_note').hide()
+#
+#    value_before_approx_checkbox.on "change", ->
+#      if form.find("[name='deal[value_before_approx]']")
+#        form.find('#deal_value_before_approx_note').show()
+#      else
+#        form.find('#deal_value_before_approx_note').hide()
+#
+#    value_after_approx_checkbox.on "change", ->
+#      if form.find("[name='deal[value_after_approx]']")
+#        form.find('#deal_value_after_approx_note').show()
+#      else
+#        form.find('#deal_value_after_approx_note').hide()
+#
+#    format_radio.fire 'change'
+#    approx_amount_checkbox.fire 'change'
+#    value_before_approx_checkbox.fire 'change'
+#    value_after_approx_checkbox.fire 'change'
 
-    @roundSelect    = @form.find("#deal_round_id")
-    @exitTypeField  = @form.find(".control-group.exit-type")
-
-    @roundSelect.on "change", =>
-      if @roundSelect.val() == "7"
-        @exitTypeField.show()
-      else
-        @exitTypeField.hide()
-
-    @roundSelect.change()
 
 window.rebindInputs = (scope = document) ->
   $("select.chzn", scope).chosen(disable_search_threshold: 15)

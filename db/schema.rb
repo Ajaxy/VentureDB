@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131008195252) do
+ActiveRecord::Schema.define(:version => 20131009171845) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -103,31 +103,41 @@ ActiveRecord::Schema.define(:version => 20131008195252) do
 
   create_table "deals", :force => true do |t|
     t.integer  "project_id"
-    t.boolean  "approx_date",                    :default => false
+    t.boolean  "approx_date",                           :default => false
     t.date     "announcement_date"
     t.date     "contract_date"
     t.integer  "status_id"
     t.integer  "round_id"
     t.integer  "stage_id"
     t.integer  "exit_type_id"
-    t.boolean  "approx_amount",                  :default => false
-    t.integer  "amount_rub",        :limit => 8
-    t.integer  "value_before",      :limit => 8
-    t.integer  "value_after",       :limit => 8
+    t.boolean  "approx_amount",                         :default => false
+    t.integer  "amount_rub",               :limit => 8
+    t.integer  "value_before",             :limit => 8
+    t.integer  "value_after",              :limit => 8
     t.integer  "informer_id"
     t.string   "financial_advisor"
     t.string   "legal_advisor"
     t.text     "mentions"
     t.text     "comments"
     t.text     "errors_log"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
-    t.boolean  "published",                      :default => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
+    t.boolean  "published",                             :default => false
     t.integer  "amount_usd"
     t.integer  "amount_eur"
     t.integer  "company_id"
     t.integer  "format"
     t.text     "info_source"
+    t.integer  "value_before_usd"
+    t.integer  "value_before_eur"
+    t.integer  "value_after_usd"
+    t.integer  "value_after_eur"
+    t.boolean  "value_before_approx"
+    t.text     "value_before_approx_note"
+    t.boolean  "value_after_approx"
+    t.text     "value_after_approx_note"
+    t.text     "approx_amount_note"
+    t.integer  "format_id"
   end
 
   add_index "deals", ["company_id"], :name => "index_deals_on_company_id"

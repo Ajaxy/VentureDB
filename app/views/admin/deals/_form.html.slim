@@ -1,5 +1,157 @@
 
-= form_for [:admin, @deal], html: { class: "deal" } do |f|
+= form_for [:admin, @deal], html: { class: "deal deal-form" } do |f|
+  h4 Уточните параметры сделки
+  br
+
+  .form-row
+    fieldset
+      legend 1. Статус сделки
+      .row
+        .span4
+          = f.label :status_id_1, class: 'radio' do
+            = f.radio_button :status_id, 1
+            = Deal::STATUSES[1]
+        .span4
+          = f.label :status_id_3, class: 'radio' do
+            = f.radio_button :status_id, 3
+            = Deal::STATUSES[3]
+  .form-row
+    .row
+      .span4
+        fieldset
+          legend 2. Дата объявления сделки
+          = f.text_field :announcement_date, placeholder: "ДД.ММ.ГГГГ", class: "span4"
+      .span4
+        fieldset
+          legend Дата заключения сделки
+          = f.text_field :contract_date, placeholder: "ДД.ММ.ГГГГ", class: "span4"
+  .form-row
+    fieldset
+      legend 3. Формат сделки
+      .row
+        .span4
+          = f.label :format_id_1, class: 'radio' do
+            = f.radio_button :format_id, 1
+            = Deal::FORMATS[1]
+        .span4
+          = f.label :format_id_2, class: 'radio' do
+            = f.radio_button :format_id, 2
+            = Deal::FORMATS[2]
+  .form-row.deal-rount
+    fieldset
+      legend 4. Инвестиционный раунд
+      .row
+        .span4
+          = f.label :round_id_1, class: 'radio' do
+            = f.radio_button :round_id, 1
+            = Deal::ROUNDS[1]
+          = f.label :round_id_2, class: 'radio' do
+            = f.radio_button :round_id, 2
+            = Deal::ROUNDS[2]
+          = f.label :round_id_3, class: 'radio' do
+            = f.radio_button :round_id, 3
+            = Deal::ROUNDS[3]
+        .span4
+          = f.label :round_id_4, class: 'radio' do
+            = f.radio_button :round_id, 4
+            = Deal::ROUNDS[4]
+          = f.label :round_id_6, class: 'radio' do
+            = f.radio_button :round_id, 6
+            = Deal::ROUNDS[6]
+          = f.label :round_id_5, class: 'radio' do
+            = f.radio_button :round_id, 5
+            = Deal::ROUNDS[5]
+  .form-row
+    fieldset
+      legend 5. Сумма сделки
+      .row
+        .span3
+          .input-append
+            = f.text_field :amount_eur, class: "span2"
+            span.add-on EUR
+        .span3
+          .input-append
+            = f.text_field :amount_rub, class: "span2"
+            span.add-on РУБ
+        .span3
+          .input-append
+            = f.text_field :amount_usd, class: "span2"
+            span.add-on USD
+      = f.label :approx_amount, class: "checkbox" do
+        = f.check_box :approx_amount
+        | Сумма сделки указана приблизительно
+      = f.text_area :approx_amount_note, class: "span8", placeholder: "Обязательно дайте комментарии к методу оценки", rows: 6
+  .form-row
+    fieldset
+      legend 6. Стоимость компании до сделки
+      .row
+        .span3
+          .input-append
+            = f.text_field :value_before_eur, class: "span2"
+            span.add-on EUR
+        .span3
+          .input-append
+            = f.text_field :value_before, class: "span2"
+            span.add-on РУБ
+        .span3
+          .input-append
+            = f.text_field :value_before_usd, class: "span2"
+            span.add-on USD
+      = f.label :value_before_approx, class: "checkbox" do
+        = f.check_box :value_before_approx
+        | Сумма сделки указана приблизительно
+      = f.text_area :value_before_approx_note, class: "span8", placeholder: "Обязательно дайте комментарии к методу оценки", rows: 6
+  .form-row
+    fieldset
+      legend 5. Стоимость компании после сделки
+      .row
+        .span3
+          .input-append
+            = f.text_field :value_after_eur, class: "span2"
+            span.add-on EUR
+        .span3
+          .input-append
+            = f.text_field :value_after, class: "span2"
+            span.add-on РУБ
+        .span3
+          .input-append
+            = f.text_field :value_after_usd, class: "span2"
+            span.add-on USD
+      = f.label :value_after_approx, class: "checkbox" do
+        = f.check_box :value_after_approx
+        | Сумма сделки указана приблизительно
+      = f.text_area :value_after_approx_note, class: "span8", placeholder: "Обязательно дайте комментарии к методу оценки", rows: 6
+  .form-row
+    fieldset
+      legend 6. Источник информации о сделке
+      = f.text_area :info_source, class: "span8", rows: 6
+  .form-row
+    fieldset
+      legend ПОЛУЧАТЕЛЬ ИНВЕСТИЦИЙ ИЛИ ГРАНТА
+      .search-or-add
+        .search = f.collection_select :company_id, Company.innovation.order(:name), :id, :name, { prompt: "Найти проект" }, class: "chzn span5"
+        .or = " или "
+        .add: button.btn.btn-small[type="button" href="#new_project" data-toggle="dialog"] Создать новый
+      - if @deal.company
+        = link_to "«#{@deal.company.name}» — редактировать", [:admin, @deal.company], target: "_blank"
+  .form-row
+    fieldset
+      legend УКАЖИТЕ ИНВЕСТОРА ИЛИ ГРАНТОДАТЕЛЯ
+      = hidden_field_tag "deal[investment_ids][]"
+      - if @deal.errors[:investments].any?
+        .error-block Необходимо указать хотя бы одну инвестицию.
+      .investments.entries-list = render @deal.investments
+      button.btn type="button" href="#new_investment" data-toggle="dialog" Добавить инвестора
+  .form-row
+    fieldset
+      legend Дополнительная информация
+
+      = f.text_area :comments, class: "span8", rows: 4, placeholder: "Комментарии"
+
+      - if @deal.errors_log?
+        h5 Лог ошибок
+        = f.text_area :errors_log, class: "span8", rows: 4
+
   - if @deal.published?
     .deal-status.alert.alert-success
       = link_to "Редактировать", [:unpublish, :admin, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
@@ -8,126 +160,6 @@
     .deal-status.alert.alert-info
       = link_to "Опубликовать", [:publish, :admin, @deal], method: :post, class: "btn btn-primary btn-small pull-right"
       | Сделка не опубликована, она не участвует в подсчете статистики.
-
-  hr
-  .row
-    .span4
-      p.help-block Проект, получивший инвестиции.
-    .span8
-      fieldset
-        legend Проект-получатель инвестиций
-        .search-or-add
-          .search = f.collection_select :company_id, Company.innovation.order(:name), :id, :name, { prompt: "Найти проект" }, class: "chzn span5"
-          .or = " или "
-          .add: button.btn.btn-small[type="button" href="#new_project" data-toggle="dialog"] Создать новый
-        - if @deal.company
-          = link_to "«#{@deal.company.name}» — редактировать", [:admin, @deal.company],
-            target: "_blank"
-
-  hr
-  .row
-    .span4
-      p.help-block Общая информация о сделке
-    .span8
-      fieldset
-        legend Общая информация о сделке
-        .row
-          .control-group.span3
-            = f.label :announcement_date, "Дата объявления сделки"
-            = f.text_field :announcement_date, placeholder: "ДД.ММ.ГГГГ", class: "span3"
-          .control-group.span4
-            = f.label :contract_date, "Дата заключения сделки"
-            = f.text_field :contract_date, placeholder: "ДД.ММ.ГГГГ", class: "span3"
-
-        .control-group
-          = f.label :approx_date, class: "checkbox" do
-            = f.check_box :approx_date
-            | Даты указаны приблизительно
-
-        .control-group
-          = f.label :status_id, "Статус сделки"
-          = f.select :status_id, Deal::STATUSES.invert, { include_blank: true }, class: "span5 chzn"
-
-        .control-group
-          = f.label :round_id, "Раунд финансирования"
-          = f.select :round_id, Deal::ROUNDS.invert, { include_blank: true }, class: "span5 chzn"
-
-        .control-group.exit-type
-          = f.label :exit_type_id, "Тип выхода"
-          = f.select :exit_type_id, Deal::EXIT_TYPES.invert, { prompt: "Не выбран" }, class: "span5 chzn"
-
-        .control-group
-          = f.label :stage_id, "Стадия развития компании"
-          = f.select :stage_id, Deal::STAGES.invert, { include_blank: true }, class: "span5 chzn"
-
-  hr
-  .row
-    .span4
-      p.help-block Если сумма сделки точно не известна, а получена методом экспертной оценки, поставьте галочку "Сумма сделки указана приблизительно".
-
-      p.help-block Если стоимость компании до инвестиций вам неизвестна, оставьте поле пустым.
-
-      p.help-block Сумма в долларах обязательна для заполнения, если известна сумма сделки.
-
-    .span8
-      fieldset
-        legend Финансовая сторона сделки
-
-        = f.label :amount_usd, "Сумма сделки"
-        .input-append
-          = f.text_field :amount_usd, class: "span2"
-          span.add-on USD
-        .input-append
-          = f.text_field :amount_rub, class: "span2"
-          span.add-on РУБ
-        .input-append
-          = f.text_field :amount_eur, class: "span2"
-          span.add-on EUR
-
-        = f.label :approx_amount, class: "checkbox" do
-          = f.check_box :approx_amount
-          | Сумма сделки указана приблизительно
-
-        p
-        .row
-          .control-group.span3
-            = f.label :value_before, "Стоимость компании до сделки"
-            .input-append
-              = f.text_field :value_before, class: "span2"
-              span.add-on руб.
-          .control-group.span4
-            = f.label :value_after, "Стоимость компании после сделки"
-            .input-append
-              = f.text_field :value_after, class: "span2"
-              span.add-on руб.
-
-  hr
-  .row
-    .span4
-      p.help-block Укажите одного или нескольких инвесторов, участвующих в сделке.
-    .span8
-      fieldset
-        legend Инвесторы
-        = hidden_field_tag "deal[investment_ids][]"
-        - if @deal.errors[:investments].any?
-          .error-block Необходимо указать хотя бы одну инвестицию.
-        .investments.entries-list = render @deal.investments
-        button.btn type="button" href="#new_investment" data-toggle="dialog" Добавить инвестора
-  hr
-  .row
-    .span4
-      p.help-block
-    .span8
-      fieldset
-        legend Дополнительная информация
-
-        = f.text_area :mentions, class: "span8", rows: 4, placeholder: "Упоминания в прессе"
-
-        = f.text_area :comments, class: "span8", rows: 4, placeholder: "Комментарии"
-
-        - if @deal.errors_log?
-          h5 Лог ошибок
-          = f.text_area :errors_log, class: "span8", rows: 4
 
   - unless @deal.published?
     .form-actions
