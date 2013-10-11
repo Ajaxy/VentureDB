@@ -139,6 +139,9 @@ class DealForm
 
 window.rebindInputs = (scope = document) ->
   $("select.chzn", scope).chosen(disable_search_threshold: 15)
+  $('.chosen-container').each((i, el) ->
+    $(el).width($(el).prev().width())
+  )
 
   if $("form.project", scope).length > 0
     window.projectForm = new ProjectForm
