@@ -11,7 +11,7 @@
       .right: a href="selections/new" + Настроить ленту
 
     #search_box
-      = form_tag "/search", method: :get do
+      = form_tag "/deals/search", method: :get do
         .input-append
           = text_field_tag :search, params[:search], class: 'span7', placeholder: 'Введите название компании или имя человека'
           button.btn.icon-search type="submit" &nbsp;

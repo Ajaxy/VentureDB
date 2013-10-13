@@ -40,7 +40,7 @@ Venture::Application.routes.draw do
     resources :companies
   end
 
-  resources :deals, only: %w[index]
+  resources :deals, only: %w[index search]
   resources :people, only: %w[show]
   resources :projects, only: %w[index show]
   resources :investors, only: %w[index show]
