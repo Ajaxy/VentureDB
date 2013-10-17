@@ -45,7 +45,7 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def selection
-    params.require(:selection).permit(*selection_attributes)
+    params.require(:selection).permit(*selection_attributes, formats: [])
   end
 
   private
@@ -107,6 +107,6 @@ class PermittedParams < Struct.new(:params, :user)
   end
 
   def selection_attributes
-    %w[title filter mailing]
+    %w[title filter mailing status_id formats amount_from amount_to year quarter amount_without_empty amount_without_approx]
   end
 end

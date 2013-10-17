@@ -3,29 +3,28 @@
 class DealFilter < Filter
   LAST_YEARS = 3
 
+  def self.start_year
+    Time.current.year - LAST_YEARS + 1
+  end
+
   def filter(deals)
-    deals = deals.search(search) if search
+    #deals = deals.search(search) if search
 
-    case params.deal_type
-    when ['1']
-      params.type = 'investments'
-    when ['2']
-      params.type = 'grants'
+    #deals = deals.in_scopes(params.sector)      if params.sector
+    #deals = deals.in_rounds(params.round)       if params.round
+    #deals = deals.in_stages(params.stage)       if params.stage
+    deals = deals.for_year(year, params.quarter)   if year
+
+    if params.amount_from || params.amount_to
+      deals = deals.in_amount_range params.amount_from || 0,
+                                    params.amount_to || Float::INFINITY
     end
 
-    deals = deals.in_scopes(params.sector)      if params.sector
-    deals = deals.in_rounds(params.round)       if params.round
-    deals = deals.in_stages(params.stage)       if params.stage
-    deals = deals.for_year(year)                if year
-
-    amount_start, amount_end = get_amount_vars params.amount_range.to_i
-    if amount_start && amount_end
-      deals = deals.in_amount_range amount_start.to_i,
-                                    amount_end.to_i
-    end
-
-    deals = deals.for_type(type)                if type
-    deals = deals.sort_type(params.sort_type)
+    deals = deals.for_type('investments') if params.formats && params.formats.include?('1')
+    deals = deals.for_type('grants') if params.formats && params.formats.include?('2')
+    deals = deals.without_approx_amount if params.amount_without_approx
+    deals = deals.without_empty_amount if params.amount_without_empty
+    #deals = deals.sort_type(params.sort_type)
 
     deals
   end
@@ -101,7 +100,7 @@ class DealFilter < Filter
   end
 
   def start_year
-    Time.current.year - LAST_YEARS + 1
+    DealFilter.start_year
   end
 
   def sort_types

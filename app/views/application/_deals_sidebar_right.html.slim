@@ -17,4 +17,4 @@ h4 Готовые выборки
           .tools
             = link_to '', [:edit, selection], class: 'icon icon-edit'
             = link_to '', selection, method: :delete, remote: true, class: 'icon icon-remove'
-          = link_to selection, "/deals?selection=#{selection.id}"
+          = link_to selection, deals_path(selection.filter)

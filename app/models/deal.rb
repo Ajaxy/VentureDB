@@ -155,8 +155,14 @@ class Deal < ActiveRecord::Base
     where{coalesce(contract_date, announcement_date) <= period.end}
   end
 
-  def self.for_year(year)
-    for_period(Date.new(year) .. Date.new(year).end_of_year)
+  def self.for_year(year, quarter)
+    date_year = Date.new(year)
+    quarter = quarter.to_i
+    if quarter > 0
+      for_period(date_year + (3 * (quarter - 1)).months .. date_year + (3 * quarter).months)
+    else
+      for_period(date_year .. date_year.end_of_year)
+    end
   end
 
   def self.for_type(type)
@@ -190,6 +196,14 @@ class Deal < ActiveRecord::Base
       .order("date #{direction}")
   end
 
+  def self.without_approx_amount
+    where{approx_amount == false}
+  end
+
+  def self.without_empty_amount
+    where{amount_usd != nil}
+  end
+
   def amount
     amount_usd
   end
@@ -209,8 +223,7 @@ class Deal < ActiveRecord::Base
   end
 
   def is_grant?
-    format_id == 2
-    #investments.any? { |inv| inv.is_grant? }
+    format_id == 2 || investments.any? { |inv| inv.is_grant? }
   end
 
   def status

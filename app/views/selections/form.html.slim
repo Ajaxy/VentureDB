@@ -1,3 +1,5 @@
+- @body_class = 'selections'
+
 .left-block.right-block
   aside.left
     = render 'deals_sidebar_left'
@@ -9,20 +11,67 @@
     .head
       h3 Управление выборками
 
-    = form_for(@selection) do |f|
+    = simple_form_for(@selection) do |f|
       h4 Укажите интересную вам область
       h4 Уточните параметры сделки
-
-      p 1. Формат сделки
-      p 2. Сумма
-      p 3. Период
-      p
-        | 4. Название выборки
-        br
-        = f.text_field :title, class: 'span7'
-      p
-        label.checkbox for="checkbox-mailing"
-          = f.check_box :mailing, id: 'checkbox-mailing'
+      .form-row
+        fieldset
+          legend 1. Формат сделки
+          .row
+            .span4
+              = f.label :formats_1, class: 'checkbox' do
+                = f.check_box :formats, { multiple: true, checked: @selection.formats && @selection.formats.include?('1') }, 1
+                = Deal::FORMATS[1]
+            .span4
+              = f.label :formats_2, class: 'checkbox' do
+                = f.check_box :formats, { multiple: true, checked: @selection.formats && @selection.formats.include?('2') }, 2
+                = Deal::FORMATS[2]
+      .form-row
+        fieldset
+          legend 2. Сумма
+          .row
+            .span4
+              = f.label :amount_from do
+                ' От:
+                = f.text_field :amount_from, class: 'span2'
+                | &nbsp;руб.
+            .span4
+              = f.label :amount_to do
+                ' До:
+                = f.text_field :amount_to, class: 'span2'
+                | &nbsp;руб.
+          .row
+            .span4
+              label.checkbox
+                = f.check_box :amount_without_empty
+                | Исключить сделки без сумм
+            .span4
+              label.checkbox
+                = f.check_box :amount_without_approx
+                | Исключить оцененные экспертно
+      .form-row
+        fieldset
+          legend 3. Период
+          .row
+            .span4
+              = f.label :year do
+                ' Год:
+                br
+                = f.input_field :year, label: false, collection: ['Все время'] + (DealFilter.start_year..Time.current.year).to_a, class: 'chzn', selected: @selection.year || 'Все время'
+            .span4
+              = f.label :quarter do
+                ' Квартал:
+                br
+                = f.input_field :quarter, label: false, collection: ['Весь год'] + (1..4).to_a, class: 'chzn', selected: @selection.quarter || 'Весь год'
+      .form-row
+        fieldset
+          legend 4. Название выборки
+          .row
+            .span7
+              = f.text_field :title, class: 'span7'
+      .form-row
+        label.checkbox
+          = f.check_box :mailing
           | Включать в рассылку
       br
       = f.submit 'Сохранить', class: 'btn'

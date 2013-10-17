@@ -15,17 +15,4 @@ class DealsController < CabinetController
   def show
     @deal = decorate Deal.find(params[:id])
   end
-
-  def search
-    if params[:search].present?
-      records  = ThinkingSphinx
-      .search(params[:search], classes: [Deal], star: true)
-      .page(params[:page])
-      @deals = PaginatingDecorator.decorate(records || [])
-    else
-      index
-    end
-
-    render :index
-  end
 end

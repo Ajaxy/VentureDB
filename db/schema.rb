@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009171845) do
+ActiveRecord::Schema.define(:version => 20131017131514) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -334,8 +334,16 @@ ActiveRecord::Schema.define(:version => 20131009171845) do
     t.string   "title"
     t.text     "filter"
     t.boolean  "mailing"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "status_id"
+    t.integer  "amount_from"
+    t.integer  "amount_to"
+    t.integer  "year"
+    t.integer  "quarter"
+    t.text     "formats"
+    t.boolean  "amount_without_empty"
+    t.boolean  "amount_without_approx"
   end
 
   add_index "selections", ["user_id"], :name => "index_selections_on_user_id"

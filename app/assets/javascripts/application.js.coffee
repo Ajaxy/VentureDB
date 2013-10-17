@@ -30,6 +30,11 @@ window.vent =
 jQuery ->
   $("input, textarea").placeholder();
 
+  $("select.chzn").chosen(disable_search_threshold: 15)
+  $('.chosen-container').each((i, el) ->
+    $(el).width($(el).prev().width())
+  )
+
   $("body.promo form .submit").before('<div class="form-error"></div><div class="form-success"></div>')
 
   $("body.promo form").on "ajax:before", (e) ->
