@@ -1,0 +1,53 @@
+table border="1"
+  tr
+    th № п/п
+    th Название проекта
+    th Дата сделки
+    th Статус сделки
+    th Субъект финансовой инфраструктуры (инвестор, приобретатель доли) - название
+    th Субъект финансовой инфраструктуры (инвестор, приобретатель доли) - тип
+    th Юрисдикция субъекта финансовой инфраструктуры
+    th Используемые типы финансовых инструментов в сделке
+    th Портфельная компания - полное наименование
+    th Страна юрисдикции
+    th Местонахождение
+    th Сфера/сектор деятельности
+    th Краткое бизнес-описание
+    th Стадия развития
+    th Раунд финансирования
+    th Сумма сделки
+    th Стоимость компании до сделки
+    th Приобретаемая доля в компании
+  - i = 0
+  - @deals.each do |deal|
+    - j = 0
+    - number = ''
+    - investor_name = ''
+    - investor_type = ''
+    - instrument = ''
+    - share = ''
+    - deal.investments.each do |investment|
+      - number = "#{j += 1}. " if deal.investments.length > 1
+      - investor_name += "#{number if investment.investor_name}#{investment.investor_name} "
+      - investor_type += "#{number if investment.investor_type}#{investment.investor_type} "
+      - instrument += "#{number if investment.instrument}#{investment.instrument} "
+      - share += "#{number unless investment.share.nil? || investment.share.empty?}#{investment.share} "
+    tr
+      td = i += 1
+      td = deal.project.name
+      td = deal.date
+      td = deal.status
+      td = investor_name
+      td = investor_type
+      td ! Юрисдикция
+      td = instrument
+      td = deal.company.full_name
+      td ! Страна
+      td = deal.company.place
+      td = deal.project.scopes.map(&:name).join(', ')
+      td = simple_format deal.project.description
+      td = deal.stage
+      td = deal.round
+      td = strip_tags deal.amount
+      td = strip_tags deal.value_before
+      td = share

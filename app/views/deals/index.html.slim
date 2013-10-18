@@ -8,7 +8,11 @@
   .middle
     .head
       h3 Сделки и гранты
-      .right: a href="selections/new" + Добавить выборку
+      .right
+        a href="selections/new" + Добавить выборку
+        - if params[:extended_search].present?
+          | &nbsp;|&nbsp;
+          = link_to "Скачать .xls", params.merge(format: 'xls')
 
     #search_box
       = form_tag "/deals", method: :get do
