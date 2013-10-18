@@ -18,3 +18,5 @@ h4 Готовые выборки
             = link_to '', [:edit, selection], class: 'icon icon-edit'
             = link_to '', selection, method: :delete, remote: true, class: 'icon icon-remove'
           = link_to selection, deals_path(selection.filter)
+          | &nbsp;/&nbsp;
+          = link_to ".xls", deals_path(selection.filter.merge format: :xls)
