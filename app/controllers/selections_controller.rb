@@ -25,7 +25,7 @@ class SelectionsController < CabinetController
 
     respond_to do |format|
       if @selection.save
-        format.html { redirect_to :deals, notice: 'Selection was successfully created.' }
+        format.html { redirect_to deals_path(@selection.filter), notice: 'Selection was successfully created.' }
         format.json { render json: @selection, status: :created, location: @selection }
       else
         format.html { render action: "new" }
@@ -39,7 +39,7 @@ class SelectionsController < CabinetController
   def update
     respond_to do |format|
       if @selection.update_attributes(permitted_params.selection)
-        format.html { redirect_to :deals, notice: 'Selection was successfully updated.' }
+        format.html { redirect_to deals_path(@selection.filter), notice: 'Selection was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

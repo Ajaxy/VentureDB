@@ -15,13 +15,19 @@ class DealFilter < Filter
     #deals = deals.in_stages(params.stage)       if params.stage
     deals = deals.for_year(year, params.quarter)   if year
 
-    if params.amount_from || params.amount_to
-      deals = deals.in_amount_range params.amount_from || 0,
-                                    params.amount_to || Float::INFINITY
+    if params.amount_from && params.amount_to
+      deals = deals.in_amount_range params.amount_from, params.amount_to
+    elsif params.amount_from
+      deals = deals.from_amount params.amount_from
+    elsif params.amount_to
+      deals = deals.to_amount params.amount_to
     end
 
-    deals = deals.for_type('investments') if params.formats && params.formats.include?('1')
-    deals = deals.for_type('grants') if params.formats && params.formats.include?('2')
+    if params.formats and (params.formats.include?('1') ^ params.formats.include?('2'))
+      deals = deals.for_type('investments') if params.formats && params.formats.include?('1')
+      deals = deals.for_type('grants') if params.formats && params.formats.include?('2')
+    end
+
     deals = deals.without_approx_amount if params.amount_without_approx
     deals = deals.without_empty_amount if params.amount_without_empty
     #deals = deals.sort_type(params.sort_type)
