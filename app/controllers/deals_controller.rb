@@ -10,11 +10,6 @@ class DealsController < CabinetController
     scope = paginate(scope, 20) unless request.format.xls?
 
     @deals = PaginatingDecorator.decorate(scope)
-
-    respond_to do |format|
-      format.html
-      format.xls
-    end
   end
 
   def show

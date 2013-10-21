@@ -32,4 +32,5 @@ ssh root@venture.bi "pg_dump venture_staging > venture_backup.sql" && rsync -v r
 ```
 По окончании операции файл `venture_backup.sql` окажется в текущей директории.  Здесь `venture_staging` — имя базы данных.
 
-### После migration создать всем user-ам person. (+задать всем plan_ends_at)
+### После migration создать всем user-ам person. (+задать всем plan_ends_at):
+User.where{person_id==nil}.each do |u| p = u.person; p.name = u.email; p.save!; u.person = p; u.save!; end
