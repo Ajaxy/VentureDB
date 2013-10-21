@@ -8,11 +8,12 @@ class DealFilter < Filter
   end
 
   def filter(deals)
-    #deals = deals.search(search) if search
+    deals = deals.search(search) if search
 
     #deals = deals.in_scopes(params.sector)      if params.sector
     #deals = deals.in_rounds(params.round)       if params.round
     #deals = deals.in_stages(params.stage)       if params.stage
+
     deals = deals.for_year(year, params.quarter)   if year
 
     if params.amount_from && params.amount_to
@@ -30,7 +31,7 @@ class DealFilter < Filter
 
     deals = deals.without_approx_amount if params.amount_without_approx
     deals = deals.without_empty_amount if params.amount_without_empty
-    #deals = deals.sort_type(params.sort_type)
+    deals = deals.sort_type(params.sort_type)
 
     deals
   end
