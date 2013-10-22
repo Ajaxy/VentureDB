@@ -170,9 +170,9 @@ class Deal < ActiveRecord::Base
 
     case type
     when "grants"
-      joins{investments}.where{investments.instrument_id.in ids}
+      joins{investments}.where{investments.instrument_id.in ids}.uniq
     when "investments"
-      joins{investments}.where{coalesce(investments.instrument_id, 0).not_in ids}
+      joins{investments}.where{coalesce(investments.instrument_id, 0).not_in ids}.uniq
     else
       raise ArgumentError
     end
