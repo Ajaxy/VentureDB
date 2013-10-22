@@ -32,17 +32,17 @@ class DealDecorator < ApplicationDecorator
 
   def amount
     return mdash unless deal.amount?
-    tag :span, rubles(deal.amount), class: "amount"
+    tag :span, dollars(deal.amount), class: "amount"
   end
 
   def value_before
     return mdash unless deal.value_before?
-    tag :span, rubles(deal.value_before), class: "amount"
+    tag :span, dollars(deal.value_before), class: "amount"
   end
 
   def value_after
     return mdash unless deal.value_after?
-    tag :span, rubles(deal.value_after), class: "amount"
+    tag :span, dollars(deal.value_after), class: "amount"
   end
 
   def contract_date
@@ -66,7 +66,7 @@ class DealDecorator < ApplicationDecorator
   end
 
   def description_amount
-    tag(:b, rubles(deal.amount)).html_safe if deal.amount?
+    tag(:b, dollars(deal.amount)).html_safe if deal.amount?
   end
 
   def description_verb
