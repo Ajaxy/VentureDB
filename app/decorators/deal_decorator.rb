@@ -107,8 +107,8 @@ class DealDecorator < ApplicationDecorator
     value.zero? || value.blank? ? mdash : "#{value} %"
   end
 
-  def info_source
-    deal.info_source || 'не указан'
+  def mentions
+    deal.mentions || 'не указан'
   end
 
   private

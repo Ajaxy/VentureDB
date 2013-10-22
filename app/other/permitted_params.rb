@@ -66,7 +66,7 @@ class PermittedParams < Struct.new(:params, :user)
       approx_amount value_before value_after investment_ids
       format_id round_id
       mentions comments errors_log
-      info_source approx_amount_note
+      approx_amount_note
       value_before_usd value_before_eur value_before_approx value_before_approx_note
       value_after_usd value_after_eur value_after_approx value_after_approx_note
     ]

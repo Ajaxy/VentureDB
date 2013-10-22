@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131017131514) do
+ActiveRecord::Schema.define(:version => 20131022145621) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20131017131514) do
     t.integer  "amount_eur"
     t.integer  "company_id"
     t.integer  "format"
-    t.text     "info_source"
     t.integer  "value_before_usd"
     t.integer  "value_before_eur"
     t.integer  "value_after_usd"
