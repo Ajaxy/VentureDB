@@ -7,7 +7,7 @@ class Investment < ActiveRecord::Base
   belongs_to :deal
 
   # validates :investor_id, :instrument_id, :share, presence: true
-  delegate :name, :type, to: :investor, prefix: true, allow_nil: true
+  delegate :name, :type, :place, to: :investor, prefix: true, allow_nil: true
 
   GRANT_INSTRUMENTS = [8, 9]
 

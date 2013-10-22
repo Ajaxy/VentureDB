@@ -30,6 +30,14 @@ class CompanyDecorator < HasInvestmentsDecorator
     location_bindings.try(:first).try(:location).try(:full_name) || mdash
   end
 
+  def locations
+    if location_bindings.any?
+      location_bindings.map{ |lb| lb.location.full_name }.join(', ')
+    else
+      mdash
+    end
+  end
+
   def deals_sum
     tag :span, dollars(source.deals_sum.to_i), class: "amount"
   end

@@ -4,6 +4,6 @@ div.deal
   - if deal_row.mentions
     p
       ' Источник:
-      span.info_source = deal_row.mentions
+      span.info_source == deal_row.mentions
   - if deal_row.approx_amount
     .approx_amount Сумма сделки оценена экспертами

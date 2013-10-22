@@ -108,7 +108,11 @@ class DealDecorator < ApplicationDecorator
   end
 
   def mentions
-    deal.mentions || 'не указан'
+    if deal.mentions.present?
+      deal.mentions.split(/\s+/).map{ |url| "<a href='#{url}' target='_blank'>#{URI.parse(url).host}</a>" }.join(', ')
+    else
+      'не указан'
+    end
   end
 
   private

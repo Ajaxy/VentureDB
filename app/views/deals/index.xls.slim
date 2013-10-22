@@ -24,12 +24,15 @@ table border="1"
     - number = ''
     - investor_name = ''
     - investor_type = ''
+    - investor_place = ''
     - instrument = ''
     - share = ''
+    - company = deal.company.decorate
     - deal.investments.each do |investment|
       - number = "#{j += 1}. " if deal.investments.length > 1
       - investor_name += "#{number if investment.investor_name}#{investment.investor_name} "
       - investor_type += "#{number if investment.investor_type}#{investment.investor_type} "
+      - investor_place += "#{number if investment.investor_place}#{investment.investor_place} "
       - instrument += "#{number if investment.instrument}#{investment.instrument} "
       - share += "#{number unless investment.share.nil? || investment.share.empty?}#{investment.share} "
     tr
@@ -39,11 +42,11 @@ table border="1"
       td = deal.status
       td = investor_name
       td = investor_type
-      td ! Юрисдикция
+      td = investor_place
       td = instrument
-      td = deal.company.full_name
-      td ! Страна
-      td = deal.company.place
+      td = company.full_name
+      td = company.place
+      td = company.locations
       td = deal.project.scopes.map(&:name).join(', ') if deal.project
       td = simple_format deal.project.description if deal.project
       td = deal.stage

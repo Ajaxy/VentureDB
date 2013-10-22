@@ -16,6 +16,8 @@ class Investor < ActiveRecord::Base
   has_many :projects, through: :deals
   has_many :scopes, through: :projects
 
+  delegate :place, to: :company, allow_nil: true
+
   validates :type_id, presence: true
 
   after_create :set_name
