@@ -7,11 +7,6 @@ class SelectionsController < CabinetController
   # GET /selections/new.json
   def new
     @selection = Selection.new
-
-    respond_to do |format|
-      format.html { render 'form' }
-      format.json { render json: @selection }
-    end
   end
 
   # GET /selections/1/edit
