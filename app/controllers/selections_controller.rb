@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class SelectionsController < CabinetController
   before_filter :access, only: %w[edit update destroy]
 
@@ -14,7 +16,6 @@ class SelectionsController < CabinetController
 
   # GET /selections/1/edit
   def edit
-    render 'form'
   end
 
   # POST /selections

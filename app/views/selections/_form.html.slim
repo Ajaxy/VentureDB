@@ -12,6 +12,12 @@
       h3 Управление выборками
 
     = simple_form_for(@selection) do |f|
+      - if @selection.errors.any?
+        .errors
+          b Ошибка
+          br
+          = @selection.errors.full_messages.join '<br />'
+
       h4 Укажите интересную вам область
       h4 Уточните параметры сделки
       .form-row
@@ -19,11 +25,11 @@
           legend 1. Формат сделки
           .row
             .span4
-              = f.label :formats_1, class: 'checkbox' do
+              label.checkbox
                 = f.check_box :formats, { multiple: true, checked: @selection.formats && @selection.formats.include?('1') }, 1
                 = Deal::FORMATS[1]
             .span4
-              = f.label :formats_2, class: 'checkbox' do
+              label.checkbox
                 = f.check_box :formats, { multiple: true, checked: @selection.formats && @selection.formats.include?('2') }, 2
                 = Deal::FORMATS[2]
       .form-row
@@ -40,11 +46,11 @@
                 = f.text_field :amount_to, class: 'span2'
           .row
             .span4
-              label.checkbox
+              = f.label :amount_without_empty, class: 'checkbox'
                 = f.check_box :amount_without_empty
                 | Исключить сделки без сумм
             .span4
-              label.checkbox
+              = f.label :amount_without_approx, class: 'checkbox'
                 = f.check_box :amount_without_approx
                 | Исключить оцененные экспертно
       .form-row
@@ -68,7 +74,7 @@
             .span7
               = f.text_field :title, class: 'span7'
       .form-row
-        label.checkbox
+        = f.label :mailing, class: 'checkbox'
           = f.check_box :mailing
           | Включать в рассылку
       br
