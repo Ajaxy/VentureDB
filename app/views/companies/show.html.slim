@@ -1,26 +1,30 @@
-article.company
-  .head
-    - if current_user.admin?
-      .actions = @company.edit_link
-    h1 = @company.name
-  .profile
-    section
-      .common-info = render "common-info"
-      .extra = render "profile-extras"
+.left-block
+  aside.left = render 'deals_sidebar_left'
 
-    - if @company.description?
-      section
-        h2 Описание компании
-        = markdown @company.description
+  .middle
+    article.company
+      .head
+        - if current_user.admin?
+          .actions = @company.edit_link
+        h1 = @company.name
+      .profile
+        section
+          .common-info = render "common-info"
+          .extra = render "profile-extras"
 
-    section.clearfix
-      .left = render "contacts"
-      .right
-        - if @to_connections.any? || @from_connections.any?
-          = render "connections", to_connections: @to_connections, from_connections: @from_connections
+        - if @company.description?
+          section
+            h2 Описание компании
+            = markdown @company.description
 
-    - if @deals.any?
-      section = render "deals", deals: @deals, show_project: @company.investor?
+        section.clearfix
+          .left = render "contacts"
+          .right
+            - if @to_connections.any? || @from_connections.any?
+              = render "connections", to_connections: @to_connections, from_connections: @from_connections
 
-    /section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"
+        - if @deals.any?
+          section = render "deals", deals: @deals, show_project: @company.investor?
+
+        /section = link_to "Возникла проблема или пожелание? Напишите нам!", :feedback, class: "feedback"
 
