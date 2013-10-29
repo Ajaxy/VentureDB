@@ -11,7 +11,7 @@ class Selection < ActiveRecord::Base
   def filter
     filter = attributes
       .slice(*%w[formats amount_from amount_to year quarter amount_without_empty amount_without_approx])
-      .delete_if { |k, v| v.nil? }
+      .delete_if { |k, v| v.nil? || !v.present? }
     { extended_search: filter }
   end
 

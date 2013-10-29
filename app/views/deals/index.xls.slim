@@ -37,7 +37,7 @@ table border="1"
       - share += "#{number unless investment.share.nil? || investment.share.empty?}#{investment.share} "
     tr
       td = i += 1
-      td = deal.project.name if deal.project
+      td = deal.project_name
       td = deal.date
       td = deal.status
       td = investor_name
@@ -47,8 +47,8 @@ table border="1"
       td = company.full_name
       td = company.place
       td = company.locations
-      td = deal.project.scopes.map(&:name).join(', ') if deal.project
-      td = simple_format deal.project.description if deal.project
+      td = deal.company.scopes.map(&:name).join(', ') if deal.company
+      td = simple_format deal.company.description if deal.company
       td = deal.stage
       td = deal.round
       td = strip_tags deal.amount
