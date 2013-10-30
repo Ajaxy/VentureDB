@@ -1,6 +1,8 @@
-$("section.deals .middle").append("<%=j render partial: 'deal_row', collection: @deals %>");
+var $middle = $('#container').find('.middle');
+
+$middle.append("<%=j render partial: 'deal_row', collection: @deals %>");
 $(".more").remove();
 
 <% unless @deals.last_page? %>
-  $("section.deals").append("<%=j render "more-link", collection: @deals %>");
+    $middle.append("<%=j render "more-link", collection: @deals %>");
 <% end %>
